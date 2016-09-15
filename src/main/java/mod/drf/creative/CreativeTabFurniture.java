@@ -1,6 +1,5 @@
 package mod.drf.creative;
 
-import mod.drf.furniture.item.ItemChairZabuton;
 import mod.drf.furniture.item.ItemFurniture;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -20,7 +19,7 @@ public class CreativeTabFurniture extends CreativeTabs {
 
 	@Override
 	public Item getTabIconItem() {
-		return ItemFurniture.getItem(ItemChairZabuton.NAME);
+		return ItemFurniture.item_zabuton;
 	}
 
 	@SideOnly(Side.CLIENT)

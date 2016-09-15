@@ -1,8 +1,8 @@
 package mod.drf.core;
 
-import mod.drf.furniture.container.TrunkContainer;
-import mod.drf.furniture.container.TrunkInventory;
-import mod.drf.furniture.gui.GuiTrunk;
+import mod.drf.furniture.client.gui.GuiTrunk;
+import mod.drf.furniture.inventory.ContainerTrunk;
+import mod.drf.furniture.inventory.InventoryTrunk;
 import mod.drf.furniture.item.ItemTrunk;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public class CommonProxy implements IGuiHandler {
-	public void registerChairRender(){
+	public void registRender(){
 	}
 
 	public void registerColorMap(){}
@@ -27,8 +27,8 @@ public class CommonProxy implements IGuiHandler {
 		   for (ItemStack item : player.getHeldEquipment()){
 			   if (item != null && item.getItem() instanceof ItemTrunk)
 			   {
-				   TrunkInventory inventorybag = new TrunkInventory(item, world,ID);
-				   return new TrunkContainer(player.inventory, inventorybag);
+				   InventoryTrunk inventorybag = new InventoryTrunk(item, world,ID);
+				   return new ContainerTrunk(player.inventory, inventorybag);
 			   }
 		   }
 		   return null;
@@ -45,7 +45,7 @@ public class CommonProxy implements IGuiHandler {
 		   for (ItemStack heldItem : player.getHeldEquipment()){
 			   if ((heldItem != null) && ((heldItem.getItem() instanceof ItemTrunk)))
 			   {
-				   TrunkInventory inventorybag = new TrunkInventory(heldItem, world,ID);
+				   InventoryTrunk inventorybag = new InventoryTrunk(heldItem, world,ID);
 				   return new GuiTrunk(player.inventory, inventorybag, ID );
 			   }
 		   }

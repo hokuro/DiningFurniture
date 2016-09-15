@@ -2,7 +2,7 @@ package mod.drf.furniture.item;
 
 import java.util.List;
 
-import mod.drf.core.MoreChair;
+import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.furniture.entity.EntityChairZabuton;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.creativetab.CreativeTabs;
@@ -32,7 +32,7 @@ public class ItemChairZabuton extends Item{
 	public ItemChairZabuton(){
 		super();
 		maxStackSize = 16;
-		setCreativeTab(MoreChair.tabsChairs);
+		setCreativeTab(Mod_DiningFurniture.tabsChairs);
 		this.setUnlocalizedName(NAME);
 		this.setRegistryName(NAME);
 		this.setHasSubtypes(true);

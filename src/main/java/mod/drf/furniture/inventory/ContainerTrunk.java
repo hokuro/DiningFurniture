@@ -1,6 +1,6 @@
-package mod.drf.furniture.container;
+package mod.drf.furniture.inventory;
 
-import basashi.trunk.core.ModCommon;
+import mod.drf.core.ModCommon;
 import mod.drf.furniture.item.ItemTrunk;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -11,11 +11,11 @@ import net.minecraft.item.ItemStack;
 
 
 //@invtweaks.api.container.ChestContainer
-public class TrunkContainer extends Container {
+public class ContainerTrunk extends Container {
 
 	  IInventory TrunkInv;
 
-	  public TrunkContainer(InventoryPlayer player, IInventory inv)
+	  public ContainerTrunk(InventoryPlayer player, IInventory inv)
 	  {
 	    this.TrunkInv = inv;
 	    inv.openInventory(player.player);

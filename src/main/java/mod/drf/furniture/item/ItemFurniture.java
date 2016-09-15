@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import mod.drf.core.ModCommon;
-import mod.drf.core.MoreChair;
+import mod.drf.core.Mod_DiningFurniture;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 
@@ -14,7 +14,7 @@ public class ItemFurniture {
 	private static final String NAME_TRUNK = "trunk";
 
 	public static final Item item_zabuton = new ItemChairZabuton();
-	public static final Item item_trunk = new ItemTrunk().setUnlocalizedName(NAME_TRUNK).setMaxStackSize(1).setCreativeTab(MoreChair.tabsChairs);
+	public static final Item item_trunk = new ItemTrunk().setUnlocalizedName(NAME_TRUNK).setMaxStackSize(1).setCreativeTab(Mod_DiningFurniture.tabsChairs);
 
 	public static Map<String,Item> itemMap(){
 		return (new HashMap<String,Item>(){

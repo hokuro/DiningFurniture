@@ -1,4 +1,4 @@
-package mod.drf.furniture.container;
+package mod.drf.furniture.inventory;
 
 import mod.drf.furniture.item.ItemTrunk;
 import net.minecraft.inventory.IInventory;

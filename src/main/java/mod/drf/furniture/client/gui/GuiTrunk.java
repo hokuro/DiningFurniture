@@ -1,12 +1,12 @@
-package mod.drf.furniture.gui;
+package mod.drf.furniture.client.gui;
 
 import java.io.IOException;
 
 import org.lwjgl.opengl.GL11;
 
-import basashi.trunk.core.Trunk;
 import mod.drf.core.ModCommon;
-import mod.drf.furniture.container.TrunkContainer;
+import mod.drf.core.Mod_DiningFurniture;
+import mod.drf.furniture.inventory.ContainerTrunk;
 import mod.drf.furniture.network.TrunkPagePacket;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -19,7 +19,7 @@ public class GuiTrunk extends GuiContainer {
 
 	private EntityPlayer player;
 	private int _page;
-	private TrunkContainer _contena;
+	private ContainerTrunk _contena;
 
 
 	// GUIのリソースパス
@@ -29,10 +29,10 @@ public class GuiTrunk extends GuiContainer {
 
 	public GuiTrunk(InventoryPlayer player, IInventory data, int page)
 	{
-		super(new TrunkContainer(player, data));
+		super(new ContainerTrunk(player, data));
         this.ySize = 222;
         this.xSize= 256;
-        _contena = ((TrunkContainer)this.inventorySlots);
+        _contena = ((ContainerTrunk)this.inventorySlots);
         _page = page;
 	}
 	@Override
@@ -60,12 +60,12 @@ public class GuiTrunk extends GuiContainer {
     		if ( _page > 0){
     			_page--;
     		}
-    		Trunk.INSTANCE.sendToServer(new TrunkPagePacket(_page));
+    		Mod_DiningFurniture.Net_Instance.sendToServer(new TrunkPagePacket(_page));
     	}else if(button.id==301){
     		if (_page < 9){
     			_page ++;
     		}
-    		Trunk.INSTANCE.sendToServer(new TrunkPagePacket(_page));
+    		Mod_DiningFurniture.Net_Instance.sendToServer(new TrunkPagePacket(_page));
     	}
     }
 

@@ -82,8 +82,36 @@ public class ItemFoods {
 	public static final String NAME_MOLD = "modl";
 	// 青カビ
 	public static final String NAME_BLUEMOLD = "bluemold";
+	//	プリン
+	public static final String NAME_ROW_PUDDING = "row_pudding";
+	//	かぼちゃプリン
+	public static final String NAME_ROW_PUMPKINPUDDING = "row_pumpukinpudding";
+	// パイ
+	public static final String NAME_ROW_PIE_HALL = "row_hallpie";
+	// チョコパイ
+	public static final String NAME_ROW_CHOCOPIE_HALL = "row_chocohallpie";
+	// 野菜パイ
+	public static final String NAME_ROW_SALADA_HALL = "row_saladahallpie";
+	// ミートパイ
+	public static final String NAME_ROW_MEETPIE_HALL = "row_meethallpie";
+	// 魚パイ
+	public static final String NAME_ROW_FISHPIE_HALL = "row_fishhallpie";
+	// かぼちゃパイ
+	public static final String NAME_ROW_PUMPKINPIE_HALL = "row_pumpkinhallpie";
+	// ゾンビパイ
+	public static final String NAME_ROW_ZOMBIPEI_HALL = "row_zombihallpie";
+	// リンゴパイ
+	public static final String NAME_ROW_APPLEPIE_HALL = "row_applehallpie";
+	// 烏賊墨パイ
+	public static final String NAME_ROW_BLACK_PIE = "row_blackpie";
+	// ピザ
+	public static final String NAME_ROW_PIZZA = "row_pizza";
+	// 肉ピザ
+	public static final String NAME_ROW_MEETPIZZA ="row_meetpizza";
+	// アンチョビピザ
+	public static final String NAME_ROW_FISHPIZZA = "row_fishpizza";
 
-	// TODO: かき氷,小麦粉,麺類,塩,シロップ, 湯呑, 薬茶, 茶, 漢方薬
+	// TODO: かき氷,小麦粉,麺類,塩,シロップ, 湯呑, 薬茶, 茶, 漢方薬, 生のパイ
 
 
 	public static final Item item_choco = new ItemFood(2,0.1f,false).setUnlocalizedName(NAME_CHOCO);
@@ -122,6 +150,20 @@ public class ItemFoods {
 	public static final Item item_butter = new Item().setUnlocalizedName(NAME_BUTTER).setCreativeTab(CreativeTabs.tabMaterials);
 	public static final Item item_mold = new Item().setUnlocalizedName(NAME_MOLD).setCreativeTab(CreativeTabs.tabMaterials);
 	public static final Item item_bluemold = new Item().setUnlocalizedName(NAME_BLUEMOLD).setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item item_row_pudding = new Item().setUnlocalizedName(NAME_ROW_PUDDING).setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item item_row_pumpukinpudding = new Item().setUnlocalizedName(NAME_ROW_PUMPKINPUDDING).setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item item_row_hallpie = new Item().setUnlocalizedName(NAME_ROW_PIE_HALL).setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item item_row_chocohallpie = new Item().setUnlocalizedName(NAME_ROW_CHOCOPIE_HALL).setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item item_row_saladahallpie = new Item().setUnlocalizedName(NAME_ROW_SALADA_HALL).setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item item_row_meethallpie = new Item().setUnlocalizedName(NAME_ROW_MEETPIE_HALL).setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item item_row_fishhallpie = new Item().setUnlocalizedName(NAME_ROW_FISHPIE_HALL).setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item item_row_pumpkinhallpie = new Item().setUnlocalizedName(NAME_ROW_PUMPKINPIE_HALL).setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item item_row_zombihallpie = new Item().setUnlocalizedName(NAME_ROW_ZOMBIPEI_HALL).setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item item_row_applehallpie = new Item().setUnlocalizedName(NAME_ROW_APPLEPIE_HALL).setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item item_row_blackpie = new Item().setUnlocalizedName(NAME_ROW_BLACK_PIE).setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item item_row_pizza = new Item().setUnlocalizedName(NAME_ROW_PIZZA).setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item item_row_meetpizza = new Item().setUnlocalizedName(NAME_ROW_MEETPIZZA).setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item item_row_fishpizza = new Item().setUnlocalizedName(NAME_ROW_FISHPIZZA).setCreativeTab(CreativeTabs.tabMaterials);
 
 	private static final Map<String,Item> items = new HashMap<String,Item>();
 	private static final Map<String,ModelResourceLocation[]> resource = new HashMap<String,ModelResourceLocation[]>();

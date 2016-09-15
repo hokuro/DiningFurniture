@@ -2,9 +2,9 @@ package mod.drf.client;
 
 import mod.drf.core.CommonProxy;
 import mod.drf.furniture.entity.EntityChairZabuton;
-import mod.drf.furniture.entity.EntityChairZabutonRender;
 import mod.drf.furniture.item.ItemChairZabuton;
 import mod.drf.furniture.item.ItemFurniture;
+import mod.drf.furniture.render.EntityChairZabutonRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.entity.Render;
@@ -19,8 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ClientProxy extends CommonProxy{
 
 	@SideOnly(Side.CLIENT)
-	public void registerChairRender(){
-		//RenderingRegistry.registerEntityRenderingHandler(EntityChairZabuton.class, new EntityChairZabutonRender(Minecraft.getMinecraft().getRenderManager()));
+	public void registRender(){
 		RenderingRegistry.registerEntityRenderingHandler(EntityChairZabuton.class,  new IRenderFactory<EntityChairZabuton>() {
 			@Override
 			public Render<? super EntityChairZabuton> createRenderFor(RenderManager manager) {
@@ -37,8 +36,8 @@ public class ClientProxy extends CommonProxy{
         {
             public int getColorFromItemstack(ItemStack stack, int tintIndex)
             {
-                return ((ItemChairZabuton)ItemFurniture.getItem(ItemChairZabuton.NAME)).getColorFromItemStack(stack,tintIndex);
+                return ((ItemChairZabuton)ItemFurniture.item_zabuton).getColorFromItemStack(stack,tintIndex);
             }
-        }, new Item[] {ItemFurniture.getItem(ItemChairZabuton.NAME)});
+        }, new Item[] {ItemFurniture.item_zabuton});
 	}
 }

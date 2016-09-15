@@ -1,8 +1,8 @@
 package mod.drf.furniture.item;
 
-import basashi.trunk.core.ModCommon;
-import basashi.trunk.core.Trunk;
-import mod.drf.furniture.container.TrunkData;
+import mod.drf.core.ModCommon;
+import mod.drf.core.Mod_DiningFurniture;
+import mod.drf.furniture.inventory.SavedDataTrunk;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -15,17 +15,16 @@ import net.minecraft.world.World;
 
 public class ItemTrunk extends Item {
 	// トランク情報
-	public TrunkData data;
+	public SavedDataTrunk data;
 
 	public ItemTrunk(){
 		super();
 	}
 
 	@Override
-    //public ItemStack onItemRightClick(ItemStack item, World world, EntityPlayer player)
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World world, EntityPlayer player, EnumHand hand)
 	{
-		player.openGui(Trunk.instance, ModCommon.guiID, world, player.chunkCoordX, player.chunkCoordY, player.chunkCoordZ);
+		player.openGui(Mod_DiningFurniture.instance, ModCommon.guiID, world, player.chunkCoordX, player.chunkCoordY, player.chunkCoordZ);
     	return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
     }
 
@@ -43,9 +42,9 @@ public class ItemTrunk extends Item {
 	}
 
 	// トランクデータ取得
-	public static TrunkData getTrunkData(ItemStack item, World world)
+	public static SavedDataTrunk getTrunkData(ItemStack item, World world)
 	{
-		TrunkData data = null;
+		SavedDataTrunk data = null;
 		if(item != null && item.getItem() instanceof ItemTrunk)
 		{
 			data = ((ItemTrunk)item.getItem()).getData(item, world);
@@ -55,16 +54,16 @@ public class ItemTrunk extends Item {
 
 
 	// トランクデータ取得
-	public TrunkData getData(ItemStack item, World world)
+	public SavedDataTrunk getData(ItemStack item, World world)
 	{
 		String itemName = "Trunk";
 		int itemDamage = MathHelper.clamp_int(item.getItemDamage(),0,15);
 		String name = String.format("%s_%s", itemName, itemDamage);
-		TrunkData data = (TrunkData)world.loadItemData(TrunkData.class, name);
+		SavedDataTrunk data = (SavedDataTrunk)world.loadItemData(SavedDataTrunk.class, name);
 
 		if (data == null)
 		{
-			data = new TrunkData(name);
+			data = new SavedDataTrunk(name);
 			data.markDirty();
 			world.setItemData(name, data);
 		}

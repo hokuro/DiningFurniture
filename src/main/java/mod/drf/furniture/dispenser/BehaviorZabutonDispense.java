@@ -1,4 +1,4 @@
-package mod.drf.furniture.behavior;
+package mod.drf.furniture.dispenser;
 
 import mod.drf.furniture.entity.EntityChairZabuton;
 import net.minecraft.dispenser.BehaviorProjectileDispense;

@@ -1,6 +1,6 @@
-package mod.drf.furniture.container;
+package mod.drf.furniture.inventory;
 
-import basashi.trunk.core.ModCommon;
+import mod.drf.core.ModCommon;
 import mod.drf.furniture.item.ItemTrunk;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -8,13 +8,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
-public class TrunkInventory implements IInventory{
+public class InventoryTrunk implements IInventory{
 		//トランクデータ
-		private TrunkData data;
+		private SavedDataTrunk data;
 		private int page;
 
 		// コンストラクタ
-		public TrunkInventory(ItemStack hdbag, World world, int next)
+		public InventoryTrunk(ItemStack hdbag, World world, int next)
 		{
 			// トランク内のデータを取得
 			data = ItemTrunk.getTrunkData(hdbag, world);

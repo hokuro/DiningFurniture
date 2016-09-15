@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import io.netty.buffer.ByteBuf;
-import mod.drf.furniture.item.ItemChairZabuton;
 import mod.drf.furniture.item.ItemFurniture;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -214,7 +213,7 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 		setBeenAttacked();
 		if (entity instanceof EntityPlayer) {
 			// プレイヤーからの攻撃ならアイテムドロップ
-			entityDropItem(new ItemStack(ItemFurniture.getItem(ItemChairZabuton.NAME), 1, color), 0.0F);
+			entityDropItem(new ItemStack(ItemFurniture.item_zabuton, 1, color), 0.0F);
 			setDead();
 		} else {
 			// そのほかからなら、ダメージ、体力がなくなったら消滅

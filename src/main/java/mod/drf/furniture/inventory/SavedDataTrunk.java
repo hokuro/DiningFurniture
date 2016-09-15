@@ -1,6 +1,6 @@
-package mod.drf.furniture.container;
+package mod.drf.furniture.inventory;
 
-import basashi.trunk.core.ModCommon;
+import mod.drf.core.ModCommon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
 
-public class TrunkData extends WorldSavedData {
+public class SavedDataTrunk extends WorldSavedData {
 	// トランク内のアイテムサイズ
 	public ItemStack[] items =  new ItemStack[ModCommon.TRUNK_MAX_PAGE*(ModCommon.TrunkCsize*ModCommon.TrunkRsize)];
 	private boolean init = false;
@@ -16,7 +16,7 @@ public class TrunkData extends WorldSavedData {
 	private static final int UPDATETIME = 1000;
 
 	// コンストラクタ
-	public TrunkData(String name)
+	public SavedDataTrunk(String name)
 	{
 		super(name);
 

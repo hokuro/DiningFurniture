@@ -1,7 +1,8 @@
-package mod.drf.furniture.entity;
+package mod.drf.furniture.render;
 
 import org.lwjgl.opengl.GL11;
 
+import mod.drf.furniture.entity.EntityChairZabuton;
 import mod.drf.furniture.model.ModelZabuton;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;

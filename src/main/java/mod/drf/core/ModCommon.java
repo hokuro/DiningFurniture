@@ -40,5 +40,6 @@ public final class ModCommon {
 	public static final int TrunkRsize = 6;
 	public static final int TrunkCsize = 13;
 	public static final int TRUNK_MAX_PAGE = 10;
+	public static final int MESSAGE_ID_TRUNKDATA = 0;
 
 }
