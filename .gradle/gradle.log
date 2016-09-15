@@ -1,0 +1,232 @@
+#################################################
+         ForgeGradle 2.1-SNAPSHOT-da90449        
+  https://github.com/MinecraftForge/ForgeGradle  
+#################################################
+               Powered by MCP unknown               
+             http://modcoderpack.com             
+         by: Searge, ProfMobius, Fesh0r,         
+         R4wk, ZeuX, IngisKahn, bspkrs           
+#################################################
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\_gradle\src\api\resources', not found
+Evaluating project ':AutoPick' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\AutoPick\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\AutoPick\AutoPick', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\AutoPick\src\api\resources', not found
+Evaluating project ':AutoPlanting' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\AutoPlanting\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\AutoPlanting\AutoPlanting', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\AutoPlanting\src\api\resources', not found
+Evaluating project ':Dools' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Dools\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Dools\Dools', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Dools\src\api\resources', not found
+Evaluating project ':ExchangeBlock' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ExchangeBlock\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ExchangeBlock\ExchangeBlock', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ExchangeBlock\src\api\resources', not found
+Evaluating project ':ExpBox' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ExpBox\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ExpBox\ExpBox', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ExpBox\src\api\resources', not found
+Evaluating project ':HPViewer' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\HPViewer\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\HPViewer\HPViewer', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\HPViewer\src\api\resources', not found
+Evaluating project ':HavestAll' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\HavestAll\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\HavestAll\HavestAll', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\HavestAll\src\api\resources', not found
+Evaluating project ':InventryOrder' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\InventryOrder\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\InventryOrder\src\main\resources', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\InventryOrder\src\api\resources', not found
+Evaluating project ':JewelBlocks' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\JewelBlocks\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\JewelBlocks\src\main\resources', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\JewelBlocks\src\api\resources', not found
+Evaluating project ':MDKExample' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MDKExample\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MDKExample\src\main\resources', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MDKExample\src\api\resources', not found
+Evaluating project ':MgMgMod' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MgMgMod\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MgMgMod\MgMgMod', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MgMgMod\src\api\resources', not found
+Evaluating project ':MorChair' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MorChair\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MorChair\MorChair', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MorChair\src\api\resources', not found
+Evaluating project ':MoreMoreMob' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MoreMoreMob\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MoreMoreMob\src\main\resources', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MoreMoreMob\src\api\resources', not found
+Evaluating project ':ReAnvile' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ReAnvile\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ReAnvile\ReAnvile', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ReAnvile\src\api\resources', not found
+Evaluating project ':TemperedGlass' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\TemperedGlass\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\TemperedGlass\TemperedGlass', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\TemperedGlass\src\api\resources', not found
+Evaluating project ':Trunk' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\build.gradle'.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\Trunk', not found
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\src\api\resources', not found
+All projects evaluated.
+Selected primary task ':Trunk:build' from project :Trunk
+Tasks to be executed: [task ':Trunk:deobfCompileDummyTask', task ':Trunk:deobfProvidedDummyTask', task ':Trunk:sourceApiJava', task ':Trunk:compileApiJava', task ':Trunk:processApiResources', task ':Trunk:apiClasses', task ':Trunk:sourceMainJava', task ':Trunk:compileJava', task ':Trunk:processResources', task ':Trunk:classes', task ':Trunk:jar', task ':Trunk:sourceTestJava', task ':Trunk:compileTestJava', task ':Trunk:processTestResources', task ':Trunk:testClasses', task ':Trunk:test', task ':Trunk:extractMcpData', task ':Trunk:extractMcpMappings', task ':Trunk:getVersionJson', task ':Trunk:extractUserdev', task ':Trunk:genSrgs', task ':Trunk:reobfJar', task ':Trunk:extractRangemapReplacedMain', task ':Trunk:retromapReplacedMain', task ':Trunk:sourceJar', task ':Trunk:assemble', task ':Trunk:check', task ':Trunk:build']
+:Trunk:deobfCompileDummyTask (Thread[main,5,main]) started.
+:Trunk:deobfCompileDummyTask
+Executing task ':Trunk:deobfCompileDummyTask' (up-to-date check took 0.001 secs) due to:
+  Task has not declared any outputs.
+:Trunk:deobfCompileDummyTask (Thread[main,5,main]) completed. Took 0.008 secs.
+:Trunk:deobfProvidedDummyTask (Thread[main,5,main]) started.
+:Trunk:deobfProvidedDummyTask
+Executing task ':Trunk:deobfProvidedDummyTask' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+:Trunk:deobfProvidedDummyTask (Thread[main,5,main]) completed. Took 0.004 secs.
+:Trunk:sourceApiJava (Thread[main,5,main]) started.
+:Trunk:sourceApiJava
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\src\api\java', not found
+Skipping task ':Trunk:sourceApiJava' as it is up-to-date (took 0.03 secs).
+:Trunk:sourceApiJava UP-TO-DATE
+:Trunk:sourceApiJava (Thread[main,5,main]) completed. Took 0.033 secs.
+:Trunk:compileApiJava (Thread[main,5,main]) started.
+:Trunk:compileApiJava
+Skipping task ':Trunk:compileApiJava' as it has no source files.
+:Trunk:compileApiJava UP-TO-DATE
+:Trunk:compileApiJava (Thread[main,5,main]) completed. Took 0.002 secs.
+:Trunk:processApiResources (Thread[main,5,main]) started.
+:Trunk:processApiResources
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\src\api\resources', not found
+Skipping task ':Trunk:processApiResources' as it has no source files.
+:Trunk:processApiResources UP-TO-DATE
+:Trunk:processApiResources (Thread[main,5,main]) completed. Took 0.002 secs.
+:Trunk:apiClasses (Thread[main,5,main]) started.
+:Trunk:apiClasses
+Skipping task ':Trunk:apiClasses' as it has no actions.
+:Trunk:apiClasses UP-TO-DATE
+:Trunk:apiClasses (Thread[main,5,main]) completed. Took 0.001 secs.
+:Trunk:sourceMainJava (Thread[main,5,main]) started.
+:Trunk:sourceMainJava
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\Trunk', not found
+Skipping task ':Trunk:sourceMainJava' as it is up-to-date (took 0.019 secs).
+:Trunk:sourceMainJava UP-TO-DATE
+:Trunk:sourceMainJava (Thread[main,5,main]) completed. Took 0.021 secs.
+:Trunk:compileJava (Thread[main,5,main]) started.
+:Trunk:compileJava
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\libs', not found
+Failed to get resource: GET. [HTTP HTTP/1.1 403 Forbidden: https://libraries.minecraft.net/net/minecraftforge/forgeSrc/1.9-12.16.1.1897/forgeSrc-1.9-12.16.1.1897.pom]
+Failed to get resource: GET. [HTTP HTTP/1.1 403 Forbidden: https://libraries.minecraft.net/net/minecraftforge/forgeSrc/1.9-12.16.1.1897/forgeSrc-1.9-12.16.1.1897.pom]
+Executing task ':Trunk:compileJava' (up-to-date check took 1.861 secs) due to:
+  Input file K:\My Document\.gradle\caches\modules-2\files-2.1\com.mojang\netty\1.6\4b75825a06139752bd800d9e29c5fd55b8b1b1e4\netty-1.6.jar has been added.
+  Input file K:\My Document\.gradle\caches\minecraft\deobfedDeps\compileDummy.jar has changed.
+  Input file K:\My Document\.gradle\caches\minecraft\deobfedDeps\providedDummy.jar has changed.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\libs', not found
+Compiling with JDK Java compiler API.
+警告: [options] ブートストラップ・クラスパスが-source 1.6と一緒に設定されていません
+注意:K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\build\sources\main\java\basashi\trunk\item\ItemCore.javaは非推奨のAPIを使用またはオーバーライドしています。
+注意:詳細は、-Xlint:deprecationオプションを指定して再コンパイルしてください。
+警告1個
+:Trunk:compileJava (Thread[main,5,main]) completed. Took 3.001 secs.
+:Trunk:processResources (Thread[main,5,main]) started.
+:Trunk:processResources
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\Trunk', not found
+Executing task ':Trunk:processResources' (up-to-date check took 0.025 secs) due to:
+  Input file K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\src\main\resources\assets\trunk\models\trunk.json has been removed.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\Trunk', not found
+:Trunk:processResources (Thread[main,5,main]) completed. Took 0.066 secs.
+:Trunk:classes (Thread[main,5,main]) started.
+:Trunk:classes
+Skipping task ':Trunk:classes' as it has no actions.
+:Trunk:classes (Thread[main,5,main]) completed. Took 0.001 secs.
+:Trunk:jar (Thread[main,5,main]) started.
+:Trunk:jar
+Executing task ':Trunk:jar' (up-to-date check took 0.012 secs) due to:
+  Output file K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\build\libs\Trunk-1.0.jar has changed.
+  Output file K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\build\libs\Trunk-1.0.jar has been removed.
+:Trunk:jar (Thread[main,5,main]) completed. Took 0.063 secs.
+:Trunk:sourceTestJava (Thread[main,5,main]) started.
+:Trunk:sourceTestJava
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\src\test\java', not found
+Skipping task ':Trunk:sourceTestJava' as it is up-to-date (took 0.002 secs).
+:Trunk:sourceTestJava UP-TO-DATE
+:Trunk:sourceTestJava (Thread[main,5,main]) completed. Took 0.002 secs.
+:Trunk:compileTestJava (Thread[main,5,main]) started.
+:Trunk:compileTestJava
+Skipping task ':Trunk:compileTestJava' as it has no source files.
+:Trunk:compileTestJava UP-TO-DATE
+:Trunk:compileTestJava (Thread[main,5,main]) completed. Took 0.001 secs.
+:Trunk:processTestResources (Thread[main,5,main]) started.
+:Trunk:processTestResources
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\src\test\resources', not found
+Skipping task ':Trunk:processTestResources' as it has no source files.
+:Trunk:processTestResources UP-TO-DATE
+:Trunk:processTestResources (Thread[main,5,main]) completed. Took 0.001 secs.
+:Trunk:testClasses (Thread[main,5,main]) started.
+:Trunk:testClasses
+Skipping task ':Trunk:testClasses' as it has no actions.
+:Trunk:testClasses UP-TO-DATE
+:Trunk:testClasses (Thread[main,5,main]) completed. Took 0.0 secs.
+:Trunk:test (Thread[main,5,main]) started.
+:Trunk:test
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\build\classes\test', not found
+Skipping task ':Trunk:test' as it has no source files.
+:Trunk:test UP-TO-DATE
+:Trunk:test (Thread[main,5,main]) completed. Took 0.002 secs.
+:Trunk:extractMcpData (Thread[main,5,main]) started.
+:Trunk:extractMcpData
+Failed to get resource: GET. [HTTP HTTP/1.1 403 Forbidden: https://libraries.minecraft.net/de/oceanlabs/mcp/mcp/1.9/mcp-1.9.pom]
+Failed to get resource: GET. [HTTP HTTP/1.1 403 Forbidden: https://libraries.minecraft.net/de/oceanlabs/mcp/mcp/1.9/mcp-1.9.pom]
+Skipping task ':Trunk:extractMcpData' as task onlyIf is false.
+:Trunk:extractMcpData SKIPPED
+:Trunk:extractMcpData (Thread[main,5,main]) completed. Took 1.348 secs.
+:Trunk:extractMcpMappings (Thread[main,5,main]) started.
+:Trunk:extractMcpMappings
+Failed to get resource: GET. [HTTP HTTP/1.1 403 Forbidden: https://libraries.minecraft.net/de/oceanlabs/mcp/mcp_snapshot/20160312-1.9/mcp_snapshot-20160312-1.9.pom]
+Failed to get resource: GET. [HTTP HTTP/1.1 403 Forbidden: https://libraries.minecraft.net/de/oceanlabs/mcp/mcp_snapshot/20160312-1.9/mcp_snapshot-20160312-1.9.pom]
+Skipping task ':Trunk:extractMcpMappings' as task onlyIf is false.
+:Trunk:extractMcpMappings SKIPPED
+:Trunk:extractMcpMappings (Thread[main,5,main]) completed. Took 1.3 secs.
+:Trunk:getVersionJson (Thread[main,5,main]) started.
+:Trunk:getVersionJson
+Executing task ':Trunk:getVersionJson' (up-to-date check took 0.003 secs) due to:
+  Task.upToDateWhen is false.
+:Trunk:getVersionJson (Thread[main,5,main]) completed. Took 0.078 secs.
+:Trunk:extractUserdev (Thread[main,5,main]) started.
+:Trunk:extractUserdev
+Skipping task ':Trunk:extractUserdev' as it is up-to-date (took 0.012 secs).
+:Trunk:extractUserdev UP-TO-DATE
+:Trunk:extractUserdev (Thread[main,5,main]) completed. Took 0.012 secs.
+:Trunk:genSrgs (Thread[main,5,main]) started.
+:Trunk:genSrgs
+Skipping task ':Trunk:genSrgs' as task onlyIf is false.
+:Trunk:genSrgs SKIPPED
+:Trunk:genSrgs (Thread[main,5,main]) completed. Took 0.436 secs.
+:Trunk:reobfJar (Thread[main,5,main]) started.
+:Trunk:reobfJar
+Executing task ':Trunk:reobfJar' (up-to-date check took 0.0 secs) due to:
+  Task.upToDateWhen is false.
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\libs', not found
+:Trunk:reobfJar (Thread[main,5,main]) completed. Took 0.547 secs.
+:Trunk:extractRangemapReplacedMain (Thread[main,5,main]) started.
+:Trunk:extractRangemapReplacedMain
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\libs', not found
+Executing task ':Trunk:extractRangemapReplacedMain' (up-to-date check took 0.023 secs) due to:
+  Input file K:\My Document\.gradle\caches\modules-2\files-2.1\com.mojang\netty\1.6\4b75825a06139752bd800d9e29c5fd55b8b1b1e4\netty-1.6.jar has been added.
+  Input file K:\My Document\.gradle\caches\minecraft\deobfedDeps\compileDummy.jar has changed.
+  Input file K:\My Document\.gradle\caches\minecraft\deobfedDeps\providedDummy.jar has changed.
+K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\build\sources\main\java
+file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\libs', not found
+:Trunk:extractRangemapReplacedMain (Thread[main,5,main]) completed. Took 2.284 secs.
+:Trunk:retromapReplacedMain (Thread[main,5,main]) started.
+:Trunk:retromapReplacedMain
+Skipping task ':Trunk:retromapReplacedMain' as it is up-to-date (took 0.006 secs).
+:Trunk:retromapReplacedMain UP-TO-DATE
+:Trunk:retromapReplacedMain (Thread[main,5,main]) completed. Took 0.009 secs.
+:Trunk:sourceJar (Thread[main,5,main]) started.
+:Trunk:sourceJar
+Executing task ':Trunk:sourceJar' (up-to-date check took 0.371 secs) due to:
+  Input file K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\build\resources\main\assets\trunk\models\trunk.json has been removed.
+:Trunk:sourceJar (Thread[main,5,main]) completed. Took 0.418 secs.
+:Trunk:assemble (Thread[main,5,main]) started.
+:Trunk:assemble
+Skipping task ':Trunk:assemble' as it has no actions.
+:Trunk:assemble (Thread[main,5,main]) completed. Took 0.001 secs.
+:Trunk:check (Thread[main,5,main]) started.
+:Trunk:check
+Skipping task ':Trunk:check' as it has no actions.
+:Trunk:check UP-TO-DATE
+:Trunk:check (Thread[main,5,main]) completed. Took 0.001 secs.
+:Trunk:build (Thread[main,5,main]) started.
+:Trunk:build
+Skipping task ':Trunk:build' as it has no actions.
+:Trunk:build (Thread[main,5,main]) completed. Took 0.001 secs.
+
+BUILD SUCCESSFUL
+
+Total time: 17.721 secs

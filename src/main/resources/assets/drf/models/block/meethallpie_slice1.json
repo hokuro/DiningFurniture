@@ -1,0 +1,22 @@
+{
+    "textures": {
+        "particle": "mgmg:blocks/meethallpie_side",
+        "bottom": "mgmg:blocks/meethallpie_bottom",
+        "top": "mgmg:blocks/meethallpie_top",
+        "side": "mgmg:blocks/meethallpie_side",
+        "inside": "mgmg:blocks/meethallpie_inner"
+    },
+    "elements": [
+        {   "from": [ 3, 0, 1 ],
+            "to": [ 15, 8, 15 ],
+            "faces": {
+                "down":  { "uv": [ 3, 1, 15, 15 ], "texture": "#bottom", "cullface": "down" },
+                "up":    { "uv": [ 3, 1, 15, 15 ], "texture": "#top" },
+                "north": { "uv": [ 1, 8, 13, 16 ], "texture": "#side" },
+                "south": { "uv": [ 1, 8, 13, 16 ], "texture": "#side" },
+                "west":  { "uv": [ 1, 8, 15, 16 ], "texture": "#inside" },
+                "east":  { "uv": [ 1, 8, 15, 16 ], "texture": "#side" }
+            }
+        }
+    ]
+}

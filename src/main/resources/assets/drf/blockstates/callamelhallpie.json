@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "bites=0": { "model": "mgmg:callamelhallpie_uneaten" },
+        "bites=1": { "model": "mgmg:callamelhallpie_slice1" },
+        "bites=2": { "model": "mgmg:callamelhallpie_slice2" },
+        "bites=3": { "model": "mgmg:callamelhallpie_slice3" },
+        "bites=4": { "model": "mgmg:callamelhallpie_slice4" },
+        "bites=5": { "model": "mgmg:callamelhallpie_slice5" },
+        "bites=6": { "model": "mgmg:callamelhallpie_slice6" }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "bites=0": { "model": "mgmg:fishpizza_uneaten" },
+        "bites=1": { "model": "mgmg:fishpizza_slice1" },
+        "bites=2": { "model": "mgmg:fishpizza_slice2" },
+        "bites=3": { "model": "mgmg:fishpizza_slice3" },
+        "bites=4": { "model": "mgmg:fishpizza_slice4" },
+        "bites=5": { "model": "mgmg:fishpizza_slice5" },
+        "bites=6": { "model": "mgmg:fishpizza_slice6" }
+    }
+}

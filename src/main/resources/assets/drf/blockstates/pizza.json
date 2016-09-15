@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "bites=0": { "model": "mgmg:pizza_uneaten" },
+        "bites=1": { "model": "mgmg:pizza_slice1" },
+        "bites=2": { "model": "mgmg:pizza_slice2" },
+        "bites=3": { "model": "mgmg:pizza_slice3" },
+        "bites=4": { "model": "mgmg:pizza_slice4" },
+        "bites=5": { "model": "mgmg:pizza_slice5" },
+        "bites=6": { "model": "mgmg:pizza_slice6" }
+    }
+}

@@ -1,0 +1,21 @@
+[
+{
+    "modid": "MgMg",
+    "name": "MgMgMod",
+    "description": "Add food. ",
+    "mcversion": "$mcversion",
+    "version": "$version",
+    "url": "",
+    "updateUrl": "",
+    "authors": [
+        "OhoNou"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [
+    ],
+    "parent":"",
+    "dependencies": [
+    ]
+}
+]

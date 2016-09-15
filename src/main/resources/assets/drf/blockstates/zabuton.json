@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "color=0": { "model": "chairs:zabuton_WHITE" },
+        "color=1": { "model": "chairs:zabuton_ORANGE" },
+        "color=2": { "model": "chairs:zabuton_MAGENTA" },
+        "color=3": { "model": "chairs:zabuton_LIGHT_BLUE" },
+        "color=4": { "model": "chairs:zabuton_YELLOW" },
+        "color=5": { "model": "chairs:zabuton_LIME" },
+        "color=6": { "model": "chairs:zabuton_PINK" },
+        "color=7": { "model": "chairs:zabuton_GRAY" },
+        "color=8": { "model": "chairs:zabuton_SILVER" },
+        "color=9": { "model": "chairs:zabuton_CYAN" },
+        "color=10": { "model": "chairs:zabuton_PURPLE" },
+        "color=11": { "model": "chairs:zabuton_BLUE" },
+        "color=12": { "model": "chairs:zabuton_BROWN" },
+        "color=13": { "model": "chairs:zabuton_GREEN" },
+        "color=14": { "model": "chairs:zabuton_RED" },
+        "color=15": { "model": "chairs:zabuton_BLACK" }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "bites=0": { "model": "mgmg:bakedcheesecake_uneaten" },
+        "bites=1": { "model": "mgmg:bakedcheesecake_slice1" },
+        "bites=2": { "model": "mgmg:bakedcheesecake_slice2" },
+        "bites=3": { "model": "mgmg:bakedcheesecake_slice3" },
+        "bites=4": { "model": "mgmg:bakedcheesecake_slice4" },
+        "bites=5": { "model": "mgmg:bakedcheesecake_slice5" },
+        "bites=6": { "model": "mgmg:bakedcheesecake_slice6" }
+    }
+}
