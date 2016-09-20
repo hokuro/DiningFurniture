@@ -1,10 +1,10 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/chocohallpie_side",
-        "bottom": "mgmg:blocks/chocohallpie_bottom",
-        "top": "mgmg:blocks/chocohallpie_top",
-        "side": "mgmg:blocks/chocohallpie_side",
-        "inside": "mgmg:blocks/chocohallpie_inner"
+        "particle": "drf:blocks/chocohallpie_side",
+        "bottom": "drf:blocks/chocohallpie_bottom",
+        "top": "drf:blocks/chocohallpie_top",
+        "side": "drf:blocks/chocohallpie_side",
+        "inside": "drf:blocks/chocohallpie_inner"
     },
     "elements": [
         {   "from": [ 11, 0, 1 ],

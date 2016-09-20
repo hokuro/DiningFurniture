@@ -1,9 +1,9 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/callamelhallpie_side",
-        "bottom": "mgmg:blocks/callamelhallpie_bottom",
-        "top": "mgmg:blocks/callamelhallpie_top",
-        "side": "mgmg:blocks/callamelhallpie_side"
+        "particle": "drf:blocks/callamelhallpie_side",
+        "bottom": "drf:blocks/callamelhallpie_bottom",
+        "top": "drf:blocks/callamelhallpie_top",
+        "side": "drf:blocks/callamelhallpie_side"
     },
     "elements": [
         {   "from": [ 1, 0, 1 ],

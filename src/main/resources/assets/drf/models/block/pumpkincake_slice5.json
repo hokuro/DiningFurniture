@@ -1,10 +1,10 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/pumpkincake_side",
-        "bottom": "mgmg:blocks/pumpkincake_bottom",
-        "top": "mgmg:blocks/pumpkincake_top",
-        "side": "mgmg:blocks/pumpkincake_side",
-        "inside": "mgmg:blocks/pumpkincake_inner"
+        "particle": "drf:blocks/pumpkincake_side",
+        "bottom": "drf:blocks/pumpkincake_bottom",
+        "top": "drf:blocks/pumpkincake_top",
+        "side": "drf:blocks/pumpkincake_side",
+        "inside": "drf:blocks/pumpkincake_inner"
     },
     "elements": [
         {   "from": [ 11, 0, 1 ],

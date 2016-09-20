@@ -1,9 +1,9 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/chococake_side",
-        "bottom": "mgmg:blocks/chococake_bottom",
-        "top": "mgmg:blocks/chococake_top",
-        "side": "mgmg:blocks/chococake_side"
+        "particle": "drf:blocks/chococake_side",
+        "bottom": "drf:blocks/chococake_bottom",
+        "top": "drf:blocks/chococake_top",
+        "side": "drf:blocks/chococake_side"
     },
     "elements": [
         {   "from": [ 1, 0, 1 ],

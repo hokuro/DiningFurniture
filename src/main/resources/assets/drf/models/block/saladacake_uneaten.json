@@ -1,9 +1,9 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/saladacake_side",
-        "bottom": "mgmg:blocks/saladacake_bottom",
-        "top": "mgmg:blocks/saladacake_top",
-        "side": "mgmg:blocks/saladacake_side"
+        "particle": "drf:blocks/saladacake_side",
+        "bottom": "drf:blocks/saladacake_bottom",
+        "top": "drf:blocks/saladacake_top",
+        "side": "drf:blocks/saladacake_side"
     },
     "elements": [
         {   "from": [ 1, 0, 1 ],

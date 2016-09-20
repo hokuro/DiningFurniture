@@ -1,9 +1,9 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/pumpkincake_side",
-        "bottom": "mgmg:blocks/pumpkincake_bottom",
-        "top": "mgmg:blocks/pumpkincake_top",
-        "side": "mgmg:blocks/pumpkincake_side"
+        "particle": "drf:blocks/pumpkincake_side",
+        "bottom": "drf:blocks/pumpkincake_bottom",
+        "top": "drf:blocks/pumpkincake_top",
+        "side": "drf:blocks/pumpkincake_side"
     },
     "elements": [
         {   "from": [ 1, 0, 1 ],

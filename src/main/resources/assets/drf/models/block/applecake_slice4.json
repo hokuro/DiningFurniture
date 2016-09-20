@@ -1,10 +1,10 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/applecake_side",
-        "bottom": "mgmg:blocks/applecake_bottom",
-        "top": "mgmg:blocks/applecake_top",
-        "side": "mgmg:blocks/applecake_side",
-        "inside": "mgmg:blocks/applecake_inner"
+        "particle": "drf:blocks/applecake_side",
+        "bottom": "drf:blocks/applecake_bottom",
+        "top": "drf:blocks/applecake_top",
+        "side": "drf:blocks/applecake_side",
+        "inside": "drf:blocks/applecake_inner"
     },
     "elements": [
         {   "from": [ 9, 0, 1 ],

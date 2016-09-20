@@ -1,9 +1,9 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/blackcake_side",
-        "bottom": "mgmg:blocks/blackcake_bottom",
-        "top": "mgmg:blocks/blackcake_top",
-        "side": "mgmg:blocks/blackcake_side"
+        "particle": "drf:blocks/blackcake_side",
+        "bottom": "drf:blocks/blackcake_bottom",
+        "top": "drf:blocks/blackcake_top",
+        "side": "drf:blocks/blackcake_side"
     },
     "elements": [
         {   "from": [ 1, 0, 1 ],

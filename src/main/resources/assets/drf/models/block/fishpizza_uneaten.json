@@ -1,9 +1,9 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/fishpizza_side",
-        "bottom": "mgmg:blocks/fishpizza_bottom",
-        "top": "mgmg:blocks/fishpizza_top",
-        "side": "mgmg:blocks/fishpizza_side"
+        "particle": "drf:blocks/fishpizza_side",
+        "bottom": "drf:blocks/fishpizza_bottom",
+        "top": "drf:blocks/fishpizza_top",
+        "side": "drf:blocks/fishpizza_side"
     },
     "elements": [
         {   "from": [ 1, 0, 1 ],

@@ -1,9 +1,9 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/meetpizza_side",
-        "bottom": "mgmg:blocks/meetpizza_bottom",
-        "top": "mgmg:blocks/meetpizza_top",
-        "side": "mgmg:blocks/meetpizza_side"
+        "particle": "drf:blocks/meetpizza_side",
+        "bottom": "drf:blocks/meetpizza_bottom",
+        "top": "drf:blocks/meetpizza_top",
+        "side": "drf:blocks/meetpizza_side"
     },
     "elements": [
         {   "from": [ 1, 0, 1 ],

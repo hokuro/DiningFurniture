@@ -1,10 +1,10 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/zombicake_side",
-        "bottom": "mgmg:blocks/zombicake_bottom",
-        "top": "mgmg:blocks/zombicake_top",
-        "side": "mgmg:blocks/zombicake_side",
-        "inside": "mgmg:blocks/zombicake_inner"
+        "particle": "drf:blocks/zombicake_side",
+        "bottom": "drf:blocks/zombicake_bottom",
+        "top": "drf:blocks/zombicake_top",
+        "side": "drf:blocks/zombicake_side",
+        "inside": "drf:blocks/zombicake_inner"
     },
     "elements": [
         {   "from": [ 11, 0, 1 ],

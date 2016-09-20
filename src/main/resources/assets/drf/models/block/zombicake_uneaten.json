@@ -1,9 +1,9 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/zombicake_side",
-        "bottom": "mgmg:blocks/zombicake_bottom",
-        "top": "mgmg:blocks/zombicake_top",
-        "side": "mgmg:blocks/zombicake_side"
+        "particle": "drf:blocks/zombicake_side",
+        "bottom": "drf:blocks/zombicake_bottom",
+        "top": "drf:blocks/zombicake_top",
+        "side": "drf:blocks/zombicake_side"
     },
     "elements": [
         {   "from": [ 1, 0, 1 ],

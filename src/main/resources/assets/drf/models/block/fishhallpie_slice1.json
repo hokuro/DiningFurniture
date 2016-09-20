@@ -1,10 +1,10 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/fishhallpie_side",
-        "bottom": "mgmg:blocks/fishhallpie_bottom",
-        "top": "mgmg:blocks/fishhallpie_top",
-        "side": "mgmg:blocks/fishhallpie_side",
-        "inside": "mgmg:blocks/fishhallpie_inner"
+        "particle": "drf:blocks/fishhallpie_side",
+        "bottom": "drf:blocks/fishhallpie_bottom",
+        "top": "drf:blocks/fishhallpie_top",
+        "side": "drf:blocks/fishhallpie_side",
+        "inside": "drf:blocks/fishhallpie_inner"
     },
     "elements": [
         {   "from": [ 3, 0, 1 ],

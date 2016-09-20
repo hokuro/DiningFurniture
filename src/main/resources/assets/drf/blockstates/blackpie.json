@@ -1,11 +1,11 @@
 {
     "variants": {
-        "bites=0": { "model": "mgmg:blackpie_uneaten" },
-        "bites=1": { "model": "mgmg:blackpie_slice1" },
-        "bites=2": { "model": "mgmg:blackpie_slice2" },
-        "bites=3": { "model": "mgmg:blackpie_slice3" },
-        "bites=4": { "model": "mgmg:blackpie_slice4" },
-        "bites=5": { "model": "mgmg:blackpie_slice5" },
-        "bites=6": { "model": "mgmg:blackpie_slice6" }
+        "bites=0": { "model": "drf:blackpie_uneaten" },
+        "bites=1": { "model": "drf:blackpie_slice1" },
+        "bites=2": { "model": "drf:blackpie_slice2" },
+        "bites=3": { "model": "drf:blackpie_slice3" },
+        "bites=4": { "model": "drf:blackpie_slice4" },
+        "bites=5": { "model": "drf:blackpie_slice5" },
+        "bites=6": { "model": "drf:blackpie_slice6" }
     }
 }

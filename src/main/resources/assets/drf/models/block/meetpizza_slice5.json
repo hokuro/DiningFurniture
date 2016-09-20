@@ -1,10 +1,10 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/meetpizza_side",
-        "bottom": "mgmg:blocks/meetpizza_bottom",
-        "top": "mgmg:blocks/meetpizza_top",
-        "side": "mgmg:blocks/meetpizza_side",
-        "inside": "mgmg:blocks/meetpizza_inner"
+        "particle": "drf:blocks/meetpizza_side",
+        "bottom": "drf:blocks/meetpizza_bottom",
+        "top": "drf:blocks/meetpizza_top",
+        "side": "drf:blocks/meetpizza_side",
+        "inside": "drf:blocks/meetpizza_inner"
     },
     "elements": [
         {   "from": [ 11, 0, 1 ],

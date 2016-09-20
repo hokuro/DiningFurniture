@@ -1,10 +1,10 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/zombihallpie_side",
-        "bottom": "mgmg:blocks/zombihallpie_bottom",
-        "top": "mgmg:blocks/zombihallpie_top",
-        "side": "mgmg:blocks/zombihallpie_side",
-        "inside": "mgmg:blocks/zombihallpie_inner"
+        "particle": "drf:blocks/zombihallpie_side",
+        "bottom": "drf:blocks/zombihallpie_bottom",
+        "top": "drf:blocks/zombihallpie_top",
+        "side": "drf:blocks/zombihallpie_side",
+        "inside": "drf:blocks/zombihallpie_inner"
     },
     "elements": [
         {   "from": [ 5, 0, 1 ],

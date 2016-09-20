@@ -1,10 +1,10 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/meethallpie_side",
-        "bottom": "mgmg:blocks/meethallpie_bottom",
-        "top": "mgmg:blocks/meethallpie_top",
-        "side": "mgmg:blocks/meethallpie_side",
-        "inside": "mgmg:blocks/meethallpie_inner"
+        "particle": "drf:blocks/meethallpie_side",
+        "bottom": "drf:blocks/meethallpie_bottom",
+        "top": "drf:blocks/meethallpie_top",
+        "side": "drf:blocks/meethallpie_side",
+        "inside": "drf:blocks/meethallpie_inner"
     },
     "elements": [
         {   "from": [ 7, 0, 1 ],

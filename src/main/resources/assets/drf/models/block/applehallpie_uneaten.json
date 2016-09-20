@@ -1,9 +1,9 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/applehallpie_side",
-        "bottom": "mgmg:blocks/applehallpie_bottom",
-        "top": "mgmg:blocks/applehallpie_top",
-        "side": "mgmg:blocks/applehallpie_side"
+        "particle": "drf:blocks/applehallpie_side",
+        "bottom": "drf:blocks/applehallpie_bottom",
+        "top": "drf:blocks/applehallpie_top",
+        "side": "drf:blocks/applehallpie_side"
     },
     "elements": [
         {   "from": [ 1, 0, 1 ],

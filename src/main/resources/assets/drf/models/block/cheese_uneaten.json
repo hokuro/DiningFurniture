@@ -1,9 +1,9 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/cheese_side",
-        "bottom": "mgmg:blocks/cheese_bottom",
-        "top": "mgmg:blocks/cheese_top",
-        "side": "mgmg:blocks/cheese_side"
+        "particle": "drf:blocks/cheese_side",
+        "bottom": "drf:blocks/cheese_bottom",
+        "top": "drf:blocks/cheese_top",
+        "side": "drf:blocks/cheese_side"
     },
     "elements": [
         {   "from": [ 1, 0, 1 ],

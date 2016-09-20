@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "mgmg:items/hallpie"
+        "layer0": "drf:items/hallpie"
     },
     "display": {
         "thirdperson_righthand": {

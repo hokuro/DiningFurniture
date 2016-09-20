@@ -1,11 +1,11 @@
 {
     "variants": {
-        "bites=0": { "model": "mgmg:zombihallpie_uneaten" },
-        "bites=1": { "model": "mgmg:zombihallpie_slice1" },
-        "bites=2": { "model": "mgmg:zombihallpie_slice2" },
-        "bites=3": { "model": "mgmg:zombihallpie_slice3" },
-        "bites=4": { "model": "mgmg:zombihallpie_slice4" },
-        "bites=5": { "model": "mgmg:zombihallpie_slice5" },
-        "bites=6": { "model": "mgmg:zombihallpie_slice6" }
+        "bites=0": { "model": "drf:zombihallpie_uneaten" },
+        "bites=1": { "model": "drf:zombihallpie_slice1" },
+        "bites=2": { "model": "drf:zombihallpie_slice2" },
+        "bites=3": { "model": "drf:zombihallpie_slice3" },
+        "bites=4": { "model": "drf:zombihallpie_slice4" },
+        "bites=5": { "model": "drf:zombihallpie_slice5" },
+        "bites=6": { "model": "drf:zombihallpie_slice6" }
     }
 }

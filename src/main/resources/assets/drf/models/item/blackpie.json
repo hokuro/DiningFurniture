@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "mgmg:items/blackpie"
+        "layer0": "drf:items/blackpie"
     }
 }

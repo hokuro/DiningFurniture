@@ -1,10 +1,10 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/reacheesecake_side",
-        "bottom": "mgmg:blocks/reacheesecake_bottom",
-        "top": "mgmg:blocks/reacheesecake_top",
-        "side": "mgmg:blocks/reacheesecake_side",
-        "inside": "mgmg:blocks/reacheesecake_inner"
+        "particle": "drf:blocks/reacheesecake_side",
+        "bottom": "drf:blocks/reacheesecake_bottom",
+        "top": "drf:blocks/reacheesecake_top",
+        "side": "drf:blocks/reacheesecake_side",
+        "inside": "drf:blocks/reacheesecake_inner"
     },
     "elements": [
         {   "from": [ 9, 0, 1 ],

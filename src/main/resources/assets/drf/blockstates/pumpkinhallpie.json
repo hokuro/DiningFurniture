@@ -1,11 +1,11 @@
 {
     "variants": {
-        "bites=0": { "model": "mgmg:pumpkinhallpie_uneaten" },
-        "bites=1": { "model": "mgmg:pumpkinhallpie_slice1" },
-        "bites=2": { "model": "mgmg:pumpkinhallpie_slice2" },
-        "bites=3": { "model": "mgmg:pumpkinhallpie_slice3" },
-        "bites=4": { "model": "mgmg:pumpkinhallpie_slice4" },
-        "bites=5": { "model": "mgmg:pumpkinhallpie_slice5" },
-        "bites=6": { "model": "mgmg:pumpkinhallpie_slice6" }
+        "bites=0": { "model": "drf:pumpkinhallpie_uneaten" },
+        "bites=1": { "model": "drf:pumpkinhallpie_slice1" },
+        "bites=2": { "model": "drf:pumpkinhallpie_slice2" },
+        "bites=3": { "model": "drf:pumpkinhallpie_slice3" },
+        "bites=4": { "model": "drf:pumpkinhallpie_slice4" },
+        "bites=5": { "model": "drf:pumpkinhallpie_slice5" },
+        "bites=6": { "model": "drf:pumpkinhallpie_slice6" }
     }
 }

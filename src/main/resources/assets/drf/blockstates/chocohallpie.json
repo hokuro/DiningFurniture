@@ -1,11 +1,11 @@
 {
     "variants": {
-        "bites=0": { "model": "mgmg:chocohallpie_uneaten" },
-        "bites=1": { "model": "mgmg:chocohallpie_slice1" },
-        "bites=2": { "model": "mgmg:chocohallpie_slice2" },
-        "bites=3": { "model": "mgmg:chocohallpie_slice3" },
-        "bites=4": { "model": "mgmg:chocohallpie_slice4" },
-        "bites=5": { "model": "mgmg:chocohallpie_slice5" },
-        "bites=6": { "model": "mgmg:chocohallpie_slice6" }
+        "bites=0": { "model": "drf:chocohallpie_uneaten" },
+        "bites=1": { "model": "drf:chocohallpie_slice1" },
+        "bites=2": { "model": "drf:chocohallpie_slice2" },
+        "bites=3": { "model": "drf:chocohallpie_slice3" },
+        "bites=4": { "model": "drf:chocohallpie_slice4" },
+        "bites=5": { "model": "drf:chocohallpie_slice5" },
+        "bites=6": { "model": "drf:chocohallpie_slice6" }
     }
 }

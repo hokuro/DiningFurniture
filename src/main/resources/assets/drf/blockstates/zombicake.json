@@ -1,11 +1,11 @@
 {
     "variants": {
-        "bites=0": { "model": "mgmg:zombicake_uneaten" },
-        "bites=1": { "model": "mgmg:zombicake_slice1" },
-        "bites=2": { "model": "mgmg:zombicake_slice2" },
-        "bites=3": { "model": "mgmg:zombicake_slice3" },
-        "bites=4": { "model": "mgmg:zombicake_slice4" },
-        "bites=5": { "model": "mgmg:zombicake_slice5" },
-        "bites=6": { "model": "mgmg:zombicake_slice6" }
+        "bites=0": { "model": "drf:zombicake_uneaten" },
+        "bites=1": { "model": "drf:zombicake_slice1" },
+        "bites=2": { "model": "drf:zombicake_slice2" },
+        "bites=3": { "model": "drf:zombicake_slice3" },
+        "bites=4": { "model": "drf:zombicake_slice4" },
+        "bites=5": { "model": "drf:zombicake_slice5" },
+        "bites=6": { "model": "drf:zombicake_slice6" }
     }
 }

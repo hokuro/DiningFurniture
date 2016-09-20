@@ -1,10 +1,10 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/_side",
-        "bottom": "mgmg:blocks/_bottom",
-        "top": "mgmg:blocks/_top",
-        "side": "mgmg:blocks/_side",
-        "inside": "mgmg:blocks/_inner"
+        "particle": "drf:blocks/_side",
+        "bottom": "drf:blocks/_bottom",
+        "top": "drf:blocks/_top",
+        "side": "drf:blocks/_side",
+        "inside": "drf:blocks/_inner"
     },
     "elements": [
         {   "from": [ 13, 0, 1 ],

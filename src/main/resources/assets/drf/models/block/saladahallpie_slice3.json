@@ -1,10 +1,10 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/saladahallpie_side",
-        "bottom": "mgmg:blocks/saladahallpie_bottom",
-        "top": "mgmg:blocks/saladahallpie_top",
-        "side": "mgmg:blocks/saladahallpie_side",
-        "inside": "mgmg:blocks/saladahallpie_inner"
+        "particle": "drf:blocks/saladahallpie_side",
+        "bottom": "drf:blocks/saladahallpie_bottom",
+        "top": "drf:blocks/saladahallpie_top",
+        "side": "drf:blocks/saladahallpie_side",
+        "inside": "drf:blocks/saladahallpie_inner"
     },
     "elements": [
         {   "from": [ 7, 0, 1 ],

@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "mgmg:items/muttonsandwich"
+        "layer0": "drf:items/muttonsandwich"
     }
 }

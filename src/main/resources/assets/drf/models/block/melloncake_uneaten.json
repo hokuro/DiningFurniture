@@ -1,9 +1,9 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/melloncake_side",
-        "bottom": "mgmg:blocks/melloncake_bottom",
-        "top": "mgmg:blocks/melloncake_top",
-        "side": "mgmg:blocks/melloncake_side"
+        "particle": "drf:blocks/melloncake_side",
+        "bottom": "drf:blocks/melloncake_bottom",
+        "top": "drf:blocks/melloncake_top",
+        "side": "drf:blocks/melloncake_side"
     },
     "elements": [
         {   "from": [ 1, 0, 1 ],

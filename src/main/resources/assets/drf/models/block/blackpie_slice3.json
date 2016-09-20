@@ -1,10 +1,10 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/blackpie_side",
-        "bottom": "mgmg:blocks/blackpie_bottom",
-        "top": "mgmg:blocks/blackpie_top",
-        "side": "mgmg:blocks/blackpie_side",
-        "inside": "mgmg:blocks/blackpie_inner"
+        "particle": "drf:blocks/blackpie_side",
+        "bottom": "drf:blocks/blackpie_bottom",
+        "top": "drf:blocks/blackpie_top",
+        "side": "drf:blocks/blackpie_side",
+        "inside": "drf:blocks/blackpie_inner"
     },
     "elements": [
         {   "from": [ 7, 0, 1 ],

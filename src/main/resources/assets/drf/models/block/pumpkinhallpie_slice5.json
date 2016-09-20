@@ -1,10 +1,10 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/pumpkinhallpie_side",
-        "bottom": "mgmg:blocks/pumpkinhallpie_bottom",
-        "top": "mgmg:blocks/pumpkinhallpie_top",
-        "side": "mgmg:blocks/pumpkinhallpie_side",
-        "inside": "mgmg:blocks/pumpkinhallpie_inner"
+        "particle": "drf:blocks/pumpkinhallpie_side",
+        "bottom": "drf:blocks/pumpkinhallpie_bottom",
+        "top": "drf:blocks/pumpkinhallpie_top",
+        "side": "drf:blocks/pumpkinhallpie_side",
+        "inside": "drf:blocks/pumpkinhallpie_inner"
     },
     "elements": [
         {   "from": [ 11, 0, 1 ],

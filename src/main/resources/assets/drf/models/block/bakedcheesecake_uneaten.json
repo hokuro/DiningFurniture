@@ -1,9 +1,9 @@
 {
     "textures": {
-        "particle": "mgmg:blocks/bakedcheesecake_side",
-        "bottom": "mgmg:blocks/bakedcheesecake_bottom",
-        "top": "mgmg:blocks/bakedcheesecake_top",
-        "side": "mgmg:blocks/bakedcheesecake_side"
+        "particle": "drf:blocks/bakedcheesecake_side",
+        "bottom": "drf:blocks/bakedcheesecake_bottom",
+        "top": "drf:blocks/bakedcheesecake_top",
+        "side": "drf:blocks/bakedcheesecake_side"
     },
     "elements": [
         {   "from": [ 1, 0, 1 ],

@@ -9,14 +9,5 @@ public class ItemIcecreame extends ItemFood {
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
-	public static enum EnumIceCream{
-		ICE_VANILA,
-		ICE_CHOCO,
-		ICE_PUMPKIN,
-		ICE_BLUCK,
-		ICE_MELLON,
-		ICE_CALLOT,
-		ICE_POTETO,
-		ICE_APPLE
-	}
+
 }

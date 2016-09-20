@@ -1,11 +1,11 @@
 {
     "variants": {
-        "bites=0": { "model": "mgmg:pumpkincake_uneaten" },
-        "bites=1": { "model": "mgmg:pumpkincake_slice1" },
-        "bites=2": { "model": "mgmg:pumpkincake_slice2" },
-        "bites=3": { "model": "mgmg:pumpkincake_slice3" },
-        "bites=4": { "model": "mgmg:pumpkincake_slice4" },
-        "bites=5": { "model": "mgmg:pumpkincake_slice5" },
-        "bites=6": { "model": "mgmg:pumpkincake_slice6" }
+        "bites=0": { "model": "drf:pumpkincake_uneaten" },
+        "bites=1": { "model": "drf:pumpkincake_slice1" },
+        "bites=2": { "model": "drf:pumpkincake_slice2" },
+        "bites=3": { "model": "drf:pumpkincake_slice3" },
+        "bites=4": { "model": "drf:pumpkincake_slice4" },
+        "bites=5": { "model": "drf:pumpkincake_slice5" },
+        "bites=6": { "model": "drf:pumpkincake_slice6" }
     }
 }
