@@ -14,7 +14,7 @@ public class ItemFurniture {
 	private static final String NAME_TRUNK = "trunk";
 
 	public static final Item item_zabuton = new ItemChairZabuton();
-	public static final Item item_trunk = new ItemTrunk().setUnlocalizedName(NAME_TRUNK).setMaxStackSize(1).setCreativeTab(Mod_DiningFurniture.tabsChairs);
+	public static final Item item_trunk = new ItemTrunk().setUnlocalizedName(NAME_TRUNK).setMaxStackSize(1).setCreativeTab(Mod_DiningFurniture.tabFurniture);
 
 	public static Map<String,Item> itemMap(){
 		return (new HashMap<String,Item>(){

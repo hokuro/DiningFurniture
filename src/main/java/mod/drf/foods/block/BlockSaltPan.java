@@ -1,0 +1,21 @@
+package mod.drf.foods.block;
+
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.material.Material;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+
+public class BlockSaltPan extends BlockContainer {
+
+	protected BlockSaltPan() {
+		super(Material.rock);
+		// TODO 自動生成されたコンストラクター・スタブ
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+}

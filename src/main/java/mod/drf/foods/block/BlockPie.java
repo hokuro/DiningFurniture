@@ -7,6 +7,7 @@ import java.util.Map;
 
 import mod.drf.core.ModCommon;
 import mod.drf.core.log.ModLog;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockCake;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
@@ -38,17 +39,25 @@ public class BlockPie extends BlockCake {
 		{put(6,"slice6");}
 	};
 
-	protected BlockPie(int heall, float saturation, PotionEffect[] effect)
-    {
+	private BlockPie(){
 		super();
-		_effect = effect;
-		_heall = heall;
-		_saturationLevel =  Math.min(saturation,0.1f);
 		this.setStepSound(SoundType.CLOTH);
+		this.setHardness(0.5F);
+	}
 
-		if (effect != null){
-			PotionUtils.appendEffects(new ItemStack(this), Arrays.asList(effect));
-		}
+	public BlockPie(int heall, float saturation){
+		this();
+
+		this.setHeal(heall, saturation);
+		this.setPotionEffect(null);
+	}
+
+	public BlockPie(int heall, float saturation, PotionEffect[] effect)
+    {
+		this();
+
+		this.setHeal(heall, saturation);
+		this.setPotionEffect(effect);
     }
 
 	@Override
@@ -105,6 +114,22 @@ public class BlockPie extends BlockCake {
         }
 		if (ModCommon.isDebug){ ModLog.log().debug("end" + this.getRegistryName());}
     }
+
+
+    public Block setHeal(int heal, float saturation){
+    	this._heall = heal;
+    	this._saturationLevel = saturation;
+    	return this;
+    }
+
+    public Block setPotionEffect(PotionEffect[] effect){
+		_effect = effect;
+    	if (effect != null){
+			PotionUtils.appendEffects(new ItemStack(this), Arrays.asList(effect));
+		}
+		return this;
+    }
+
 
     /**
      * allows items to add custom lines of information to the mouseover description

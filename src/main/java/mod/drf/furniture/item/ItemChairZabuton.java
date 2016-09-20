@@ -32,7 +32,7 @@ public class ItemChairZabuton extends Item{
 	public ItemChairZabuton(){
 		super();
 		maxStackSize = 16;
-		setCreativeTab(Mod_DiningFurniture.tabsChairs);
+		setCreativeTab(Mod_DiningFurniture.tabFurniture);
 		this.setUnlocalizedName(NAME);
 		this.setRegistryName(NAME);
 		this.setHasSubtypes(true);

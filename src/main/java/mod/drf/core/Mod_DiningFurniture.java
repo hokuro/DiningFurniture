@@ -1,5 +1,6 @@
 package mod.drf.core;
 
+import mod.drf.creative.CreativeTabColdFood;
 import mod.drf.creative.CreativeTabFurniture;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
@@ -21,7 +22,8 @@ public class Mod_DiningFurniture {
 	public static final SimpleNetworkWrapper Net_Instance = NetworkRegistry.INSTANCE.newSimpleChannel(ModCommon.MOD_CHANEL);
 
 
-	public static final CreativeTabs tabsChairs = new CreativeTabFurniture(ModCommon.MOD_NAME);
+	public static final CreativeTabs tabFurniture = new CreativeTabFurniture(ModCommon.MOD_NAME);
+	public static final CreativeTabColdFood tabColdFood = new CreativeTabColdFood(ModCommon.MOD_NAME);
 
 	@EventHandler
 	public void construct(FMLConstructionEvent event) {
