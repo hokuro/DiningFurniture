@@ -8,8 +8,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CreativeTabColdFood extends CreativeTabs {
 
-	public CreativeTabColdFood(String label){
-		super(label);
+	public CreativeTabColdFood(){
+		super("ColdFood");
 	}
 
 	@SideOnly(Side.CLIENT)
