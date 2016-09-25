@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "bites=0": { "model": "drf:piehallpumpkin_uneaten" },
+        "bites=1": { "model": "drf:piehallpumpkin_slice1" },
+        "bites=2": { "model": "drf:piehallpumpkin_slice2" },
+        "bites=3": { "model": "drf:piehallpumpkin_slice3" },
+        "bites=4": { "model": "drf:piehallpumpkin_slice4" },
+        "bites=5": { "model": "drf:piehallpumpkin_slice5" },
+        "bites=6": { "model": "drf:piehallpumpkin_slice6" }
+    }
+}

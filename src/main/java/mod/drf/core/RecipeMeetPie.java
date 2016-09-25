@@ -29,41 +29,42 @@ public class RecipeMeetPie implements IRecipe {
 	@Override
 	public boolean matches(InventoryCrafting inv, World worldIn) {
         boolean ret=false;
-
-        if (invShapeCheck(inv,shapeCheckR1)){
-        	if (recipeMeet.contains(inv.getStackInRowAndColumn(0,0)) &&
-        			recipeMeet.contains(inv.getStackInRowAndColumn(0,2)) &&
-        			ItemFoods.item_row_hallpie == inv.getStackInRowAndColumn(0,1).getItem()){
-        		ret = true;
-        	}
-        }else if (invShapeCheck(inv,shapeCheckR2)){
-        	if (recipeMeet.contains(inv.getStackInRowAndColumn(1,0)) &&
-        			recipeMeet.contains(inv.getStackInRowAndColumn(1,2)) &&
-        			ItemFoods.item_row_hallpie == inv.getStackInRowAndColumn(1,1).getItem()){
-        		ret = true;
-        	}
-        }else if (invShapeCheck(inv,shapeCheckR3)){
-        	if (recipeMeet.contains(inv.getStackInRowAndColumn(2,0)) &&
-        			recipeMeet.contains(inv.getStackInRowAndColumn(2,2)) &&
-        			ItemFoods.item_row_hallpie == inv.getStackInRowAndColumn(2,1).getItem()){
-        		ret = true;
-        	}
-        }else if (invShapeCheck(inv,shapeCheckR4)){
-        	if (
-        	Items.water_bucket == inv.getStackInRowAndColumn(0, 1).getItem() &&
-            ItemFoods.item_butter == inv.getStackInRowAndColumn(1, 1).getItem() &&
-        	recipeMeet.contains(inv.getStackInRowAndColumn(1,0)) &&
-        	recipeMeet.contains(inv.getStackInRowAndColumn(1,2)) &&
-        	((Items.wheat == inv.getStackInRowAndColumn(2,0).getItem() &&
-        	Items.wheat == inv.getStackInRowAndColumn(2,1).getItem() &&
-        	Items.wheat == inv.getStackInRowAndColumn(2,2).getItem()) ||
-        	(ItemFoods.item_flour == inv.getStackInRowAndColumn(2,0).getItem() &&
-        	ItemFoods.item_flour == inv.getStackInRowAndColumn(2,1).getItem() &&
-        	ItemFoods.item_flour == inv.getStackInRowAndColumn(2,2).getItem()))){
-        		ret = true;
-        	}
-        }else{
-        	ret = false;
+        if (inv.getSizeInventory() > 8){
+        	   if (invShapeCheck(inv,shapeCheckR1)){
+               	if (recipeMeet.contains(inv.getStackInSlot(0).getItem()) &&
+               			recipeMeet.contains(inv.getStackInSlot(2).getItem()) &&
+               			ItemFoods.item_row_hallpie == inv.getStackInSlot(1).getItem()){
+               		ret = true;
+               	}
+               }else if (invShapeCheck(inv,shapeCheckR2)){
+               	if (recipeMeet.contains(inv.getStackInSlot(3).getItem()) &&
+               			recipeMeet.contains(inv.getStackInSlot(5).getItem()) &&
+               			ItemFoods.item_row_hallpie == inv.getStackInSlot(4).getItem()){
+               		ret = true;
+               	}
+               }else if (invShapeCheck(inv,shapeCheckR3)){
+               	if (recipeMeet.contains(inv.getStackInSlot(6).getItem()) &&
+               			recipeMeet.contains(inv.getStackInSlot(8).getItem()) &&
+               			ItemFoods.item_row_hallpie == inv.getStackInSlot(7).getItem()){
+               		ret = true;
+               	}
+               }else if (invShapeCheck(inv,shapeCheckR4)){
+               	if (
+               	Items.water_bucket == inv.getStackInSlot(1).getItem() &&
+                   ItemFoods.item_butter == inv.getStackInSlot(4).getItem() &&
+               	recipeMeet.contains(inv.getStackInSlot(3).getItem()) &&
+               	recipeMeet.contains(inv.getStackInSlot(5).getItem()) &&
+               	((Items.wheat == inv.getStackInSlot(6).getItem() &&
+               	Items.wheat == inv.getStackInSlot(7).getItem() &&
+               	Items.wheat == inv.getStackInSlot(8).getItem()) ||
+               	(ItemFoods.item_flour == inv.getStackInSlot(6).getItem() &&
+               	ItemFoods.item_flour == inv.getStackInSlot(7).getItem() &&
+               	ItemFoods.item_flour == inv.getStackInSlot(8).getItem()))){
+               		ret = true;
+               	}
+               }else{
+               	ret = false;
+               }
         }
         return ret;
 
@@ -72,10 +73,14 @@ public class RecipeMeetPie implements IRecipe {
 	private boolean invShapeCheck(InventoryCrafting inv, boolean[] checkArray){
 		for ( int h = 0; h < inv.getHeight(); h++){
 			for (int w = 0; w < inv.getWidth(); w++){
-				if (checkArray[h*3+w] && inv.getStackInRowAndColumn(h,w) == null){
-					return false;
-				}else if (checkArray[h*3+w] && inv.getStackInRowAndColumn(h, w) != null){
-					return false;
+				if (checkArray[h*3+w]){
+					if(inv.getStackInSlot(h*3+w) == null){
+						return false;
+					}
+				}else{
+					if(inv.getStackInSlot(h*3+w) != null){
+						return false;
+					}
 				}
 			}
 		}

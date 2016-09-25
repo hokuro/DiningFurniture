@@ -1,7 +1,6 @@
 package mod.drf.foods.block;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +20,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import scala.actors.threadpool.Arrays;
 
 public class BlockPie extends BlockCake {
 
@@ -77,10 +75,10 @@ public class BlockPie extends BlockCake {
     {
 		if (ModCommon.isDebug){ModLog.log().debug("start eat " + this.getRegistryName());}
     	// 回復
-        if (player.canEat(false) || ModCommon.isDebug)
+        if (player.canEat(false) || player.capabilities.isCreativeMode)
         {
             player.getFoodStats().addStats(_heall, _saturationLevel);
-    		if (ModCommon.isDebug){ ModLog.log().debug("heall:"+_heall);}
+    		if (ModCommon.isDebug){ ModLog.log().debug("(" + _heall + ", " + (_saturationLevel*2.0*_heall) + ")" );}
             int i = ((Integer)state.getValue(BITES)).intValue();
 
             if (i < 6)
@@ -96,21 +94,14 @@ public class BlockPie extends BlockCake {
         // ポーション効果
         if (!worldIn.isRemote)
         {
-        	ItemStack stack = new ItemStack(state.getBlock());
-        	if (hasEffect(stack)){
-        		List<PotionEffect> effects = PotionUtils.getEffectsFromStack(stack);
-    			for(Iterator it = effects.iterator(); it.hasNext();){
-    				player.addPotionEffect((PotionEffect)it.next());
-    			}
-        	}
-//            if (_effect != null)
-//            {
-//                for (PotionEffect potioneffect : _effect)
-//                {
-//                	player.addPotionEffect(new PotionEffect(potioneffect));
-//            		ModLog.log().debug("potion:"+potioneffect.getEffectName());
-//                }
-//            }
+            if (_effect != null)
+            {
+                for (PotionEffect potioneffect : _effect)
+                {
+                	player.addPotionEffect(new PotionEffect(potioneffect));
+            		ModLog.log().debug("potion:"+potioneffect.getEffectName());
+                }
+            }
         }
 		if (ModCommon.isDebug){ ModLog.log().debug("end" + this.getRegistryName());}
     }
@@ -124,9 +115,6 @@ public class BlockPie extends BlockCake {
 
     public Block setPotionEffect(PotionEffect[] effect){
 		_effect = effect;
-    	if (effect != null){
-			PotionUtils.appendEffects(new ItemStack(this), Arrays.asList(effect));
-		}
 		return this;
     }
 

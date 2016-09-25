@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "bites=0": { "model": "drf:cakechoco_uneaten" },
+        "bites=1": { "model": "drf:cakechoco_slice1" },
+        "bites=2": { "model": "drf:cakechoco_slice2" },
+        "bites=3": { "model": "drf:cakechoco_slice3" },
+        "bites=4": { "model": "drf:cakechoco_slice4" },
+        "bites=5": { "model": "drf:cakechoco_slice5" },
+        "bites=6": { "model": "drf:cakechoco_slice6" }
+    }
+}

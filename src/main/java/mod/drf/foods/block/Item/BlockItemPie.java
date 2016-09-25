@@ -19,7 +19,6 @@ public class BlockItemPie extends ItemBlock {
 	public BlockItemPie(Block block){
 		super(block);
 	}
-
 	  /**
      * Called when a Block is right-clicked with this Item
      */

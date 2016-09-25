@@ -35,21 +35,21 @@ public class Mod_DiningFurniture {
 	public void preInit(FMLPreInitializationEvent event) {
 		ModRegister.RegisterBlock(event);
 		ModRegister.RegisterItem(event);
-		ModRegister.RegisterEntity(proxy);
-		ModRegister.RegisterRender(proxy);
+//		ModRegister.RegisterEntity(proxy);
+//		ModRegister.RegisterRender(proxy);
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		ModRegister.RegisterRecipe();
-        ModRegister.RegisterMessage();
-		NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
-        proxy.registerClientInfo();
+ //       ModRegister.RegisterMessage();
+//		NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
+ //       proxy.registerClientInfo();
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
-		proxy.registerColorMap();
+//		proxy.registerColorMap();
 	}
 
 

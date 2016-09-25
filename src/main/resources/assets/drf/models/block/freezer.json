@@ -1,0 +1,37 @@
+{
+    "ambientocclusion": false,
+    "textures": {
+        "bottom":"drf:blocks/freezer_bottom",
+        "top":"drf:blocks/freezer_top",
+        "back":"drf:blocks/freezer_back",
+        "front":"drf:blocks/freezer_front",
+        "side":"drf:blocks/freezer_side",
+        "inner":"drf:blocks/freezer_inner",
+    },
+    "elements": [
+        {   "from": [ 1, 0, 0 ],
+            "to": [ 15, 16, 14 ],
+            "shade": false,
+            "faces": {
+                "down": { "uv": [ 7, 13, 9, 15 ], "texture": "#down":"bottom"},
+                "up":   { "uv": [ 7,  6, 9,  8 ], "texture": "#up":"top"},
+                "north":{ "uv": [ 7, 13, 9, 15 ], "texture": "#north":"inner"},
+                "south":{ "uv": [ 7, 13, 9, 15 ], "texture": "#south":"back"},
+                "west": { "uv": [ 7, 13, 9, 15 ], "texture": "#west":"side" },
+                "east": { "uv": [ 7, 13, 9, 15 ], "texture": "#east":"side" }
+            }
+        },
+        {   "from": [ 1, 0, 15 ],
+            "to": [ 15, 16, 16 ],
+            "shade": false,
+            "faces": {
+                "down": { "uv": [ 7, 13, 9, 15 ], "texture": "#down":"bottom"},
+                "up":   { "uv": [ 7,  6, 9,  8 ], "texture": "#up":"top"},
+                "north":{ "uv": [ 7, 13, 9, 15 ], "texture": "#north":"front"},
+                "south":{ "uv": [ 7, 13, 9, 15 ], "texture": "#south":"side"},
+                "west": { "uv": [ 7, 13, 9, 15 ], "texture": "#west":"side" },
+                "east": { "uv": [ 7, 13, 9, 15 ], "texture": "#east":"side" }
+            }
+        }
+    ]
+}

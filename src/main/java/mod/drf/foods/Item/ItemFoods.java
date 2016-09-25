@@ -1,6 +1,8 @@
 package mod.drf.foods.Item;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import mod.drf.core.ModCommon;
@@ -12,6 +14,79 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.potion.PotionEffect;
 
 public class ItemFoods {
+	public static final List<String> NMAE_LIST = new ArrayList<String>(){
+		{add(NAME_CHOCO);}
+		{add(NAME_WHITECHOCO);}
+		{add(NAME_CARAMEL);}
+		{add(NAME_PUDDING);}
+		{add(NAME_PUMPKINPUDDING);}
+		{add(NAME_PIECEPIE);}
+		{add(NAME_PIECECARAMELPIE);}
+		{add(NAME_PIECECHOCOPIE);}
+		{add(NAME_PIECESALADAPIE);}
+		{add(NAME_PIECEMEETPIE);}
+		{add(NAME_PIECEFISHPIE);}
+		{add(NAME_PIECEPUMPUKINPIE);}
+		{add(NAME_PIECEAPPLEPIE);}
+		{add(NAME_PIECEblackPIE);}
+		{add(NAME_PIECEZOMBIPIE);}
+		{add(NAME_POTATOSALADA);}
+		{add(NAME_PUMPKINSALDADA);}
+		{add(NAME_EGGSANDWICH);}
+		{add(NAME_POTATSALADASANDWITCH);}
+		{add(NAME_HAMSANDWICH);}
+		{add(NAME_MUTTONSANDWICH);}
+		{add(NAME_STAKESANDWICH);}
+		{add(NAME_CHIKENSANDWICH);}
+		{add(NAME_CHOCOSANDWICH);}
+		{add(NAME_PUMPKINSALADASANDWICH);}
+		{add(NAME_BUTTER);}
+		{add(NAME_SALT);}
+		{add(NAME_MOLD);}
+		{add(NAME_BLUEMOLD);}
+		{add(NAME_ROW_PIE_HALL);}
+		{add(NAME_ROW_CHOCOPIE_HALL);}
+		{add(NAME_ROW_SALADA_HALL);}
+		{add(NAME_ROW_MEETPIE_HALL);}
+		{add(NAME_ROW_FISHPIE_HALL);}
+		{add(NAME_ROW_PUMPKINPIE_HALL);}
+		{add(NAME_ROW_APPLEPIE_HALL);}
+		{add(NAME_ROW_BLACK_PIE);}
+		{add(NAME_ROW_ZOMBIPEI_HALL);}
+		{add(NAME_ROW_PIZZA);}
+		{add(NAME_ROW_MEETPIZZA);}
+		{add(NAME_ROW_FISHPIZZA);}
+		{add(NAME_ICE_MIX);}
+		{add(NAME_ICECREAM);}
+		{add(NAME_SYRUP);}
+		{add(NAME_SYRUP_MILK);}
+		{add(NAME_FLAPE);}
+		{add(NAME_MILKFLAPE);}
+		{add(NAME_SUGAR_WATER);}
+		{add(NAME_ICECANDY);}
+		{add(NAME_FLOUR);}
+		{add(NAME_UDON);}
+		{add(NAME_PASTA);}
+		{add(NAME_LAMEN);}
+		{add(NAME_MEET_PASTA);}
+		{add(NAME_FISH_PASTA);}
+		{add(NAME_BLACK_PASTA);}
+		{add(NAME_ZARUUDON);}
+		{add(NAME_KAKEUDON);}
+		{add(NAME_TUKIMIUDON);}
+		{add(NAME_NIKUUDON);}
+		{add(NAME_MEETRAMEN);}
+		{add(NAME_FISHRAMEN);}
+		{add(NAME_EGGRAMEN);}
+		{add(NAME_MEETMILL_BEEF);}
+		{add(NAME_MEETMILL_POKE);}
+		{add(NAME_MEETMILL_CHIKIN);}
+		{add(NAME_MEETMILL_MUTTON);}
+		{add(NAME_DUST_FLOWER);}
+		{add(NAME_TEA_FLOWER);}
+	};
+
+
 //	チョコレート
 	public static final String NAME_CHOCO = "chocolate";
 //	ホワイトチョコレート
@@ -23,29 +98,29 @@ public class ItemFoods {
 //	かぼちゃプリン
 	public static final String NAME_PUMPKINPUDDING = "pumpukinpudding";
 //	パイ
-	public static final String NAME_PIECEPIE = "pie";
+	public static final String NAME_PIECEPIE = "piecepie";
 //	チョコレートパイ
-	public static final String NAME_PIECECHOCOPIE ="piechoco";
+	public static final String NAME_PIECECHOCOPIE ="piecepiechoco";
 //	サラダパイ
-	public static final String NAME_PIECESALADAPIE = "piesalada";
+	public static final String NAME_PIECESALADAPIE = "piecepiesalada";
 //	ミートパイ
-	public static final String NAME_PIECEMEETPIE = "piemeet";
+	public static final String NAME_PIECEMEETPIE = "piecepiemeet";
 //	フィッシュパイ
-	public static final String NAME_PIECEFISHPIE="piefish";
+	public static final String NAME_PIECEFISHPIE="piecepiefish";
 //	かぼちゃパイ
-	public static final String NAME_PIECEPUMPUKINPIE ="piepumpkin";
+	public static final String NAME_PIECEPUMPUKINPIE ="piecepiepumpkin";
 //	ゾンビーフパイ
-	public static final String NAME_PIECEZOMBIPIE="piezombi";
+	public static final String NAME_PIECEZOMBIPIE="piecepiezombi";
 //	アップルパイ
-	public static final String NAME_PIECEAPPLEPIE="pieapple";
+	public static final String NAME_PIECEAPPLEPIE="piecepieapple";
 //	烏賊墨パイ
-	public static final String NAME_PIECEblackPIE="pieblack";
+	public static final String NAME_PIECEblackPIE="piecepieblack";
 //	カラメルパイ
-	public static final String NAME_PIECECALLAMELPIE="piecallamel";
+	public static final String NAME_PIECECARAMELPIE="piecepiecaramel";
 //	卵サンド
 	public static final String NAME_EGGSANDWICH="sandwitchegg";
 //	ポテトサラダサンド
-	public static final String NAME_POTETSALADASANDWITCH="sandwitchpotato";
+	public static final String NAME_POTATSALADASANDWITCH="sandwitchpotato";
 //	ハムサンド
 	public static final String NAME_HAMSANDWICH="sandwitchhum";
 //	ジンギスカンサンド
@@ -57,7 +132,7 @@ public class ItemFoods {
 //	チョコサンド
 	public static final String NAME_CHOCOSANDWICH="sandwitchchoco";
 //	ポテトサラダ
-	public static final String NAME_POTETOSALADA = "potatosalada";
+	public static final String NAME_POTATOSALADA = "potatosalada";
 //	パンプキンサラダ
 	public static final String NAME_PUMPKINSALDADA = "pumpukinsalada";
 //	パンプキンサラダサンド
@@ -121,7 +196,7 @@ public class ItemFoods {
 	// パスタ
 	public static final String NAME_PASTA = "pasta";
 	// ラーメン
-	public static final String NAME_LAMEN = "lamen";
+	public static final String NAME_LAMEN = "ramen";
 	// ミートスパ
 	public static final String NAME_MEET_PASTA = "pastameet";
 	// シーフードスパ
@@ -142,6 +217,14 @@ public class ItemFoods {
 	public static final String NAME_FISHRAMEN = "ramenfish";
 	// 月見ラーメン
 	public static final String NAME_EGGRAMEN = "ramenegg";
+	// 牛ひき肉
+	public static final String NAME_MEETMILL_BEEF = "meetmillbeef";
+	// 豚ひき肉
+	public static final String NAME_MEETMILL_POKE = "meetmillpoke";
+	// 鶏ひき肉
+	public static final String NAME_MEETMILL_CHIKIN = "meetmillchikin";
+	// 羊ひき肉
+	public static final String NAME_MEETMILL_MUTTON = "meetmillmutton";
 
 	// 花の粉末
 	public static final String NAME_DUST_FLOWER="flowerdust";
@@ -149,31 +232,31 @@ public class ItemFoods {
 	public static final String NAME_TEA_FLOWER="flowertea";
 
 
-	public static final Item item_choco                 = new ItemFood(2,0.1f,false).setUnlocalizedName(NAME_CHOCO).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_whitechoco            = new ItemFood(2,0.1f,false).setUnlocalizedName(NAME_WHITECHOCO).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_caramel               = new ItemFood(2,0.1f,false).setUnlocalizedName(NAME_CARAMEL).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_pudding               = new ItemFood(2,0.2f,false).setUnlocalizedName(NAME_PUDDING).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_pumpkinpudding        = new ItemFood(2,0.3f,false).setUnlocalizedName(NAME_PUMPKINPUDDING).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_piecepie              = new ItemFood(2,0.5f,false).setUnlocalizedName(NAME_PIECEPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_piecechocopie         = new ItemFood(4,0.6f,false).setUnlocalizedName(NAME_PIECECHOCOPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_piecesaladapie        = new ItemFood(4,0.6f,false).setUnlocalizedName(NAME_PIECESALADAPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_piecemeetpie          = new ItemFood(8,0.8f,false).setUnlocalizedName(NAME_PIECEMEETPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_piecefishpie          = new ItemFood(8,0.8f,false).setUnlocalizedName(NAME_PIECEFISHPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_piecepumpukinpie      = new ItemFood(4,0.6f,false).setUnlocalizedName(NAME_PIECEPUMPUKINPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_piecezombipie         = new ItemFood(2,0.1f,false).setPotionEffect(new PotionEffect(MobEffects.hunger,600,0),100.0F).setUnlocalizedName(NAME_PIECEZOMBIPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_pieceapplepie         = new ItemFood(4,0.5f,false).setUnlocalizedName(NAME_PIECEAPPLEPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_pieceblackpie         = new ItemFood(4,0.2f,false).setUnlocalizedName(NAME_PIECEblackPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_piececallamelpie      = new ItemFood(4,0.5f,false).setUnlocalizedName(NAME_PIECECALLAMELPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_eggsandwich           = new ItemFood(6,0.6f,false).setUnlocalizedName(NAME_EGGSANDWICH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_potetsaladasandwitch  = new ItemFood(6,0.6f,false).setUnlocalizedName(NAME_POTETSALADASANDWITCH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_hamsandwich           = new ItemFood(8,0.6f,false).setUnlocalizedName(NAME_HAMSANDWICH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_muttonsandwich        = new ItemFood(8,0.7f,false).setUnlocalizedName(NAME_MUTTONSANDWICH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_stakesandwich         = new ItemFood(8,0.8f,false).setUnlocalizedName(NAME_STAKESANDWICH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_chikensandwich        = new ItemFood(8,0.7f,false).setUnlocalizedName(NAME_CHIKENSANDWICH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_chocosandwich         = new ItemFood(4,0.5f,false).setUnlocalizedName(NAME_CHOCOSANDWICH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_potetosalada          = new ItemFood(4,0.4f,false).setUnlocalizedName(NAME_POTETOSALADA).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_pumpkinsalada         = new ItemFood(4,0.4f,false).setUnlocalizedName(NAME_PUMPKINSALDADA).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_pumpkinsaladasandwich = new ItemFood(6,0.6f,false).setUnlocalizedName(NAME_PUMPKINSALADASANDWICH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_choco                 = new ItemFood(1,0.1f,false).setUnlocalizedName(NAME_CHOCO).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_whitechoco            = new ItemFood(1,0.5f,false).setUnlocalizedName(NAME_WHITECHOCO).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_caramel               = new ItemFood(1,0.05f,false).setUnlocalizedName(NAME_CARAMEL).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_pudding               = new ItemFood(2,0.28f,false).setUnlocalizedName(NAME_PUDDING).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_pumpkinpudding        = new ItemFood(2,1.48f,false).setUnlocalizedName(NAME_PUMPKINPUDDING).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_piecepie              = new ItemFood(4,0.14f,false).setUnlocalizedName(NAME_PIECEPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_piecechocopie         = new ItemFood(2,0.1f,false).setUnlocalizedName(NAME_PIECECHOCOPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_piecesaladapie        = new ItemFood(6,0.27f,false).setUnlocalizedName(NAME_PIECESALADAPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_piecemeetpie          = new ItemFood(8,0.34f,false).setUnlocalizedName(NAME_PIECEMEETPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_piecefishpie          = new ItemFood(8,0.2f,false).setUnlocalizedName(NAME_PIECEFISHPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_piecepumpukinpie      = new ItemFood(6,0.23f,false).setUnlocalizedName(NAME_PIECEPUMPUKINPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_piecezombipie         = new ItemFood(2,0.28f,false).setPotionEffect(new PotionEffect(MobEffects.hunger,600,0),100.0F).setUnlocalizedName(NAME_PIECEZOMBIPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_pieceapplepie         = new ItemFood(4,0.19f,false).setUnlocalizedName(NAME_PIECEAPPLEPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_pieceblackpie         = new ItemFood(4,0.14f,false).setUnlocalizedName(NAME_PIECEblackPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_piececaramelpie       = new ItemFood(4,0.14f,false).setUnlocalizedName(NAME_PIECECARAMELPIE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_eggsandwich           = new ItemFood(6,0.18f,false).setUnlocalizedName(NAME_EGGSANDWICH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_potatsaladasandwitch  = new ItemFood(6,0.52f,false).setUnlocalizedName(NAME_POTATSALADASANDWITCH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_hamsandwich           = new ItemFood(8,0.53f,false).setUnlocalizedName(NAME_HAMSANDWICH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_muttonsandwich        = new ItemFood(8,0.53f,false).setUnlocalizedName(NAME_MUTTONSANDWICH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_stakesandwich         = new ItemFood(8,0.53f,false).setUnlocalizedName(NAME_STAKESANDWICH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_chikensandwich        = new ItemFood(8,0.35f,false).setUnlocalizedName(NAME_CHIKENSANDWICH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_chocosandwich         = new ItemFood(4,0.25f,false).setUnlocalizedName(NAME_CHOCOSANDWICH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_pumpkinsaladasandwich = new ItemFood(6,0.41f,false).setUnlocalizedName(NAME_PUMPKINSALADASANDWICH).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_potatosalada          = new ItemSalada(8,1.6f,false).setUnlocalizedName(NAME_POTATOSALADA).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_pumpkinsalada         = new ItemSalada(8,1.11f,false).setUnlocalizedName(NAME_PUMPKINSALDADA).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
 	public static final Item item_butter                = new Item().setUnlocalizedName(NAME_BUTTER).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
 	public static final Item item_mold                  = new Item().setUnlocalizedName(NAME_MOLD).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
 	public static final Item item_salt                  = new Item().setUnlocalizedName(NAME_SALT).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
@@ -191,32 +274,36 @@ public class ItemFoods {
 	public static final Item item_row_meetpizza         = new Item().setUnlocalizedName(NAME_ROW_MEETPIZZA).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
 	public static final Item item_row_fishpizza         = new Item().setUnlocalizedName(NAME_ROW_FISHPIZZA).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
 
-	public static final Item item_icemix                = new Item().setUnlocalizedName(NAME_ICE_MIX).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
-	public static final Item item_icecream              = new ItemIcecreame(2,0.2f,false).setUnlocalizedName(NAME_ICECREAM).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
-	public static final Item item_syrup                 = new Item().setUnlocalizedName(NAME_SYRUP).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
+	public static final Item item_icemix                = new ItemIceCreamMix().setUnlocalizedName(NAME_ICE_MIX).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
+	public static final Item item_icecream              = new ItemIceCream(0,0,false).setUnlocalizedName(NAME_ICECREAM).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
+	public static final Item item_syrup                 = new ItemSyrup().setUnlocalizedName(NAME_SYRUP).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
 	public static final Item item_syrupmilk             = new Item().setUnlocalizedName(NAME_SYRUP_MILK).setCreativeTab(Mod_DiningFurniture.tabColdFood);
-	public static final Item item_flape                 = new ItemFlap(1,0.1f,false).setPotionEffect(new PotionEffect(MobEffects.confusion,100,1), 25.0F).setUnlocalizedName(NAME_FLAPE).setCreativeTab(Mod_DiningFurniture.tabColdFood);
-	public static final Item item_milkflape             = new ItemFlap(1,0.2f,false).setPotionEffect(new PotionEffect(MobEffects.confusion,100,1), 25.0F).setUnlocalizedName(NAME_MILKFLAPE).setCreativeTab(Mod_DiningFurniture.tabColdFood);
-	public static final Item item_sugarwater            = new Item().setUnlocalizedName(NAME_SUGAR_WATER).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
-	public static final Item item_icecandy              = new ItemFood(0,0.1f,false).setUnlocalizedName(NAME_ICECANDY).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
+	public static final Item item_flape                 = new ItemFlap(0,0,false).setPotionEffect(new PotionEffect(MobEffects.confusion,100,1), 25.0F).setUnlocalizedName(NAME_FLAPE).setCreativeTab(Mod_DiningFurniture.tabColdFood);
+	public static final Item item_milkflape             = new ItemFlap(0,0,false).setPotionEffect(new PotionEffect(MobEffects.confusion,100,1), 25.0F).setUnlocalizedName(NAME_MILKFLAPE).setCreativeTab(Mod_DiningFurniture.tabColdFood);
+	public static final Item item_sugarwater            = new ItemSyrup().setUnlocalizedName(NAME_SUGAR_WATER).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
+	public static final Item item_icecandy              = new ItemIceCandy(0,0,false).setUnlocalizedName(NAME_ICECANDY).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
 
 	public static final Item item_flour                 = new Item().setUnlocalizedName(NAME_FLOUR).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
 	public static final Item item_udon                  = new Item().setUnlocalizedName(NAME_UDON).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
 	public static final Item item_pasta                 = new Item().setUnlocalizedName(NAME_PASTA).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
 	public static final Item item_ramen                 = new Item().setUnlocalizedName(NAME_LAMEN).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_meetpasta             = new ItemFood(0,0.1f,false).setUnlocalizedName(NAME_MEET_PASTA).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_fishpasta             = new ItemFood(0,0.1f,false).setUnlocalizedName(NAME_FISH_PASTA).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_blackpasta            = new ItemFood(0,0.1f,false).setUnlocalizedName(NAME_BLACK_PASTA).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_zaruudon              = new ItemFood(0,0.1f,false).setUnlocalizedName(NAME_ZARUUDON).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_kakeudon              = new ItemFood(0,0.1f,false).setUnlocalizedName(NAME_KAKEUDON).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_tsukimiuudon          = new ItemFood(0,0.1f,false).setUnlocalizedName(NAME_TUKIMIUDON).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_nikuudon              = new ItemFood(0,0.1f,false).setUnlocalizedName(NAME_NIKUUDON).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_meetramen             = new ItemFood(0,0.1f,false).setUnlocalizedName(NAME_MEETRAMEN).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_fishramen             = new ItemFood(0,0.1f,false).setUnlocalizedName( NAME_FISHRAMEN).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
-	public static final Item item_tsukimiramen          = new ItemFood(0,0.1f,false).setUnlocalizedName(NAME_EGGRAMEN).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_meetpasta             = new ItemNoodle(10,1.58f,false).setUnlocalizedName(NAME_MEET_PASTA).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_fishpasta             = new ItemNoodle(10,0.6f,false).setUnlocalizedName(NAME_FISH_PASTA).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_blackpasta            = new ItemNoodle(10,0.3f,false).setUnlocalizedName(NAME_BLACK_PASTA).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_zaruudon              = new ItemNoodle(10,0.3f,false).setUnlocalizedName(NAME_ZARUUDON).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_kakeudon              = new ItemNoodle(10,0.3f,false).setUnlocalizedName(NAME_KAKEUDON).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_tsukimiuudon          = new ItemNoodle(10,0.31f,false).setUnlocalizedName(NAME_TUKIMIUDON).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_nikuudon              = new ItemNoodle(10,0.94f,false).setUnlocalizedName(NAME_NIKUUDON).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_meetramen             = new ItemNoodle(10,0.94f,false).setUnlocalizedName(NAME_MEETRAMEN).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_fishramen             = new ItemNoodle(10,0.6f,false).setUnlocalizedName( NAME_FISHRAMEN).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_tsukimiramen          = new ItemNoodle(10,0.31f,false).setUnlocalizedName(NAME_EGGRAMEN).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_millbeef              = new Item().setUnlocalizedName(NAME_MEETMILL_BEEF).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_millpoke              = new Item().setUnlocalizedName(NAME_MEETMILL_POKE).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_millchikin            = new Item().setUnlocalizedName(NAME_MEETMILL_CHIKIN).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+	public static final Item item_millmutton            = new Item().setUnlocalizedName(NAME_MEETMILL_MUTTON).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
 
-	public static final Item item_dustflower            = new Item().setUnlocalizedName(NAME_DUST_FLOWER).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setHasSubtypes(true);
-	public static final Item item_teaflower             = new Item().setUnlocalizedName(NAME_TEA_FLOWER).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setHasSubtypes(true);
+	public static final Item item_dustflower            = new ItemFlowerDust().setUnlocalizedName(NAME_DUST_FLOWER).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setHasSubtypes(true);
+	public static final Item item_teaflower             = new ItemFlowerTea().setUnlocalizedName(NAME_TEA_FLOWER).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setHasSubtypes(true);
 
 	public static Map<String,Item> itemMap(){
 		return (new HashMap<String,Item>(){
@@ -226,7 +313,7 @@ public class ItemFoods {
 			{put(NAME_PUDDING, item_pudding);}
 			{put(NAME_PUMPKINPUDDING, item_pumpkinpudding);}
 			{put(NAME_PIECEPIE, item_piecepie);}
-			{put(NAME_PIECECALLAMELPIE, item_piececallamelpie);}
+			{put(NAME_PIECECARAMELPIE, item_piececaramelpie);}
 			{put(NAME_PIECECHOCOPIE, item_piecechocopie);}
 			{put(NAME_PIECESALADAPIE, item_piecesaladapie);}
 			{put(NAME_PIECEMEETPIE, item_piecemeetpie);}
@@ -235,10 +322,10 @@ public class ItemFoods {
 			{put(NAME_PIECEAPPLEPIE, item_pieceapplepie);}
 			{put(NAME_PIECEblackPIE, item_pieceblackpie);}
 			{put(NAME_PIECEZOMBIPIE, item_piecezombipie);}
-			{put(NAME_POTETOSALADA, item_potetosalada);}
+			{put(NAME_POTATOSALADA, item_potatosalada);}
 			{put(NAME_PUMPKINSALDADA, item_pumpkinsalada);}
 			{put(NAME_EGGSANDWICH, item_eggsandwich);}
-			{put(NAME_POTETSALADASANDWITCH, item_potetsaladasandwitch);}
+			{put(NAME_POTATSALADASANDWITCH, item_potatsaladasandwitch);}
 			{put(NAME_HAMSANDWICH, item_hamsandwich);}
 			{put(NAME_MUTTONSANDWICH, item_muttonsandwich);}
 			{put(NAME_STAKESANDWICH, item_stakesandwich);}
@@ -246,6 +333,7 @@ public class ItemFoods {
 			{put(NAME_CHOCOSANDWICH, item_chocosandwich);}
 			{put(NAME_PUMPKINSALADASANDWICH, item_pumpkinsaladasandwich);}
 			{put(NAME_BUTTER, item_butter);}
+			{put(NAME_SALT, item_salt);}
 			{put(NAME_MOLD, item_mold);}
 			{put(NAME_BLUEMOLD, item_bluemold);}
 
@@ -285,6 +373,10 @@ public class ItemFoods {
 			{put(NAME_MEETRAMEN,item_meetramen);}
 			{put(NAME_FISHRAMEN,item_fishramen);}
 			{put(NAME_EGGRAMEN,item_tsukimiramen);}
+			{put(NAME_MEETMILL_BEEF,item_millbeef);}
+			{put(NAME_MEETMILL_POKE,item_millpoke);}
+			{put(NAME_MEETMILL_CHIKIN,item_millchikin);}
+			{put(NAME_MEETMILL_MUTTON,item_millmutton);}
 
 			{put(NAME_DUST_FLOWER,item_dustflower);}
 			{put(NAME_TEA_FLOWER,item_teaflower);}
@@ -307,18 +399,19 @@ public class ItemFoods {
 			{put(NAME_PIECEZOMBIPIE, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_PIECEZOMBIPIE, "inventory")});}
 			{put(NAME_PIECEAPPLEPIE, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_PIECEAPPLEPIE, "inventory")});}
 			{put(NAME_PIECEblackPIE, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_PIECEblackPIE, "inventory")});}
-			{put(NAME_PIECECALLAMELPIE, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_PIECECALLAMELPIE, "inventory")});}
+			{put(NAME_PIECECARAMELPIE, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_PIECECARAMELPIE, "inventory")});}
 			{put(NAME_EGGSANDWICH, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_EGGSANDWICH, "inventory")});}
-			{put(NAME_POTETSALADASANDWITCH, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_POTETSALADASANDWITCH, "inventory")});}
+			{put(NAME_POTATSALADASANDWITCH, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_POTATSALADASANDWITCH, "inventory")});}
 			{put(NAME_HAMSANDWICH, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_HAMSANDWICH, "inventory")});}
 			{put(NAME_MUTTONSANDWICH, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_MUTTONSANDWICH, "inventory")});}
 			{put(NAME_STAKESANDWICH, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_STAKESANDWICH, "inventory")});}
 			{put(NAME_CHIKENSANDWICH, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_CHIKENSANDWICH, "inventory")});}
 			{put(NAME_CHOCOSANDWICH, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_CHOCOSANDWICH, "inventory")});}
-			{put(NAME_POTETOSALADA, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_PUMPKINSALDADA, "inventory")});}
-			{put(NAME_PUMPKINSALDADA,new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_PUMPKINSALDADA, "inventory")});}
 			{put(NAME_PUMPKINSALADASANDWICH, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_PUMPKINSALADASANDWICH, "inventory")});}
+			{put(NAME_POTATOSALADA, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_POTATOSALADA, "inventory")});}
+			{put(NAME_PUMPKINSALDADA, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_PUMPKINSALDADA, "inventory")});}
 			{put(NAME_BUTTER, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_BUTTER, "inventory")});}
+			{put(NAME_SALT, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SALT, "inventory")});}
 			{put(NAME_MOLD, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_MOLD, "inventory")});}
 			{put(NAME_BLUEMOLD, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_BLUEMOLD, "inventory")});}
 			{put(NAME_ROW_PIE_HALL, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ROW_PIE_HALL,"inventory")});}
@@ -360,7 +453,8 @@ public class ItemFoods {
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP + "_" + EnumFlapeSyrup.SYRUP_PUMPKIN.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP + "_" + EnumFlapeSyrup.SYRUP_CACTUS.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP + "_" + EnumFlapeSyrup.SYRUP_WMELLON.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP + "_" + EnumFlapeSyrup.SYRUP_black.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP + "_" + EnumFlapeSyrup.SYRUP_APPLE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP + "_" + EnumFlapeSyrup.SYRUP_BLACK.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP + "_" + EnumFlapeSyrup.SYRUP_STRAWBERRY.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP + "_" + EnumFlapeSyrup.SYRUP_MELON.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP + "_" + EnumFlapeSyrup.SYRUP_CHOCOLATE.getFlavor(), "inventory"),
@@ -384,7 +478,8 @@ public class ItemFoods {
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_PUMPKIN.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_CACTUS.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_WMELLON.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_black.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_APPLE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_BLACK.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_STRAWBERRY.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_MELON.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_CHOCOLATE.getFlavor(), "inventory"),
@@ -406,7 +501,8 @@ public class ItemFoods {
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_PUMPKIN.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_CACTUS.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_WMELLON.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_black.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_APPLE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_BLACK.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_STRAWBERRY.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_MELON.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_CHOCOLATE.getFlavor(), "inventory"),
@@ -428,7 +524,8 @@ public class ItemFoods {
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SUGAR_WATER + "_" + EnumFlapeSyrup.SYRUP_PUMPKIN.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SUGAR_WATER + "_" + EnumFlapeSyrup.SYRUP_CACTUS.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SUGAR_WATER + "_" + EnumFlapeSyrup.SYRUP_WMELLON.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SUGAR_WATER + "_" + EnumFlapeSyrup.SYRUP_black.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SUGAR_WATER + "_" + EnumFlapeSyrup.SYRUP_APPLE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SUGAR_WATER + "_" + EnumFlapeSyrup.SYRUP_BLACK.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SUGAR_WATER + "_" + EnumFlapeSyrup.SYRUP_STRAWBERRY.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SUGAR_WATER + "_" + EnumFlapeSyrup.SYRUP_MELON.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SUGAR_WATER + "_" + EnumFlapeSyrup.SYRUP_CHOCOLATE.getFlavor(), "inventory"),
@@ -450,7 +547,8 @@ public class ItemFoods {
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECANDY + "_" + EnumFlapeSyrup.SYRUP_PUMPKIN.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECANDY + "_" + EnumFlapeSyrup.SYRUP_CACTUS.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECANDY + "_" + EnumFlapeSyrup.SYRUP_WMELLON.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECANDY + "_" + EnumFlapeSyrup.SYRUP_black.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECANDY + "_" + EnumFlapeSyrup.SYRUP_APPLE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECANDY + "_" + EnumFlapeSyrup.SYRUP_BLACK.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECANDY + "_" + EnumFlapeSyrup.SYRUP_STRAWBERRY.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECANDY + "_" + EnumFlapeSyrup.SYRUP_MELON.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECANDY + "_" + EnumFlapeSyrup.SYRUP_CHOCOLATE.getFlavor(), "inventory"),
@@ -481,6 +579,10 @@ public class ItemFoods {
 			{put(NAME_MEETRAMEN, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_MEETRAMEN, "inventory")});}
 			{put(NAME_FISHRAMEN, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_FISHRAMEN, "inventory")});}
 			{put(NAME_EGGRAMEN, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_EGGRAMEN, "inventory")});}
+			{put(NAME_MEETMILL_BEEF, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_MEETMILL_BEEF, "inventory")});}
+			{put(NAME_MEETMILL_POKE, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_MEETMILL_POKE, "inventory")});}
+			{put(NAME_MEETMILL_CHIKIN, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_MEETMILL_CHIKIN, "inventory")});}
+			{put(NAME_MEETMILL_MUTTON, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":"+NAME_MEETMILL_MUTTON, "inventory")});}
 
 			{put(NAME_DUST_FLOWER,new ModelResourceLocation[]{
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_DUST_FLOWER + "_" + EnumFlowerHalb.DANDELION.getFlavor(), "inventory"),
@@ -511,22 +613,26 @@ public class ItemFoods {
 	}
 
 	public static enum EnumIceFlavor{
-		ICE_VANILA(0,"vanila"),
-		ICE_CHOCO(1,"choco"),
-		ICE_PUMPKIN(2,"pumpkin"),
-		ICE_black(3,"black"),
-		ICE_MELLON(4,"mellon"),
-		ICE_CALLOT(5,"callot"),
-		ICE_POTATO(6,"potato"),
-		ICE_APPLE(7,"apple");
+		ICE_VANILA(0,"vanila",2,0.5F),
+		ICE_CHOCO(1,"choco",2,0.8F),
+		ICE_PUMPKIN(2,"pumpkin",2,0.8F),
+		ICE_black(3,"black",2,0.8F),
+		ICE_MELLON(4,"mellon",2,0.8F),
+		ICE_CALLOT(5,"carrot",2,0.8F),
+		ICE_POTATO(6,"potato",2,0.8F),
+		ICE_APPLE(7,"apple",2,0.8F);
 
 		private int index;
 		private int damage;
 		private String fravor;
-		private EnumIceFlavor(int idx, String name){
+		private int foodLevel;
+		private float foodSaturation;
+		private EnumIceFlavor(int idx, String name, int healamount, float saturation){
 			index = idx;
 			damage = idx;
 			fravor = name;
+			foodLevel = healamount;
+			foodSaturation = saturation;
 		}
 
 		private static final EnumIceFlavor[] values = {ICE_VANILA,ICE_CHOCO,ICE_PUMPKIN,ICE_black,ICE_MELLON,ICE_CALLOT,ICE_POTATO,ICE_APPLE};
@@ -534,43 +640,53 @@ public class ItemFoods {
 		public int getIndex(){return this.index;}
 		public int getDamage(){return this.damage;}
 		public String getFlavor(){return this.fravor;}
-		public EnumIceFlavor getValue(int index){return values[index];}
+		public static EnumIceFlavor getValue(int index){return values[index];}
 	}
 
 	public static enum EnumFlapeSyrup{
-		SYRUP_NONE(0,""),
-		SYRUP_SUGAR(1,"sugar"),
-		SYRUP_PUMPKIN(2,"pumpkin"),
-		SYRUP_CACTUS(3,"cactus"),
-		SYRUP_WMELLON(4,"wmellon"),
-		SYRUP_black(5,"black"),
-		SYRUP_STRAWBERRY(6,"strawberry"),
-		SYRUP_MELON(7,"melon"),
-		SYRUP_CHOCOLATE(8,"choco"),
-		SYRUP_POTION(9,"potion"),
-		SYRUP_BERRY(10,"berry"),
-		SYRUP_BLUEHAWAII(11,"bluehawaii"),
-		SYRUP_COCONUT(12,"coconut"),
-		SYRUP_MATCHER(13,"matcher"),
-		SYRUP_PEACH(14,"peach"),
-		SYRUP_LIME(15,"lime"),
-		SYRUP_LEMON(16,"lemon"),
-		SYRUP_SODA(17,"soda"),
-		SYRUP_GRAPE(18,"grape"),
-		SYRUP_ORANGE(19,"orange"),
-		SYRUP_CALUCIUM(20,"calucium");
+		SYRUP_NONE(0,"none",1,0.1F,new PotionEffect[]{null}),
+		SYRUP_SUGAR(1,"sugar",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1)}),
+		SYRUP_PUMPKIN(2,"pumpkin",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1)}),
+		SYRUP_CACTUS(3,"cactus",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,2)}),
+		SYRUP_WMELLON(4,"wmellon",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,2),
+															new PotionEffect(MobEffects.heal,0,1)}),
+		SYRUP_APPLE(5,"apple",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1),
+														new PotionEffect(MobEffects.regeneration,200,1)}),
+		SYRUP_BLACK(6,"black",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1),
+															new PotionEffect(MobEffects.blindness,200,1)}),
+		SYRUP_STRAWBERRY(7,"strawberry",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1)}),
+		SYRUP_MELON(8,"mellon",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1)}),
+		SYRUP_CHOCOLATE(9,"choco",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1)}),
+		SYRUP_POTION(10,"potion",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.wither,600,5)}),
+		SYRUP_BERRY(11,"berry",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1)}),
+		SYRUP_BLUEHAWAII(12,"bluehawaii",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,1800,5)}),
+		SYRUP_COCONUT(13,"coconut",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1)}),
+		SYRUP_MATCHER(14,"matcher",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1)}),
+		SYRUP_PEACH(15,"peach",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1)}),
+		SYRUP_LIME(16,"lime",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1)}),
+		SYRUP_LEMON(17,"lemon",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1)}),
+		SYRUP_SODA(18,"soda",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,1200,3)}),
+		SYRUP_GRAPE(19,"grape",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1)}),
+		SYRUP_ORANGE(20,"orange",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,600,1)}),
+		SYRUP_CALUCIUM(21,"calucium",1,0.2F, new PotionEffect[]{new PotionEffect(MobEffects.regeneration,1200,3)});
 
 		private int index;
 		private int damage;
 		private String flavor;
-		private EnumFlapeSyrup(int idx,String name){
+		private int foodLevel;
+		private float foodSaturation;
+		private PotionEffect[] potion;
+		private EnumFlapeSyrup(int idx,String name, int healamount, float saturation, PotionEffect[] effects){
 			index = idx;
 			damage = idx;
 			flavor = name;
+			foodLevel = healamount;
+			foodSaturation = saturation;
+			potion = effects;
 		}
 
 		private static final EnumFlapeSyrup[] values = {SYRUP_NONE,SYRUP_SUGAR,SYRUP_PUMPKIN,
-														SYRUP_CACTUS,SYRUP_WMELLON,SYRUP_black,SYRUP_STRAWBERRY,
+														SYRUP_CACTUS,SYRUP_WMELLON,SYRUP_APPLE,SYRUP_BLACK,SYRUP_STRAWBERRY,
 														SYRUP_MELON,SYRUP_CHOCOLATE,SYRUP_POTION,SYRUP_BERRY,SYRUP_BLUEHAWAII,
 														SYRUP_COCONUT,SYRUP_MATCHER,SYRUP_PEACH,SYRUP_LIME,SYRUP_LEMON,SYRUP_SODA,SYRUP_GRAPE,
 														SYRUP_ORANGE,SYRUP_CALUCIUM};
@@ -578,7 +694,7 @@ public class ItemFoods {
 		public int getIndex(){return this.index;}
 		public int getDamage(){return this.damage;}
 		public String getFlavor(){return this.flavor;}
-		public EnumFlapeSyrup getValue(int index){return values[index];}
+		public static EnumFlapeSyrup getValue(int index){return values[index];}
 	}
 
 	public static enum EnumFlowerHalb{
@@ -608,6 +724,6 @@ public class ItemFoods {
 		public int getIndex(){return this.index;}
 		public int getDamage(){return this.damage;}
 		public String getFlavor(){return this.flavor;}
-		public EnumFlowerHalb getValue(int index){return values[index];}
+		public static EnumFlowerHalb getValue(int index){return values[index];}
 	}
 }

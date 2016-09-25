@@ -2,15 +2,15 @@ package mod.drf.core;
 
 public final class ModCommon {
 	// デバッグモードかどうか
-	public static boolean isDebug = false;
+	public static boolean isDebug = true;
 	// 開発モードかどうか
 	public static boolean isDeveloped = false;
 
 	// モッドID
-	public static final String MOD_ID = "drm";
+	public static final String MOD_ID = "drf";
 	// モッド名
 	public static final String MOD_NAME = "DiningFurniture";
-	public static final String MOD_PACKAGE = "mod.drm";
+	public static final String MOD_PACKAGE = "mod.drf";
 	public static final String MOD_CLIENT_SIDE = ".client.ClientProxy";
 	public static final String MOD_SERVER_SIDE = ".core.CommonProxy";
 	public static final String MOD_FACTRY = ".client.config.drmFactory";

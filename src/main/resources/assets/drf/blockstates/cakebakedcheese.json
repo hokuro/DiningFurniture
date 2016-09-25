@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "bites=0": { "model": "drf:cakebakedcheese_uneaten" },
+        "bites=1": { "model": "drf:cakebakedcheese_slice1" },
+        "bites=2": { "model": "drf:cakebakedcheese_slice2" },
+        "bites=3": { "model": "drf:cakebakedcheese_slice3" },
+        "bites=4": { "model": "drf:cakebakedcheese_slice4" },
+        "bites=5": { "model": "drf:cakebakedcheese_slice5" },
+        "bites=6": { "model": "drf:cakebakedcheese_slice6" }
+    }
+}
