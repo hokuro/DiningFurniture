@@ -37,6 +37,7 @@ public class Mod_DiningFurniture {
 		ModRegister.RegisterItem(event);
 //		ModRegister.RegisterEntity(proxy);
 //		ModRegister.RegisterRender(proxy);
+		ModRegister.RegisterSounds();
 	}
 
 	@EventHandler

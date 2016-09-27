@@ -118,13 +118,13 @@ public class BlockFoods {
 	private static final int EffectTime = 1600;
 
 	public static final Block block_freezer          = new BlockFreezer().setCreativeTab(Mod_DiningFurniture.tabColdFood).setUnlocalizedName(NAME_FREEZER);
-	public static final Block block_flapemaker       = new BlockFpapeMaker().setCreativeTab(Mod_DiningFurniture.tabColdFood).setUnlocalizedName(NAME_FLAPEMAKER);
+	public static final Block block_flapemaker       = new BlockFlapeMaker().setCreativeTab(Mod_DiningFurniture.tabColdFood).setUnlocalizedName(NAME_FLAPEMAKER);
 	public static final Block block_mill             = new BlockMill().setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_MILL);
 	public static final Block block_saltpan          = new BlockSaltPan().setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_SALTPAN);
 
 
 	public static final Block block_pie_hall         = new BlockPie(2,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_PIE_HALL);
-	public static final Block block_caramelpie_hall = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_CARAMELPIE_HALL);
+	public static final Block block_caramelpie_hall  = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_CARAMELPIE_HALL);
 	public static final Block block_chocopie_hall    = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_CHOCOPIE_HALL);
 	public static final Block block_salada_hall      = new BlockPie(6,0.3F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_SALADA_HALL);
 	public static final Block block_meetpie_hall     = new BlockPie(8,0.4F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_MEETPIE_HALL);

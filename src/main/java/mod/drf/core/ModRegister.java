@@ -14,6 +14,7 @@ import mod.drf.furniture.entity.EntityChairZabuton;
 import mod.drf.furniture.item.ItemFurniture;
 import mod.drf.furniture.network.TrunkMessageHandler;
 import mod.drf.furniture.network.TrunkPagePacket;
+import mod.drf.sounds.SoundManager;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
@@ -54,6 +55,7 @@ public class ModRegister {
 		if ( event.getSide().isClient())
 		{
 			for ( String key: keyList){
+				if (!resourceMap.containsKey(key)){continue;}
 				if (ModCommon.isDebug){ModLog.log().debug("モデル登録:"+ key+"登録");}
 				Item witem = Item.getItemFromBlock(blockMap.get(key));
 				ResourceLocation[] wresource = resourceMap.get(key);
@@ -1429,4 +1431,12 @@ public class ModRegister {
 	public static void RegisterMessage(){
 		Mod_DiningFurniture.Net_Instance.registerMessage(TrunkMessageHandler.class, TrunkPagePacket.class, ModCommon.MESSAGE_ID_TRUNKDATA, Side.SERVER);
 	}
+
+
+
+	public static void RegisterSounds(){
+
+		GameRegistry.register(SoundManager.sound_makeflape);
+	}
+
 }

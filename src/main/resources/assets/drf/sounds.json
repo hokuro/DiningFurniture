@@ -1,0 +1,14 @@
+{
+  "block.foods.makeflape":{
+    "category":"blocks",
+    "sounds":[
+      {
+        "name": "drf:blocks/flapemake",
+        "weight": 1,
+        "volume": 1,
+        "pitch":1,
+        "stream":false
+      }
+    ]
+  }
+}
