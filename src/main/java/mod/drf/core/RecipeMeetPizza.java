@@ -74,8 +74,7 @@ public class RecipeMeetPizza implements IRecipe {
 
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-		outitem.stackSize=1;
-        return outitem;
+        return new ItemStack(ItemFoods.item_row_meetpizza,1);
 	}
 
 	@Override

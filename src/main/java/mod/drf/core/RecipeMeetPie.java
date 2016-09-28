@@ -89,7 +89,7 @@ public class RecipeMeetPie implements IRecipe {
 
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-        return outitem;
+        return  new ItemStack(ItemFoods.item_row_meethallpie,1);
 	}
 
 	@Override
