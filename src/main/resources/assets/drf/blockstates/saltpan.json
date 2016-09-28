@@ -1,5 +1,7 @@
 {
     "variants": {
-        "normal":{ "model":"drf:saltpan" }
+        "levle=0":{ "model":"drf:saltpan" },
+        "levle=1":{ "model":"drf:saltpan_fill" },
+        "levle=2":{ "model":"drf:saltpan_salt" }
     }
 }

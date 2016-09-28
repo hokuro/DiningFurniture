@@ -1,7 +1,7 @@
 package mod.drf.inventory;
 
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 
-public interface ICnvertInventory extends IInventory {
+public interface ICnvertInventory extends ISidedInventory {
 
 }

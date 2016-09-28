@@ -41,5 +41,7 @@ public final class ModCommon {
 	public static final int TrunkCsize = 13;
 	public static final int TRUNK_MAX_PAGE = 10;
 	public static final int MESSAGE_ID_TRUNKDATA = 0;
+	public static final String MOD_GUI_FLAPEMAKER_NAME = "IceCrassher";
+	public static final String MOD_GUI_MILL_NAME = "Mill";
 
 }
