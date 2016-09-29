@@ -1,14 +1,14 @@
 package mod.drf.foods.tileentity;
 
 import mod.drf.core.ModCommon;
-import mod.drf.foods.Item.ItemFoods;
+import mod.drf.inventory.ContainerFlapeMaker;
 import mod.drf.inventory.ICnvertInventory;
+import mod.drf.recipie.OriginalRecipie;
+import mod.drf.recipie.OriginalRecipie.ORIGINAL_RECIPIES;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerFurnace;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
@@ -106,16 +106,19 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 		if (!this.worldObj.isRemote)
 		{
 			if (flag){
+				if (this.flapeItemStack[0] == null){
+					// 氷がないので停止
+					this.crushTime = -1;
+				}
 				if (this.flapeItemStack[1] != null && this.flapeItemStack[1].stackSize >= (this.getInventoryStackLimit()-CRUSH_SIZE)){
 					// 完成物がたまりすぎているので停止
 					this.crushTime = -1;
 				}
-				if (this.flapeItemStack[0] != null){
-					// 氷がないので停止
-					this.crushTime = -1;
-				}
 			}else{
-				if (this.flapeItemStack[0] != null && this.flapeItemStack[1].stackSize >= (this.getInventoryStackLimit()-CRUSH_SIZE)){
+				if (this.flapeItemStack[0] != null){
+					if (this.flapeItemStack[1] !=null && this.flapeItemStack[1].stackSize >= (this.getInventoryStackLimit()-CRUSH_SIZE)){
+						return;
+					}
 					// クラッシュ開始
 					this.crushTime = CRUSH_TIME_MAX;
 				}else if (this.flapeItemStack[0] != null  && this.crushTime == 0){
@@ -128,7 +131,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 					}
 					// 完成品をインベントリに排出
 					if (flapeItemStack[1] == null){
-						flapeItemStack[1] = new ItemStack(ItemFoods.item_flape,CRUSH_SIZE);
+						flapeItemStack[1] = OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_CRASHING, flapeItemStack[0]);
 					}else{
 						flapeItemStack[1].stackSize += CRUSH_SIZE;
 					}
@@ -268,7 +271,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 		{
 			return false;
 		}
-		return ((stack.getItem() == Item.getItemFromBlock(Blocks.ice)) || (stack.getItem() == Item.getItemFromBlock(Blocks.frosted_ice)));
+		return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_CRASHING, stack);
 	}
 
 	@Override
@@ -294,7 +297,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 
 	@Override
 	public int getFieldCount() {
-		 return 4;
+		 return 1;
 	}
 
 	@Override
@@ -318,7 +321,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 
 	@Override
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-		 return new ContainerFurnace(playerInventory, this);
+		 return new ContainerFlapeMaker(playerInventory, this);
 	}
 
 	@Override

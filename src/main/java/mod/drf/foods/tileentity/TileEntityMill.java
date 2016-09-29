@@ -1,20 +1,15 @@
 package mod.drf.foods.tileentity;
 
 import mod.drf.core.ModCommon;
-import mod.drf.foods.Item.ItemFoods;
-import mod.drf.foods.Item.ItemFoods.EnumFlowerHalb;
+import mod.drf.inventory.ContainerMill;
 import mod.drf.inventory.ICnvertInventory;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDoublePlant;
-import net.minecraft.block.BlockDoublePlant.EnumPlantType;
-import net.minecraft.block.BlockFlower;
-import net.minecraft.block.BlockFlower.EnumFlowerType;
+import mod.drf.recipie.OriginalRecipie;
+import mod.drf.recipie.OriginalRecipie.ORIGINAL_RECIPIES;
+import mod.drf.util.ModUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerFurnace;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
@@ -35,7 +30,7 @@ public class TileEntityMill extends TileEntityLockable implements ICnvertInvento
 	private static final int[] slotsTop = new int[] {0};
 	private static final int[] slotsBottom = new int[] {1};
 	private static final int[] slotsSides = new int[] {1};
-	private int crushTime;
+	private int millingTime;
 
 	public void readFromNBT(NBTTagCompound compound)
 	{
@@ -54,7 +49,7 @@ public class TileEntityMill extends TileEntityLockable implements ICnvertInvento
 			}
 		}
 
-		this.crushTime = compound.getInteger("BurnTime");
+		this.millingTime = compound.getInteger("BurnTime");
 
 		if (compound.hasKey("CustomName", 8))
 		{
@@ -65,7 +60,7 @@ public class TileEntityMill extends TileEntityLockable implements ICnvertInvento
 	public void writeToNBT(NBTTagCompound compound)
 	{
 		super.writeToNBT(compound);
-		compound.setInteger("BurnTime", this.crushTime);
+		compound.setInteger("BurnTime", this.millingTime);
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < this.millItemStack.length; ++i)
@@ -89,7 +84,7 @@ public class TileEntityMill extends TileEntityLockable implements ICnvertInvento
 
 	public boolean isRunning()
 	{
-		return this.crushTime > 0;
+		return this.millingTime > 0;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -105,37 +100,44 @@ public class TileEntityMill extends TileEntityLockable implements ICnvertInvento
 
 		if (this.isRunning())
 		{
-			--this.crushTime;
+			--this.millingTime;
 		}
 
 		if (!this.worldObj.isRemote)
 		{
 			if (flag){
+				if (this.millItemStack[0] == null){
+					// 対象アイテムがないので停止
+					this.millingTime = -1;
+				}
 				if (this.millItemStack[1] != null && this.millItemStack[1].stackSize >= (this.getInventoryStackLimit()-CRUSH_SIZE)){
 					// 完成物がたまりすぎているので停止
-					this.crushTime = -1;
-				}
-				if (this.millItemStack[0] != null){
-					// 氷がないので停止
-					this.crushTime = -1;
+					this.millingTime = -1;
 				}
 			}else{
-				if (this.millItemStack[0] != null && this.millItemStack[1].stackSize >= (this.getInventoryStackLimit()-CRUSH_SIZE)){
-					// クラッシュ開始
-					this.crushTime = CRUSH_TIME_MAX;
-				}else if (this.millItemStack[0] != null  && this.crushTime == 0){
+				if (this.millItemStack[0] != null){
+					if (this.millItemStack[1] != null){
+						if (this.millItemStack[1].stackSize >= (this.getInventoryStackLimit()-CRUSH_SIZE) ||
+								!ModUtil.compareItemStacks(millItemStack[1], this.resultMilling(this.millItemStack[0]))){
+							return;
+						}
+					}
+					this.millingTime = CRUSH_TIME_MAX;
+				}else if (this.millItemStack[0] != null  && this.millingTime == 0){
 					// 動作を停止
-					this.crushTime = -1;
-					// 氷の数を減らし、0ならインベントリから削除
+					this.millingTime = -1;
+
+					// 完成品をインベントリに排出
+					if (millItemStack[1] == null){
+						millItemStack[1] = this.resultMilling(millItemStack[0]);
+					}else{
+						millItemStack[1].stackSize += CRUSH_SIZE;
+					}
+
+					// アイテムの数を減らし、0ならインベントリから削除
 					this.millItemStack[0].stackSize --;
 					if (this.millItemStack[0].stackSize <= 0){
 						this.millItemStack[0] = null;
-					}
-					// 完成品をインベントリに排出
-					if (millItemStack[1] == null){
-						millItemStack[1] = new ItemStack(ItemFoods.item_flape,CRUSH_SIZE);
-					}else{
-						millItemStack[1].stackSize += CRUSH_SIZE;
 					}
 				}
 			}
@@ -273,8 +275,7 @@ public class TileEntityMill extends TileEntityLockable implements ICnvertInvento
 		{
 			return false;
 		}
-		Block stackBlock = Block.getBlockFromItem(stack.getItem());
-		return (stackBlock instanceof BlockFlower || stackBlock instanceof BlockDoublePlant);
+		return canMilling(stack);
 	}
 
 	@Override
@@ -282,7 +283,7 @@ public class TileEntityMill extends TileEntityLockable implements ICnvertInvento
 		switch (id)
 		{
 			case 0:
-				return this.crushTime;
+				return this.millingTime;
 			default:
 				return 0;
 		}
@@ -293,14 +294,14 @@ public class TileEntityMill extends TileEntityLockable implements ICnvertInvento
 		switch (id)
 		{
 			case 0:
-				this.crushTime = value;
+				this.millingTime = value;
 				break;
 		}
 	}
 
 	@Override
 	public int getFieldCount() {
-		 return 4;
+		 return 1;
 	}
 
 	@Override
@@ -324,7 +325,7 @@ public class TileEntityMill extends TileEntityLockable implements ICnvertInvento
 
 	@Override
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-		 return new ContainerFurnace(playerInventory, this);
+		 return new ContainerMill(playerInventory, this);
 	}
 
 	@Override
@@ -336,97 +337,11 @@ public class TileEntityMill extends TileEntityLockable implements ICnvertInvento
 		this.millCustomName = displayName;
 	}
 
-
-	private static final ItemStack[] listMillingItem = {
-		new ItemStack(Items.beef),
-		new ItemStack(Items.porkchop),
-		new ItemStack(Items.chicken),
-		new ItemStack(Items.mutton),
-		new ItemStack(Items.wheat),
-		new ItemStack(Blocks.red_flower),
-		new ItemStack(Blocks.yellow_flower),
-		new ItemStack(Blocks.double_plant,1,EnumPlantType.SUNFLOWER.getMeta()),
-		new ItemStack(Blocks.double_plant,1,EnumPlantType.ROSE.getMeta()),
-		new ItemStack(Blocks.double_plant,1,EnumPlantType.PAEONIA.getMeta()),
-		new ItemStack(Blocks.double_plant,1,EnumPlantType.SYRINGA.getMeta()),
-		new ItemStack(Blocks.red_flower,1,EnumFlowerType.ALLIUM.getMeta()),
-		new ItemStack(Blocks.red_flower,1,EnumFlowerType.PINK_TULIP.getMeta()),
-		new ItemStack(Blocks.red_flower,1,EnumFlowerType.ORANGE_TULIP.getMeta()),
-		new ItemStack(Blocks.red_flower,1,EnumFlowerType.RED_TULIP.getMeta()),
-		new ItemStack(Blocks.red_flower,1,EnumFlowerType.WHITE_TULIP.getMeta()),
-		new ItemStack(Blocks.red_flower,1,EnumFlowerType.BLUE_ORCHID.getMeta()),
-		new ItemStack(Blocks.red_flower,1,EnumFlowerType.DANDELION.getMeta()),
-		new ItemStack(Blocks.red_flower,1,EnumFlowerType.HOUSTONIA.getMeta()),
-		new ItemStack(Blocks.red_flower,1,EnumFlowerType.OXEYE_DAISY.getMeta()),
-		new ItemStack(Blocks.red_flower,1,EnumFlowerType.POPPY.getMeta())};
-
 	private boolean canMilling(ItemStack stack){
-		return (indexMillingItem(stack)>=0);
-	}
-
-	private int indexMillingItem(ItemStack stack){
-		int check = -1;
-		for (int i = 0; i < listMillingItem.length; i++){
-			if (stack.getItem() == listMillingItem[i].getItem()){
-				check = i;
-				break;
-			}
-		}
-		return check;
+		return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_MILLING, stack);
 	}
 
 	private ItemStack resultMilling(ItemStack stack){
-		int i = indexMillingItem(stack);
-		switch(i){
-		case 0:
-			return new ItemStack(ItemFoods.item_millbeef,1);
-
-		case 1:
-			return new ItemStack(ItemFoods.item_millpoke,1);
-
-		case 2:
-			return new ItemStack(ItemFoods.item_millchikin,1);
-
-		case 3:
-			return new ItemStack(ItemFoods.item_millmutton,1);
-
-		case 4:
-			return new ItemStack(ItemFoods.item_flour,1);
-
-		case 5:
-			return new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.SUNFLOWER.getDamage());
-
-		case 6:
-			return new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.ROSE.getDamage());
-
-		case 7 :
-			return new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.PEONY.getDamage());
-
-		case 8:
-			return new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.LILAC.getDamage());
-
-		case 9:
-			return new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.ALLIUM.getDamage());
-
-		case 10:
-		case 11:
-		case 12:
-		case 13:
-			return new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.TULIP.getDamage());
-
-		case 14:
-			return new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.ORCHID.getDamage());
-
-		case 15:
-		return new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.DANDELION.getDamage());
-
-		case 16:
-			return new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.OXEYDAISY.getDamage());
-		case 17:
-			return new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.POPY.getDamage());
-
-		}
-		return null;
+		return OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_MILLING, stack);
 	}
-
 }

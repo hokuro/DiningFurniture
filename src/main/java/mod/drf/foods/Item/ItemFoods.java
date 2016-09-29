@@ -432,18 +432,18 @@ public class ItemFoods {
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICE_MIX + "_" + EnumIceFlavor.ICE_VANILA.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICE_MIX + "_" + EnumIceFlavor.ICE_CHOCO.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICE_MIX + "_" + EnumIceFlavor.ICE_PUMPKIN.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICE_MIX + "_" + EnumIceFlavor.ICE_black.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICE_MIX + "_" + EnumIceFlavor.ICE_BLACK.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICE_MIX + "_" + EnumIceFlavor.ICE_MELLON.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICE_MIX + "_" + EnumIceFlavor.ICE_CALLOT.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICE_MIX + "_" + EnumIceFlavor.ICE_CARROT.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICE_MIX + "_" + EnumIceFlavor.ICE_POTATO.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICE_MIX + "_" + EnumIceFlavor.ICE_APPLE.getFlavor(), "inventory")});}
 			{put(NAME_ICECREAM, new ModelResourceLocation[]{
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECREAM + "_" + EnumIceFlavor.ICE_VANILA.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECREAM + "_" + EnumIceFlavor.ICE_CHOCO.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECREAM + "_" + EnumIceFlavor.ICE_PUMPKIN.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECREAM + "_" + EnumIceFlavor.ICE_black.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECREAM + "_" + EnumIceFlavor.ICE_BLACK.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECREAM + "_" + EnumIceFlavor.ICE_MELLON.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECREAM + "_" + EnumIceFlavor.ICE_CALLOT.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECREAM + "_" + EnumIceFlavor.ICE_CARROT.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECREAM + "_" + EnumIceFlavor.ICE_POTATO.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_ICECREAM + "_" + EnumIceFlavor.ICE_APPLE.getFlavor(), "inventory")});}
 
@@ -616,9 +616,9 @@ public class ItemFoods {
 		ICE_VANILA(0,"vanila",2,0.5F),
 		ICE_CHOCO(1,"choco",2,0.8F),
 		ICE_PUMPKIN(2,"pumpkin",2,0.8F),
-		ICE_black(3,"black",2,0.8F),
+		ICE_BLACK(3,"black",2,0.8F),
 		ICE_MELLON(4,"mellon",2,0.8F),
-		ICE_CALLOT(5,"carrot",2,0.8F),
+		ICE_CARROT(5,"carrot",2,0.8F),
 		ICE_POTATO(6,"potato",2,0.8F),
 		ICE_APPLE(7,"apple",2,0.8F);
 
@@ -635,7 +635,7 @@ public class ItemFoods {
 			foodSaturation = saturation;
 		}
 
-		private static final EnumIceFlavor[] values = {ICE_VANILA,ICE_CHOCO,ICE_PUMPKIN,ICE_black,ICE_MELLON,ICE_CALLOT,ICE_POTATO,ICE_APPLE};
+		private static final EnumIceFlavor[] values = {ICE_VANILA,ICE_CHOCO,ICE_PUMPKIN,ICE_BLACK,ICE_MELLON,ICE_CARROT,ICE_POTATO,ICE_APPLE};
 
 		public int getIndex(){return this.index;}
 		public int getDamage(){return this.damage;}

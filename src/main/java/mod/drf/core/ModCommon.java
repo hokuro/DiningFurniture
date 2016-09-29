@@ -43,5 +43,6 @@ public final class ModCommon {
 	public static final int MESSAGE_ID_TRUNKDATA = 0;
 	public static final String MOD_GUI_FLAPEMAKER_NAME = "IceCrassher";
 	public static final String MOD_GUI_MILL_NAME = "Mill";
+	public static final String MOD_GUI_FREEZER_NAME = "Freezer";
 
 }
