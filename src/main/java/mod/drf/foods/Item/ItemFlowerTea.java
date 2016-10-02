@@ -4,10 +4,17 @@ import java.util.List;
 
 import mod.drf.foods.Item.ItemFoods.EnumFlowerHalb;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.stats.StatList;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -33,5 +40,43 @@ public class ItemFlowerTea extends ItemPotion {
         {
         	subItems.add(new ItemStack(this, 1, halb.getDamage()));
         }
+    }
+
+
+
+    @Override
+    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
+    {
+        if (entityLiving instanceof EntityPlayer && !((EntityPlayer)entityLiving).capabilities.isCreativeMode)
+        {
+            --stack.stackSize;
+        }
+
+        if (!worldIn.isRemote)
+        {
+        	EnumFlowerHalb halb = EnumFlowerHalb.getValue(stack.getItemDamage());
+        	if (halb == EnumFlowerHalb.PEONY){entityLiving.extinguish();}
+        	else{
+            	Potion[] effect = halb.getPotion();
+            	if (effect != null){
+            		if (halb.isClean()){
+                		for (int i = 0; i < effect.length; i++){
+            				entityLiving.removePotionEffect(effect[i]);
+                		}
+            		}else{
+            			for (int i = 0; i < effect.length; i++){
+            				entityLiving.addPotionEffect(new PotionEffect(effect[i],20*10,1));
+            			}
+            		}
+            	}
+        	}
+        }
+
+        if (entityLiving instanceof EntityPlayer)
+        {
+            ((EntityPlayer)entityLiving).addStat(StatList.func_188057_b(this));
+        }
+
+        return stack.stackSize <= 0 ? new ItemStack(Items.bucket) : stack;
     }
 }

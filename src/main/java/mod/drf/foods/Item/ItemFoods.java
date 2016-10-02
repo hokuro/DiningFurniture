@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 public class ItemFoods {
@@ -230,7 +231,6 @@ public class ItemFoods {
 	public static final String NAME_DUST_FLOWER="flowerdust";
 	// 花のお茶
 	public static final String NAME_TEA_FLOWER="flowertea";
-
 
 	public static final Item item_choco                 = new ItemFood(1,0.1f,false).setUnlocalizedName(NAME_CHOCO).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
 	public static final Item item_whitechoco            = new ItemFood(1,0.5f,false).setUnlocalizedName(NAME_WHITECHOCO).setCreativeTab(Mod_DiningFurniture.tabPieCakes);
@@ -595,7 +595,8 @@ public class ItemFoods {
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_DUST_FLOWER + "_" + EnumFlowerHalb.SUNFLOWER.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_DUST_FLOWER + "_" + EnumFlowerHalb.LILAC.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_DUST_FLOWER + "_" + EnumFlowerHalb.ROSE.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_DUST_FLOWER + "_" + EnumFlowerHalb.PEONY.getFlavor(), "inventory")});}
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_DUST_FLOWER + "_" + EnumFlowerHalb.PEONY.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_DUST_FLOWER + "_" + EnumFlowerHalb.PANACEA.getFlavor(), "inventory")});}
 
 			{put(NAME_TEA_FLOWER,new ModelResourceLocation[]{
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_TEA_FLOWER + "_" + EnumFlowerHalb.DANDELION.getFlavor(), "inventory"),
@@ -608,7 +609,8 @@ public class ItemFoods {
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_TEA_FLOWER + "_" + EnumFlowerHalb.SUNFLOWER.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_TEA_FLOWER + "_" + EnumFlowerHalb.LILAC.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_TEA_FLOWER + "_" + EnumFlowerHalb.ROSE.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_TEA_FLOWER + "_" + EnumFlowerHalb.PEONY.getFlavor(), "inventory")});}
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_TEA_FLOWER + "_" + EnumFlowerHalb.PEONY.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_TEA_FLOWER + "_" + EnumFlowerHalb.PANACEA.getFlavor(), "inventory")});}
 		});
 	}
 
@@ -694,36 +696,56 @@ public class ItemFoods {
 		public int getIndex(){return this.index;}
 		public int getDamage(){return this.damage;}
 		public String getFlavor(){return this.flavor;}
+		public int getFoodLevel(){return foodLevel;}
+		public float getFoodSaturation(){return foodSaturation;}
+		public PotionEffect[] getPotion(){return potion;}
 		public static EnumFlapeSyrup getValue(int index){return values[index];}
 	}
 
 	public static enum EnumFlowerHalb{
-		DANDELION(0,0,"dandelion"),
-		POPY(1,1,"popy"),
-		ORCHID(2,2,"orchid"),
-		ALLIUM(3,3,"allium"),
-		AZUREBLUET(4,4,"azurebluet"),
-		TULIP(5,5,"tulip"),
-		OXEYDAISY(6,6,"oxeydaisy"),
-		SUNFLOWER(7,7,"sunflower"),
-		LILAC(8,8,"lilac"),
-		ROSE(9,9,"rose"),
-		PEONY(10,10,"peony");
+		DANDELION(0,0,"dandelion",new Potion[]{MobEffects.unluck}),
+		POPY(1,1,"popy",new Potion[]{MobEffects.confusion}),
+		ORCHID(2,2,"orchid",new Potion[]{MobEffects.poison},false),
+		ALLIUM(3,3,"allium",new Potion[]{MobEffects.poison}),
+		AZUREBLUET(4,4,"azurebluet",new Potion[]{MobEffects.wither}),
+		TULIP(5,5,"tulip",new Potion[]{MobEffects.moveSlowdown}),
+		OXEYDAISY(6,6,"oxeydaisy",new Potion[]{MobEffects.hunger}),
+		SUNFLOWER(7,7,"sunflower",new Potion[]{MobEffects.blindness}),
+		LILAC(8,8,"lilac",new Potion[]{MobEffects.digSlowdown}),
+		ROSE(9,9,"rose",new Potion[]{MobEffects.weakness}),
+		PEONY(10,10,"peony",new Potion[]{null}),
+		PANACEA(11,11,"panacea",new Potion[]{MobEffects.blindness,MobEffects.confusion,MobEffects.digSlowdown,
+				MobEffects.hunger,MobEffects.moveSlowdown,MobEffects.unluck,MobEffects.weakness,MobEffects.wither});
 
 		private int index;
 		private int damage;
 		private String flavor;
-		private EnumFlowerHalb(int idx, int dmg, String flv){
+		private Potion[] effect;
+		private boolean isClean;
+
+		private EnumFlowerHalb(int idx, int dmg, String flv, Potion[] effect){
 			this.index = idx;
 			this.damage = dmg;
 			this.flavor = flv;
+			this.effect = effect;
+			this.isClean = true;
 		}
 
-		private static final EnumFlowerHalb[] values = {DANDELION,POPY,ORCHID,ALLIUM,AZUREBLUET,TULIP,OXEYDAISY,SUNFLOWER,LILAC,ROSE,PEONY};
+		private EnumFlowerHalb(int idx, int dmg, String flv, Potion[] effect,boolean clean){
+			this.index = idx;
+			this.damage = dmg;
+			this.flavor = flv;
+			this.effect = effect;
+			this.isClean = clean;
+		}
+
+		private static final EnumFlowerHalb[] values = {DANDELION,POPY,ORCHID,ALLIUM,AZUREBLUET,TULIP,OXEYDAISY,SUNFLOWER,LILAC,ROSE,PEONY,PANACEA};
 
 		public int getIndex(){return this.index;}
 		public int getDamage(){return this.damage;}
 		public String getFlavor(){return this.flavor;}
+		public Potion[] getPotion(){return effect;}
+		public boolean isClean(){return isClean;}
 		public static EnumFlowerHalb getValue(int index){return values[index];}
 	}
 }

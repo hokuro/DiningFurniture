@@ -35,7 +35,7 @@ public class Mod_DiningFurniture {
 	public void preInit(FMLPreInitializationEvent event) {
 		ModRegister.RegisterBlock(event);
 		ModRegister.RegisterItem(event);
-//		ModRegister.RegisterEntity(proxy);
+		ModRegister.RegisterEntity(proxy);
 //		ModRegister.RegisterRender(proxy);
 		ModRegister.RegisterSounds();
 	}

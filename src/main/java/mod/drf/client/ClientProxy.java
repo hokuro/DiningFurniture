@@ -1,6 +1,7 @@
 package mod.drf.client;
 
 import mod.drf.core.CommonProxy;
+import mod.drf.foods.tileentity.TileEntitySaltPan;
 import mod.drf.furniture.entity.EntityChairZabuton;
 import mod.drf.furniture.item.ItemChairZabuton;
 import mod.drf.furniture.item.ItemFurniture;
@@ -13,10 +14,17 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ClientProxy extends CommonProxy{
+
+	@SideOnly(Side.CLIENT)
+	public void registerTileEntity(){
+		GameRegistry.registerTileEntity(TileEntitySaltPan.class, "TileEntitySaltPan");
+	}
+
 
 	@SideOnly(Side.CLIENT)
 	public void registRender(){

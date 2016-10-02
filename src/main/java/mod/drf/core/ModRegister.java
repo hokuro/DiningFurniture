@@ -10,7 +10,6 @@ import mod.drf.foods.Item.ItemFoods.EnumFlapeSyrup;
 import mod.drf.foods.Item.ItemFoods.EnumFlowerHalb;
 import mod.drf.foods.block.BlockFoods;
 import mod.drf.furniture.block.BlockFurniture;
-import mod.drf.furniture.entity.EntityChairZabuton;
 import mod.drf.furniture.item.ItemFurniture;
 import mod.drf.furniture.network.TrunkMessageHandler;
 import mod.drf.furniture.network.TrunkPagePacket;
@@ -26,7 +25,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -99,7 +97,9 @@ public class ModRegister {
 	}
 
 	public static void RegisterEntity(CommonProxy proxy){
-		EntityRegistry.registerModEntity(EntityChairZabuton.class, EntityChairZabuton.NAME, 0, Mod_DiningFurniture.instance, 80, 3, true);
+		//EntityRegistry.registerModEntity(EntityChairZabuton.class, EntityChairZabuton.NAME, 0, Mod_DiningFurniture.instance, 80, 3, true);
+
+		proxy.registerTileEntity();
 	}
 
 	public static void RegisterRender(CommonProxy proxy){
@@ -887,6 +887,17 @@ public class ModRegister {
 		//***************************************************************************//
 		// Item flower tea
 		//***************************************************************************//
+		// item_flowerdust
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.PANACEA.getDamage()),
+				new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.ALLIUM.getDamage()),
+				new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.TULIP.getDamage()),
+				new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.SUNFLOWER.getDamage()),
+				new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.DANDELION.getDamage()),
+				new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.ROSE.getDamage()),
+				new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.POPY.getDamage()),
+				new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.ORCHID.getDamage()),
+				new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.LILAC.getDamage()),
+				new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.AZUREBLUET.getDamage()));
 		// item_teaflower
 		for (EnumFlowerHalb halb : EnumFlowerHalb.values()){
 			GameRegistry.addShapelessRecipe(new ItemStack(ItemFoods.item_teaflower,1,halb.getDamage()),

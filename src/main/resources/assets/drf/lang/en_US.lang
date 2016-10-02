@@ -116,6 +116,7 @@ item.flowerdust.sunflower.name=Sunflower Dust
 item.flowerdust.lilac.name=Lilac Dust
 item.flowerdust.rose.name=Rose Dust
 item.flowerdust.peony.name=Peony Dust
+item.flowerdust.panacea.name=Panacea
 item.flowertea.dandelion=Dandelion Tea
 item.flowertea.popy=Popy Tea
 item.flowertea.orchid=Orchid Tea
@@ -126,7 +127,8 @@ item.flowertea.oxeydaisy=Oxeydaisy Tea
 item.flowertea.sunflower=SunFloaer Tea
 item.flowertea.lilac=Lilac Tea
 item.flowertea.rose=Rose Tea
-item.flowertea.peony=Peony Tea
+item.flowertea.peony=Peony Teat
+item.flowertea.panacea.name=Panacea Tea
 
 tile.freezer.name=Freezer
 tile.flapemaker.name=FlapeMaker

@@ -3,8 +3,8 @@ package mod.drf.foods.block;
 import java.util.List;
 import java.util.Random;
 
-import mod.drf.foods.Item.ItemFoods;
-import net.minecraft.block.Block;
+import mod.drf.foods.tileentity.TileEntitySaltPan;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
@@ -14,10 +14,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
@@ -27,10 +31,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockSaltPan extends Block {
+public class BlockSaltPan extends BlockContainer {
 
-    public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 3);
-    protected static final AxisAlignedBB AABB_LEGS = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.3125D, 1.0D);
+    public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 2);
+    protected static final AxisAlignedBB AABB_LEGS = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125, 1.0D);
     protected static final AxisAlignedBB AABB_WALL_NORTH = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.0625D);
     protected static final AxisAlignedBB AABB_WALL_SOUTH = new AxisAlignedBB(0.0D, 0.0D, 0.9375D, 1.0D, 1.0D, 1.0D);
     protected static final AxisAlignedBB AABB_WALL_EAST = new AxisAlignedBB(0.9375D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
@@ -40,19 +44,6 @@ public class BlockSaltPan extends Block {
 		super(Material.glass);
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
 	}
-
-
-    public int tickRate(World worldIn)
-    {
-        return 300;
-    }
-
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        if (state.getValue(LEVEL)==1){
-        	worldIn.setBlockState(pos, state.withProperty(LEVEL, Integer.valueOf(2)));
-        }
-    }
 
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB p_185477_4_, List<AxisAlignedBB> p_185477_5_, Entity p_185477_6_)
     {
@@ -83,10 +74,10 @@ public class BlockSaltPan extends Block {
         int i = ((Integer)state.getValue(LEVEL)).intValue();
         float f = (float)pos.getY() + (6.0F + (float)(3 * i)) / 16.0F;
 
-        if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && entityIn.getEntityBoundingBox().minY <= (double)f)
+        if (!worldIn.isRemote && entityIn.isBurning() && i == EnumSaltPanLevel.FILL.getLevel() && entityIn.getEntityBoundingBox().minY <= (double)f)
         {
             entityIn.extinguish();
-            this.setWaterLevel(worldIn, pos, state, i - 1);
+            this.setWaterLevel(worldIn, pos, state, EnumSaltPanLevel.EMPTY);
         }
     }
 
@@ -98,68 +89,87 @@ public class BlockSaltPan extends Block {
         }
         else
         {
-            int i = ((Integer)state.getValue(LEVEL)).intValue();
-            Item item = heldItem.getItem();
+            TileEntity tileentity = worldIn.getTileEntity(pos);
+            if (tileentity instanceof TileEntitySaltPan)
+            {
+                int level = ((Integer)state.getValue(LEVEL)).intValue();
+                Item item = heldItem.getItem();
 
-            if ( i== 2){
-            	if (item instanceof ItemSpade){
-            		if (!worldIn.isRemote){
-            			if (!playerIn.capabilities.isCreativeMode){
-            				playerIn.inventory.addItemStackToInventory(new ItemStack(ItemFoods.item_salt,6));
-            				heldItem.damageItem(1, playerIn);
-            			}
-            		}
-                    worldIn.playSound(playerIn, pos, SoundEvents.item_shovel_flatten, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    playerIn.addStat(StatList.cauldronUsed);
-                    this.setWaterLevel(worldIn, pos, state, 0);
-            	}
-            }else if (i == 1){
-            	if ( item == Items.bucket){
-            		 if (i == 1 && !worldIn.isRemote)
-                     {
-                         if (!playerIn.capabilities.isCreativeMode)
+                if ( level== 2){
+                	if (item instanceof ItemSpade){
+                		if (!worldIn.isRemote){
+                			if (!playerIn.capabilities.isCreativeMode){
+                                	// エンティティのインベントリの中身をドロップさせる
+                					InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntitySaltPan)tileentity);
+                					((TileEntitySaltPan) tileentity).clear();
+                                    worldIn.updateComparatorOutputLevel(pos, this);
+                    				heldItem.damageItem(1, playerIn);
+                			}
+                		}
+                        worldIn.playSound(playerIn, pos, SoundEvents.item_shovel_flatten, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        playerIn.addStat(StatList.cauldronUsed);
+                	}else if(item==Items.water_bucket){
+                		return true;
+                	}
+                }else if (level == 1){
+                	if ( item == Items.bucket){
+                		 if (level == 1 && !worldIn.isRemote)
                          {
-                             --heldItem.stackSize;
+                             if (!playerIn.capabilities.isCreativeMode)
+                             {
+                                 --heldItem.stackSize;
 
-                             if (heldItem.stackSize == 0)
-                             {
-                                 playerIn.setHeldItem(hand, new ItemStack(Items.water_bucket));
+                                 if (heldItem.stackSize == 0)
+                                 {
+                                     playerIn.setHeldItem(hand, new ItemStack(Items.water_bucket));
+                                 }
+                                 else if (!playerIn.inventory.addItemStackToInventory(new ItemStack(Items.water_bucket)))
+                                 {
+                                     playerIn.dropPlayerItemWithRandomChoice(new ItemStack(Items.water_bucket), false);
+                                 }
                              }
-                             else if (!playerIn.inventory.addItemStackToInventory(new ItemStack(Items.water_bucket)))
-                             {
-                                 playerIn.dropPlayerItemWithRandomChoice(new ItemStack(Items.water_bucket), false);
-                             }
+                             ((TileEntitySaltPan) tileentity).clear();
                          }
-
-                         playerIn.addStat(StatList.cauldronUsed);
-                         this.setWaterLevel(worldIn, pos, state, 0);
-                     }
-            	}
-            }else{
-            	if (item == Items.water_bucket)
-                {
-                    if (i == 0 && !worldIn.isRemote)
+                		 return true;
+                	}else if(item==Items.water_bucket){
+                		return true;
+                	}
+                }else{
+                	if (item == Items.water_bucket)
                     {
-                        if (!playerIn.capabilities.isCreativeMode)
+                        if (level == 0 && !worldIn.isRemote)
                         {
-                            playerIn.setHeldItem(hand, new ItemStack(Items.bucket));
+                            if (!playerIn.capabilities.isCreativeMode)
+                            {
+                                playerIn.setHeldItem(hand, new ItemStack(Items.bucket));
+                            }
+                            ((TileEntitySaltPan) tileentity).setInventorySlotContents(0, new ItemStack(Items.potionitem));
                         }
-
-                        playerIn.addStat(StatList.cauldronFilled);
-                        this.setWaterLevel(worldIn, pos, state, 1);
+                        return true;
                     }
-
-                    return true;
                 }
             }
         }
         return false;
     }
 
-    public void setWaterLevel(World worldIn, BlockPos pos, IBlockState state, int level)
+    public static void setWaterLevel(World worldIn, BlockPos pos, IBlockState state, EnumSaltPanLevel level)
     {
-        worldIn.setBlockState(pos, state.withProperty(LEVEL, Integer.valueOf(MathHelper.clamp_int(level, 0, 3))), 2);
-        worldIn.updateComparatorOutputLevel(pos, this);
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        IBlockState saltPan = state.withProperty(LEVEL, Integer.valueOf(MathHelper.clamp_int(level.getLevel(), 0, 3)));
+        worldIn.setBlockState(pos, saltPan, 2);
+        worldIn.updateComparatorOutputLevel(pos, saltPan.getBlock());
+
+        if (tileentity != null)
+        {
+            tileentity.validate();
+            worldIn.setTileEntity(pos, tileentity);
+        }
+    }
+
+    public int getWaterLevel(World worldIn, BlockPos pos)
+    {
+    	return worldIn.getBlockState(pos).getValue(LEVEL);
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
@@ -191,4 +201,59 @@ public class BlockSaltPan extends Block {
     {
         return true;
     }
+
+    public boolean hasComparatorInputOverride(IBlockState state)
+    {
+        return true;
+    }
+
+    public EnumBlockRenderType getRenderType(IBlockState state)
+    {
+        return EnumBlockRenderType.MODEL;
+    }
+
+    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
+    {
+        return Container.calcRedstone(worldIn.getTileEntity(pos));
+    }
+
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    {
+    	int level = state.getValue(LEVEL);
+    	if (level == 2){
+        	TileEntity tileentity = worldIn.getTileEntity(pos);
+        	if (tileentity != null && tileentity instanceof TileEntitySaltPan){
+    			InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntitySaltPan)tileentity);
+    			((TileEntitySaltPan) tileentity).clear();
+    			worldIn.updateComparatorOutputLevel(pos, this);
+        	}
+    	}
+        super.breakBlock(worldIn, pos, state);
+    }
+
+
+	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
+		return new TileEntitySaltPan();
+	}
+
+	public static enum EnumSaltPanLevel{
+		EMPTY(0,"empty"),
+		FILL(1,"fill"),
+		SATL(2,"salt");
+
+
+		private static final EnumSaltPanLevel[] values = {EMPTY,FILL,SATL};
+		private int index;
+		private String name;
+		private EnumSaltPanLevel(int level, String str){
+			index = level;
+			name = str;
+		}
+
+		public int getLevel(){return index;}
+		public String getString(){return name;}
+		public EnumSaltPanLevel getValue(int level){return values[level];}
+
+	}
 }

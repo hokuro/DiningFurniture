@@ -1,5 +1,9 @@
 {
     "variants": {
-        "normal":{ "model":"drf:freezer" }
+        "facing=north": { "model": "drf:freezer"},
+        "facing=south": { "model": "drf:freezer", "y": 180 },
+        "facing=west":  { "model": "drf:freezer", "y": 270 },
+        "facing=east":  { "model": "drf:freezer", "y": 90 }
     }
 }
+

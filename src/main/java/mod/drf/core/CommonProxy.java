@@ -1,5 +1,6 @@
 package mod.drf.core;
 
+import mod.drf.foods.tileentity.TileEntitySaltPan;
 import mod.drf.furniture.client.gui.GuiTrunk;
 import mod.drf.furniture.inventory.ContainerTrunk;
 import mod.drf.furniture.inventory.InventoryTrunk;
@@ -8,8 +9,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CommonProxy implements IGuiHandler {
+
+	public void registerTileEntity(){
+		GameRegistry.registerTileEntity(TileEntitySaltPan.class, "TileEntitySaltPan");
+	}
+
 	public void registRender(){
 	}
 

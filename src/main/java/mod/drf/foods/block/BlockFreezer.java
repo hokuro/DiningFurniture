@@ -34,6 +34,17 @@ public class BlockFreezer extends BlockHorizontalContainer {
 		super(Material.glass);
 	}
 
+    public boolean isOpaqueCube(IBlockState state)
+    {
+        return false;
+    }
+
+    public boolean isFullCube(IBlockState state)
+    {
+        return false;
+    }
+
+
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityFlapeMaker();

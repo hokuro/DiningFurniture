@@ -1,5 +1,12 @@
 {
     "variants": {
-        "normal":{ "model":"drf:flapemaker" }
+        "facing=north,isrun=true": { "model": "drf:flapemaker"},
+        "facing=south,isrun=true": { "model": "drf:flapemaker", "y": 180 },
+        "facing=west,isrun=true":  { "model": "drf:flapemaker", "y": 270 },
+        "facing=east,isrun=true":  { "model": "drf:flapemaker", "y": 90 },
+        "facing=north,isrun=false": { "model": "drf:flapemaker"},
+        "facing=south,isrun=false": { "model": "drf:flapemaker", "y": 180 },
+        "facing=west,isrun=false":  { "model": "drf:flapemaker", "y": 270 },
+        "facing=east,isrun=false":  { "model": "drf:flapemaker", "y": 90 }
     }
 }

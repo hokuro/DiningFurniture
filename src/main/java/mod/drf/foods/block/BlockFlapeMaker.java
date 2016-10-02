@@ -36,6 +36,17 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
     		new AxisAlignedBB(0.9375D, 0D, 0.125D, 0.0625D, 1D, 0.875D)		// EAST
     };
 
+    public boolean isOpaqueCube(IBlockState state)
+    {
+        return false;
+    }
+
+    public boolean isFullCube(IBlockState state)
+    {
+        return false;
+    }
+
+
     protected BlockFlapeMaker()
     {
         super(Material.glass);
