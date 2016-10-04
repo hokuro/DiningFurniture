@@ -41,9 +41,19 @@ public final class ModCommon {
 	public static final int TrunkCsize = 13;
 	public static final int TRUNK_MAX_PAGE = 10;
 	public static final int MESSAGE_ID_TRUNKDATA = 0;
-	public static final String MOD_GUI_FLAPEMAKER_NAME = "IceCrassher";
-	public static final String MOD_GUI_MILL_NAME = "Mill";
-	public static final String MOD_GUI_FREEZER_NAME = "Freezer";
-	public static final String MOD_GUI_SALTPAN_NAME = "SaltPan";
+
+
+	// GUI ID
+	public static final int MOD_GUI_ID_FLAPEMAKER = 1;
+	public static final int MOD_GUI_ID_MILL = 2;
+	public static final int MOD_GUI_ID_FREEZER = 3;
+	public static final int MOD_GUI_ID_TRUNK = 104;
+	public static final int MOD_GUI_ID_UNLIMITANVIL = 102;
+	public static final int MOD_GUI_ID_ENTDELETER = 103;
+	// GUI NAME
+	public static final String MOD_GUI_FLAPEMAKER_NAME = ModCommon.MOD_ID + ":IceCrassher";
+	public static final String MOD_GUI_MILL_NAME = ModCommon.MOD_ID + ":Mill";
+	public static final String MOD_GUI_FREEZER_NAME = ModCommon.MOD_ID + ":Freezer";
+	public static final String MOD_GUI_SALTPAN_NAME = ModCommon.MOD_ID + ":SaltPan";
 
 }

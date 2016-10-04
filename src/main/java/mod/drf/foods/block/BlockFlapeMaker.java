@@ -2,6 +2,8 @@ package mod.drf.foods.block;
 
 import java.util.Random;
 
+import mod.drf.core.ModCommon;
+import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.foods.tileentity.TileEntityFlapeMaker;
 import mod.drf.sounds.SoundManager;
 import net.minecraft.block.material.Material;
@@ -26,7 +28,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockFlapeMaker extends BlockHorizontalContainer {
 	public static final PropertyBool ISRUN = PropertyBool.create("isrun");
-    private static boolean keepInventory;
+
+    // あたり判定
     private static final AxisAlignedBB[] colligeBox =  new AxisAlignedBB[] {
     		new AxisAlignedBB(0D, 0D, 0D, 0D, 0D, 0D), // 不使用
     		new AxisAlignedBB(0D, 0D, 0D, 0D, 0D, 0D), // 不使用
@@ -35,6 +38,12 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
     		new AxisAlignedBB(0.0625D, 0D, 0.125D, 0.9375D, 1D, 0.875D),	// WEST
     		new AxisAlignedBB(0.9375D, 0D, 0.125D, 0.0625D, 1D, 0.875D)		// EAST
     };
+
+    protected BlockFlapeMaker()
+    {
+        super(Material.glass);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ISRUN, false));
+    }
 
     public boolean isOpaqueCube(IBlockState state)
     {
@@ -47,15 +56,9 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
     }
 
 
-    protected BlockFlapeMaker()
-    {
-        super(Material.glass);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ISRUN, false));
-    }
-
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityFlapeMaker();
+		return new TileEntityFlapeMaker(this.getStateFromMeta(meta).getValue(ISRUN));
 	}
 
     /**
@@ -73,6 +76,20 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
             return colligeBox[idx];
     	}
     	return colligeBox[2];
+    }
+
+    public static void SetRun(World worldIn, BlockPos pos, IBlockState state, boolean isRun)
+    {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        IBlockState flapeMaker = state.withProperty(ISRUN, isRun);
+        worldIn.setBlockState(pos, flapeMaker, 2);
+        worldIn.updateComparatorOutputLevel(pos, flapeMaker.getBlock());
+
+        if (tileentity != null)
+        {
+            tileentity.validate();
+            worldIn.setTileEntity(pos, tileentity);
+        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -126,18 +143,13 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
 
             if (tileentity instanceof TileEntityFlapeMaker)
             {
-            	// TODO: FlapeMaker GUI
-//                playerIn.displayGUIChest((TileEntityFurnace)tileentity);
-//                playerIn.addStat(StatList.furnaceInteraction);
+            	playerIn.openGui(Mod_DiningFurniture.instance, ModCommon.MOD_GUI_ID_FLAPEMAKER, worldIn, pos.getX(), pos.getY(), pos.getZ());
             }
 
             return true;
         }
     }
 
-    /**
-     * Called by ItemBlocks after a block is set in the world, to allow post-place logic
-     */
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
         worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
@@ -155,17 +167,13 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (!keepInventory)
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+
+        if (tileentity instanceof TileEntityFlapeMaker)
         {
-            TileEntity tileentity = worldIn.getTileEntity(pos);
-
-            if (tileentity instanceof TileEntityFlapeMaker)
-            {
-                InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityFlapeMaker)tileentity);
-                worldIn.updateComparatorOutputLevel(pos, this);
-            }
+            InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityFlapeMaker)tileentity);
+            worldIn.updateComparatorOutputLevel(pos, this);
         }
-
         super.breakBlock(worldIn, pos, state);
     }
 
@@ -178,7 +186,6 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
     {
         return new BlockStateContainer(this, new IProperty[] {ISRUN,FACING});
     }
-
 
 	/**
      * Convert the given metadata into a BlockState for this Block

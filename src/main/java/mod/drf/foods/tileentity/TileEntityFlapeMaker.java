@@ -24,28 +24,38 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class TileEntityFlapeMaker extends TileEntityLockable implements ITickable, ICnvertInventory {
 	private static final int CRUSH_TIME_MAX = 100;
 	private static final int CRUSH_SIZE = 4;
-	private ItemStack[] flapeItemStack = new ItemStack[2];
-	private String makercustomname;
+	private ItemStack[] inventory = new ItemStack[2];
+	private String customName;
+	private boolean isRun;
+	private int crushTime;
 
 	private static final int[] slotsTop = new int[] {0};
 	private static final int[] slotsBottom = new int[] {1};
 	private static final int[] slotsSides = new int[] {1};
-	private int crushTime;
+
+	public TileEntityFlapeMaker(){
+		isRun = false;
+		crushTime = 0;
+	}
+
+	public TileEntityFlapeMaker(boolean isRun){
+		this.isRun = isRun;
+	}
 
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);
 		NBTTagList nbttaglist = compound.getTagList("Items", 10);
-		this.flapeItemStack = new ItemStack[this.getSizeInventory()];
+		this.inventory = new ItemStack[this.getSizeInventory()];
 
 		for (int i = 0; i < nbttaglist.tagCount(); ++i)
 		{
 			NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
 			int j = nbttagcompound.getByte("Slot");
 
-			if (j >= 0 && j < this.flapeItemStack.length)
+			if (j >= 0 && j < this.inventory.length)
 			{
-				this.flapeItemStack[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
+				this.inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
 			}
 		}
 
@@ -53,7 +63,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 
 		if (compound.hasKey("CustomName", 8))
 		{
-			this.makercustomname = compound.getString("CustomName");
+			this.customName = compound.getString("CustomName");
 		}
 	}
 
@@ -63,13 +73,13 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 		compound.setInteger("BurnTime", this.crushTime);
 		NBTTagList nbttaglist = new NBTTagList();
 
-		for (int i = 0; i < this.flapeItemStack.length; ++i)
+		for (int i = 0; i < this.inventory.length; ++i)
 		{
-			if (this.flapeItemStack[i] != null)
+			if (this.inventory[i] != null)
 			{
 				NBTTagCompound nbttagcompound = new NBTTagCompound();
 				nbttagcompound.setByte("Slot", (byte)i);
-				this.flapeItemStack[i].writeToNBT(nbttagcompound);
+				this.inventory[i].writeToNBT(nbttagcompound);
 				nbttaglist.appendTag(nbttagcompound);
 			}
 		}
@@ -78,7 +88,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 
 		if (this.hasCustomName())
 		{
-			compound.setString("CustomName", this.makercustomname);
+			compound.setString("CustomName", this.customName);
 		}
 	}
 
@@ -106,34 +116,34 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 		if (!this.worldObj.isRemote)
 		{
 			if (flag){
-				if (this.flapeItemStack[0] == null){
+				if (this.inventory[0] == null){
 					// 氷がないので停止
 					this.crushTime = -1;
 				}
-				if (this.flapeItemStack[1] != null && this.flapeItemStack[1].stackSize >= (this.getInventoryStackLimit()-CRUSH_SIZE)){
+				if (this.inventory[1] != null && this.inventory[1].stackSize >= (this.getInventoryStackLimit()-CRUSH_SIZE)){
 					// 完成物がたまりすぎているので停止
 					this.crushTime = -1;
 				}
 			}else{
-				if (this.flapeItemStack[0] != null){
-					if (this.flapeItemStack[1] !=null && this.flapeItemStack[1].stackSize >= (this.getInventoryStackLimit()-CRUSH_SIZE)){
+				if (this.inventory[0] != null){
+					if (this.inventory[1] !=null && this.inventory[1].stackSize >= (this.getInventoryStackLimit()-CRUSH_SIZE)){
 						return;
 					}
 					// クラッシュ開始
 					this.crushTime = CRUSH_TIME_MAX;
-				}else if (this.flapeItemStack[0] != null  && this.crushTime == 0){
+				}else if (this.inventory[0] != null  && this.crushTime == 0){
 					// 動作を停止
 					this.crushTime = -1;
 					// 氷の数を減らし、0ならインベントリから削除
-					this.flapeItemStack[0].stackSize --;
-					if (this.flapeItemStack[0].stackSize <= 0){
-						this.flapeItemStack[0] = null;
+					this.inventory[0].stackSize --;
+					if (this.inventory[0].stackSize <= 0){
+						this.inventory[0] = null;
 					}
 					// 完成品をインベントリに排出
-					if (flapeItemStack[1] == null){
-						flapeItemStack[1] = OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_CRASHING, flapeItemStack[0]);
+					if (inventory[1] == null){
+						inventory[1] = OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_CRASHING, inventory[0]);
 					}else{
-						flapeItemStack[1].stackSize += CRUSH_SIZE;
+						inventory[1].stackSize += CRUSH_SIZE;
 					}
 				}
 			}
@@ -208,28 +218,28 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 
 	@Override
 	public int getSizeInventory() {
-		return this.flapeItemStack.length;
+		return this.inventory.length;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
-		return this.flapeItemStack[index];
+		return this.inventory[index];
 	}
 
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
-		 return ItemStackHelper.func_188382_a(this.flapeItemStack, index, count);
+		 return ItemStackHelper.func_188382_a(this.inventory, index, count);
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		return ItemStackHelper.func_188383_a(this.flapeItemStack, index);
+		return ItemStackHelper.func_188383_a(this.inventory, index);
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		boolean flag = stack != null && stack.isItemEqual(this.flapeItemStack[index]) && ItemStack.areItemStackTagsEqual(stack, this.flapeItemStack[index]);
-		this.flapeItemStack[index] = stack;
+		boolean flag = stack != null && stack.isItemEqual(this.inventory[index]) && ItemStack.areItemStackTagsEqual(stack, this.inventory[index]);
+		this.inventory[index] = stack;
 
 		if (stack != null && stack.stackSize > this.getInventoryStackLimit())
 		{
@@ -303,20 +313,20 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 	@Override
 	public void clear()
 	{
-		for (int i = 0; i < this.flapeItemStack.length; ++i)
+		for (int i = 0; i < this.inventory.length; ++i)
 		{
-			this.flapeItemStack[i] = null;
+			this.inventory[i] = null;
 		}
 	}
 
 	@Override
 	public String getName() {
-		return this.hasCustomName() ? this.makercustomname : "container.flapemaker";
+		return this.hasCustomName() ? this.customName : "container.flapemaker";
 	}
 
 	@Override
 	public boolean hasCustomName() {
-		return this.makercustomname != null && !this.makercustomname.isEmpty();
+		return this.customName != null && !this.customName.isEmpty();
 	}
 
 	@Override
@@ -330,7 +340,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 	}
 
 	public void setCustomInventoryName(String displayName) {
-		this.makercustomname = displayName;
+		this.customName = displayName;
 	}
 
 }
