@@ -88,6 +88,7 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
         if (tileentity != null)
         {
             tileentity.validate();
+            ((TileEntityFlapeMaker)tileentity).setField(0, isRun?1:0);
             worldIn.setTileEntity(pos, tileentity);
         }
     }

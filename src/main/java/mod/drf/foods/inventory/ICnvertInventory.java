@@ -1,4 +1,4 @@
-package mod.drf.inventory;
+package mod.drf.foods.inventory;
 
 import net.minecraft.inventory.ISidedInventory;
 

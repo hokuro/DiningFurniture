@@ -1,4 +1,4 @@
-package mod.drf.inventory;
+package mod.drf.foods.inventory;
 
 import mod.drf.foods.tileentity.TileEntityFlapeMaker;
 import mod.drf.recipie.OriginalRecipie;

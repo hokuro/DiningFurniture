@@ -1,4 +1,4 @@
-package mod.drf.inventory;
+package mod.drf.foods.inventory;
 
 import mod.drf.foods.tileentity.TileEntityMill;
 import net.minecraft.entity.player.EntityPlayer;

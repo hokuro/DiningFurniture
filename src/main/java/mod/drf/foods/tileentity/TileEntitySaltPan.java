@@ -5,7 +5,7 @@ import mod.drf.core.log.ModLog;
 import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.block.BlockSaltPan;
 import mod.drf.foods.block.BlockSaltPan.EnumSaltPanLevel;
-import mod.drf.inventory.ICnvertInventory;
+import mod.drf.foods.inventory.ICnvertInventory;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;

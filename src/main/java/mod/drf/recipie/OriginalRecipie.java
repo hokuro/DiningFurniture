@@ -110,6 +110,7 @@ public class OriginalRecipie {
 	}
 
 	public boolean canConvert(ORIGINAL_RECIPIES kind, ItemStack input)throws IllegalArgumentException{
+		if ( input == null) {return false;}
 		Map<ItemStack,ItemStack> list = getList(kind);
 		if (list == null) {new IllegalArgumentException();}
 
@@ -117,6 +118,7 @@ public class OriginalRecipie {
 	}
 
 	public ItemStack getResultItem(ORIGINAL_RECIPIES kind, ItemStack input)throws IllegalArgumentException{
+		if ( input == null) {return null;}
 		Map<ItemStack,ItemStack> list = getList(kind);
 		if (list == null) {new IllegalArgumentException();}
 
@@ -129,7 +131,7 @@ public class OriginalRecipie {
         {
             if (ModUtil.compareItemStacks(stack, (ItemStack)entry.getKey()))
             {
-                return (ItemStack)entry.getValue();
+                return (ItemStack)entry.getValue().copy();
             }
         }
 

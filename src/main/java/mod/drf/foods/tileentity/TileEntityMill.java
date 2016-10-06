@@ -1,8 +1,8 @@
 package mod.drf.foods.tileentity;
 
 import mod.drf.core.ModCommon;
-import mod.drf.inventory.ContainerMill;
-import mod.drf.inventory.ICnvertInventory;
+import mod.drf.foods.inventory.ContainerMill;
+import mod.drf.foods.inventory.ICnvertInventory;
 import mod.drf.recipie.OriginalRecipie;
 import mod.drf.recipie.OriginalRecipie.ORIGINAL_RECIPIES;
 import mod.drf.util.ModUtil;
