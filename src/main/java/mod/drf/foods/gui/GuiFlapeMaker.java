@@ -1,9 +1,9 @@
 package mod.drf.foods.gui;
 
+import mod.drf.foods.inventory.ContainerFlapeMaker;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.ContainerFurnace;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 
@@ -13,11 +13,11 @@ public class GuiFlapeMaker extends GuiContainer {
     private IInventory tileFlapeMaker;
 
 
-    public GuiFlapeMaker(InventoryPlayer playerInv, IInventory furnaceInv)
+    public GuiFlapeMaker(InventoryPlayer player, IInventory flapeMaker)
     {
-        super(new ContainerFurnace(playerInv, furnaceInv));
-        this.playerInventory = playerInv;
-        this.tileFlapeMaker = furnaceInv;
+        super(new ContainerFlapeMaker(player, flapeMaker));
+        this.playerInventory = player;
+        this.tileFlapeMaker = flapeMaker;
     }
 
     @Override

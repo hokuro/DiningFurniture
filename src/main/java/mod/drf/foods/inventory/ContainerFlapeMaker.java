@@ -1,6 +1,5 @@
 package mod.drf.foods.inventory;
 
-import mod.drf.foods.tileentity.TileEntityFlapeMaker;
 import mod.drf.recipie.OriginalRecipie;
 import mod.drf.recipie.OriginalRecipie.ORIGINAL_RECIPIES;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,7 +16,7 @@ public class ContainerFlapeMaker extends Container {
 	private final IInventory tile;
 	private int crushTime;
 
-	public ContainerFlapeMaker(InventoryPlayer playerInventory, TileEntityFlapeMaker tileEntityFlapeMaker) {
+	public ContainerFlapeMaker(InventoryPlayer playerInventory, IInventory tileEntityFlapeMaker) {
 		this.tile = tileEntityFlapeMaker;
 		this.addSlotToContainer(new Slot(tile, 0, 56, 17));
 		this.addSlotToContainer(new Slot(tile, 1, 56, 53));
