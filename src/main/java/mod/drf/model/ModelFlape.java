@@ -19,14 +19,17 @@ public class ModelFlape extends ModelBase
     ModelRenderer casecupbase;
     ModelRenderer casecupsid2;
     ModelRenderer casecupsid1;
-    ModelRenderer Ice1;
+    ModelRenderer ice1;
     ModelRenderer ice2;
     ModelRenderer ice3;
+
+    private ModelRenderer[] models;
 
   public ModelFlape()
   {
     textureWidth = 96;
     textureHeight = 64;
+    models = new ModelRenderer[]{ice3,ice2,ice1,casebase,caseporl,casecupbase,casecupsid1,casecupsid2,casecupsid3,casecupsid4};
 
       casebase = new ModelRenderer(this, 0, 0);
       casebase.addBox(-4F, 0F, -4F, 8, 1, 8);
@@ -70,12 +73,12 @@ public class ModelFlape extends ModelBase
       casecupsid1.setTextureSize(64, 32);
       casecupsid1.mirror = true;
       setRotation(casecupsid1, 0F, 0F, 0F);
-      Ice1 = new ModelRenderer(this, 0, 50);
-      Ice1.addBox(-4F, -15F, -4F, 8, 6, 8);
-      Ice1.setRotationPoint(0F, 23F, 0F);
-      Ice1.setTextureSize(64, 32);
-      Ice1.mirror = true;
-      setRotation(Ice1, 0F, 0F, 0F);
+      ice1 = new ModelRenderer(this, 0, 50);
+      ice1.addBox(-4F, -15F, -4F, 8, 6, 8);
+      ice1.setRotationPoint(0F, 23F, 0F);
+      ice1.setTextureSize(64, 32);
+      ice1.mirror = true;
+      setRotation(ice1, 0F, 0F, 0F);
       ice2 = new ModelRenderer(this, 0, 40);
       ice2.addBox(-3F, -19F, -3F, 6, 3, 6);
       ice2.setRotationPoint(0F, 24F, 0F);
@@ -90,20 +93,55 @@ public class ModelFlape extends ModelBase
       setRotation(ice3, 0F, 0F, 0F);
   }
 
-  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+
+  public void render(EnumFlapeLevel level, float rx, float ry, float rz, float scale){
+	  switch(level){
+		case LEVEL0:
+			ice1.isHidden = true;
+			ice2.isHidden = true;
+			ice3.isHidden = true;
+			break;
+		case LEVEL1:
+			ice1.isHidden = false;
+			ice2.isHidden = true;
+			ice2.isHidden = true;
+			break;
+		case LEVEL2:
+			ice1.isHidden = true;
+			ice2.isHidden = true;
+			ice3.isHidden = false;
+			break;
+		case LEVEL3:
+			ice1.isHidden = true;
+			ice2.isHidden = true;
+			ice3.isHidden = true;
+			break;
+		default:
+			ice1.isHidden = true;
+			ice2.isHidden = true;
+			ice3.isHidden = true;
+			break;
+	  }
+	  for (int i = 0; i < models.length; i++){
+		  setRotation(models[i],rx,ry,rz);
+		  models[i].render(scale);
+	  }
+  }
+
+  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float scale)
   {
-    super.render(entity, f, f1, f2, f3, f4, f5);
-    setRotationAngles(f, f1, f2, f3, f4, f5);
-    casebase.render(f5);
-    casecupsid4.render(f5);
-    casecupsid3.render(f5);
-    caseporl.render(f5);
-    casecupbase.render(f5);
-    casecupsid2.render(f5);
-    casecupsid1.render(f5);
-    Ice1.render(f5);
-    ice2.render(f5);
-    ice3.render(f5);
+    super.render(entity, f, f1, f2, f3, f4, scale);
+    setRotationAngles(f, f1, f2, f3, f4, scale);
+    casebase.render(scale);
+    casecupsid4.render(scale);
+    casecupsid3.render(scale);
+    caseporl.render(scale);
+    casecupbase.render(scale);
+    casecupsid2.render(scale);
+    casecupsid1.render(scale);
+    ice1.render(scale);
+    ice2.render(scale);
+    ice3.render(scale);
   }
 
   private void setRotation(ModelRenderer model, float x, float y, float z)
@@ -113,9 +151,33 @@ public class ModelFlape extends ModelBase
     model.rotateAngleZ = z;
   }
 
-  public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
+  public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float scale)
   {
-    super.setRotationAngles(f, f1, f2, f3, f4, f5, null);
+    super.setRotationAngles(f, f1, f2, f3, f4, scale, null);
+  }
+
+
+  public static enum EnumFlapeLevel{
+	  LEVEL0,
+	  LEVEL1,
+	  LEVEL2,
+	  LEVEL3,
+	  LEVEL4;
+
+	  private static final EnumFlapeLevel[] values = {LEVEL0,LEVEL1,LEVEL2,LEVEL3,LEVEL4};
+
+	  public static EnumFlapeLevel getValue(int max, int cnt){
+		  int limit = max / values.length;
+		  int level = cnt/limit;
+		  if (level < 0){level = 0;}
+		  if (level >= values.length){level = 4;}
+		  return values[cnt];
+	  }
+
+	  public static float RotationY(int max, int cnt){
+		  int limit = max / values.length;
+		  return (float)((2.0F * Math.PI)/limit * (float)(cnt%limit));
+	  }
   }
 
 }

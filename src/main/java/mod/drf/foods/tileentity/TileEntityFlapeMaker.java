@@ -21,8 +21,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileEntityFlapeMaker extends TileEntityLockable implements ITickable, ICnvertInventory {
-	private static final int CRUSH_TIME_MAX = 100;
-	private static final int CRUSH_SIZE = 4;
+	public static final int CRUSH_TIME_MAX = 100;
+	public static final int CRUSH_SIZE = 4;
 	private ItemStack[] inventory = new ItemStack[2];
 	private String customName;
 	private boolean isRun;

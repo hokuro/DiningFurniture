@@ -4,14 +4,14 @@
 // Keep in mind that you still need to fill in some blanks
 // - ZeuX
 
+package mod.drf.model;
 
+import mod.drf.foods.tileentity.TileEntityFlapeMaker;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
 
-
-
-
-package net.minecraft.src;
-
-public class ModelIcecream extends ModelBase
+public class ModelFlapeMaker extends ModelBase
 {
   //fields
     ModelRenderer Shape1;
@@ -20,12 +20,13 @@ public class ModelIcecream extends ModelBase
     ModelRenderer Shape4;
     ModelRenderer Shape5;
     ModelRenderer Shape6;
-  
-  public ModelIcecream()
+
+    ModelRenderer flapeMaker;
+  public ModelFlapeMaker()
   {
     textureWidth = 92;
     textureHeight = 64;
-    
+
       Shape1 = new ModelRenderer(this, 0, 0);
       Shape1.addBox(-6F, 0F, -5F, 12, 6, 13);
       Shape1.setRotationPoint(0F, 0F, 0F);
@@ -63,29 +64,40 @@ public class ModelIcecream extends ModelBase
       Shape6.mirror = true;
       setRotation(Shape6, 0F, 0F, 0F);
   }
-  
-  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-  {
-    super.render(entity, f, f1, f2, f3, f4, f5);
-    setRotationAngles(f, f1, f2, f3, f4, f5);
-    Shape1.render(f5);
-    Shape2.render(f5);
-    Shape3.render(f5);
-    Shape4.render(f5);
-    Shape5.render(f5);
-    Shape6.render(f5);
+
+  public void render(TileEntityFlapeMaker te, float f, float limbSwing, float ageInTicks, float netHeadYaw, float headPitch, float scale){
+	    super.render(null, f, limbSwing, ageInTicks, netHeadYaw, headPitch, scale);
+	    setRotationAngles(f, limbSwing, ageInTicks, netHeadYaw, headPitch, scale);
+	    Shape1.render(scale);
+	    Shape2.render(scale);
+	    Shape3.render(scale);
+	    Shape4.render(scale);
+	    Shape5.render(scale);
+	    Shape6.render(scale);
   }
-  
+
+  public void render(Entity entity, float f, float limbSwing, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+  {
+    super.render(entity, f, limbSwing, ageInTicks, netHeadYaw, headPitch, scale);
+    setRotationAngles(f, limbSwing, ageInTicks, netHeadYaw, headPitch, scale);
+    Shape1.render(scale);
+    Shape2.render(scale);
+    Shape3.render(scale);
+    Shape4.render(scale);
+    Shape5.render(scale);
+    Shape6.render(scale);
+  }
+
   private void setRotation(ModelRenderer model, float x, float y, float z)
   {
     model.rotateAngleX = x;
     model.rotateAngleY = y;
     model.rotateAngleZ = z;
   }
-  
-  public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
+
+  public void setRotationAngles(float f, float limbSwing, float ageInTicks, float netHeadYaw, float headPitch, float scale)
   {
-    super.setRotationAngles(f, f1, f2, f3, f4, f5);
+    super.setRotationAngles(f, limbSwing, ageInTicks, netHeadYaw, headPitch, scale, null);
   }
 
 }
