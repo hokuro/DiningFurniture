@@ -1,24 +1,27 @@
 package mod.drf.foods.tileentity;
 
+import java.util.Random;
+
 import mod.drf.core.ModCommon;
-import mod.drf.foods.block.BlockFlapeMaker;
+import mod.drf.core.log.ModLog;
 import mod.drf.foods.inventory.ContainerFlapeMaker;
 import mod.drf.foods.inventory.ICnvertInventory;
 import mod.drf.recipie.OriginalRecipie;
 import mod.drf.recipie.OriginalRecipie.ORIGINAL_RECIPIES;
+import mod.drf.sounds.SoundManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.util.SoundCategory;
 
 public class TileEntityFlapeMaker extends TileEntityLockable implements ITickable, ICnvertInventory {
 	public static final int CRUSH_TIME_MAX = 100;
@@ -27,6 +30,8 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 	private String customName;
 	private boolean isRun;
 	private int crushTime;
+	private EnumFacing facing;
+	private Random random = new Random();
 
 	private static final int[] slotsTop = new int[] {0};
 	private static final int[] slotsBottom = new int[] {1};
@@ -37,8 +42,9 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 		crushTime = 0;
 	}
 
-	public TileEntityFlapeMaker(boolean isRun){
+	public TileEntityFlapeMaker(boolean isRun, EnumFacing enumFacing){
 		this.isRun = isRun;
+		this.facing = enumFacing;
 		crushTime = 0;
 	}
 
@@ -60,6 +66,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 		}
 
 		this.crushTime = compound.getInteger("CrushTime");
+		this.isRun = compound.getBoolean("isrun");
 
 		if (compound.hasKey("CustomName", 8))
 		{
@@ -71,6 +78,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 	{
 		super.writeToNBT(compound);
 		compound.setInteger("CrushTime", this.crushTime);
+		compound.setBoolean("isrun", this.isRun);
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < this.inventory.length; ++i)
@@ -97,46 +105,58 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 		return isRun;
 	}
 
-	@SideOnly(Side.CLIENT)
-	public static boolean isRunning(IInventory p_174903_0_)
-	{
-		return p_174903_0_.getField(0) > 0;
+	public EnumFacing face(){
+		return this.facing;
 	}
 
 	public void update()
 	{
-		boolean flag = this.isRunning();
 		boolean flag1 = false;
-
-		if (this.isRunning()){
-			// かきかきちゅう
-			if (OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_CRASHING, inventory[0]) && canOutput()){
-				crushTime++;
+		if (!this.worldObj.isRemote){
+			if (this.isRun){
+				// かきかきちゅう
+				if (canOutput()){
+					crushTime++;
+				}else{
+					// 変換不可のアイテムまたは空っぽ
+					this.isRun = false;
+					flag1 = true;
+				}
 			}else{
-				// 変換不可のアイテムまたは空っぽ
-				BlockFlapeMaker.SetRun(this.worldObj, this.pos, this.worldObj.getBlockState(pos), false);
+				// とまってる
+				if (canOutput()){
+					this.isRun=true;
+					flag1 = true;
+				}
+			}
+			if (this.crushTime > CRUSH_TIME_MAX){
+				// かきごおりかんせい
+				if (this.inventory[1] == null){
+					this.inventory[1] = OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_CRASHING, this.inventory[0]);
+					this.inventory[1].stackSize = CRUSH_SIZE;
+				}else{
+					this.inventory[1].stackSize += CRUSH_SIZE;
+				}
+				this.inventory[0].stackSize--;
+				if (this.inventory[0].stackSize <= 0){
+					this.inventory[0] = null;
+				}
+				this.crushTime = 0;
 				flag1 = true;
 			}
 		}else{
-			// とまってる
-			if (OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_CRASHING, inventory[0]) && canOutput()){
-				//
-				BlockFlapeMaker.SetRun(this.worldObj, this.pos, this.worldObj.getBlockState(pos), true);
-				flag1 = true;
+			if (this.isRun && canOutput()){
+				this.crushTime++;
+	            if (random.nextDouble() < 0.1D)
+	            {
+	            	worldObj.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, SoundManager.sound_makeflape, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+	            }
+			}else{
+				this.crushTime = 0;
 			}
-		}
-
-		if (this.crushTime > CRUSH_TIME_MAX){
-			// かきごおりかんせい
-			if (inventory[1] == null){
-				inventory[1] = OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_CRASHING, inventory[0]);
-				inventory[1].stackSize = CRUSH_SIZE;
+			if (this.crushTime > CRUSH_TIME_MAX){
+				this.crushTime = 0;
 			}
-			inventory[0].stackSize--;
-			if (inventory[0].stackSize <= 0){
-				inventory[0] = null;
-			}
-			flag1 = true;
 		}
 
 		if (flag1)
@@ -159,6 +179,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 	 */
 	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
 	{
+		if (ModCommon.isDebug){ModLog.log().debug("validate (" + Integer.toString(index) + ") " + itemStackIn.getDisplayName());}
 		return this.isItemValidForSlot(index, itemStackIn);
 	}
 
@@ -231,8 +252,9 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 			stack.stackSize = this.getInventoryStackLimit();
 		}
 
-		if (index == 0 && !flag)
+		if (!flag)
 		{
+			this.crushTime = 0;
 			this.markDirty();
 		}
 	}
@@ -332,9 +354,21 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 		this.customName = displayName;
 	}
 
-
 	public boolean canOutput(){
-		return (inventory[1] != null && inventory[1].stackSize < (this.getInventoryStackLimit()-CRUSH_SIZE));
+		return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_CRASHING, this.inventory[0]) && (inventory[1] == null || (inventory[1] != null && inventory[1].stackSize <= (this.getInventoryStackLimit()-CRUSH_SIZE)));
 	}
 
+	@Override
+    public Packet<?> getDescriptionPacket()
+    {
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        this.writeToNBT(nbtTagCompound);
+        return new SPacketUpdateTileEntity(this.pos, 1, nbtTagCompound);
+    }
+
+	@Override
+    public void onDataPacket(net.minecraft.network.NetworkManager net, net.minecraft.network.play.server.SPacketUpdateTileEntity pkt)
+    {
+		this.readFromNBT(pkt.getNbtCompound());
+    }
 }

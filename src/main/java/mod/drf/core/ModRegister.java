@@ -1446,7 +1446,6 @@ public class ModRegister {
 
 
 	public static void RegisterSounds(){
-
 		GameRegistry.register(SoundManager.sound_makeflape);
 	}
 

@@ -14,12 +14,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ContainerFlapeMaker extends Container {
 	private final IInventory tile;
-	private int crushTime;
+	public int crushTime;
 
 	public ContainerFlapeMaker(InventoryPlayer playerInventory, IInventory tileEntityFlapeMaker) {
 		this.tile = tileEntityFlapeMaker;
-		this.addSlotToContainer(new Slot(tile, 0, 56, 17));
-		this.addSlotToContainer(new Slot(tile, 1, 56, 53));
+		this.addSlotToContainer(new SlotFlapeMaker(tile, 0, 80, 17,true));
+		this.addSlotToContainer(new SlotFlapeMaker(tile, 1, 80, 53,false));
 
 
 		for (int i = 0; i < 3; ++i)

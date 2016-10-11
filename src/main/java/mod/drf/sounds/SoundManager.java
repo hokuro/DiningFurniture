@@ -9,5 +9,4 @@ public class SoundManager {
 
 	public static SoundEvent sound_makeflape = new SoundEvent(new ResourceLocation(ModCommon.MOD_ID+":" + SOUND_MAKEFLAPE))
 			.setRegistryName(new ResourceLocation(ModCommon.MOD_ID+":" + SOUND_MAKEFLAPE));
-
 }

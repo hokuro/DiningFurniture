@@ -5,7 +5,6 @@ import java.util.Random;
 import mod.drf.core.ModCommon;
 import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.foods.tileentity.TileEntityFlapeMaker;
-import mod.drf.sounds.SoundManager;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -17,14 +16,12 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockFlapeMaker extends BlockHorizontalContainer {
 	public static final PropertyBool ISRUN = PropertyBool.create("isrun");
@@ -33,10 +30,10 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
     private static final AxisAlignedBB[] colligeBox =  new AxisAlignedBB[] {
     		new AxisAlignedBB(0D, 0D, 0D, 0D, 0D, 0D), // 不使用
     		new AxisAlignedBB(0D, 0D, 0D, 0D, 0D, 0D), // 不使用
-    		new AxisAlignedBB(0.125D, 0D, 0.0625D, 0.875D, 1D, 0.9375D),	// NORTH
-    		new AxisAlignedBB(0.125D, 0D, 0.9375D, 0.875D, 1D, 0.0625D),	// SOUTH
-    		new AxisAlignedBB(0.0625D, 0D, 0.125D, 0.9375D, 1D, 0.875D),	// WEST
-    		new AxisAlignedBB(0.9375D, 0D, 0.125D, 0.0625D, 1D, 0.875D)		// EAST
+    		new AxisAlignedBB(0.125D, 0D, 0.0625D, 0.875D, 1D, 1.0D),	// NORTH
+    		new AxisAlignedBB(0.125D, 0D, 0.9375D, 0.875D, 1D, 0.0D),	// SOUTH
+    		new AxisAlignedBB(0.0625D, 0D, 0.125D, 1.0D, 1D, 0.875D),	// WEST
+    		new AxisAlignedBB(0.9375D, 0D, 0.125D, 0.0D, 1D, 0.875D)		// EAST
     };
 
     protected BlockFlapeMaker()
@@ -45,12 +42,25 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ISRUN, false));
     }
 
+	@Override
+    public EnumBlockRenderType getRenderType(IBlockState state)
+    {
+        return EnumBlockRenderType.INVISIBLE;
+    }
+	@Override
     public boolean isOpaqueCube(IBlockState state)
     {
         return false;
     }
 
+	@Override
     public boolean isFullCube(IBlockState state)
+    {
+        return false;
+    }
+
+	@Override
+    public boolean isFullBlock(IBlockState state)
     {
         return false;
     }
@@ -58,7 +68,7 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityFlapeMaker(this.getStateFromMeta(meta).getValue(ISRUN));
+		return new TileEntityFlapeMaker(this.getStateFromMeta(meta).getValue(ISRUN), this.getStateFromMeta(meta).getValue(FACING));
 	}
 
     /**
@@ -76,60 +86,6 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
             return colligeBox[idx];
     	}
     	return colligeBox[2];
-    }
-
-    public static void SetRun(World worldIn, BlockPos pos, IBlockState state, boolean isRun)
-    {
-        TileEntity tileentity = worldIn.getTileEntity(pos);
-        IBlockState flapeMaker = state.withProperty(ISRUN, isRun);
-        worldIn.setBlockState(pos, flapeMaker, 2);
-        worldIn.updateComparatorOutputLevel(pos, flapeMaker.getBlock());
-
-        if (tileentity != null)
-        {
-            tileentity.validate();
-            ((TileEntityFlapeMaker)tileentity).setField(0, isRun?1:0);
-            worldIn.setTileEntity(pos, tileentity);
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @SuppressWarnings("incomplete-switch")
-    public void randomDisplayTick(IBlockState worldIn, World pos, BlockPos state, Random rand)
-    {
-        if (worldIn.getValue(ISRUN));
-        {
-            EnumFacing enumfacing = (EnumFacing)worldIn.getValue(FACING);
-            double d0 = (double)state.getX() + 0.5D;
-            double d1 = (double)state.getY() + rand.nextDouble() * 6.0D / 16.0D;
-            double d2 = (double)state.getZ() + 0.5D;
-            double d3 = 0.52D;
-            double d4 = rand.nextDouble() * 0.6D - 0.3D;
-
-            if (rand.nextDouble() < 0.1D)
-            {
-                pos.playSound((double)state.getX() + 0.5D, (double)state.getY(), (double)state.getZ() + 0.5D, SoundManager.sound_makeflape, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
-            }
-// TODO: 独自パーティクル
-//            switch (enumfacing)
-//            {
-//                case WEST:
-//                    pos.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
-//                    pos.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
-//                    break;
-//                case EAST:
-//                    pos.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
-//                    pos.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
-//                    break;
-//                case NORTH:
-//                    pos.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D, new int[0]);
-//                    pos.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D, new int[0]);
-//                    break;
-//                case SOUTH:
-//                    pos.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D, new int[0]);
-//                    pos.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D, new int[0]);
-//            }
-        }
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
@@ -211,5 +167,6 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
     {
         return ((EnumFacing)state.getValue(FACING)).getIndex() + (state.getValue(ISRUN)?0x0100:0);
     }
+
 
 }
