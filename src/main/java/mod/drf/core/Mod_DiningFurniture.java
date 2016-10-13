@@ -43,7 +43,7 @@ public class Mod_DiningFurniture {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		ModRegister.RegisterRecipe();
- //       ModRegister.RegisterMessage();
+        ModRegister.RegisterMessage();
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, guiInstance);
  //       proxy.registerClientInfo();
 

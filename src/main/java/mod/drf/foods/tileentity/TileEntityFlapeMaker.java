@@ -3,9 +3,11 @@ package mod.drf.foods.tileentity;
 import java.util.Random;
 
 import mod.drf.core.ModCommon;
+import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.core.log.ModLog;
 import mod.drf.foods.inventory.ContainerFlapeMaker;
 import mod.drf.foods.inventory.ICnvertInventory;
+import mod.drf.foods.network.MessageFlapeMaker;
 import mod.drf.recipie.OriginalRecipie;
 import mod.drf.recipie.OriginalRecipie.ORIGINAL_RECIPIES;
 import mod.drf.sounds.SoundManager;
@@ -111,6 +113,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 
 	public void update()
 	{
+		boolean flag = this.isRun;
 		boolean flag1 = false;
 		if (!this.worldObj.isRemote){
 			if (this.isRun){
@@ -143,6 +146,10 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 				}
 				this.crushTime = 0;
 				flag1 = true;
+			}
+
+			if (flag != this.isRun){
+				Mod_DiningFurniture.Net_Instance.sendToAll(new MessageFlapeMaker(this.crushTime,this.isRun,this.pos));
 			}
 		}else{
 			if (this.isRun && canOutput()){
@@ -299,6 +306,8 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 				return this.crushTime;
 			case 1:
 				return this.isRun?1:0;
+			case 3:
+				return inventory[1]!=null?inventory[1].stackSize:0;
 			default:
 				return 0;
 		}

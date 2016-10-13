@@ -1,8 +1,8 @@
 package mod.drf.foods.render;
 
+import mod.drf.foods.model.ModelFlape;
+import mod.drf.foods.model.ModelFlapeMaker;
 import mod.drf.foods.tileentity.TileEntityMill;
-import mod.drf.model.ModelFlape;
-import mod.drf.model.ModelFlapeMaker;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;

@@ -9,6 +9,7 @@ import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.Item.ItemFoods.EnumFlapeSyrup;
 import mod.drf.foods.Item.ItemFoods.EnumFlowerHalb;
 import mod.drf.foods.block.BlockFoods;
+import mod.drf.foods.network.MessageFlapeMaker;
 import mod.drf.furniture.block.BlockFurniture;
 import mod.drf.furniture.item.ItemFurniture;
 import mod.drf.furniture.network.TrunkMessageHandler;
@@ -1440,7 +1441,8 @@ public class ModRegister {
 	}
 
 	public static void RegisterMessage(){
-		Mod_DiningFurniture.Net_Instance.registerMessage(TrunkMessageHandler.class, TrunkPagePacket.class, ModCommon.MESSAGE_ID_TRUNKDATA, Side.SERVER);
+		Mod_DiningFurniture.Net_Instance.registerMessage(MessageFlapeMaker.class, MessageFlapeMaker.class, ModCommon.MESSAGE_ID_FLAPEMAKER, Side.CLIENT);
+//		Mod_DiningFurniture.Net_Instance.registerMessage(TrunkMessageHandler.class, TrunkPagePacket.class, ModCommon.MESSAGE_ID_TRUNKDATA, Side.SERVER);
 	}
 
 

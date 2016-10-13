@@ -12,6 +12,7 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -33,6 +34,12 @@ public class BlockFreezer extends BlockHorizontalContainer {
 	protected BlockFreezer() {
 		super(Material.glass);
 	}
+
+	@Override
+    public EnumBlockRenderType getRenderType(IBlockState state)
+    {
+        return EnumBlockRenderType.INVISIBLE;
+    }
 
     public boolean isOpaqueCube(IBlockState state)
     {

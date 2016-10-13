@@ -4,7 +4,7 @@
 // Keep in mind that you still need to fill in some blanks
 // - ZeuX
 
-package mod.drf.model;
+package mod.drf.foods.model;
 
 import mod.drf.foods.tileentity.TileEntityFlapeMaker;
 import net.minecraft.client.model.ModelBase;

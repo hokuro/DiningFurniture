@@ -2,7 +2,9 @@ package mod.drf.client;
 
 import mod.drf.core.CommonProxy;
 import mod.drf.foods.render.RenderFlapeMaker;
+import mod.drf.foods.render.RenderFreezer;
 import mod.drf.foods.tileentity.TileEntityFlapeMaker;
+import mod.drf.foods.tileentity.TileEntityFreezer;
 import mod.drf.foods.tileentity.TileEntitySaltPan;
 import mod.drf.furniture.entity.EntityChairZabuton;
 import mod.drf.furniture.item.ItemChairZabuton;
@@ -12,7 +14,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -27,8 +28,8 @@ public class ClientProxy extends CommonProxy{
 	@SideOnly(Side.CLIENT)
 	public void registerTileEntity(){
 		GameRegistry.registerTileEntity(TileEntitySaltPan.class, "TileEntitySaltPan");
-		TileEntitySpecialRenderer renderFlape =  new RenderFlapeMaker();
-		ClientRegistry.registerTileEntity(TileEntityFlapeMaker.class, "TileEntityFlapeMaker",renderFlape);
+		ClientRegistry.registerTileEntity(TileEntityFlapeMaker.class, "TileEntityFlapeMaker",new RenderFlapeMaker());
+		ClientRegistry.registerTileEntity(TileEntityFreezer.class, "TileEntityFreezer",new RenderFreezer());
 	}
 
 
