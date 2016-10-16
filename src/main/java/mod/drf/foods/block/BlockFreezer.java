@@ -2,7 +2,8 @@ package mod.drf.foods.block;
 
 import java.util.Random;
 
-import mod.drf.foods.tileentity.TileEntityFlapeMaker;
+import mod.drf.core.ModCommon;
+import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.foods.tileentity.TileEntityFreezer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -54,7 +55,7 @@ public class BlockFreezer extends BlockHorizontalContainer {
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityFlapeMaker();
+		return new TileEntityFreezer();
 	}
 
     /**
@@ -86,9 +87,7 @@ public class BlockFreezer extends BlockHorizontalContainer {
 
             if (tileentity instanceof TileEntityFreezer)
             {
-            	// TODO: FlapeMaker GUI
-//                playerIn.displayGUIChest((TileEntityFurnace)tileentity);
-//                playerIn.addStat(StatList.furnaceInteraction);
+            	playerIn.openGui(Mod_DiningFurniture.instance, ModCommon.MOD_GUI_ID_FREEZER, worldIn, pos.getX(),pos.getY(),pos.getZ());
             }
 
             return true;

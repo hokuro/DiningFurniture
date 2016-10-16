@@ -5,6 +5,8 @@ import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.Item.ItemIceCreamMix;
 import mod.drf.foods.inventory.ContainerFreezer;
 import mod.drf.foods.inventory.ICnvertInventory;
+import mod.drf.recipie.OriginalRecipie;
+import mod.drf.recipie.OriginalRecipie.ORIGINAL_RECIPIES;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
@@ -21,39 +23,40 @@ import net.minecraft.util.EnumFacing;
 
 public class TileEntityFreezer extends TileEntityLockable implements IInventory, ICnvertInventory {
 	private static final int FREEZING_TIME_MAX=6000;
-	private static final int WATER_MAX = 64;
-	private ItemStack[] iceHolder = new ItemStack[21];
-	private int[] freezingTimer = new int[19];
-	private int waterCont = 0;
+	private ItemStack[] inventory = new ItemStack[54];
+	private int[] freezingTimer = new int[27];
 	private String freezerCustomName;
+	private boolean isOpen;
 
-	private static final int[] slotsTop = new int[] {0};
-	private static final int[] slotsBottom = new int[] {1};
-	private static final int[] slotsSides = new int[] {1};
+	private static final int[] slotsTop = new int[]    { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26};
+	private static final int[] slotsBottom = new int[] {27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53};
+	private static final int[] slotsSides = new int[] {27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53};
+
+	public TileEntityFreezer(){
+		super();
+		isOpen = false;
+	}
 
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);
 		NBTTagList nbttaglist = compound.getTagList("Items", 10);
-		this.iceHolder = new ItemStack[this.getSizeInventory()];
+		this.inventory = new ItemStack[this.getSizeInventory()];
 
 		for (int i = 0; i < nbttaglist.tagCount(); ++i)
 		{
 			NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
 			int j = nbttagcompound.getByte("Slot");
 
-			if (j >= 0 && j < this.iceHolder.length)
+			if (j >= 0 && j < this.inventory.length)
 			{
-				this.iceHolder[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
+				this.inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
 			}
 		}
 
 		for (int i = 0; i < freezingTimer.length; i++){
 			this.freezingTimer[i] = compound.getInteger("FreezeTime"+Integer.toString(i));
 		}
-
-		waterCont = compound.getInteger("WaterCount");
-
 		if (compound.hasKey("CustomName", 8))
 		{
 			this.freezerCustomName = compound.getString("CustomName");
@@ -64,20 +67,19 @@ public class TileEntityFreezer extends TileEntityLockable implements IInventory,
 	{
 		super.writeToNBT(compound);
 
-		compound.setInteger("WaterCount", waterCont);
 		for (int i = 0; i < freezingTimer.length; i++){
 			compound.setInteger("FreezeTime"+Integer.toString(i),this.freezingTimer[i]);
 		}
 
 		NBTTagList nbttaglist = new NBTTagList();
 
-		for (int i = 0; i < this.iceHolder.length; ++i)
+		for (int i = 0; i < this.inventory.length; ++i)
 		{
-			if (this.iceHolder[i] != null)
+			if (this.inventory[i] != null)
 			{
 				NBTTagCompound nbttagcompound = new NBTTagCompound();
 				nbttagcompound.setByte("Slot", (byte)i);
-				this.iceHolder[i].writeToNBT(nbttagcompound);
+				this.inventory[i].writeToNBT(nbttagcompound);
 				nbttaglist.appendTag(nbttagcompound);
 			}
 		}
@@ -95,26 +97,26 @@ public class TileEntityFreezer extends TileEntityLockable implements IInventory,
 	{
 		boolean flag1 = false;
 		// 水貯水
-		if (iceHolder[0] != null && ((iceHolder[0].getItem() == Items.water_bucket))){
+		if (inventory[0] != null && ((inventory[0].getItem() == Items.water_bucket))){
 			if (waterCont < WATER_MAX){
 				// 貯水量を+1
 				waterCont++;
 				// 水バケツをバケツに変更
-				iceHolder[0] = new ItemStack(Items.bucket,1);
+				inventory[0] = new ItemStack(Items.bucket,1);
 			}
 		}
 		// 水引き出し
-		if(iceHolder[1] != null && ((iceHolder[1].getItem() == Items.bucket))){
+		if(inventory[1] != null && ((inventory[1].getItem() == Items.bucket))){
 			if (waterCont > 0){
 				// 貯水量を-1
 				waterCont--;
 				// バケツを水バケツに変更
-				iceHolder[1] = new ItemStack(Items.water_bucket,1);
+				inventory[1] = new ItemStack(Items.water_bucket,1);
 			}
 		}
 		// 水の冷凍カウントを増減
 		if (waterCont <= 0 ||
-				(iceHolder[2]!=null && iceHolder[2].stackSize >= WATER_MAX)){
+				(inventory[2]!=null && inventory[2].stackSize >= WATER_MAX)){
 			// 水が空か、氷がいっぱいの場合、カウント停止
 			freezingTimer[0]=0;
 		}else if (freezingTimer[0] >= FREEZING_TIME_MAX){
@@ -122,10 +124,10 @@ public class TileEntityFreezer extends TileEntityLockable implements IInventory,
 			// 水が一つ減って
 			waterCont--;
 			// 氷が一つできる
-			if (iceHolder[2] == null){
-				iceHolder[2] = new ItemStack(Blocks.ice,1);
+			if (inventory[2] == null){
+				inventory[2] = new ItemStack(Blocks.ice,1);
 			}else{
-				iceHolder[2].stackSize++;
+				inventory[2].stackSize++;
 			}
 			// タイマーが0になる
 			freezingTimer[0] = 0;
@@ -133,8 +135,8 @@ public class TileEntityFreezer extends TileEntityLockable implements IInventory,
 			// 大麻増加
 			freezingTimer[0]++;
 		}
-		for (int i=3; i < iceHolder.length; i++){
-			if (!canFreezeing(iceHolder[i])){
+		for (int i=3; i < inventory.length; i++){
+			if (!canFreezeing(inventory[i])){
 				// 冷凍不可能なアイテムならタイマー解除
 				freezingTimer[i-2] = 0;
 			}else if(freezingTimer[i-2] >= FREEZING_TIME_MAX){
@@ -175,28 +177,28 @@ public class TileEntityFreezer extends TileEntityLockable implements IInventory,
 
 	@Override
 	public int getSizeInventory() {
-		return this.iceHolder.length;
+		return this.inventory.length;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
-		return this.iceHolder[index];
+		return this.inventory[index];
 	}
 
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
-		 return ItemStackHelper.func_188382_a(this.iceHolder, index, count);
+		 return ItemStackHelper.func_188382_a(this.inventory, index, count);
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		return ItemStackHelper.func_188383_a(this.iceHolder, index);
+		return ItemStackHelper.func_188383_a(this.inventory, index);
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		boolean flag = stack != null && stack.isItemEqual(this.iceHolder[index]) && ItemStack.areItemStackTagsEqual(stack, this.iceHolder[index]);
-		this.iceHolder[index] = stack;
+		boolean flag = stack != null && stack.isItemEqual(this.inventory[index]) && ItemStack.areItemStackTagsEqual(stack, this.inventory[index]);
+		this.inventory[index] = stack;
 
 		if (stack != null && stack.stackSize > this.getInventoryStackLimit())
 		{
@@ -233,27 +235,27 @@ public class TileEntityFreezer extends TileEntityLockable implements IInventory,
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		if (index == 0)
-		{
-			return (stack.getItem()==Items.water_bucket);
-		}else if(index==1){
-			return (stack.getItem()==Items.bucket);
-		}else if(index==2){
-			return false;
+		if (index < 27){
+			return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_FREEZING, stack);
 		}
-		return canFreezeing(stack);
+		return false;
 	}
 
 	@Override
 	public int getField(int id) {
-		// TODO 自動生成されたメソッド・スタブ
+		switch(id){
+		case 0:
+			return isOpen?1:0;
+		}
 		return 0;
 	}
 
 	@Override
 	public void setField(int id, int value) {
-		// TODO 自動生成されたメソッド・スタブ
-
+		switch(id){
+		case 0:
+			isOpen = value==0?false:true;
+		}
 	}
 
 	@Override
@@ -264,9 +266,9 @@ public class TileEntityFreezer extends TileEntityLockable implements IInventory,
 
 	@Override
 	public void clear() {
-		for (int i = 0; i < this.iceHolder.length; ++i)
+		for (int i = 0; i < this.inventory.length; ++i)
 		{
-			this.iceHolder[i] = null;
+			this.inventory[i] = null;
 		}
 	}
 
@@ -287,17 +289,13 @@ public class TileEntityFreezer extends TileEntityLockable implements IInventory,
 
 	@Override
 	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		if (direction == EnumFacing.DOWN && index == 1)
+		if (direction == EnumFacing.DOWN && index > 26)
 		{
 			Item item = stack.getItem();
-
-			if (item != Items.water_bucket && item != Items.bucket)
-			{
-				return false;
-			}
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 

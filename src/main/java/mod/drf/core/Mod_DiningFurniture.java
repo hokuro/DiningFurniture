@@ -21,7 +21,7 @@ public class Mod_DiningFurniture {
 	@SidedProxy(clientSide = ModCommon.MOD_PACKAGE + ModCommon.MOD_CLIENT_SIDE, serverSide = ModCommon.MOD_PACKAGE + ModCommon.MOD_SERVER_SIDE)
 	public static CommonProxy proxy;
 	public static final SimpleNetworkWrapper Net_Instance = NetworkRegistry.INSTANCE.newSimpleChannel(ModCommon.MOD_CHANEL);
-	public static final GuiHundler guiInstance = new GuiHundler();
+	public static final ModGui guiInstance = new ModGui();
 
 	public static final CreativeTabs tabFurniture = new CreativeTabFurniture();
 	public static final CreativeTabColdFood tabColdFood = new CreativeTabColdFood();

@@ -23,21 +23,21 @@ public class ModelFreezer extends ModelBase
 
   public ModelFreezer()
   {
-    textureWidth = 96;
-    textureHeight = 64;
+	    textureWidth = 96;
+	    textureHeight = 64;
 
-      back = new ModelRenderer(this, 0, 0);
-      back.addBox(-8F, 1F, -6F, 16, 16, 14);
-      back.setRotationPoint(0F, 1F, 0F);
-      back.setTextureSize(96, 64);
-      back.mirror = true;
-      setRotation(back, 0F, 0F, 0F);
-      front = new ModelRenderer(this, 0, 30);
-      front.addBox(-1F, 0F, -3F, 16, 16, 2);
-      front.setRotationPoint(-7F, 2F, -5F);
-      front.setTextureSize(96, 64);
-      front.mirror = true;
-      setRotation(front, 0F, 0F, 0F);
+	      back = new ModelRenderer(this, 0, 0);
+	      back.addBox(-7F, 1F, -6F, 14, 16, 13);
+	      back.setRotationPoint(0F, 1F, 0F);
+	      back.setTextureSize(64, 32);
+	      back.mirror = true;
+	      setRotation(back, 0F, 0F, 0F);
+	      front = new ModelRenderer(this, 0, 30);
+	      front.addBox(0F, 0F, -3F, 14, 16, 2);
+	      front.setRotationPoint(-7F, 2F, -5F);
+	      front.setTextureSize(64, 32);
+	      front.mirror = true;
+	      setRotation(front, 0F, 0F, 0F);
   }
 
   public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)

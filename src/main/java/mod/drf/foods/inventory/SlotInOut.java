@@ -6,19 +6,21 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class SlotFlapeMaker extends Slot {
+public class SlotInOut extends Slot {
 
 	private boolean isInput;
-	public SlotFlapeMaker(IInventory inventoryIn, int index, int xPosition, int yPosition, boolean isIn) {
+	private ORIGINAL_RECIPIES kind;
+	public SlotInOut(IInventory inventoryIn, int index, int xPosition, int yPosition, boolean isIn,ORIGINAL_RECIPIES recipie) {
 		super(inventoryIn, index, xPosition, yPosition);
 		isInput = isIn;
+		kind = recipie;
 	}
 
 	@Override
     public boolean isItemValid(ItemStack stack)
     {
 		if (isInput){
-			return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_CRASHING, stack);
+			return OriginalRecipie.Instance().canConvert(kind, stack);
 		}else{
 			return false;
 		}

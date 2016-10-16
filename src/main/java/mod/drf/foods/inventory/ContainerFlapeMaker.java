@@ -18,8 +18,8 @@ public class ContainerFlapeMaker extends Container {
 
 	public ContainerFlapeMaker(InventoryPlayer playerInventory, IInventory tileEntityFlapeMaker) {
 		this.tile = tileEntityFlapeMaker;
-		this.addSlotToContainer(new SlotFlapeMaker(tile, 0, 80, 17,true));
-		this.addSlotToContainer(new SlotFlapeMaker(tile, 1, 80, 53,false));
+		this.addSlotToContainer(new SlotInOut(tile, 0, 80, 17,true, ORIGINAL_RECIPIES.RECIPIE_CRASHING));
+		this.addSlotToContainer(new SlotInOut(tile, 1, 80, 53,false, ORIGINAL_RECIPIES.RECIPIE_CRASHING));
 
 
 		for (int i = 0; i < 3; ++i)
