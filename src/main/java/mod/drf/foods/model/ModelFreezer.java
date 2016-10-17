@@ -18,8 +18,8 @@ import net.minecraft.entity.Entity;
 public class ModelFreezer extends ModelBase
 {
   //fields
-    ModelRenderer back;
-    ModelRenderer front;
+  private  ModelRenderer back;
+  private  ModelRenderer front;
 
   public ModelFreezer()
   {
@@ -33,8 +33,8 @@ public class ModelFreezer extends ModelBase
 	      back.mirror = true;
 	      setRotation(back, 0F, 0F, 0F);
 	      front = new ModelRenderer(this, 0, 30);
-	      front.addBox(0F, 0F, -3F, 14, 16, 2);
-	      front.setRotationPoint(-7F, 2F, -5F);
+	      front.addBox(-0F, 0F, -2F, 14, 16, 2);
+	      front.setRotationPoint(-7F, 2F, -6F);
 	      front.setTextureSize(64, 32);
 	      front.mirror = true;
 	      setRotation(front, 0F, 0F, 0F);
@@ -46,6 +46,12 @@ public class ModelFreezer extends ModelBase
     setRotationAngles(f, f1, f2, f3, f4, f5);
     back.render(f5);
     front.render(f5);
+  }
+
+  public void render(float scale, float open){
+	  front.rotateAngleY = open;
+	    back.render(scale);
+	    front.render(scale);
   }
 
   private void setRotation(ModelRenderer model, float x, float y, float z)

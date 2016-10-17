@@ -1,6 +1,5 @@
 package mod.drf.foods.inventory;
 
-import mod.drf.foods.tileentity.TileEntityFreezer;
 import mod.drf.recipie.OriginalRecipie;
 import mod.drf.recipie.OriginalRecipie.ORIGINAL_RECIPIES;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,8 +17,9 @@ public class ContainerFreezer extends Container {
 	private final IInventory tile;
 	public int crushTime;
 
-	public ContainerFreezer(InventoryPlayer playerInventory, TileEntityFreezer tileEntityFreezer) {
+	public ContainerFreezer(InventoryPlayer playerInventory, IInventory tileEntityFreezer,EntityPlayer player) {
 		this.tile = tileEntityFreezer;
+		tileEntityFreezer.openInventory(player);
 		for (int i = 0; i < 3; ++i){
 			for ( int j = 0; j < 9; j++){
 				this.addSlotToContainer(new SlotInOut(tile, j + i * 9, 8 + j * 18, 18 + i * 18,true, ORIGINAL_RECIPIES.RECIPIE_FREEZING));
@@ -28,7 +28,7 @@ public class ContainerFreezer extends Container {
 
 		for (int i = 3; i < 6; ++i){
 			for ( int j = 0; j < 9; j++){
-				this.addSlotToContainer(new SlotInOut(tile, j + i * 9, 8 + j * 18, 81 + i * 18,false, ORIGINAL_RECIPIES.RECIPIE_FREEZING));
+				this.addSlotToContainer(new SlotInOut(tile, j + i * 9, 8 + j * 18, 27 + i * 18,false, ORIGINAL_RECIPIES.RECIPIE_FREEZING));
 			}
 		}
 
@@ -139,5 +139,13 @@ public class ContainerFreezer extends Container {
 
 		return itemstack;
 	}
+
+
+	@Override
+    public void onContainerClosed(EntityPlayer playerIn)
+    {
+        super.onContainerClosed(playerIn);
+        this.tile.closeInventory(playerIn);
+    }
 
 }

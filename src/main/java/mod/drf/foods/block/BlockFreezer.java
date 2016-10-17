@@ -26,10 +26,10 @@ public class BlockFreezer extends BlockHorizontalContainer {
     private static final AxisAlignedBB[] colligeBox =  new AxisAlignedBB[] {
     		new AxisAlignedBB(0D, 0D, 0D, 0D, 0D, 0D), // 不使用
     		new AxisAlignedBB(0D, 0D, 0D, 0D, 0D, 0D), // 不使用
-    		new AxisAlignedBB(0.125D, 0D, 0.0625D, 0.875D, 1D, 1D),	// NORTH
-    		new AxisAlignedBB(0.125D, 0D, 1D, 0.875D, 1D, 0.0625D),	// SOUTH
-    		new AxisAlignedBB(0.0625D, 0D, 0.125D, 1D, 1D, 0.875D),	// WEST
-    		new AxisAlignedBB(1D, 0D, 0.125D, 0.0625D, 1D, 0.875D)	// EAST
+    		new AxisAlignedBB(0.9375D, 0D, 0.0625D, 0.0625D, 1D, 1D),	// NORTH
+    		new AxisAlignedBB(0.0625D, 0D, 1D, 0.9375, 1D, 0.0625D),	// SOUTH
+    		new AxisAlignedBB(0.9375D, 0D, 0.0625D, 1D, 1D, 0.0625D),	// WEST
+    		new AxisAlignedBB(1D, 0D, 0.0625D, 0.0625D, 1D, 0.9375D)	// EAST
     };
 
 	protected BlockFreezer() {
@@ -55,7 +55,7 @@ public class BlockFreezer extends BlockHorizontalContainer {
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityFreezer();
+		return new TileEntityFreezer(this.getStateFromMeta(meta).getValue(FACING));
 	}
 
     /**

@@ -30,7 +30,7 @@ public class ModGui implements IGuiHandler {
 			if (ModCommon.isDebug){ModLog.log().debug("Open Container Freezer");}
 			te = world.getTileEntity(new BlockPos(x,y,z));
 			if (te instanceof TileEntityFreezer){
-				return ((TileEntityFlapeMaker) te).createContainer(player.inventory, player);
+				return ((TileEntityFreezer) te).createContainer(player.inventory, player);
 			}
 			break;
 

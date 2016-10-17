@@ -1,6 +1,6 @@
 package mod.drf.foods.gui;
 
-import mod.drf.foods.inventory.ContainerFlapeMaker;
+import mod.drf.foods.inventory.ContainerFreezer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -15,12 +15,15 @@ public class GuiFreezer  extends GuiContainer {
     private BlockPos pos;
 
 
-    public GuiFreezer(InventoryPlayer player, IInventory freezer, BlockPos pos)
+    public GuiFreezer(InventoryPlayer playerInv, IInventory freezer, BlockPos pos)
     {
-        super(new ContainerFlapeMaker(player, freezer));
-        this.playerInventory = player;
+        super(new ContainerFreezer(playerInv, freezer,null));
+        this.playerInventory = playerInv;
         this.tileFreezer = freezer;
         this.pos = pos;
+        int i = 222;
+        int j = i - 108;
+        this.ySize = j + 6 * 18;
     }
 
     @Override
@@ -28,7 +31,7 @@ public class GuiFreezer  extends GuiContainer {
     {
         String s = this.tileFreezer.getDisplayName().getUnformattedText();
         this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
-        this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+     //   this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
     }
 
 	@Override

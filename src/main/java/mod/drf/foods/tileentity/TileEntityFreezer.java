@@ -7,12 +7,16 @@ import mod.drf.foods.inventory.ContainerFreezer;
 import mod.drf.foods.inventory.ICnvertInventory;
 import mod.drf.recipie.OriginalRecipie;
 import mod.drf.recipie.OriginalRecipie.ORIGINAL_RECIPIES;
+import mod.drf.util.ModUtil;
+import net.minecraft.block.BlockChest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryLargeChest;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,13 +24,21 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 
-public class TileEntityFreezer extends TileEntityLockable implements IInventory, ICnvertInventory {
+public class TileEntityFreezer extends TileEntityLockable implements ITickable, ICnvertInventory {
 	private static final int FREEZING_TIME_MAX=6000;
 	private ItemStack[] inventory = new ItemStack[54];
 	private int[] freezingTimer = new int[27];
 	private String freezerCustomName;
 	private boolean isOpen;
+	private EnumFacing facing;
+	private int numPlayersUsing;
+	private int ticksSinceSync;
+	private static final ItemStack return_potion = new ItemStack(Items.glass_bottle,1);
+	private static final ItemStack return_buket = new ItemStack(Items.bucket,1);
+
 
 	private static final int[] slotsTop = new int[]    { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26};
 	private static final int[] slotsBottom = new int[] {27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53};
@@ -35,6 +47,15 @@ public class TileEntityFreezer extends TileEntityLockable implements IInventory,
 	public TileEntityFreezer(){
 		super();
 		isOpen = false;
+	}
+
+	public TileEntityFreezer(EnumFacing meta){
+		this();
+		this.facing = meta;
+	}
+
+	public EnumFacing getFace(){
+		return this.facing;
 	}
 
 	public void readFromNBT(NBTTagCompound compound)
@@ -96,58 +117,110 @@ public class TileEntityFreezer extends TileEntityLockable implements IInventory,
 	public void update()
 	{
 		boolean flag1 = false;
-		// 水貯水
-		if (inventory[0] != null && ((inventory[0].getItem() == Items.water_bucket))){
-			if (waterCont < WATER_MAX){
-				// 貯水量を+1
-				waterCont++;
-				// 水バケツをバケツに変更
-				inventory[0] = new ItemStack(Items.bucket,1);
-			}
-		}
-		// 水引き出し
-		if(inventory[1] != null && ((inventory[1].getItem() == Items.bucket))){
-			if (waterCont > 0){
-				// 貯水量を-1
-				waterCont--;
-				// バケツを水バケツに変更
-				inventory[1] = new ItemStack(Items.water_bucket,1);
-			}
-		}
-		// 水の冷凍カウントを増減
-		if (waterCont <= 0 ||
-				(inventory[2]!=null && inventory[2].stackSize >= WATER_MAX)){
-			// 水が空か、氷がいっぱいの場合、カウント停止
-			freezingTimer[0]=0;
-		}else if (freezingTimer[0] >= FREEZING_TIME_MAX){
-			// 冷凍カウントが最大になった
-			// 水が一つ減って
-			waterCont--;
-			// 氷が一つできる
-			if (inventory[2] == null){
-				inventory[2] = new ItemStack(Blocks.ice,1);
-			}else{
-				inventory[2].stackSize++;
-			}
-			// タイマーが0になる
-			freezingTimer[0] = 0;
-		}else{
-			// 大麻増加
-			freezingTimer[0]++;
-		}
-		for (int i=3; i < inventory.length; i++){
-			if (!canFreezeing(inventory[i])){
-				// 冷凍不可能なアイテムならタイマー解除
-				freezingTimer[i-2] = 0;
-			}else if(freezingTimer[i-2] >= FREEZING_TIME_MAX){
-				// 出来上がり
-			}else{
-				// 大麻増加
-				freezingTimer[i-2]++;
-			}
 
-		}
 
+        ++this.ticksSinceSync;
+
+        if (!this.worldObj.isRemote && this.numPlayersUsing != 0 && (this.ticksSinceSync + pos.getX() + pos.getY() + pos.getZ()) % 200 == 0)
+        {
+            int i = this.pos.getX();
+            int j = this.pos.getY();
+            int k = this.pos.getZ();
+            this.numPlayersUsing = 0;
+            float f = 5.0F;
+
+            for (EntityPlayer entityplayer : this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB((double)((float)i - f), (double)((float)j - f), (double)((float)k - f), (double)((float)(i + 1) + f), (double)((float)(j + 1) + f), (double)((float)(k + 1) + f))))
+            {
+                if (entityplayer.openContainer instanceof ContainerChest)
+                {
+                    IInventory iinventory = ((ContainerChest)entityplayer.openContainer).getLowerChestInventory();
+
+                    if (iinventory == this || iinventory instanceof InventoryLargeChest && ((InventoryLargeChest)iinventory).isPartOfLargeChest(this))
+                    {
+                        ++this.numPlayersUsing;
+                    }
+                }
+            }
+        }
+
+		if (!this.worldObj.isRemote){
+			for (int i = 0; i < freezingTimer.length; i++){
+				// アイテムが入っていれば冷凍カウントアップ
+				if (inventory[i] != null){
+					freezingTimer[i]++;
+				}else{
+					freezingTimer[i] = 0;
+				}
+
+				// 冷凍完了
+				if (freezingTimer[i] >= FREEZING_TIME_MAX){
+					// 完成品
+					ItemStack result = OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_FREEZING, inventory[i]);
+					// 副産物
+					ItemStack subResult = null;
+					if (result.getItem() == ItemFoods.item_icecandy){
+						subResult = return_potion;
+					}else if (result.getItem() == Item.getItemFromBlock(Blocks.ice)){
+						subResult = return_buket;
+					}
+
+					// 完成品と副産物を入れるスロットを探す
+					int mi = -1;
+					int si = -1;
+					for (int j = freezingTimer.length; j < inventory.length; j++){
+						if (ModUtil.compareItemStacks(inventory[j], result)){
+							if ((mi < 0 || (mi >= 0&& inventory[mi] == null)) && inventory[j].stackSize < result.getMaxStackSize()){
+								mi = j;
+							}
+						}else if (inventory[j] == null && mi < 0){
+							mi = j;
+						}else if (subResult != null){
+							if ((si < 0 || (si >= 0&& inventory[si] == null)) && inventory[j].stackSize < result.getMaxStackSize()){
+								if (si < 0 && inventory[j].stackSize < subResult.getMaxStackSize()){
+									si = j;
+								}
+							}else if (subResult != null && (inventory[j] == null && si < 0)){
+								si = j;
+							}
+						}
+					}
+
+					if (mi >= 0 && (subResult == null || (subResult!=null && si >=0))){
+						// 完成品のアウトプット
+						if (inventory[mi] == null){
+							inventory[mi] = result;
+							inventory[mi].stackSize = 1;
+						}else{
+							inventory[mi].stackSize++;
+						}
+
+						// 副産物があればアウトプット
+						if (subResult != null){
+							if (inventory[si] == null){
+								inventory[si] = subResult.copy();
+								inventory[si].stackSize = 1;
+							}else{
+								inventory[si].stackSize++;
+							}
+						}
+
+						// ソースを減量
+						inventory[i].stackSize--;
+						if (inventory[i].stackSize <= 0){
+							inventory[i] = null;
+						}
+
+						// タイマーを巻き戻す
+						freezingTimer[i] = 0;
+
+						flag1 = true;
+					}else{
+						// 出力する場所が足りない場合、タイマカウントを止める
+						freezingTimer[i] = FREEZING_TIME_MAX;
+					}
+				}
+			}
+		}
 		if (flag1)
 		{
 			this.markDirty();
@@ -167,7 +240,7 @@ public class TileEntityFreezer extends TileEntityLockable implements IInventory,
 
 	@Override
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-		 return new ContainerFreezer(playerInventory, this);
+		 return new ContainerFreezer(playerInventory, this, playerIn);
 	}
 
 	@Override
@@ -205,15 +278,16 @@ public class TileEntityFreezer extends TileEntityLockable implements IInventory,
 			stack.stackSize = this.getInventoryStackLimit();
 		}
 
-		if (index == 0 && !flag)
+		if (index < this.freezingTimer.length && !flag)
 		{
+			this.freezingTimer[index] = 0;
 			this.markDirty();
 		}
 	}
 
 	@Override
 	public int getInventoryStackLimit() {
-		return 1;
+		return 64;
 	}
 
 	@Override
@@ -222,16 +296,33 @@ public class TileEntityFreezer extends TileEntityLockable implements IInventory,
 	}
 
 	@Override
-	public void openInventory(EntityPlayer player) {
-		// TODO 自動生成されたメソッド・スタブ
+    public void openInventory(EntityPlayer player)
+    {
+        if (!player.isSpectator())
+        {
+            if (this.numPlayersUsing < 0)
+            {
+                this.numPlayersUsing = 0;
+            }
 
-	}
+            ++this.numPlayersUsing;
+            this.worldObj.addBlockEvent(this.pos, this.getBlockType(), 1, this.numPlayersUsing);
+            this.worldObj.notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+            this.worldObj.notifyNeighborsOfStateChange(this.pos.down(), this.getBlockType());
+        }
+    }
 
 	@Override
-	public void closeInventory(EntityPlayer player) {
-		// TODO 自動生成されたメソッド・スタブ
-
-	}
+    public void closeInventory(EntityPlayer player)
+    {
+        if (!player.isSpectator() && this.getBlockType() instanceof BlockChest)
+        {
+            --this.numPlayersUsing;
+            this.worldObj.addBlockEvent(this.pos, this.getBlockType(), 1, this.numPlayersUsing);
+            this.worldObj.notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+            this.worldObj.notifyNeighborsOfStateChange(this.pos.down(), this.getBlockType());
+        }
+    }
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {

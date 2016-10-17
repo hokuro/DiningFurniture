@@ -81,6 +81,8 @@ public class OriginalRecipie {
 		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_GRAPE.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_GRAPE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
 		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_ORANGE.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_ORANGE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
 		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_CALUCIUM.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_CALUCIUM.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+
+		addRecipie(new ItemStack(Items.water_bucket), new ItemStack(Blocks.ice), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
 	}
 
 	public static OriginalRecipie Instance(){return instance;}
