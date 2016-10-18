@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
@@ -25,6 +26,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 
 public class TileEntityFreezer extends TileEntityLockable implements ITickable, ICnvertInventory {
@@ -36,6 +38,8 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 	private EnumFacing facing;
 	private int numPlayersUsing;
 	private int ticksSinceSync;
+	public float prevLidAngle;
+	public float lidAngle;
 	private static final ItemStack return_potion = new ItemStack(Items.glass_bottle,1);
 	private static final ItemStack return_buket = new ItemStack(Items.bucket,1);
 
@@ -224,6 +228,51 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 		if (flag1)
 		{
 			this.markDirty();
+		}
+
+		this.prevLidAngle = this.lidAngle;
+		float f1 = 0.1F;
+
+		if (this.numPlayersUsing > 0 && this.lidAngle == 0.0F)
+		{
+			double d1 = (double)pos.getX() + 0.5D;
+			double d2 = (double)pos.getY() + 0.5D;
+
+			this.worldObj.playSound((EntityPlayer)null, d1, (double)pos.getY() + 0.5D, d2, SoundEvents.block_chest_open, SoundCategory.BLOCKS, 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+			}
+
+			if (this.numPlayersUsing == 0 && this.lidAngle > 0.0F || this.numPlayersUsing > 0 && this.lidAngle < 1.0F)
+			{
+				float f2 = this.lidAngle;
+
+				if (this.numPlayersUsing > 0)
+				{
+					this.lidAngle += f1;
+				}
+				else
+				{
+					this.lidAngle -= f1;
+				}
+
+				if (this.lidAngle > 1.0F)
+				{
+					this.lidAngle = 1.0F;
+				}
+
+				float f3 = 0.5F;
+
+				if (this.lidAngle < f3 && f2 >= f3)
+				{
+					double d3 = (double)pos.getX() + 0.5D;
+					double d0 = (double)pos.getZ() + 0.5D;
+
+					this.worldObj.playSound((EntityPlayer)null, d3, (double)pos.getY() + 0.5D, d0, SoundEvents.block_chest_close, SoundCategory.BLOCKS, 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+				}
+
+				if (this.lidAngle < 0.0F)
+				{
+					this.lidAngle = 0.0F;
+				}
 		}
 	}
 
