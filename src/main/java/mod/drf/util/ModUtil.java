@@ -13,7 +13,9 @@ public class ModUtil {
 	private static final List<Integer> debugCounter = ModCommon.isDebug?new ArrayList():null;
 
 	public static boolean compareItemStacks(ItemStack stack1, ItemStack stack2){
-		return stack2.getItem() == stack1.getItem() && (stack2.getMetadata() == 32767 || stack2.getMetadata() == stack1.getMetadata());
+		if (stack1 == null){return false;}
+		if (stack2 == null){return false;}
+		return (stack2.getItem() == stack1.getItem() && (stack2.getMetadata() == 32767 || stack2.getMetadata() == stack1.getMetadata()));
 	}
 
 	public static boolean CheckCounter(String key, int limit){

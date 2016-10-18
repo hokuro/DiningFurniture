@@ -43,6 +43,9 @@ public final class ModCommon {
 	// MessagID
 	public static final int MESSAGE_ID_TRUNKDATA = 0;
 	public static final int MESSAGE_ID_FLAPEMAKER = 1;
+	public static final int MESSAGE_ID_FREEZER = 2;
+	public static final int MESSAGE_ID_MILL = 3;
+
 
 
 	// GUI ID
@@ -57,5 +60,4 @@ public final class ModCommon {
 	public static final String MOD_GUI_MILL_NAME = ModCommon.MOD_ID + ":Mill";
 	public static final String MOD_GUI_FREEZER_NAME = ModCommon.MOD_ID + ":Freezer";
 	public static final String MOD_GUI_SALTPAN_NAME = ModCommon.MOD_ID + ":SaltPan";
-
 }

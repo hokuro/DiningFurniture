@@ -7,6 +7,7 @@ import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.core.log.ModLog;
 import mod.drf.foods.inventory.ContainerMill;
 import mod.drf.foods.inventory.ICnvertInventory;
+import mod.drf.foods.network.MessageMill;
 import mod.drf.recipie.OriginalRecipie;
 import mod.drf.recipie.OriginalRecipie.ORIGINAL_RECIPIES;
 import mod.drf.sounds.SoundManager;

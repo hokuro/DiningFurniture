@@ -89,7 +89,7 @@ public class ContainerFreezer extends Container {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			if (index >= 27 || index <= 53)
+			if (index >= 27 && index <= 53)
 			{
 				if (!this.mergeItemStack(itemstack1, 54, 89, true))
 				{
@@ -98,28 +98,26 @@ public class ContainerFreezer extends Container {
 
 				slot.onSlotChange(itemstack1, itemstack);
 			}
-			else if (index != 0)
+			else if (index >= 0 && index <= 26)
 			{
-				if (OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_CRASHING, itemstack))
+					if (!this.mergeItemStack(itemstack1, 54, 89, false))
+					{
+						return null;
+					}
+			}else{
+				if (OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_FREEZING, itemstack))
 				{
 					if (!this.mergeItemStack(itemstack1, 0, 26, false))
 					{
 						return null;
 					}
 				}
-				else if (index >= 54 && index <= 89)
+				else if (!this.mergeItemStack(itemstack1, 54, 89, false))
 				{
-					if (!this.mergeItemStack(itemstack1, 54, 89, false))
-					{
-						return null;
-					}
+					return null;
 				}
-			}
-			else if (!this.mergeItemStack(itemstack1, 54, 89, false))
-			{
-				return null;
-			}
 
+			}
 			if (itemstack1.stackSize == 0)
 			{
 				slot.putStack((ItemStack)null);

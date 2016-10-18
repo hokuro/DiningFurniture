@@ -64,7 +64,7 @@ public class ModGui implements IGuiHandler {
 		case ModCommon.MOD_GUI_ID_FREEZER:
 			te = world.getTileEntity(new BlockPos(x,y,z));
 			if (te instanceof TileEntityFreezer){
-				return new GuiFreezer(player.inventory,((TileEntityFreezer)te),new BlockPos(x,y,z));
+				return new GuiFreezer(player.inventory,((TileEntityFreezer)te), player);
 			}
 			break;
 

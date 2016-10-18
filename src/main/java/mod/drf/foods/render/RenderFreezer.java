@@ -27,7 +27,8 @@ public class RenderFreezer extends TileEntitySpecialRenderer<TileEntityFreezer> 
 		GlStateManager.enableRescaleNormal();
 		this.bindTexture(tex);
 
-		float rotate = 0.0F;
+		float rotate = te.prevLidAngle + (te.lidAngle - te.prevLidAngle) * partialTicks;
+		rotate = (rotate * ((float)Math.PI / 2F));
 		this.mainModel.render(1.0F, rotate);
 		GlStateManager.popMatrix();
 	}
