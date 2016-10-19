@@ -328,4 +328,10 @@ public class TileEntitySaltPan extends TileEntity implements ITickable, ICnvertI
 	public ITextComponent getDisplayName() {
         return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
 	}
+
+	@Override
+    public boolean canRenderBreaking()
+    {
+        return true;
+    }
 }

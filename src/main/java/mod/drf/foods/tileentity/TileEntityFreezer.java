@@ -407,4 +407,10 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 		return false;
 	}
 
+	@Override
+    public boolean canRenderBreaking()
+    {
+        return true;
+    }
+
 }

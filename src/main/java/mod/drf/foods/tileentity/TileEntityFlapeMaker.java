@@ -26,7 +26,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 
 public class TileEntityFlapeMaker extends TileEntityLockable implements ITickable, ICnvertInventory {
-	public static final int CRUSH_TIME_MAX = 100;
+	public static final int CRUSH_TIME_MAX = 300;
 	public static final int CRUSH_SIZE = 4;
 	private ItemStack[] inventory = new ItemStack[2];
 	private String customName;
@@ -40,12 +40,14 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 	private static final int[] slotsSides = new int[] {0};
 
 	public TileEntityFlapeMaker(){
+		super();
 		isRun = false;
 		crushTime = 0;
 	}
 
-	public TileEntityFlapeMaker(boolean isRun, EnumFacing enumFacing){
-		this.isRun = isRun;
+	public TileEntityFlapeMaker(EnumFacing enumFacing){
+		super();
+		this.isRun = false;
 		this.facing = enumFacing;
 		crushTime = 0;
 	}
@@ -379,5 +381,11 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
     public void onDataPacket(net.minecraft.network.NetworkManager net, net.minecraft.network.play.server.SPacketUpdateTileEntity pkt)
     {
 		this.readFromNBT(pkt.getNbtCompound());
+    }
+
+	@Override
+    public boolean canRenderBreaking()
+    {
+        return true;
     }
 }

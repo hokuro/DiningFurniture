@@ -10,5 +10,17 @@
         "stream":false
       }
     ]
+  },
+   "block.foods.mill":{
+    "category":"blocks",
+    "sounds":[
+      {
+        "name": "drf:blocks/milling",
+        "weight": 1,
+        "volume": 1,
+        "pitch":1,
+        "stream":false
+      }
+    ]
   }
 }

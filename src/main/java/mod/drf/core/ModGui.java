@@ -3,8 +3,10 @@ package mod.drf.core;
 import mod.drf.core.log.ModLog;
 import mod.drf.foods.gui.GuiFlapeMaker;
 import mod.drf.foods.gui.GuiFreezer;
+import mod.drf.foods.gui.GuiMill;
 import mod.drf.foods.tileentity.TileEntityFlapeMaker;
 import mod.drf.foods.tileentity.TileEntityFreezer;
+import mod.drf.foods.tileentity.TileEntityMill;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -36,6 +38,10 @@ public class ModGui implements IGuiHandler {
 
 		case ModCommon.MOD_GUI_ID_MILL:
 			if (ModCommon.isDebug){ModLog.log().debug("Open Container Mill");}
+			te = world.getTileEntity(new BlockPos(x,y,z));
+			if (te instanceof TileEntityMill){
+				return ((TileEntityMill) te).createContainer(player.inventory, player);
+			}
 			break;
 		case ModCommon.MOD_GUI_ID_TRUNK:
 			if (ModCommon.isDebug){ModLog.log().debug("Open Container Trunk");}
@@ -69,6 +75,10 @@ public class ModGui implements IGuiHandler {
 			break;
 
 		case ModCommon.MOD_GUI_ID_MILL:
+			te = world.getTileEntity(new BlockPos(x,y,z));
+			if (te instanceof TileEntityMill){
+				return new GuiMill(player.inventory,((TileEntityMill)te),new BlockPos(x,y,z));
+			}
 			break;
 		case ModCommon.MOD_GUI_ID_TRUNK:
 			break;

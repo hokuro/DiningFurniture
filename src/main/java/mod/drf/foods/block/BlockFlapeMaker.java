@@ -7,7 +7,6 @@ import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.foods.tileentity.TileEntityFlapeMaker;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,7 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockFlapeMaker extends BlockHorizontalContainer {
-	public static final PropertyBool ISRUN = PropertyBool.create("isrun");
+	//public static final PropertyBool ISRUN = PropertyBool.create("isrun");
 
     // あたり判定
     private static final AxisAlignedBB[] colligeBox =  new AxisAlignedBB[] {
@@ -39,7 +38,8 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
     protected BlockFlapeMaker()
     {
         super(Material.glass);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ISRUN, false));
+		this.setHardness(1.0F);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
 	@Override
@@ -68,7 +68,7 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityFlapeMaker(this.getStateFromMeta(meta).getValue(ISRUN), this.getStateFromMeta(meta).getValue(FACING));
+		return new TileEntityFlapeMaker(this.getStateFromMeta(meta).getValue(FACING));
 	}
 
     /**
@@ -141,7 +141,7 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {ISRUN,FACING});
+        return new BlockStateContainer(this, new IProperty[] {FACING});
     }
 
 	/**
@@ -149,7 +149,6 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
      */
     public IBlockState getStateFromMeta(int meta)
     {
-    	boolean run = (meta&0xFF00)==0?false:true;
         EnumFacing enumfacing = EnumFacing.getFront(meta&0x00FF);
 
         if (enumfacing.getAxis() == EnumFacing.Axis.Y)
@@ -157,7 +156,7 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
             enumfacing = EnumFacing.NORTH;
         }
 
-        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(ISRUN, run);
+        return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 
     /**
@@ -165,7 +164,7 @@ public class BlockFlapeMaker extends BlockHorizontalContainer {
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((EnumFacing)state.getValue(FACING)).getIndex() + (state.getValue(ISRUN)?0x0100:0);
+        return ((EnumFacing)state.getValue(FACING)).getIndex();
     }
 
 

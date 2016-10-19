@@ -1,8 +1,9 @@
 package mod.drf.foods.render;
 
+import mod.drf.core.log.ModLog;
 import mod.drf.foods.model.ModelFlape;
-import mod.drf.foods.model.ModelFlapeMaker;
 import mod.drf.foods.model.ModelFlape.EnumFlapeLevel;
+import mod.drf.foods.model.ModelFlapeMaker;
 import mod.drf.foods.tileentity.TileEntityFlapeMaker;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -28,17 +29,31 @@ public class RenderFlapeMaker extends TileEntitySpecialRenderer<TileEntityFlapeM
 		sx = sy = sz = 0.03125D;
 		tx = ty = tz = 0.5D;
 
+        if (destroyStage >= 0)
+        {
+            this.bindTexture(DESTROY_STAGES[destroyStage]);
+            ModLog.log().debug(Integer.toString(destroyStage));
+            GlStateManager.matrixMode(5890);
+            GlStateManager.pushMatrix();
+            GlStateManager.scale(5.0F, 4.0F, 1.0F);
+            GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
+            GlStateManager.matrixMode(5888);
+        }else{
+    		this.bindTexture(tex);
+        }
+
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x + 0.5F , (float) y + 1.0F, (float) z + 0.5F);
-		GlStateManager.scale(0.625D,0.625D,0.625D);
+		GlStateManager.scale(0.0625D,0.0625D,0.0625D);
 		GlStateManager.rotate(180,0F,0F,1F);
 		int idx = te.face().getHorizontalIndex();
 		GlStateManager.rotate(90F * (idx+2),0F,1F,0F);
 		GlStateManager.enableCull();
 		GlStateManager.enableRescaleNormal();
-		this.bindTexture(tex);
-		this.mainModel.render(te,0F,0F,0F,0F,0F,0.1F);
+		this.mainModel.render(te,0F,0F,0F,0F,0F,1.0F);
 		GlStateManager.popMatrix();
+
+
 
 		if (te.isRunning()){
 			GlStateManager.pushMatrix();
@@ -66,5 +81,11 @@ public class RenderFlapeMaker extends TileEntitySpecialRenderer<TileEntityFlapeM
 			GlStateManager.disableBlend();
 			GlStateManager.popMatrix();
 		}
+        if (destroyStage >= 0)
+        {
+            GlStateManager.matrixMode(5890);
+            GlStateManager.popMatrix();
+            GlStateManager.matrixMode(5888);
+        }
 	}
 }

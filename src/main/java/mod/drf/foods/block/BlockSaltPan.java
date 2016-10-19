@@ -42,6 +42,7 @@ public class BlockSaltPan extends BlockContainer {
 
 	protected BlockSaltPan() {
 		super(Material.glass);
+		this.setHardness(1.0F);
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
 	}
 

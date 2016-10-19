@@ -41,7 +41,7 @@ public class GuiMill extends GuiContainer {
 	        this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
 
 	        int l = this.getCrushProgressScaled(16);
-	        this.drawTexturedModalRect(i + 77, j + 35, 176, 0, 19, l);
+	        this.drawTexturedModalRect(i + 77, j + 35, 176, 0, 20, l);
 		}
 
 	    private int getCrushProgressScaled(int pixels)

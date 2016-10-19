@@ -11,10 +11,10 @@ import mod.drf.foods.network.MessageMill;
 import mod.drf.recipie.OriginalRecipie;
 import mod.drf.recipie.OriginalRecipie.ORIGINAL_RECIPIES;
 import mod.drf.sounds.SoundManager;
+import mod.drf.util.ModUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,10 +23,11 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 
-public class TileEntityMill extends TileEntityLockable implements ICnvertInventory, IInventory {
-	public static final int MILL_TIME_MAX = 100;
+public class TileEntityMill extends TileEntityLockable implements ITickable, ICnvertInventory {
+	public static final int MILL_TIME_MAX = 300;
 	public static final int MILL_SIZE = 1;
 	private ItemStack[] inventory = new ItemStack[2];
 	private String customName;
@@ -46,6 +47,7 @@ public class TileEntityMill extends TileEntityLockable implements ICnvertInvento
 	public TileEntityMill(boolean isRun){
 		this.isRun = isRun;
 		millTime = 0;
+		this.canRenderBreaking();
 	}
 
 	public void readFromNBT(NBTTagCompound compound)
@@ -150,7 +152,7 @@ public class TileEntityMill extends TileEntityLockable implements ICnvertInvento
 				this.millTime++;
 	            if (random.nextDouble() < 0.1D)
 	            {
-	            	worldObj.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, SoundManager.sound_makeflape, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+	            	worldObj.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, SoundManager.sound_mill, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
 	            }
 			}else{
 				this.millTime = 0;
@@ -358,7 +360,9 @@ public class TileEntityMill extends TileEntityLockable implements ICnvertInvento
 	}
 
 	public boolean canOutput(){
-		return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_MILLING, this.inventory[0]) && (inventory[1] == null || (inventory[1] != null && inventory[1].stackSize <= (this.getInventoryStackLimit()-MILL_SIZE)));
+		return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_MILLING, this.inventory[0]) &&
+				(inventory[1] == null || (inventory[1] != null && inventory[1].stackSize <= (this.getInventoryStackLimit()-MILL_SIZE))) &&
+				(inventory[1] == null || (inventory[1] != null && ModUtil.compareItemStacks(inventory[1], OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_MILLING, this.inventory[0]))));
 	}
 
 	@Override
@@ -373,5 +377,11 @@ public class TileEntityMill extends TileEntityLockable implements ICnvertInvento
     public void onDataPacket(net.minecraft.network.NetworkManager net, net.minecraft.network.play.server.SPacketUpdateTileEntity pkt)
     {
 		this.readFromNBT(pkt.getNbtCompound());
+    }
+
+	@Override
+    public boolean canRenderBreaking()
+    {
+        return true;
     }
 }

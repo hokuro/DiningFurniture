@@ -35,20 +35,20 @@ public class OriginalRecipie {
 		addRecipie(new ItemStack(Items.chicken), new ItemStack(ItemFoods.item_millchikin), ORIGINAL_RECIPIES.RECIPIE_MILLING);
 		addRecipie(new ItemStack(Items.mutton), new ItemStack(ItemFoods.item_millmutton), ORIGINAL_RECIPIES.RECIPIE_MILLING);
 		addRecipie(new ItemStack(Items.wheat),new ItemStack(ItemFoods.item_flour), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.double_plant,1,EnumPlantType.SUNFLOWER.getMeta()), new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.SUNFLOWER.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.double_plant,1,EnumPlantType.ROSE.getMeta()), new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.ROSE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.double_plant,1,EnumPlantType.PAEONIA.getMeta()), new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.PEONY.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.double_plant,1,EnumPlantType.SYRINGA.getMeta()), new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.LILAC.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.ALLIUM.getMeta()), new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.ALLIUM.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.PINK_TULIP.getMeta()), new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.TULIP.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.ORANGE_TULIP.getMeta()), new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.TULIP.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.RED_TULIP.getMeta()), new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.TULIP.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.WHITE_TULIP.getMeta()), new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.TULIP.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.BLUE_ORCHID.getMeta()), new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.ORCHID.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.DANDELION.getMeta()), new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.DANDELION.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.HOUSTONIA.getMeta()), new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.AZUREBLUET.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.OXEYE_DAISY.getMeta()), new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.OXEYDAISY.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.POPPY.getMeta()), new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.POPY.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.double_plant,1,EnumPlantType.SUNFLOWER.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.SUNFLOWER.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.double_plant,1,EnumPlantType.ROSE.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.ROSE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.double_plant,1,EnumPlantType.PAEONIA.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.PEONY.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.double_plant,1,EnumPlantType.SYRINGA.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.LILAC.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.ALLIUM.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.ALLIUM.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.PINK_TULIP.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.TULIP.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.ORANGE_TULIP.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.TULIP.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.RED_TULIP.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.TULIP.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.WHITE_TULIP.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.TULIP.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.BLUE_ORCHID.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.ORCHID.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.yellow_flower), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.DANDELION.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.HOUSTONIA.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.AZUREBLUET.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.OXEYE_DAISY.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.OXEYDAISY.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.red_flower,1,EnumFlowerType.POPPY.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.POPY.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
 
 		// Freezing
 		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_VANILA.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_VANILA.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);

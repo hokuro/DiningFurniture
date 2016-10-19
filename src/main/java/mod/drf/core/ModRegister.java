@@ -112,11 +112,11 @@ public class ModRegister {
 		//***************************************************************************//
 		// block_freezer
 		GameRegistry.addRecipe(new ItemStack(BlockFoods.block_freezer),
-				"III",
 				"ICI",
-				"III",
-				'I',Items.iron_ingot,
-				'C',Blocks.ice);
+				"C C",
+				"ICI",
+				'I',Items.iron_boots,
+				'C',Blocks.frosted_ice);
 		// block_flapemaker
 		GameRegistry.addRecipe(new ItemStack(BlockFoods.block_flapemaker),
 				"III",
@@ -533,8 +533,7 @@ public class ModRegister {
 			'M',Items.milk_bucket,
 			'S',Items.sugar,
 			'E',Items.egg,
-			'B',Items.glass_bottle,
-			'A',ItemFoods.item_salt);
+			'B',Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemFoods.item_icemix,3,1),
 				" AF",
 				"SME",
@@ -543,78 +542,70 @@ public class ModRegister {
 				'M',Items.milk_bucket,
 				'S',Items.sugar,
 				'E',Items.egg,
-				'B',Items.glass_bottle,
-				'A',ItemFoods.item_salt);
+				'B',Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemFoods.item_icemix,3,1),
-				" A ",
+				"   ",
 				"SME",
 				" B ",
 				'F',new ItemStack(Items.dye,1,EnumDyeColor.BROWN.getDyeDamage()),
 				'M',Items.milk_bucket,
 				'S',ItemFoods.item_choco,
 				'E',Items.egg,
-				'B',Items.glass_bottle,
-				'A',ItemFoods.item_salt);
+				'B',Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemFoods.item_icemix,3,2),
-				" AF",
+				" F ",
 				"SME",
 				" B ",
 				'F',new ItemStack(Blocks.pumpkin),
 				'M',Items.milk_bucket,
 				'S',Items.sugar,
 				'E',Items.egg,
-				'B',Items.glass_bottle,
-				'A',ItemFoods.item_salt);
+				'B',Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemFoods.item_icemix,3,3),
-				" AF",
+				" F ",
 				"SME",
 				" B ",
 				'F',new ItemStack(Items.dye,1,EnumDyeColor.BLACK.getDyeDamage()),
 				'M',Items.milk_bucket,
 				'S',Items.sugar,
 				'E',Items.egg,
-				'B',Items.glass_bottle,
-				'A',ItemFoods.item_salt);
+				'B',Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemFoods.item_icemix,3,4),
-				" AF",
+				" F ",
 				"SME",
 				" B ",
 				'F',Items.melon,
 				'M',Items.milk_bucket,
 				'S',Items.sugar,
 				'E',Items.egg,
-				'B',Items.glass_bottle,
-				'A',ItemFoods.item_salt);
+				'B',Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemFoods.item_icemix,3,5),
-				" AF",
+				" F ",
 				"SME",
 				" B ",
 				'F',Items.carrot,
 				'M',Items.milk_bucket,
 				'S',Items.sugar,
 				'E',Items.egg,
-				'B',Items.glass_bottle,
-				'A',ItemFoods.item_salt);
+				'B',Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemFoods.item_icemix,3,6),
-				" AF",
+				" F ",
 				"SME",
 				" B ",
 				'F',Items.potato,
 				'M',Items.milk_bucket,
 				'S',Items.sugar,
 				'E',Items.egg,
-				'B',Items.glass_bottle,
-				'A',ItemFoods.item_salt);
+				'B',Items.glass_bottle);
 		GameRegistry.addRecipe(new ItemStack(ItemFoods.item_icemix,3,7),
-				" AF",
+				" F ",
 				"SME",
 				" B ",
 				'F',Items.apple,
 				'M',Items.milk_bucket,
 				'S',Items.sugar,
 				'E',Items.egg,
-				'B',Items.glass_bottle,
-				'A',ItemFoods.item_salt);
+				'B',Items.glass_bottle);
 
 		GameRegistry.addShapelessRecipe(new ItemStack(ItemFoods.item_icemix,3,1),
 				new ItemStack(ItemFoods.item_icemix,1,0),new ItemStack(Items.dye,1,EnumDyeColor.BROWN.getDyeDamage()));

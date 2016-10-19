@@ -28,13 +28,15 @@ public class BlockFreezer extends BlockHorizontalContainer {
     		new AxisAlignedBB(0D, 0D, 0D, 0D, 0D, 0D), // 不使用
     		new AxisAlignedBB(0.9375D, 0D, 0.0625D, 0.0625D, 1D, 1D),	// NORTH
     		new AxisAlignedBB(0.0625D, 0D, 1D, 0.9375, 1D, 0.0625D),	// SOUTH
-    		new AxisAlignedBB(0.9375D, 0D, 0.0625D, 1D, 1D, 0.0625D),	// WEST
+    		new AxisAlignedBB(0.0D, 0D, 0.0625D, 0.9375D, 1D, 0.9375D),	// WEST
     		new AxisAlignedBB(1D, 0D, 0.0625D, 0.0625D, 1D, 0.9375D)	// EAST
     };
 
 	protected BlockFreezer() {
 		super(Material.glass);
+		this.setHardness(1.0F);
 	}
+
 
 	@Override
     public EnumBlockRenderType getRenderType(IBlockState state)
