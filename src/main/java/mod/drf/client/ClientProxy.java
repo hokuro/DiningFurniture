@@ -3,8 +3,10 @@ package mod.drf.client;
 import mod.drf.core.CommonProxy;
 import mod.drf.foods.render.RenderFlapeMaker;
 import mod.drf.foods.render.RenderFreezer;
+import mod.drf.foods.render.RenderMill;
 import mod.drf.foods.tileentity.TileEntityFlapeMaker;
 import mod.drf.foods.tileentity.TileEntityFreezer;
+import mod.drf.foods.tileentity.TileEntityMill;
 import mod.drf.foods.tileentity.TileEntitySaltPan;
 import mod.drf.furniture.entity.EntityChairZabuton;
 import mod.drf.furniture.item.ItemChairZabuton;
@@ -30,6 +32,7 @@ public class ClientProxy extends CommonProxy{
 		GameRegistry.registerTileEntity(TileEntitySaltPan.class, "TileEntitySaltPan");
 		ClientRegistry.registerTileEntity(TileEntityFlapeMaker.class, "TileEntityFlapeMaker",new RenderFlapeMaker());
 		ClientRegistry.registerTileEntity(TileEntityFreezer.class, "TileEntityFreezer",new RenderFreezer());
+		ClientRegistry.registerTileEntity(TileEntityMill.class, "TileEntityMill",new RenderMill());
 	}
 
 

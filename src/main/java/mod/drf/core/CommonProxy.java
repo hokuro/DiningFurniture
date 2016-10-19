@@ -2,6 +2,7 @@ package mod.drf.core;
 
 import mod.drf.foods.tileentity.TileEntityFlapeMaker;
 import mod.drf.foods.tileentity.TileEntityFreezer;
+import mod.drf.foods.tileentity.TileEntityMill;
 import mod.drf.foods.tileentity.TileEntitySaltPan;
 import mod.drf.furniture.client.gui.GuiTrunk;
 import mod.drf.furniture.inventory.ContainerTrunk;
@@ -19,6 +20,7 @@ public class CommonProxy implements IGuiHandler {
 		GameRegistry.registerTileEntity(TileEntitySaltPan.class, "TileEntitySaltPan");
 		GameRegistry.registerTileEntity(TileEntityFlapeMaker.class, "TileEntityFlapeMaker");
 		GameRegistry.registerTileEntity(TileEntityFreezer.class, "TileEntityFreezer");
+		GameRegistry.registerTileEntity(TileEntityMill.class, "TileEntityMill");
 	}
 
 	public void registRender(){
