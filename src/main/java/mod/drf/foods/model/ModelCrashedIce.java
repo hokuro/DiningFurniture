@@ -7,9 +7,8 @@ package mod.drf.foods.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 
-public class ModelFlape extends ModelBase
+public class ModelCrashedIce extends ModelBase
 {
   //fields
     ModelRenderer casebase;
@@ -25,7 +24,7 @@ public class ModelFlape extends ModelBase
 
     private ModelRenderer[] models;
 
-  public ModelFlape()
+  public ModelCrashedIce()
   {
 	    textureWidth = 64;
 	    textureHeight = 32;
@@ -94,7 +93,7 @@ public class ModelFlape extends ModelBase
   }
 
 
-  public void render(EnumFlapeLevel level, float rx, float ry, float rz, float scale){
+  public void render(EnumCrashedIceLevel level, float rx, float ry, float rz, float scale){
 	  switch(level){
 		case LEVEL0:
 			ice1.isHidden = true;
@@ -138,22 +137,6 @@ public class ModelFlape extends ModelBase
 	  }
   }
 
-  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float scale)
-  {
-    super.render(entity, f, f1, f2, f3, f4, scale);
-    setRotationAngles(f, f1, f2, f3, f4, scale);
-    casebase.render(scale);
-    casecupsid4.render(scale);
-    casecupsid3.render(scale);
-    caseporl.render(scale);
-    casecupbase.render(scale);
-    casecupsid2.render(scale);
-    casecupsid1.render(scale);
-    ice1.render(scale);
-    ice2.render(scale);
-    ice3.render(scale);
-  }
-
   private void setRotation(ModelRenderer model, float x, float y, float z)
   {
     model.rotateAngleX = x;
@@ -161,22 +144,16 @@ public class ModelFlape extends ModelBase
     model.rotateAngleZ = z;
   }
 
-  public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float scale)
-  {
-    super.setRotationAngles(f, f1, f2, f3, f4, scale, null);
-  }
-
-
-  public static enum EnumFlapeLevel{
+  public static enum EnumCrashedIceLevel{
 	  LEVEL0,
 	  LEVEL1,
 	  LEVEL2,
 	  LEVEL3,
 	  LEVEL4;
 
-	  private static final EnumFlapeLevel[] values = {LEVEL0,LEVEL1,LEVEL2,LEVEL3,LEVEL4};
+	  private static final EnumCrashedIceLevel[] values = {LEVEL0,LEVEL1,LEVEL2,LEVEL3,LEVEL4};
 
-	  public static EnumFlapeLevel getValue(int max, int cnt){
+	  public static EnumCrashedIceLevel getValue(int max, int cnt){
 		  int limit = max / values.length;
 		  int level = cnt/limit;
 		  if (level < 0){level = 0;}

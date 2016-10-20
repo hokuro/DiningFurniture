@@ -5,12 +5,13 @@ import java.util.Random;
 import mod.drf.core.ModCommon;
 import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.core.log.ModLog;
-import mod.drf.foods.inventory.ContainerFlapeMaker;
+import mod.drf.foods.inventory.ContainerMillStone;
 import mod.drf.foods.inventory.ICnvertInventory;
-import mod.drf.foods.network.MessageFlapeMaker;
+import mod.drf.foods.network.MessageMillStoneUpdate;
 import mod.drf.recipie.OriginalRecipie;
 import mod.drf.recipie.OriginalRecipie.ORIGINAL_RECIPIES;
 import mod.drf.sounds.SoundManager;
+import mod.drf.util.ModUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -25,31 +26,29 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 
-public class TileEntityFlapeMaker extends TileEntityLockable implements ITickable, ICnvertInventory {
-	public static final int CRUSH_TIME_MAX = 300;
-	public static final int CRUSH_SIZE = 4;
+public class TileEntityMillStone extends TileEntityLockable implements ITickable, ICnvertInventory {
+	public static final String REGISTER_NAME = "TileEntityMillStone";
+	public static final int MILL_TIME_MAX = 300;
+	public static final int MILL_SIZE = 1;
 	private ItemStack[] inventory = new ItemStack[2];
 	private String customName;
 	private boolean isRun;
-	private int crushTime;
-	private EnumFacing facing;
+	private int millTime;
 	private Random random = new Random();
 
 	private static final int[] slotsTop = new int[] {0};
 	private static final int[] slotsBottom = new int[] {1};
 	private static final int[] slotsSides = new int[] {0};
 
-	public TileEntityFlapeMaker(){
-		super();
+	public TileEntityMillStone(){
 		isRun = false;
-		crushTime = 0;
+		millTime = 0;
 	}
 
-	public TileEntityFlapeMaker(EnumFacing enumFacing){
-		super();
-		this.isRun = false;
-		this.facing = enumFacing;
-		crushTime = 0;
+	public TileEntityMillStone(boolean isRun){
+		this.isRun = isRun;
+		millTime = 0;
+		this.canRenderBreaking();
 	}
 
 	public void readFromNBT(NBTTagCompound compound)
@@ -69,7 +68,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 			}
 		}
 
-		this.crushTime = compound.getInteger("CrushTime");
+		this.millTime = compound.getInteger("CrushTime");
 		this.isRun = compound.getBoolean("isrun");
 
 		if (compound.hasKey("CustomName", 8))
@@ -81,7 +80,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 	public void writeToNBT(NBTTagCompound compound)
 	{
 		super.writeToNBT(compound);
-		compound.setInteger("CrushTime", this.crushTime);
+		compound.setInteger("CrushTime", this.millTime);
 		compound.setBoolean("isrun", this.isRun);
 		NBTTagList nbttaglist = new NBTTagList();
 
@@ -109,10 +108,6 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 		return isRun;
 	}
 
-	public EnumFacing face(){
-		return this.facing;
-	}
-
 	public void update()
 	{
 		boolean flag = this.isRun;
@@ -121,7 +116,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 			if (this.isRun){
 				// かきかきちゅう
 				if (canOutput()){
-					crushTime++;
+					millTime++;
 				}else{
 					// 変換不可のアイテムまたは空っぽ
 					this.isRun = false;
@@ -134,37 +129,37 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 					flag1 = true;
 				}
 			}
-			if (this.crushTime > CRUSH_TIME_MAX){
-				// かきごおりかんせい
+			if (this.millTime > MILL_TIME_MAX){
+				// かんせい
 				if (this.inventory[1] == null){
-					this.inventory[1] = OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_CRASHING, this.inventory[0]);
-					this.inventory[1].stackSize = CRUSH_SIZE;
+					this.inventory[1] = OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_MILLING, this.inventory[0]);
+					this.inventory[1].stackSize = MILL_SIZE;
 				}else{
-					this.inventory[1].stackSize += CRUSH_SIZE;
+					this.inventory[1].stackSize += MILL_SIZE;
 				}
 				this.inventory[0].stackSize--;
 				if (this.inventory[0].stackSize <= 0){
 					this.inventory[0] = null;
 				}
-				this.crushTime = 0;
+				this.millTime = 0;
 				flag1 = true;
 			}
 
 			if (flag != this.isRun){
-				Mod_DiningFurniture.Net_Instance.sendToAll(new MessageFlapeMaker(this.crushTime,this.isRun,this.pos));
+				Mod_DiningFurniture.Net_Instance.sendToAll(new MessageMillStoneUpdate(this.millTime,this.isRun,this.pos));
 			}
 		}else{
 			if (this.isRun && canOutput()){
-				this.crushTime++;
+				this.millTime++;
 	            if (random.nextDouble() < 0.1D)
 	            {
-	            	worldObj.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, SoundManager.sound_makeflape, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+	            	worldObj.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, SoundManager.sound_mill, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
 	            }
 			}else{
-				this.crushTime = 0;
+				this.millTime = 0;
 			}
-			if (this.crushTime > CRUSH_TIME_MAX){
-				this.crushTime = 0;
+			if (this.millTime > MILL_TIME_MAX){
+				this.millTime = 0;
 			}
 		}
 
@@ -263,7 +258,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 
 		if (!flag)
 		{
-			this.crushTime = 0;
+			this.millTime = 0;
 			this.markDirty();
 		}
 	}
@@ -297,7 +292,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 		{
 			return false;
 		}
-		return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_CRASHING, stack);
+		return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_MILLING, stack);
 	}
 
 	@Override
@@ -305,7 +300,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 		switch (id)
 		{
 			case 0:
-				return this.crushTime;
+				return this.millTime;
 			case 1:
 				return this.isRun?1:0;
 			case 3:
@@ -320,7 +315,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 		switch (id)
 		{
 			case 0:
-				this.crushTime = value;
+				this.millTime = value;
 				break;
 			case 1:
 				this.isRun = value==0?false:true;
@@ -343,7 +338,7 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 
 	@Override
 	public String getName() {
-		return this.hasCustomName() ? this.customName : "container.flapemaker";
+		return this.hasCustomName() ? this.customName : "container.millstone";
 	}
 
 	@Override
@@ -353,12 +348,12 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 
 	@Override
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-		 return new ContainerFlapeMaker(playerInventory, this);
+		 return new ContainerMillStone(playerInventory, this);
 	}
 
 	@Override
 	public String getGuiID() {
-		return ModCommon.MOD_ID + ":" + ModCommon.MOD_GUI_FLAPEMAKER_NAME;
+		return ModCommon.MOD_ID + ":" + ModCommon.MOD_GUI_MILLSTONE_NAME;
 	}
 
 	public void setCustomInventoryName(String displayName) {
@@ -366,7 +361,9 @@ public class TileEntityFlapeMaker extends TileEntityLockable implements ITickabl
 	}
 
 	public boolean canOutput(){
-		return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_CRASHING, this.inventory[0]) && (inventory[1] == null || (inventory[1] != null && inventory[1].stackSize <= (this.getInventoryStackLimit()-CRUSH_SIZE)));
+		return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_MILLING, this.inventory[0]) &&
+				(inventory[1] == null || (inventory[1] != null && inventory[1].stackSize <= (this.getInventoryStackLimit()-MILL_SIZE))) &&
+				(inventory[1] == null || (inventory[1] != null && ModUtil.compareItemStacks(inventory[1], OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_MILLING, this.inventory[0]))));
 	}
 
 	@Override

@@ -26,6 +26,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 
 public class TileEntityFreezer extends TileEntityLockable implements ITickable, ICnvertInventory {
+	public static final String REGISTER_NAME = "TileEntityFreezer";
 	public static final int FREEZING_TIME_MAX=1200;
 	private ItemStack[] inventory = new ItemStack[54];
 	private int[] freezingTimer = new int[27];

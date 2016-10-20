@@ -26,8 +26,8 @@ public class OriginalRecipie {
 
 	private OriginalRecipie(){
 		// Chasshing
-		addRecipie(new ItemStack(Blocks.ice,1,32767), new ItemStack(ItemFoods.item_flape,1,0), ORIGINAL_RECIPIES.RECIPIE_CRASHING);
-		addRecipie(new ItemStack(Blocks.packed_ice,1,32767), new ItemStack(ItemFoods.item_flape,1,0), ORIGINAL_RECIPIES.RECIPIE_CRASHING);
+		addRecipie(new ItemStack(Blocks.ice,1,32767), new ItemStack(ItemFoods.item_crashedice,1,0), ORIGINAL_RECIPIES.RECIPIE_CRASHING);
+		addRecipie(new ItemStack(Blocks.packed_ice,1,32767), new ItemStack(ItemFoods.item_crashedice,1,0), ORIGINAL_RECIPIES.RECIPIE_CRASHING);
 
 		// Milling
 		addRecipie(new ItemStack(Items.beef), new ItemStack(ItemFoods.item_millbeef,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);

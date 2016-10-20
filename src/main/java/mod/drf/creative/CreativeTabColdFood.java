@@ -12,7 +12,6 @@ public class CreativeTabColdFood extends CreativeTabs {
 
 	@Override
 	public Item getTabIconItem() {
-		// TODO 自動生成されたメソッド・スタブ
 		return ItemFoods.item_icecream;
 	}
 }

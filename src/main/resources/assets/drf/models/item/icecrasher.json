@@ -1,5 +1,5 @@
 ﻿{
-    "parent": "drf:block/flapemaker",
+    "parent": "drf:block/icecrasher",
     "display": {
         "firstperson_righthand": {
             "rotation": [ 0, 45, 0 ],

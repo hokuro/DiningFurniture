@@ -24,7 +24,7 @@ public class ItemTrunk extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World world, EntityPlayer player, EnumHand hand)
 	{
-		player.openGui(Mod_DiningFurniture.instance, ModCommon.guiID, world, player.chunkCoordX, player.chunkCoordY, player.chunkCoordZ);
+		player.openGui(Mod_DiningFurniture.instance, ModCommon.MOD_GUI_ID_TRUNK, world, player.chunkCoordX, player.chunkCoordY, player.chunkCoordZ);
     	return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
     }
 

@@ -3,7 +3,6 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-import mod.drf.core.ModCommon;
 import mod.drf.core.log.ModLog;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -29,7 +28,7 @@ public class ModConfig implements IModConfig{
 
 	public boolean reloadConfig(){
 		long n = System.currentTimeMillis() - _checkTime;
-		if (n < ModCommon.MOD_CONFIG_RELOAD) {
+		if (n < 500) {
 			return false;
 		}
 		if (!_file.isFile()) {

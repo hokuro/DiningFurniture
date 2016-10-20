@@ -1,27 +1,27 @@
 package mod.drf.foods.gui;
 
-import mod.drf.foods.inventory.ContainerMill;
-import mod.drf.foods.tileentity.TileEntityMill;
+import mod.drf.foods.inventory.ContainerMillStone;
+import mod.drf.foods.tileentity.TileEntityMillStone;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-public class GuiMill extends GuiContainer {
-	  private static final ResourceLocation texture = new ResourceLocation("drf:textures/gui/container/mill.png");
+public class GuiMillStone extends GuiContainer {
+	  private static final ResourceLocation texture = new ResourceLocation("drf:textures/gui/container/millstone.png");
 	    private final InventoryPlayer playerInventory;
-	    private IInventory tileMill;
-	    private BlockPos pos;
+	    private final IInventory tileMill;
 
 
-	    public GuiMill(InventoryPlayer player, IInventory flapeMaker, BlockPos pos)
+	    public GuiMillStone(World worldIn, EntityPlayer player, BlockPos pos, IInventory inv)
 	    {
-	        super(new ContainerMill(player, flapeMaker));
-	        this.playerInventory = player;
-	        this.tileMill = flapeMaker;
-	        this.pos = pos;
+	        super(new ContainerMillStone(player.inventory, inv));
+	        this.playerInventory = player.inventory;
+	        this.tileMill = inv;
 	    }
 
 	    @Override
@@ -47,6 +47,6 @@ public class GuiMill extends GuiContainer {
 	    private int getCrushProgressScaled(int pixels)
 	    {
 	        int i = this.tileMill.getField(0);
-		    return i == 0?0:i * pixels / TileEntityMill.MILL_TIME_MAX;
+		    return i == 0?0:i * pixels / TileEntityMillStone.MILL_TIME_MAX;
 	    }
 }

@@ -19,8 +19,8 @@ public class BlockFoods {
 
 	public static final List<String> NAME_LIST = new ArrayList<String>(){
 		{add(NAME_FREEZER);}
-		{add(NAME_FLAPEMAKER);}
-		{add(NAME_MILL);}
+		{add(NAME_ICECRASHER);}
+		{add(NAME_MILLSTONE);}
 		{add(NAME_SALTPAN);}
 		{add(NAME_PIE_HALL);}
 		{add(NAME_CARAMELPIE_HALL);}
@@ -52,9 +52,9 @@ public class BlockFoods {
 	// 製氷機
 	public static final String NAME_FREEZER = "freezer";
 	// かき氷器
-	public static final String NAME_FLAPEMAKER = "flapemaker";
+	public static final String NAME_ICECRASHER = "icecrasher";
 	// 製粉機
-	public static final String NAME_MILL = "mill";
+	public static final String NAME_MILLSTONE = "millstone";
 	// 製塩機
 	public static final String NAME_SALTPAN = "saltpan";
 
@@ -118,8 +118,8 @@ public class BlockFoods {
 	private static final int EffectTime = 1600;
 
 	public static final Block block_freezer          = new BlockFreezer().setCreativeTab(Mod_DiningFurniture.tabColdFood).setUnlocalizedName(NAME_FREEZER);
-	public static final Block block_flapemaker       = new BlockFlapeMaker().setCreativeTab(Mod_DiningFurniture.tabColdFood).setUnlocalizedName(NAME_FLAPEMAKER);
-	public static final Block block_mill             = new BlockMill().setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_MILL);
+	public static final Block block_icecrasher       = new BlockIceCrasher().setCreativeTab(Mod_DiningFurniture.tabColdFood).setUnlocalizedName(NAME_ICECRASHER);
+	public static final Block block_millstone        = new BlockMillStone().setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_MILLSTONE);
 	public static final Block block_saltpan          = new BlockSaltPan().setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_SALTPAN);
 
 
@@ -155,8 +155,8 @@ public class BlockFoods {
 	public static Map<String, Block> blockMap(){
 		return  (new HashMap<String, Block>(){
 			{put(NAME_FREEZER, block_freezer);}
-			{put(NAME_FLAPEMAKER,block_flapemaker);}
-			{put(NAME_MILL, block_mill);}
+			{put(NAME_ICECRASHER,block_icecrasher);}
+			{put(NAME_MILLSTONE, block_millstone);}
 			{put(NAME_SALTPAN, block_saltpan);}
 			{put(NAME_PIE_HALL, block_pie_hall);}
 			{put(NAME_CARAMELPIE_HALL, block_caramelpie_hall);}
@@ -188,8 +188,8 @@ public class BlockFoods {
 	public static Map<String,Item> itemMap(){
 		return (new HashMap<String, Item>(){
 			{put(NAME_FREEZER, new ItemBlock(block_freezer));}
-			{put(NAME_FLAPEMAKER,new ItemBlock(block_flapemaker));}
-			{put(NAME_MILL, new ItemBlock(block_mill));}
+			{put(NAME_ICECRASHER,new ItemBlock(block_icecrasher));}
+			{put(NAME_MILLSTONE, new ItemBlock(block_millstone));}
 			{put(NAME_SALTPAN, new ItemBlock(block_saltpan));}
 			{put(NAME_PIE_HALL, new BlockItemPie(block_pie_hall).setMaxStackSize(16));}
 			{put(NAME_CARAMELPIE_HALL, new BlockItemPie(block_caramelpie_hall).setMaxStackSize(16));}
@@ -221,8 +221,8 @@ public class BlockFoods {
 	public static Map<String,ResourceLocation[]> resourceMap(){
 		return (new HashMap<String,ResourceLocation[]>(){
 			{put(NAME_FREEZER, new ResourceLocation[]{new ResourceLocation(ModCommon.MOD_ID+":"+NAME_FREEZER)});}
-			{put(NAME_FLAPEMAKER, new ResourceLocation[]{new ResourceLocation(ModCommon.MOD_ID+":"+NAME_FLAPEMAKER)});}
-			{put(NAME_MILL, new ResourceLocation[]{new ResourceLocation(ModCommon.MOD_ID+":"+NAME_MILL)});}
+			{put(NAME_ICECRASHER, new ResourceLocation[]{new ResourceLocation(ModCommon.MOD_ID+":"+NAME_ICECRASHER)});}
+			{put(NAME_MILLSTONE, new ResourceLocation[]{new ResourceLocation(ModCommon.MOD_ID+":"+NAME_MILLSTONE)});}
 			{put(NAME_SALTPAN, new ResourceLocation[]{new ResourceLocation(ModCommon.MOD_ID+":"+NAME_SALTPAN)});}
 			{put(NAME_PIE_HALL, new ResourceLocation[]{new ResourceLocation(ModCommon.MOD_ID+":"+NAME_PIE_HALL)});}
 			{put(NAME_CARAMELPIE_HALL, new ResourceLocation[]{new ResourceLocation(ModCommon.MOD_ID+":"+NAME_CARAMELPIE_HALL)});}

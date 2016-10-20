@@ -4,7 +4,7 @@ import java.util.Random;
 
 import mod.drf.core.ModCommon;
 import mod.drf.core.Mod_DiningFurniture;
-import mod.drf.foods.tileentity.TileEntityMill;
+import mod.drf.foods.tileentity.TileEntityMillStone;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -21,11 +21,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockMill extends BlockContainer {
+public class BlockMillStone extends BlockContainer {
     // あたり判定
     private static final AxisAlignedBB colligeBox = new AxisAlignedBB(0.125D, 0D, 0.125D, 0.875D, 0.75D, 0.875D);
 
-	protected BlockMill() {
+	protected BlockMillStone() {
         super(Material.glass);
 		this.setHardness(1.0F);
 	}
@@ -37,7 +37,7 @@ public class BlockMill extends BlockContainer {
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityMill();
+		return new TileEntityMillStone();
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class BlockMill extends BlockContainer {
      */
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return Item.getItemFromBlock(BlockFoods.block_mill);
+        return Item.getItemFromBlock(BlockFoods.block_millstone);
     }
 
 
@@ -82,9 +82,9 @@ public class BlockMill extends BlockContainer {
         {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityMill)
+            if (tileentity instanceof TileEntityMillStone)
             {
-            	playerIn.openGui(Mod_DiningFurniture.instance, ModCommon.MOD_GUI_ID_MILL, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            	playerIn.openGui(Mod_DiningFurniture.instance, ModCommon.MOD_GUI_ID_MILLSTONE, worldIn, pos.getX(), pos.getY(), pos.getZ());
             }
 
             return true;
@@ -95,9 +95,9 @@ public class BlockMill extends BlockContainer {
     {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntityMill)
+        if (tileentity instanceof TileEntityMillStone)
         {
-            InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityMill)tileentity);
+            InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityMillStone)tileentity);
             worldIn.updateComparatorOutputLevel(pos, this);
         }
         super.breakBlock(worldIn, pos, state);
@@ -105,6 +105,6 @@ public class BlockMill extends BlockContainer {
 
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
-        return new ItemStack(BlockFoods.block_mill);
+        return new ItemStack(BlockFoods.block_millstone);
     }
 }

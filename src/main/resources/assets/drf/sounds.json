@@ -3,7 +3,7 @@
     "category":"blocks",
     "sounds":[
       {
-        "name": "drf:blocks/flapemake",
+        "name": "drf:blocks/crashing",
         "weight": 1,
         "volume": 1,
         "pitch":1,
@@ -11,7 +11,7 @@
       }
     ]
   },
-   "block.foods.mill":{
+   "block.foods.millstone":{
     "category":"blocks",
     "sounds":[
       {

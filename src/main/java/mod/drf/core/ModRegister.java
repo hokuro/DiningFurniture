@@ -9,8 +9,8 @@ import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.Item.ItemFoods.EnumFlapeSyrup;
 import mod.drf.foods.Item.ItemFoods.EnumFlowerHalb;
 import mod.drf.foods.block.BlockFoods;
-import mod.drf.foods.network.MessageFlapeMaker;
-import mod.drf.foods.network.MessageMill;
+import mod.drf.foods.network.MessageIceCrasherUpdate;
+import mod.drf.foods.network.MessageMillStoneUpdate;
 import mod.drf.furniture.block.BlockFurniture;
 import mod.drf.furniture.item.ItemFurniture;
 import mod.drf.sounds.SoundManager;
@@ -72,9 +72,7 @@ public class ModRegister {
 
 	public static void RegisterItem(FMLPreInitializationEvent event){
 		Map<String,Item> itemMap = ItemFoods.itemMap();
-		//itemMap.putAll(ItemFurniture.itemMap());
 		Map<String, ModelResourceLocation[]> resourceMap = ItemFoods.resourceMap();
-		//resourceMap.putAll(ItemFurniture.resourceMap());
 		List<String> keyList = new ArrayList<String>();
 		keyList.addAll(ItemFoods.NMAE_LIST);
 
@@ -117,15 +115,15 @@ public class ModRegister {
 				"ICI",
 				'I',Items.iron_boots,
 				'C',Blocks.frosted_ice);
-		// block_flapemaker
-		GameRegistry.addRecipe(new ItemStack(BlockFoods.block_flapemaker),
+		// block_icecrasher
+		GameRegistry.addRecipe(new ItemStack(BlockFoods.block_icecrasher),
 				"III",
 				"IFI",
 				"I I",
 				'I',Items.iron_ingot,
 				'F',Items.flint);
 		// block_mill
-		GameRegistry.addRecipe(new ItemStack(BlockFoods.block_mill),
+		GameRegistry.addRecipe(new ItemStack(BlockFoods.block_millstone),
 				"SSS",
 				"FFF",
 				"SSS",
@@ -692,27 +690,27 @@ public class ModRegister {
 				'B',Items.glass_bottle);
 
 		//***************************************************************************//
-		// Item flape
+		// Item crashedice
 		//***************************************************************************//
 		for (EnumFlapeSyrup syrup : EnumFlapeSyrup.values()){
 			if (syrup == EnumFlapeSyrup.SYRUP_NONE){continue;}
-			GameRegistry.addShapelessRecipe(new ItemStack(ItemFoods.item_flape,1, syrup.getDamage()),
-					new ItemStack(ItemFoods.item_flape,1,0),
+			GameRegistry.addShapelessRecipe(new ItemStack(ItemFoods.item_crashedice,1, syrup.getDamage()),
+					new ItemStack(ItemFoods.item_crashedice,1,0),
 					new ItemStack(ItemFoods.item_syrup,1,syrup.getDamage()));
 		}
 		// item_milkflape
 		for (EnumFlapeSyrup syrup : EnumFlapeSyrup.values()){
-			GameRegistry.addShapelessRecipe(new ItemStack(ItemFoods.item_milkflape,1, syrup.getDamage()),
-					new ItemStack(ItemFoods.item_flape,1,syrup.getDamage()),
+			GameRegistry.addShapelessRecipe(new ItemStack(ItemFoods.item_milkcrashedice,1, syrup.getDamage()),
+					new ItemStack(ItemFoods.item_crashedice,1,syrup.getDamage()),
 					ItemFoods.item_syrupmilk);
 			if (syrup == EnumFlapeSyrup.SYRUP_NONE){continue;}
-			GameRegistry.addShapelessRecipe(new ItemStack(ItemFoods.item_milkflape,1, syrup.getDamage()),
-					new ItemStack(ItemFoods.item_flape,1,0),
+			GameRegistry.addShapelessRecipe(new ItemStack(ItemFoods.item_milkcrashedice,1, syrup.getDamage()),
+					new ItemStack(ItemFoods.item_crashedice,1,0),
 					new ItemStack(ItemFoods.item_syrup,1,syrup.getDamage()),
 					ItemFoods.item_syrupmilk);
 		}
-		GameRegistry.addShapelessRecipe(new ItemStack(ItemFoods.item_milkflape,1,0),
-				new ItemStack(ItemFoods.item_flape,1,0),
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemFoods.item_milkcrashedice,1,0),
+				new ItemStack(ItemFoods.item_crashedice,1,0),
 				ItemFoods.item_syrupmilk);
 
 		//***************************************************************************//
@@ -1045,8 +1043,8 @@ public class ModRegister {
 	}
 
 	public static void RegisterMessage(){
-		Mod_DiningFurniture.Net_Instance.registerMessage(MessageFlapeMaker.class, MessageFlapeMaker.class, ModCommon.MESSAGE_ID_FLAPEMAKER, Side.CLIENT);
-		Mod_DiningFurniture.Net_Instance.registerMessage(MessageMill.class,MessageMill.class, ModCommon.MESSAGE_ID_MILL, Side.CLIENT);
+		Mod_DiningFurniture.Net_Instance.registerMessage(MessageIceCrasherUpdate.class, MessageIceCrasherUpdate.class, ModCommon.MESSAGE_ID_ICECRASHER_UPDATE, Side.CLIENT);
+		Mod_DiningFurniture.Net_Instance.registerMessage(MessageMillStoneUpdate.class,MessageMillStoneUpdate.class, ModCommon.MESSAGE_ID_MILLSTONE_UPDATE, Side.CLIENT);
 //		Mod_DiningFurniture.Net_Instance.registerMessage(TrunkMessageHandler.class, TrunkPagePacket.class, ModCommon.MESSAGE_ID_TRUNKDATA, Side.SERVER);
 	}
 
@@ -1054,6 +1052,7 @@ public class ModRegister {
 
 	public static void RegisterSounds(){
 		GameRegistry.register(SoundManager.sound_makeflape);
+		GameRegistry.register(SoundManager.sound_mill);
 	}
 
 }

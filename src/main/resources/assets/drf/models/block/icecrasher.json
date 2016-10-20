@@ -1,9 +1,9 @@
 {
     "textures": {
-        "particle":"drf:blocks/flapemaker_side",
-        "bottom": "drf:blocks/flapemaker_bottom",
-        "top":   "drf:blocks/flapemaker_top",
-        "side":"drf:blocks/flapemaker_side"
+        "particle":"drf:blocks/icecrasher_side",
+        "bottom": "drf:blocks/icecrasher_bottom",
+        "top":   "drf:blocks/icecrasher_top",
+        "side":"drf:blocks/icecrasher_side"
     },
     "elements": [
         {   "from": [ 2, 10, 2 ],

@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ContainerFreezer extends Container {
 
 	private final IInventory tile;
-	public int crushTime;
+//	public int crushTime;
 
 	public ContainerFreezer(InventoryPlayer playerInventory, IInventory tileEntityFreezer,EntityPlayer player) {
 		this.tile = tileEntityFreezer;
@@ -48,13 +48,13 @@ public class ContainerFreezer extends Container {
 
 	public void detectAndSendChanges(){
 		super.detectAndSendChanges();
-		for (int i = 0; i < this.crafters.size(); ++i){
-			ICrafting icrafting = (ICrafting)this.crafters.get(i);
-			if ( this.crushTime != this.tile.getField(0)){
-				icrafting.sendProgressBarUpdate(this, 2, this.tile.getField(0));
-			}
-		}
-		this.crushTime = this.tile.getField(0);
+//		for (int i = 0; i < this.crafters.size(); ++i){
+//			ICrafting icrafting = (ICrafting)this.crafters.get(i);
+//			if ( this.crushTime != this.tile.getField(0)){
+//				icrafting.sendProgressBarUpdate(this, 2, this.tile.getField(0));
+//			}
+//		}
+//		this.crushTime = this.tile.getField(0);
 	}
 
 	@Override

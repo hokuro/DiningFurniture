@@ -1,25 +1,25 @@
 package mod.drf.foods.render;
 
 import mod.drf.core.log.ModLog;
-import mod.drf.foods.model.ModelMill;
-import mod.drf.foods.tileentity.TileEntityMill;
+import mod.drf.foods.model.ModelMillStone;
+import mod.drf.foods.tileentity.TileEntityMillStone;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
 
-public class RenderMill extends TileEntitySpecialRenderer<TileEntityMill> {
+public class RenderMillStone extends TileEntitySpecialRenderer<TileEntityMillStone> {
 
-	private static final ResourceLocation tex = new ResourceLocation("drf:textures/entity/mill.png");
+	private static final ResourceLocation tex = new ResourceLocation("drf:textures/entity/millstone.png");
 
-	private ModelMill mainModel = new ModelMill();
+	private ModelMillStone mainModel = new ModelMillStone();
 	@Override
-	public void renderTileEntityAt(TileEntityMill te, double x, double y, double z, float partialTicks, int destroyStage) {
-		renderMill((TileEntityMill)te,x,y,z,partialTicks,destroyStage);
+	public void renderTileEntityAt(TileEntityMillStone te, double x, double y, double z, float partialTicks, int destroyStage) {
+		renderMill((TileEntityMillStone)te,x,y,z,partialTicks,destroyStage);
 
 	}
 
 
-	public void renderMill(TileEntityMill te, double x, double y, double z, float partialTicks, int destroyStage) {
+	public void renderMill(TileEntityMillStone te, double x, double y, double z, float partialTicks, int destroyStage) {
         if (destroyStage >= 0)
         {
             this.bindTexture(DESTROY_STAGES[destroyStage]);

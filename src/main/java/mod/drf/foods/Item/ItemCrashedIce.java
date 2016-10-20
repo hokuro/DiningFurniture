@@ -10,8 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemFlap extends ItemFood {
-	public ItemFlap(int amount, float saturation, boolean isWolfFood) {
+public class ItemCrashedIce extends ItemFood {
+	public ItemCrashedIce(int amount, float saturation, boolean isWolfFood) {
 		super(amount, saturation, isWolfFood);
 		// TODO 自動生成されたコンストラクター・スタブ
 	}

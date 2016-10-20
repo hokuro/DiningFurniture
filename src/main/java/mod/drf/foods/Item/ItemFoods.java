@@ -61,8 +61,8 @@ public class ItemFoods {
 		{add(NAME_ICECREAM);}
 		{add(NAME_SYRUP);}
 		{add(NAME_SYRUP_MILK);}
-		{add(NAME_FLAPE);}
-		{add(NAME_MILKFLAPE);}
+		{add(NAME_CRASHEDICE);}
+		{add(NAME_CRASHEDICE_MILK);}
 		{add(NAME_SUGAR_WATER);}
 		{add(NAME_ICECANDY);}
 		{add(NAME_FLOUR);}
@@ -178,13 +178,13 @@ public class ItemFoods {
 	//	アイスクリーム
 	public static final String NAME_ICECREAM ="icecream";
 	// シロップ
-	public static final String NAME_SYRUP = "flapesyrup";
+	public static final String NAME_SYRUP = "syrup";
 	// 練乳
-	public static final String NAME_SYRUP_MILK = "flapesyrupmilk";
+	public static final String NAME_SYRUP_MILK = "condencedmilk";
 	// 練乳かき氷
-	public static final String NAME_FLAPE="flape";
+	public static final String NAME_CRASHEDICE="crashedice";
 	// 練乳かき氷
-	public static final String NAME_MILKFLAPE="flapemilk";
+	public static final String NAME_CRASHEDICE_MILK="crashedicemilk";
 	// キャンディ液
 	public static final String NAME_SUGAR_WATER="icesugarwater";
 	// アイスキャンディ
@@ -278,8 +278,8 @@ public class ItemFoods {
 	public static final Item item_icecream              = new ItemIceCream(0,0,false).setUnlocalizedName(NAME_ICECREAM).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
 	public static final Item item_syrup                 = new ItemSyrup().setUnlocalizedName(NAME_SYRUP).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
 	public static final Item item_syrupmilk             = new Item().setUnlocalizedName(NAME_SYRUP_MILK).setCreativeTab(Mod_DiningFurniture.tabColdFood);
-	public static final Item item_flape                 = new ItemFlap(0,0,false).setPotionEffect(new PotionEffect(MobEffects.confusion,100,1), 25.0F).setUnlocalizedName(NAME_FLAPE).setCreativeTab(Mod_DiningFurniture.tabColdFood);
-	public static final Item item_milkflape             = new ItemFlap(0,0,false).setPotionEffect(new PotionEffect(MobEffects.confusion,100,1), 25.0F).setUnlocalizedName(NAME_MILKFLAPE).setCreativeTab(Mod_DiningFurniture.tabColdFood);
+	public static final Item item_crashedice            = new ItemCrashedIce(0,0,false).setPotionEffect(new PotionEffect(MobEffects.confusion,100,1), 25.0F).setUnlocalizedName(NAME_CRASHEDICE).setCreativeTab(Mod_DiningFurniture.tabColdFood);
+	public static final Item item_milkcrashedice        = new ItemCrashedIce(0,0,false).setPotionEffect(new PotionEffect(MobEffects.confusion,100,1), 25.0F).setUnlocalizedName(NAME_CRASHEDICE_MILK).setCreativeTab(Mod_DiningFurniture.tabColdFood);
 	public static final Item item_sugarwater            = new ItemSyrup().setUnlocalizedName(NAME_SUGAR_WATER).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
 	public static final Item item_icecandy              = new ItemIceCandy(0,0,false).setUnlocalizedName(NAME_ICECANDY).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
 
@@ -354,8 +354,8 @@ public class ItemFoods {
 			{put(NAME_ICECREAM, item_icecream);}
 			{put(NAME_SYRUP,item_syrup);}
 			{put(NAME_SYRUP_MILK,item_syrupmilk);}
-			{put(NAME_FLAPE,item_flape);}
-			{put(NAME_MILKFLAPE,item_milkflape);}
+			{put(NAME_CRASHEDICE,item_crashedice);}
+			{put(NAME_CRASHEDICE_MILK,item_milkcrashedice);}
 			{put(NAME_SUGAR_WATER,item_sugarwater);}
 			{put(NAME_ICECANDY,item_icecandy);}
 
@@ -472,52 +472,52 @@ public class ItemFoods {
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP + "_" + EnumFlapeSyrup.SYRUP_CALUCIUM.getFlavor(), "inventory")});}
 			{put(NAME_SYRUP_MILK, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP_MILK, "inventory")});}
 
-			{put(NAME_FLAPE,new ModelResourceLocation[]{
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_NONE.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_SUGAR.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_PUMPKIN.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_CACTUS.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_WMELLON.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_APPLE.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_BLACK.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_STRAWBERRY.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_MELON.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_CHOCOLATE.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_POTION.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_BERRY.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_BLUEHAWAII.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_COCONUT.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_MATCHER.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_PEACH.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_LIME.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_LEMON.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_SODA.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_GRAPE.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_ORANGE.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_FLAPE + "_" + EnumFlapeSyrup.SYRUP_CALUCIUM.getFlavor(), "inventory")});}
-			{put(NAME_MILKFLAPE,new ModelResourceLocation[]{
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_NONE.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_SUGAR.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_PUMPKIN.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_CACTUS.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_WMELLON.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_APPLE.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_BLACK.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_STRAWBERRY.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_MELON.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_CHOCOLATE.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_POTION.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_BERRY.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_BLUEHAWAII.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_COCONUT.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_MATCHER.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_PEACH.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_LIME.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_LEMON.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_SODA.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_GRAPE.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_ORANGE.getFlavor(), "inventory"),
-					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_MILKFLAPE + "_" + EnumFlapeSyrup.SYRUP_CALUCIUM.getFlavor(), "inventory")});}
+			{put(NAME_CRASHEDICE,new ModelResourceLocation[]{
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_NONE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_SUGAR.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_PUMPKIN.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_CACTUS.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_WMELLON.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_APPLE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_BLACK.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_STRAWBERRY.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_MELON.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_CHOCOLATE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_POTION.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_BERRY.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_BLUEHAWAII.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_COCONUT.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_MATCHER.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_PEACH.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_LIME.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_LEMON.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_SODA.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_GRAPE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_ORANGE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE + "_" + EnumFlapeSyrup.SYRUP_CALUCIUM.getFlavor(), "inventory")});}
+			{put(NAME_CRASHEDICE_MILK,new ModelResourceLocation[]{
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_NONE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_SUGAR.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_PUMPKIN.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_CACTUS.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_WMELLON.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_APPLE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_BLACK.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_STRAWBERRY.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_MELON.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_CHOCOLATE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_POTION.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_BERRY.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_BLUEHAWAII.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_COCONUT.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_MATCHER.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_PEACH.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_LIME.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_LEMON.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_SODA.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_GRAPE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_ORANGE.getFlavor(), "inventory"),
+					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_CRASHEDICE_MILK + "_" + EnumFlapeSyrup.SYRUP_CALUCIUM.getFlavor(), "inventory")});}
 			{put(NAME_SUGAR_WATER,new ModelResourceLocation[]{
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SUGAR_WATER + "_" + EnumFlapeSyrup.SYRUP_NONE.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SUGAR_WATER + "_" + EnumFlapeSyrup.SYRUP_SUGAR.getFlavor(), "inventory"),

@@ -1,7 +1,7 @@
 package mod.drf.foods.network;
 
 import io.netty.buffer.ByteBuf;
-import mod.drf.foods.tileentity.TileEntityFlapeMaker;
+import mod.drf.foods.tileentity.TileEntityIceCrasher;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -9,15 +9,15 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class MessageFlapeMaker implements IMessage, IMessageHandler<MessageFlapeMaker,IMessage>{
+public class MessageIceCrasherUpdate implements IMessage, IMessageHandler<MessageIceCrasherUpdate,IMessage>{
 
 	private int crushTime;
 	private boolean isRun;
 	private BlockPos pos;
 
-	public MessageFlapeMaker(){}
+	public MessageIceCrasherUpdate(){}
 
-	public MessageFlapeMaker(int crushTime, boolean isRun, BlockPos posIn){
+	public MessageIceCrasherUpdate(int crushTime, boolean isRun, BlockPos posIn){
 		this.crushTime = crushTime;
 		this.isRun  = isRun;
 		this.pos = posIn;
@@ -28,11 +28,11 @@ public class MessageFlapeMaker implements IMessage, IMessageHandler<MessageFlape
 	public BlockPos getPos(){return this.pos;}
 
 	@Override
-	public IMessage onMessage(MessageFlapeMaker message, MessageContext ctx) {
+	public IMessage onMessage(MessageIceCrasherUpdate message, MessageContext ctx) {
 		TileEntity te = Minecraft.getMinecraft().theWorld.getTileEntity(message.getPos());
-		if (te instanceof TileEntityFlapeMaker){
-			((TileEntityFlapeMaker)te).setField(0, message.crushTime);
-			((TileEntityFlapeMaker)te).setField(1, message.getIsRun()?1:0);
+		if (te instanceof TileEntityIceCrasher){
+			((TileEntityIceCrasher)te).setField(0, message.crushTime);
+			((TileEntityIceCrasher)te).setField(1, message.getIsRun()?1:0);
 		}
 		return null;
 	}

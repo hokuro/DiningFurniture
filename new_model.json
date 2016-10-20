@@ -1,12 +1,12 @@
 {
     "ambientocclusion": false,
     "textures": {
-        "bottom":"drf:blocks/flapemaker_bottom",
-        "tside":"drf:blocks/flapemaker_tside",
-        "front":"drf:blocks/flapemaker_top",
-        "alls":"drf:blocks/flapemaker_side",
-        "allb":"drf:blocks/flapemaker_back",
-        "alll":drf:blocks/flapemaker_leg"
+        "bottom":"drf:blocks/icecrasher_bottom",
+        "tside":"drf:blocks/icecrasher_tside",
+        "front":"drf:blocks/icecrasher_top",
+        "alls":"drf:blocks/icecrasher_side",
+        "allb":"drf:blocks/icecrasher_back",
+        "alll":drf:blocks/icecrasher_leg"
     },
     "elements":
         [

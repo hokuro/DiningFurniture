@@ -1,12 +1,12 @@
 package mod.drf.core;
 
 import mod.drf.core.log.ModLog;
-import mod.drf.foods.gui.GuiFlapeMaker;
 import mod.drf.foods.gui.GuiFreezer;
-import mod.drf.foods.gui.GuiMill;
-import mod.drf.foods.tileentity.TileEntityFlapeMaker;
+import mod.drf.foods.gui.GuiIceCrasher;
+import mod.drf.foods.gui.GuiMillStone;
+import mod.drf.foods.tileentity.TileEntityIceCrasher;
 import mod.drf.foods.tileentity.TileEntityFreezer;
-import mod.drf.foods.tileentity.TileEntityMill;
+import mod.drf.foods.tileentity.TileEntityMillStone;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -20,11 +20,11 @@ public class ModGui implements IGuiHandler {
 		if(ModCommon.isDebug){ModLog.log().debug("Gui ID :" + Integer.toString(ID));}
 		TileEntity te;
 		switch(ID){
-		case ModCommon.MOD_GUI_ID_FLAPEMAKER:
-			if (ModCommon.isDebug){ModLog.log().debug("Open Container FlapeMaker");}
+		case ModCommon.MOD_GUI_ID_ICECRASHER:
+			if (ModCommon.isDebug){ModLog.log().debug("Open Container IceCrasher");}
 			te = world.getTileEntity(new BlockPos(x,y,z));
-			if (te instanceof TileEntityFlapeMaker){
-				return ((TileEntityFlapeMaker) te).createContainer(player.inventory, player);
+			if (te instanceof TileEntityIceCrasher){
+				return ((TileEntityIceCrasher) te).createContainer(player.inventory, player);
 			}
 			break;
 
@@ -36,11 +36,11 @@ public class ModGui implements IGuiHandler {
 			}
 			break;
 
-		case ModCommon.MOD_GUI_ID_MILL:
-			if (ModCommon.isDebug){ModLog.log().debug("Open Container Mill");}
+		case ModCommon.MOD_GUI_ID_MILLSTONE:
+			if (ModCommon.isDebug){ModLog.log().debug("Open Container MillStone");}
 			te = world.getTileEntity(new BlockPos(x,y,z));
-			if (te instanceof TileEntityMill){
-				return ((TileEntityMill) te).createContainer(player.inventory, player);
+			if (te instanceof TileEntityMillStone){
+				return ((TileEntityMillStone) te).createContainer(player.inventory, player);
 			}
 			break;
 		case ModCommon.MOD_GUI_ID_TRUNK:
@@ -60,31 +60,37 @@ public class ModGui implements IGuiHandler {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity te;
 		switch(ID){
-		case ModCommon.MOD_GUI_ID_FLAPEMAKER:
+		case ModCommon.MOD_GUI_ID_ICECRASHER:
+			if (ModCommon.isDebug){ModLog.log().debug("Open Gui IceCrasher");}
 			te = world.getTileEntity(new BlockPos(x,y,z));
-			if (te instanceof TileEntityFlapeMaker){
-				return new GuiFlapeMaker(player.inventory,((TileEntityFlapeMaker)te),new BlockPos(x,y,z));
+			if (te instanceof TileEntityIceCrasher){
+				return new GuiIceCrasher(world, player, new BlockPos(x,y,z), (TileEntityIceCrasher)te);
 			}
 			break;
 
 		case ModCommon.MOD_GUI_ID_FREEZER:
+			if (ModCommon.isDebug){ModLog.log().debug("Open Gui Freezer");}
 			te = world.getTileEntity(new BlockPos(x,y,z));
 			if (te instanceof TileEntityFreezer){
-				return new GuiFreezer(player.inventory,((TileEntityFreezer)te), player);
+				return new GuiFreezer(world, player, new BlockPos(x,y,z), (TileEntityFreezer)te);
 			}
 			break;
 
-		case ModCommon.MOD_GUI_ID_MILL:
+		case ModCommon.MOD_GUI_ID_MILLSTONE:
+			if (ModCommon.isDebug){ModLog.log().debug("Open Gui MillStone");}
 			te = world.getTileEntity(new BlockPos(x,y,z));
-			if (te instanceof TileEntityMill){
-				return new GuiMill(player.inventory,((TileEntityMill)te),new BlockPos(x,y,z));
+			if (te instanceof TileEntityMillStone){
+				return new GuiMillStone(world, player, new BlockPos(x,y,z), (TileEntityMillStone)te);
 			}
 			break;
 		case ModCommon.MOD_GUI_ID_TRUNK:
+			if (ModCommon.isDebug){ModLog.log().debug("Open Gui Trunk");}
 			break;
 		case ModCommon.MOD_GUI_ID_UNLIMITANVIL:
+			if (ModCommon.isDebug){ModLog.log().debug("Open Gui UnlimitAnvil");}
 			break;
 		case ModCommon.MOD_GUI_ID_ENTDELETER:
+			if (ModCommon.isDebug){ModLog.log().debug("Open Gui EnchantDeleter");}
 			break;
 		}
 		return null;

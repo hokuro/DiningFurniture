@@ -13,19 +13,21 @@ package mod.drf.foods.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 
 public class ModelIcecream extends ModelBase
 {
   //fields
-    ModelRenderer casebase;
-    ModelRenderer casecupsid4;
-    ModelRenderer casecupsid3;
-    ModelRenderer caseporl;
-    ModelRenderer casecupbase;
-    ModelRenderer casecupsid2;
-    ModelRenderer casecupsid1;
-    ModelRenderer Ice1;
+  private ModelRenderer casebase;
+  private ModelRenderer casecupsid4;
+  private ModelRenderer casecupsid3;
+  private ModelRenderer caseporl;
+  private ModelRenderer casecupbase;
+  private ModelRenderer casecupsid2;
+  private ModelRenderer casecupsid1;
+  private ModelRenderer Ice1;
+  private ModelRenderer Ice2;
+  private ModelRenderer Ice3;
+  private ModelRenderer Ice4;
 
   public ModelIcecream()
   {
@@ -80,20 +82,57 @@ public class ModelIcecream extends ModelBase
       Ice1.setTextureSize(64, 32);
       Ice1.mirror = true;
       setRotation(Ice1, 0F, 0F, 0F);
+
+      Ice2 = new ModelRenderer(this, 32, 18);
+      Ice2.addBox(-3F, -17F, -3F, 6, 4, 6);
+      Ice2.setRotationPoint(0F, 23F, 0F);
+      Ice2.setTextureSize(64, 32);
+      Ice2.mirror = true;
+      setRotation(Ice2, 0F, 0F, 0F);
+
+      Ice3 = new ModelRenderer(this, 32, 18);
+      Ice3.addBox(-2F, -19F, -2F, 4, 2, 4);
+      Ice3.setRotationPoint(0F, 23F, 0F);
+      Ice3.setTextureSize(64, 32);
+      Ice3.mirror = true;
+      setRotation(Ice3, 0F, 0F, 0F);
+
+      Ice4 = new ModelRenderer(this, 32, 18);
+      Ice4.addBox(-1F, -22F, -1F, 2, 1, 2);
+      Ice4.setRotationPoint(0F, 23F, 0F);
+      Ice4.setTextureSize(64, 32);
+      Ice4.mirror = true;
+      setRotation(Ice4, 0F, 0F, 0F);
   }
 
-  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-  {
-    super.render(entity, f, f1, f2, f3, f4, f5);
-    setRotationAngles(f, f1, f2, f3, f4, f5);
-    casebase.render(f5);
-    casecupsid4.render(f5);
-    casecupsid3.render(f5);
-    caseporl.render(f5);
-    casecupbase.render(f5);
-    casecupsid2.render(f5);
-    casecupsid1.render(f5);
-    Ice1.render(f5);
+  public void render(EnumIcecreamLevel level, float scale){
+	    casebase.render(scale);
+	    casecupsid4.render(scale);
+	    casecupsid3.render(scale);
+	    caseporl.render(scale);
+	    casecupbase.render(scale);
+	    casecupsid2.render(scale);
+	    casecupsid1.render(scale);
+	    switch(level){
+		case LEVEL0:
+			break;
+		case LEVEL1:
+			Ice4.render(scale);
+			break;
+		case LEVEL2:
+			Ice3.render(scale);
+			break;
+		case LEVEL3:
+			Ice2.render(scale);
+			break;
+		case LEVEL4:
+			Ice1.render(scale);
+			break;
+		default:
+			Ice1.render(scale);
+			break;
+
+	    }
   }
 
   private void setRotation(ModelRenderer model, float x, float y, float z)
@@ -103,9 +142,22 @@ public class ModelIcecream extends ModelBase
     model.rotateAngleZ = z;
   }
 
-  public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
-  {
-    super.setRotationAngles(f, f1, f2, f3, f4, f5, null);
+  public static enum EnumIcecreamLevel{
+	  LEVEL0,
+	  LEVEL1,
+	  LEVEL2,
+	  LEVEL3,
+	  LEVEL4;
+
+	  private static final EnumIcecreamLevel[] values = {LEVEL0,LEVEL1,LEVEL2,LEVEL3,LEVEL4};
+
+	  public static EnumIcecreamLevel getValue(int max, int cnt){
+		  int limit = max / values.length;
+		  int level = cnt/limit;
+		  if (level < 0){level = 0;}
+		  if (level >= values.length){level = 4;}
+		  return values[level];
+	  }
   }
 
 }

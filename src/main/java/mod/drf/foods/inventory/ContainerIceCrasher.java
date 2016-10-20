@@ -12,11 +12,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ContainerFlapeMaker extends Container {
+public class ContainerIceCrasher extends Container {
 	private final IInventory tile;
 	public int crushTime;
 
-	public ContainerFlapeMaker(InventoryPlayer playerInventory, IInventory tileEntityFlapeMaker) {
+	public ContainerIceCrasher(InventoryPlayer playerInventory, IInventory tileEntityFlapeMaker) {
 		this.tile = tileEntityFlapeMaker;
 		this.addSlotToContainer(new SlotInOut(tile, 0, 80, 17,true, ORIGINAL_RECIPIES.RECIPIE_CRASHING));
 		this.addSlotToContainer(new SlotInOut(tile, 1, 80, 53,false, ORIGINAL_RECIPIES.RECIPIE_CRASHING));

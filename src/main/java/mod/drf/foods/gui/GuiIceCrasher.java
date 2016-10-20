@@ -1,27 +1,27 @@
 package mod.drf.foods.gui;
 
-import mod.drf.foods.inventory.ContainerFlapeMaker;
-import mod.drf.foods.tileentity.TileEntityFlapeMaker;
+import mod.drf.foods.inventory.ContainerIceCrasher;
+import mod.drf.foods.tileentity.TileEntityIceCrasher;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-public class GuiFlapeMaker extends GuiContainer {
-    private static final ResourceLocation furnaceGuiTextures = new ResourceLocation("drf:textures/gui/container/flapemaker.png");
+public class GuiIceCrasher extends GuiContainer {
+    private static final ResourceLocation tex = new ResourceLocation("drf:textures/gui/container/icecrasher.png");
     private final InventoryPlayer playerInventory;
-    private IInventory tileFlapeMaker;
-    private BlockPos pos;
+    private final IInventory tileFlapeMaker;
 
 
-    public GuiFlapeMaker(InventoryPlayer player, IInventory flapeMaker, BlockPos pos)
+    public GuiIceCrasher(World worldIn, EntityPlayer player, BlockPos pos, IInventory inv)
     {
-        super(new ContainerFlapeMaker(player, flapeMaker));
-        this.playerInventory = player;
-        this.tileFlapeMaker = flapeMaker;
-        this.pos = pos;
+        super(new ContainerIceCrasher(player.inventory, inv));
+        this.playerInventory = player.inventory;
+        this.tileFlapeMaker = inv;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class GuiFlapeMaker extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(furnaceGuiTextures);
+        this.mc.getTextureManager().bindTexture(tex);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
@@ -47,7 +47,6 @@ public class GuiFlapeMaker extends GuiContainer {
     private int getCrushProgressScaled(int pixels)
     {
         int i = this.tileFlapeMaker.getField(0);
-		//if (ModCommon.isDebug){if(ModUtil.CheckCounter("GuiFlapeMakerUpdate",40,true)){ModLog.log().debug("GuiFlapeMaker client crush time :" + Integer.toString(i));}}
-        return i == 0?0:i * pixels / TileEntityFlapeMaker.CRUSH_TIME_MAX;
+        return i == 0?0:i * pixels / TileEntityIceCrasher.CRUSH_TIME_MAX;
     }
 }

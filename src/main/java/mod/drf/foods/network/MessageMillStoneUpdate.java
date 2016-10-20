@@ -1,7 +1,7 @@
 package mod.drf.foods.network;
 
 import io.netty.buffer.ByteBuf;
-import mod.drf.foods.tileentity.TileEntityMill;
+import mod.drf.foods.tileentity.TileEntityMillStone;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -9,15 +9,15 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class MessageMill implements IMessage, IMessageHandler<MessageMill,IMessage>{
+public class MessageMillStoneUpdate implements IMessage, IMessageHandler<MessageMillStoneUpdate,IMessage>{
 
 	private int crushTime;
 	private boolean isRun;
 	private BlockPos pos;
 
-	public MessageMill(){}
+	public MessageMillStoneUpdate(){}
 
-	public MessageMill(int crushTime, boolean isRun, BlockPos posIn){
+	public MessageMillStoneUpdate(int crushTime, boolean isRun, BlockPos posIn){
 		this.crushTime = crushTime;
 		this.isRun  = isRun;
 		this.pos = posIn;
@@ -28,11 +28,11 @@ public class MessageMill implements IMessage, IMessageHandler<MessageMill,IMessa
 	public BlockPos getPos(){return this.pos;}
 
 	@Override
-	public IMessage onMessage(MessageMill message, MessageContext ctx) {
+	public IMessage onMessage(MessageMillStoneUpdate message, MessageContext ctx) {
 		TileEntity te = Minecraft.getMinecraft().theWorld.getTileEntity(message.getPos());
-		if (te instanceof TileEntityMill){
-			((TileEntityMill)te).setField(0, message.crushTime);
-			((TileEntityMill)te).setField(1, message.getIsRun()?1:0);
+		if (te instanceof TileEntityMillStone){
+			((TileEntityMillStone)te).setField(0, message.crushTime);
+			((TileEntityMillStone)te).setField(1, message.getIsRun()?1:0);
 		}
 		return null;
 	}

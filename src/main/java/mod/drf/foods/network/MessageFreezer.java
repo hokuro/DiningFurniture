@@ -5,10 +5,10 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class MessageFreezer implements IMessage, IMessageHandler<MessageFlapeMaker,IMessage>{
+public class MessageFreezer implements IMessage, IMessageHandler<MessageIceCrasherUpdate,IMessage>{
 
 	@Override
-	public IMessage onMessage(MessageFlapeMaker message, MessageContext ctx) {
+	public IMessage onMessage(MessageIceCrasherUpdate message, MessageContext ctx) {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}

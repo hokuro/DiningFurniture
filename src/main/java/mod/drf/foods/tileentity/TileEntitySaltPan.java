@@ -24,6 +24,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 
 public class TileEntitySaltPan extends TileEntity implements ITickable, ICnvertInventory {
+	public static final String REGISTER_NAME = "TileEntitySaltPan";
 	private static final int BASE_TIME = ModCommon.isDebug?200:24000;
 
 	private int limitTime;

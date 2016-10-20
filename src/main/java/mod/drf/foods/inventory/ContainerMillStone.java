@@ -12,11 +12,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ContainerMill extends Container {
+public class ContainerMillStone extends Container {
 	private final IInventory tile;
-	public int crushTime;
+	public int millTime;
 
-	public ContainerMill(InventoryPlayer playerInventory, IInventory tileEntityMill) {
+	public ContainerMillStone(InventoryPlayer playerInventory, IInventory tileEntityMill) {
 		this.tile = tileEntityMill;
 		this.addSlotToContainer(new SlotInOut(tile, 0, 80, 17,true, ORIGINAL_RECIPIES.RECIPIE_MILLING));
 		this.addSlotToContainer(new SlotInOut(tile, 1, 80, 53,false, ORIGINAL_RECIPIES.RECIPIE_MILLING));
@@ -40,11 +40,11 @@ public class ContainerMill extends Container {
 		super.detectAndSendChanges();
 		for (int i = 0; i < this.crafters.size(); ++i){
 			ICrafting icrafting = (ICrafting)this.crafters.get(i);
-			if ( this.crushTime != this.tile.getField(0)){
+			if ( this.millTime != this.tile.getField(0)){
 				icrafting.sendProgressBarUpdate(this, 2, this.tile.getField(0));
 			}
 		}
-		this.crushTime = this.tile.getField(0);
+		this.millTime = this.tile.getField(0);
 	}
 
 	@Override

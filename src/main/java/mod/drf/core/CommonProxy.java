@@ -1,8 +1,8 @@
 package mod.drf.core;
 
-import mod.drf.foods.tileentity.TileEntityFlapeMaker;
+import mod.drf.foods.tileentity.TileEntityIceCrasher;
 import mod.drf.foods.tileentity.TileEntityFreezer;
-import mod.drf.foods.tileentity.TileEntityMill;
+import mod.drf.foods.tileentity.TileEntityMillStone;
 import mod.drf.foods.tileentity.TileEntitySaltPan;
 import mod.drf.furniture.client.gui.GuiTrunk;
 import mod.drf.furniture.inventory.ContainerTrunk;
@@ -17,10 +17,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class CommonProxy implements IGuiHandler {
 
 	public void registerTileEntity(){
-		GameRegistry.registerTileEntity(TileEntitySaltPan.class, "TileEntitySaltPan");
-		GameRegistry.registerTileEntity(TileEntityFlapeMaker.class, "TileEntityFlapeMaker");
-		GameRegistry.registerTileEntity(TileEntityFreezer.class, "TileEntityFreezer");
-		GameRegistry.registerTileEntity(TileEntityMill.class, "TileEntityMill");
+		GameRegistry.registerTileEntity(TileEntitySaltPan.class, TileEntitySaltPan.REGISTER_NAME);
+		GameRegistry.registerTileEntity(TileEntityIceCrasher.class,TileEntityIceCrasher.REGISTER_NAME);
+		GameRegistry.registerTileEntity(TileEntityFreezer.class, TileEntityFreezer.REGISTER_NAME);
+		GameRegistry.registerTileEntity(TileEntityMillStone.class, TileEntityMillStone.REGISTER_NAME);
 	}
 
 	public void registRender(){

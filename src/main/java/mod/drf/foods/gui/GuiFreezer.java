@@ -5,21 +5,19 @@ import mod.drf.foods.tileentity.TileEntityFreezer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class GuiFreezer  extends GuiContainer {
-    private static final ResourceLocation freezerGuiTexture = new ResourceLocation("drf:textures/gui/container/freezer.png");
-    private final InventoryPlayer playerInventory;
-    private IInventory tileFreezer;
+    private static final ResourceLocation tex = new ResourceLocation("drf:textures/gui/container/freezer.png");
+    private final IInventory tileFreezer;
 
-
-    public GuiFreezer(InventoryPlayer playerInv, IInventory freezer, EntityPlayer player)
+    public GuiFreezer(World worldIn, EntityPlayer player, BlockPos pos, IInventory inv)
     {
-        super(new ContainerFreezer(playerInv, freezer, player));
-        this.playerInventory = playerInv;
-        this.tileFreezer = freezer;
+        super(new ContainerFreezer(player.inventory, inv, player));
+        this.tileFreezer = inv;
         int i = 222;
         int j = i - 108;
         this.ySize = j + 6 * 18;
@@ -39,7 +37,7 @@ public class GuiFreezer  extends GuiContainer {
     	GlStateManager.pushMatrix();
         GlStateManager.color(1.0F, 2.0F, 1.0F, 1.0F);
     	GlStateManager.disableDepth();
-        this.mc.getTextureManager().bindTexture(freezerGuiTexture);
+        this.mc.getTextureManager().bindTexture(tex);
         int x = (this.width - this.xSize) / 2;
         int y = (this.height - this.ySize) / 2;
 		for (int i = 0; i < 3; ++i){
@@ -56,7 +54,7 @@ public class GuiFreezer  extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(freezerGuiTexture);
+        this.mc.getTextureManager().bindTexture(tex);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);

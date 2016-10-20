@@ -1,29 +1,29 @@
 package mod.drf.foods.render;
 
 import mod.drf.core.log.ModLog;
-import mod.drf.foods.model.ModelFlape;
-import mod.drf.foods.model.ModelFlape.EnumFlapeLevel;
-import mod.drf.foods.model.ModelFlapeMaker;
-import mod.drf.foods.tileentity.TileEntityFlapeMaker;
+import mod.drf.foods.model.ModelCrashedIce;
+import mod.drf.foods.model.ModelCrashedIce.EnumCrashedIceLevel;
+import mod.drf.foods.model.ModelIceCrasher;
+import mod.drf.foods.tileentity.TileEntityIceCrasher;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
 
-public class RenderFlapeMaker extends TileEntitySpecialRenderer<TileEntityFlapeMaker> {
-	private static final ResourceLocation tex = new ResourceLocation("drf:textures/entity/flapemaker.png");
-	private static final ResourceLocation tex_flape = new ResourceLocation("drf:textures/entity/flape_none.png");
+public class RenderIceCrasher extends TileEntitySpecialRenderer<TileEntityIceCrasher> {
+	private static final ResourceLocation tex = new ResourceLocation("drf:textures/entity/icecrasher.png");
+	private static final ResourceLocation tex_flape = new ResourceLocation("drf:textures/entity/crashice_none.png");
 
-	private ModelFlapeMaker mainModel = new ModelFlapeMaker();
-	private ModelFlape subModel = new ModelFlape();
+	private ModelIceCrasher mainModel = new ModelIceCrasher();
+	private ModelCrashedIce subModel = new ModelCrashedIce();
 
 	@Override
-	public void renderTileEntityAt(TileEntityFlapeMaker te, double x, double y, double z, float partialTicks, int destroyStage) {
-		renderFlapeMaker((TileEntityFlapeMaker)te,x,y,z,partialTicks,destroyStage);
+	public void renderTileEntityAt(TileEntityIceCrasher te, double x, double y, double z, float partialTicks, int destroyStage) {
+		renderFlapeMaker((TileEntityIceCrasher)te,x,y,z,partialTicks,destroyStage);
 
 	}
 
 
-	public void renderFlapeMaker(TileEntityFlapeMaker te, double x, double y, double z, float partialTicks, int destroyStage) {
+	public void renderFlapeMaker(TileEntityIceCrasher te, double x, double y, double z, float partialTicks, int destroyStage) {
 		double sx,sy,sz = 0.0D;
 		double tx,ty,tz = 0.0D;
 		sx = sy = sz = 0.03125D;
@@ -65,7 +65,7 @@ public class RenderFlapeMaker extends TileEntitySpecialRenderer<TileEntityFlapeM
 			GlStateManager.enableCull();
 			GlStateManager.enableRescaleNormal();
 			this.bindTexture(tex_flape);
-			this.subModel.render(EnumFlapeLevel.getValue(TileEntityFlapeMaker.CRUSH_TIME_MAX, te.getField(0)), 0, EnumFlapeLevel.RotationY(TileEntityFlapeMaker.CRUSH_TIME_MAX, te.getField(0)), 0, 0.0125F);
+			this.subModel.render(EnumCrashedIceLevel.getValue(TileEntityIceCrasher.CRUSH_TIME_MAX, te.getField(0)), 0, EnumCrashedIceLevel.RotationY(TileEntityIceCrasher.CRUSH_TIME_MAX, te.getField(0)), 0, 0.0125F);
 			GlStateManager.disableBlend();
 			GlStateManager.popMatrix();
 		}else if (te.getField(3)!=0){
@@ -77,7 +77,7 @@ public class RenderFlapeMaker extends TileEntitySpecialRenderer<TileEntityFlapeM
 			GlStateManager.enableCull();
 			GlStateManager.enableRescaleNormal();
 			this.bindTexture(tex_flape);
-			this.subModel.render(EnumFlapeLevel.LEVEL4, 0, 0, 0, 0.0125F);
+			this.subModel.render(EnumCrashedIceLevel.LEVEL4, 0, 0, 0, 0.0125F);
 			GlStateManager.disableBlend();
 			GlStateManager.popMatrix();
 		}
