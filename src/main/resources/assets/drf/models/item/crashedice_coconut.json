@@ -1,6 +1,6 @@
 ﻿{
     "parent": "item/generated",
     "textures": {
-        "layer0": "drf:items/flape_coconut"
+        "layer0": "drf:items/crashedice_coconut"
     }
 }

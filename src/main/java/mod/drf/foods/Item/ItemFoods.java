@@ -60,6 +60,7 @@ public class ItemFoods {
 		{add(NAME_ICE_MIX);}
 		{add(NAME_ICECREAM);}
 		{add(NAME_SYRUP);}
+		{add(NAME_SUGARMILK);}
 		{add(NAME_SYRUP_MILK);}
 		{add(NAME_CRASHEDICE);}
 		{add(NAME_CRASHEDICE_MILK);}
@@ -179,6 +180,8 @@ public class ItemFoods {
 	public static final String NAME_ICECREAM ="icecream";
 	// シロップ
 	public static final String NAME_SYRUP = "syrup";
+	// 砂糖入り牛乳
+	public static final String NAME_SUGARMILK = "sugarmillk";
 	// 練乳
 	public static final String NAME_SYRUP_MILK = "condencedmilk";
 	// 練乳かき氷
@@ -277,6 +280,7 @@ public class ItemFoods {
 	public static final Item item_icemix                = new ItemIceCreamMix().setUnlocalizedName(NAME_ICE_MIX).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
 	public static final Item item_icecream              = new ItemIceCream(0,0,false).setUnlocalizedName(NAME_ICECREAM).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
 	public static final Item item_syrup                 = new ItemSyrup().setUnlocalizedName(NAME_SYRUP).setCreativeTab(Mod_DiningFurniture.tabColdFood).setHasSubtypes(true);
+	public static final Item item_sugarmilk             = new Item().setUnlocalizedName(NAME_SUGARMILK).setCreativeTab(Mod_DiningFurniture.tabColdFood);
 	public static final Item item_syrupmilk             = new Item().setUnlocalizedName(NAME_SYRUP_MILK).setCreativeTab(Mod_DiningFurniture.tabColdFood);
 	public static final Item item_crashedice            = new ItemCrashedIce(0,0,false).setPotionEffect(new PotionEffect(MobEffects.confusion,100,1), 25.0F).setUnlocalizedName(NAME_CRASHEDICE).setCreativeTab(Mod_DiningFurniture.tabColdFood);
 	public static final Item item_milkcrashedice        = new ItemCrashedIce(0,0,false).setPotionEffect(new PotionEffect(MobEffects.confusion,100,1), 25.0F).setUnlocalizedName(NAME_CRASHEDICE_MILK).setCreativeTab(Mod_DiningFurniture.tabColdFood);
@@ -353,6 +357,7 @@ public class ItemFoods {
 			{put(NAME_ICE_MIX,item_icemix);}
 			{put(NAME_ICECREAM, item_icecream);}
 			{put(NAME_SYRUP,item_syrup);}
+			{put(NAME_SUGARMILK,item_sugarmilk);}
 			{put(NAME_SYRUP_MILK,item_syrupmilk);}
 			{put(NAME_CRASHEDICE,item_crashedice);}
 			{put(NAME_CRASHEDICE_MILK,item_milkcrashedice);}
@@ -470,6 +475,7 @@ public class ItemFoods {
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP + "_" + EnumFlapeSyrup.SYRUP_GRAPE.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP + "_" + EnumFlapeSyrup.SYRUP_ORANGE.getFlavor(), "inventory"),
 					new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP + "_" + EnumFlapeSyrup.SYRUP_CALUCIUM.getFlavor(), "inventory")});}
+			{put(NAME_SUGARMILK, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SUGARMILK, "inventory")});}
 			{put(NAME_SYRUP_MILK, new ModelResourceLocation[]{new ModelResourceLocation(ModCommon.MOD_ID + ":" + NAME_SYRUP_MILK, "inventory")});}
 
 			{put(NAME_CRASHEDICE,new ModelResourceLocation[]{

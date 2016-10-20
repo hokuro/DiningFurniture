@@ -681,13 +681,11 @@ public class ModRegister {
 		}
 
 		// item_syrupmilk
-		GameRegistry.addRecipe(new ItemStack(ItemFoods.item_syrupmilk,1),
+		GameRegistry.addRecipe(new ItemStack(ItemFoods.item_sugarmilk,1),
 				"S",
 				"M",
-				"B",
-				'S', Items.milk_bucket,
-				'M', Items.sugar,
-				'B',Items.glass_bottle);
+				'M', Items.milk_bucket,
+				'S', Items.sugar);
 
 		//***************************************************************************//
 		// Item crashedice
@@ -996,6 +994,8 @@ public class ModRegister {
 		GameRegistry.addSmelting(ItemFoods.item_row_fishpizza,new ItemStack(BlockFoods.block_fish_pizza),0.2f);
 		// item_caramel
 		GameRegistry.addSmelting(Items.sugar,new ItemStack(ItemFoods.item_caramel),0.1f);
+		// item_syrup_milk
+		GameRegistry.addSmelting(ItemFoods.item_sugarmilk, new ItemStack(ItemFoods.item_syrupmilk), 0.1f);
 
 
 		// item_icecream ← 冷蔵庫

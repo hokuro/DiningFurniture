@@ -1,6 +1,6 @@
 ﻿{
     "parent": "item/generated",
     "textures": {
-        "layer0": "drf:items/flapesyrup_calucium"
+        "layer0": "drf:items/syrup_calucium"
     }
 }
