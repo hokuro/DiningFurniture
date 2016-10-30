@@ -649,6 +649,9 @@ public class ItemFoods {
 		public int getDamage(){return this.damage;}
 		public String getFlavor(){return this.fravor;}
 		public static EnumIceFlavor getValue(int index){return values[index];}
+
+		public int getFoodLevel(){return foodLevel;}
+		public float getFoodSaturation(){return foodSaturation;}
 	}
 
 	public static enum EnumFlapeSyrup{

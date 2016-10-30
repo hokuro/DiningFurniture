@@ -9,6 +9,8 @@ import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.Item.ItemFoods.EnumFlapeSyrup;
 import mod.drf.foods.Item.ItemFoods.EnumFlowerHalb;
 import mod.drf.foods.block.BlockFoods;
+import mod.drf.foods.entity.EntityCrashedIce;
+import mod.drf.foods.entity.EntityIceCream;
 import mod.drf.foods.network.MessageIceCrasherUpdate;
 import mod.drf.foods.network.MessageMillStoneUpdate;
 import mod.drf.furniture.block.BlockFurniture;
@@ -25,6 +27,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -95,6 +98,8 @@ public class ModRegister {
 	}
 
 	public static void RegisterEntity(CommonProxy proxy){
+		EntityRegistry.registerModEntity(EntityIceCream.class,EntityIceCream.NAME, ModCommon.ENTITY_ID_ICECREAM, Mod_DiningFurniture.instance, 80, 5, true);
+		EntityRegistry.registerModEntity(EntityCrashedIce.class,EntityCrashedIce.NAME, ModCommon.ENTITY_ID_CRAHSEDICE, Mod_DiningFurniture.instance, 80, 5, true);
 		//EntityRegistry.registerModEntity(EntityChairZabuton.class, EntityChairZabuton.NAME, 0, Mod_DiningFurniture.instance, 80, 3, true);
 
 		proxy.registerTileEntity();

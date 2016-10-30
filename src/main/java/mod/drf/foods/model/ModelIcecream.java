@@ -25,84 +25,60 @@ public class ModelIcecream extends ModelBase
   private ModelRenderer casecupsid2;
   private ModelRenderer casecupsid1;
   private ModelRenderer Ice1;
-  private ModelRenderer Ice2;
-  private ModelRenderer Ice3;
-  private ModelRenderer Ice4;
 
   public ModelIcecream()
   {
-    textureWidth = 64;
-    textureHeight = 32;
+	    textureWidth = 64;
+	    textureHeight = 32;
 
-      casebase = new ModelRenderer(this, 0, 0);
-      casebase.addBox(-4F, 0F, -4F, 8, 1, 8);
-      casebase.setRotationPoint(0F, 23F, 0F);
-      casebase.setTextureSize(64, 32);
-      casebase.mirror = true;
-      setRotation(casebase, 0F, 0F, 0F);
-      casecupsid4 = new ModelRenderer(this, 42, 0);
-      casecupsid4.addBox(-5F, -12F, -6F, 10, 4, 1);
-      casecupsid4.setRotationPoint(0F, 23F, 0F);
-      casecupsid4.setTextureSize(64, 32);
-      casecupsid4.mirror = true;
-      setRotation(casecupsid4, 0F, -1.570796F, 0F);
-      casecupsid3 = new ModelRenderer(this, 42, 0);
-      casecupsid3.addBox(-5F, -12F, -6F, 10, 4, 1);
-      casecupsid3.setRotationPoint(0F, 23F, 0F);
-      casecupsid3.setTextureSize(64, 32);
-      casecupsid3.mirror = true;
-      setRotation(casecupsid3, 0F, 1.570796F, 0F);
-      caseporl = new ModelRenderer(this, 32, 0);
-      caseporl.addBox(-1F, -8F, -1F, 2, 8, 2);
-      caseporl.setRotationPoint(0F, 23F, 0F);
-      caseporl.setTextureSize(64, 32);
-      caseporl.mirror = true;
-      setRotation(caseporl, 0F, 0F, 0F);
-      casecupbase = new ModelRenderer(this, 0, 10);
-      casecupbase.addBox(-5F, -9F, -5F, 10, 1, 10);
-      casecupbase.setRotationPoint(0F, 23F, 0F);
-      casecupbase.setTextureSize(64, 32);
-      casecupbase.mirror = true;
-      setRotation(casecupbase, 0F, 0F, 0F);
-      casecupsid2 = new ModelRenderer(this, 42, 0);
-      casecupsid2.addBox(-5F, -12F, -6F, 10, 4, 1);
-      casecupsid2.setRotationPoint(0F, 23F, 0F);
-      casecupsid2.setTextureSize(64, 32);
-      casecupsid2.mirror = true;
-      setRotation(casecupsid2, 0F, 0F, 0F);
-      casecupsid1 = new ModelRenderer(this, 42, 0);
-      casecupsid1.addBox(-5F, -12F, 5F, 10, 4, 1);
-      casecupsid1.setRotationPoint(0F, 23F, 0F);
-      casecupsid1.setTextureSize(64, 32);
-      casecupsid1.mirror = true;
-      setRotation(casecupsid1, 0F, 0F, 0F);
-      Ice1 = new ModelRenderer(this, 32, 18);
-      Ice1.addBox(-4F, -15F, -4F, 8, 6, 8);
-      Ice1.setRotationPoint(0F, 23F, 0F);
-      Ice1.setTextureSize(64, 32);
-      Ice1.mirror = true;
-      setRotation(Ice1, 0F, 0F, 0F);
-
-      Ice2 = new ModelRenderer(this, 32, 18);
-      Ice2.addBox(-3F, -17F, -3F, 6, 4, 6);
-      Ice2.setRotationPoint(0F, 23F, 0F);
-      Ice2.setTextureSize(64, 32);
-      Ice2.mirror = true;
-      setRotation(Ice2, 0F, 0F, 0F);
-
-      Ice3 = new ModelRenderer(this, 32, 18);
-      Ice3.addBox(-2F, -19F, -2F, 4, 2, 4);
-      Ice3.setRotationPoint(0F, 23F, 0F);
-      Ice3.setTextureSize(64, 32);
-      Ice3.mirror = true;
-      setRotation(Ice3, 0F, 0F, 0F);
-
-      Ice4 = new ModelRenderer(this, 32, 18);
-      Ice4.addBox(-1F, -22F, -1F, 2, 1, 2);
-      Ice4.setRotationPoint(0F, 23F, 0F);
-      Ice4.setTextureSize(64, 32);
-      Ice4.mirror = true;
-      setRotation(Ice4, 0F, 0F, 0F);
+	      casebase = new ModelRenderer(this, 0, 0);
+	      casebase.addBox(-3F, 0F, -3F, 6, 1, 6);
+	      casebase.setRotationPoint(0F, 23F, 0F);
+	      casebase.setTextureSize(64, 32);
+	      casebase.mirror = true;
+	      setRotation(casebase, (float)Math.PI, 0F, 0F);
+	      casecupsid4 = new ModelRenderer(this, 33, 5);
+	      casecupsid4.addBox(-4F, -9F, -5F, 8, 3, 1);
+	      casecupsid4.setRotationPoint(0F, 23F, 0F);
+	      casecupsid4.setTextureSize(64, 32);
+	      casecupsid4.mirror = true;
+	      setRotation(casecupsid4, (float)Math.PI, -1.570796F, 0F);
+	      casecupsid3 = new ModelRenderer(this, 33, 15);
+	      casecupsid3.addBox(-4F, -9F, -5F, 8, 3, 1);
+	      casecupsid3.setRotationPoint(0F, 23F, 0F);
+	      casecupsid3.setTextureSize(64, 32);
+	      casecupsid3.mirror = true;
+	      setRotation(casecupsid3, (float)Math.PI, 1.570796F, 0F);
+	      caseporl = new ModelRenderer(this, 24, 0);
+	      caseporl.addBox(-1F, -6F, -1F, 2, 6, 2);
+	      caseporl.setRotationPoint(0F, 23F, 0F);
+	      caseporl.setTextureSize(64, 32);
+	      caseporl.mirror = true;
+	      setRotation(caseporl, (float)Math.PI, 0F, 0F);
+	      casecupbase = new ModelRenderer(this, 0, 8);
+	      casecupbase.addBox(-4F, -7F, -4F, 8, 1, 8);
+	      casecupbase.setRotationPoint(0F, 23F, 0F);
+	      casecupbase.setTextureSize(64, 32);
+	      casecupbase.mirror = true;
+	      setRotation(casecupbase, (float)Math.PI, 0F, 0F);
+	      casecupsid2 = new ModelRenderer(this, 33, 0);
+	      casecupsid2.addBox(-4F, -9F, -5F, 8, 3, 1);
+	      casecupsid2.setRotationPoint(0F, 23F, 0F);
+	      casecupsid2.setTextureSize(64, 32);
+	      casecupsid2.mirror = true;
+	      setRotation(casecupsid2, (float)Math.PI, 0F, 0F);
+	      casecupsid1 = new ModelRenderer(this, 33, 10);
+	      casecupsid1.addBox(-4F, -9F, 4F, 8, 3, 1);
+	      casecupsid1.setRotationPoint(0F, 23F, 0F);
+	      casecupsid1.setTextureSize(64, 32);
+	      casecupsid1.mirror = true;
+	      setRotation(casecupsid1, (float)Math.PI, 0F, 0F);
+	      Ice1 = new ModelRenderer(this, 0, 18);
+	      Ice1.addBox(-3F, -11F, -3F, 6, 4, 6);
+	      Ice1.setRotationPoint(0F, 23F, 0F);
+	      Ice1.setTextureSize(64, 32);
+	      Ice1.mirror = true;
+	      setRotation(Ice1, (float)Math.PI, 0F, 0F);
   }
 
   public void render(EnumIcecreamLevel level, float scale){
@@ -117,13 +93,13 @@ public class ModelIcecream extends ModelBase
 		case LEVEL0:
 			break;
 		case LEVEL1:
-			Ice4.render(scale);
+			Ice1.render(scale*0.3F);
 			break;
 		case LEVEL2:
-			Ice3.render(scale);
+			Ice1.render(scale*0.5F);
 			break;
 		case LEVEL3:
-			Ice2.render(scale);
+			Ice1.render(scale*0.8F);
 			break;
 		case LEVEL4:
 			Ice1.render(scale);

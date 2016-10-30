@@ -1,17 +1,19 @@
 package mod.drf.client;
 
 import mod.drf.core.CommonProxy;
-import mod.drf.foods.render.RenderIceCrasher;
+import mod.drf.foods.entity.EntityCrashedIce;
+import mod.drf.foods.entity.EntityIceCream;
+import mod.drf.foods.render.RenderCrashedIce;
 import mod.drf.foods.render.RenderFreezer;
+import mod.drf.foods.render.RenderIceCrasher;
+import mod.drf.foods.render.RenderIceCream;
 import mod.drf.foods.render.RenderMillStone;
-import mod.drf.foods.tileentity.TileEntityIceCrasher;
 import mod.drf.foods.tileentity.TileEntityFreezer;
+import mod.drf.foods.tileentity.TileEntityIceCrasher;
 import mod.drf.foods.tileentity.TileEntityMillStone;
 import mod.drf.foods.tileentity.TileEntitySaltPan;
-import mod.drf.furniture.entity.EntityChairZabuton;
 import mod.drf.furniture.item.ItemChairZabuton;
 import mod.drf.furniture.item.ItemFurniture;
-import mod.drf.furniture.render.EntityChairZabutonRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.entity.Render;
@@ -38,14 +40,28 @@ public class ClientProxy extends CommonProxy{
 
 	@SideOnly(Side.CLIENT)
 	public void registRender(){
-		RenderingRegistry.registerEntityRenderingHandler(EntityChairZabuton.class,  new IRenderFactory<EntityChairZabuton>() {
+		RenderingRegistry.registerEntityRenderingHandler(EntityIceCream.class, new IRenderFactory<EntityIceCream>() {
 			@Override
-			public Render<? super EntityChairZabuton> createRenderFor(RenderManager manager) {
-				return new EntityChairZabutonRender(manager);
+			public Render<? super EntityIceCream> createRenderFor(RenderManager manager){
+				return new RenderIceCream(manager);
 			}
 		});
-		RenderManager manager = Minecraft.getMinecraft().getRenderManager();
-		net.minecraftforge.fml.client.registry.RenderingRegistry.loadEntityRenderers(manager, manager.entityRenderMap);
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityCrashedIce.class, new IRenderFactory<EntityCrashedIce>() {
+			@Override
+			public Render<? super EntityCrashedIce> createRenderFor(RenderManager manager){
+				return new RenderCrashedIce(manager);
+			}
+		});
+
+//		RenderingRegistry.registerEntityRenderingHandler(EntityChairZabuton.class,  new IRenderFactory<EntityChairZabuton>() {
+//			@Override
+//			public Render<? super EntityChairZabuton> createRenderFor(RenderManager manager) {
+//				return new EntityChairZabutonRender(manager);
+//			}
+//		});
+//		RenderManager manager = Minecraft.getMinecraft().getRenderManager();
+//		net.minecraftforge.fml.client.registry.RenderingRegistry.loadEntityRenderers(manager, manager.entityRenderMap);
 	}
 
 	@SideOnly(Side.CLIENT)

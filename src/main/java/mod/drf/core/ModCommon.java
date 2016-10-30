@@ -4,7 +4,7 @@ public final class ModCommon {
 	//===========================================================//
 	// デバッグ関連
 	public static boolean isDebug = true;                              // デバッグモードか?
-	public static boolean isDeveloped = false;                         // 開発モードか?
+	public static boolean isDeveloped = true;                         // 開発モードか?
 
 
 	//===========================================================//
@@ -17,6 +17,11 @@ public final class ModCommon {
 	public static final String MOD_FACTRY = ".client.config.drmFactory"; // ファクトリパッケージ
 	public static final String MOD_VERSION = "@VERSION@";                // バージョン
 	public static final String MOD_CHANEL ="Mod_Channel_DiningFurniture";// ネットワークチャンネル
+
+	//===========================================================//
+    // Entity ID
+	public static final int ENTITY_ID_ICECREAM = 1;
+	public static final int ENTITY_ID_CRAHSEDICE = 2;
 
 	//===========================================================//
     // GUI ID
