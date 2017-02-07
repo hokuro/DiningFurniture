@@ -11,10 +11,12 @@ import mod.drf.furniture.entity.EntityChairZabuton;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -30,6 +32,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
@@ -39,7 +42,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData, IProjectile {
 
 	public static final String NAME = "EntityIceCream";
-	public static final int LIMIT_TIME = 1200;
+	public static final int LIMIT_TIME = 12000;
 
 	private static final DataParameter<Boolean> DISPENCE = EntityDataManager.<Boolean>createKey(EntityChairZabuton.class, DataSerializers.BOOLEAN);
 	private int flavor;
@@ -76,7 +79,7 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 	public EntityIceCream(World world, BlockPos blockpos, int itemDamage) {
 		this(world);
 		flavor = itemDamage;
-		setPositionAndRotation(blockpos.getX(),blockpos.getY(),blockpos.getZ(),0F,0F);
+		setPositionAndRotation(blockpos.getX()+0.5f,blockpos.getY(),blockpos.getZ()+0.5f,0F,0F);
 		motionX = 0.0D;
 		motionY = 0.0D;
 		motionZ = 0.0D;
@@ -134,6 +137,11 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 		return true;
 	}
 
+	@Override
+    protected void setSize(float width, float height)
+    {
+		super.setSize(width/2, height/2);
+    }
 
 	@Override
 	public boolean handleWaterMovement() {
@@ -227,7 +235,33 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 		double var12;
 		double var26;
 		double var24 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-		if (timelimit > 0){timelimit--;}
+		if (timelimit > 0){
+			boolean flagMelt = true;
+			BlockPos pos = new BlockPos(this.posX,this.posY,this.posZ);
+			for ( int x = -1; x <= 1 && flagMelt; x++){
+				for (int y = -1; y <= 1 && flagMelt; y++){
+					for ( int z = -1; z <= 1 && flagMelt; z++){
+						IBlockState state =  this.worldObj.getBlockState(pos.add(x,y,z));
+						if ( state.getMaterial() == Material.ice || state.getBlock() == Blocks.packed_ice || state.getBlock() == Blocks.frosted_ice){
+							flagMelt = false;
+						}
+					}
+				}
+			}
+			if (flagMelt){
+				BiomeGenBase biome = this.worldObj.getBiomeGenForCoords(pos);
+				int dec = 2;
+				float temp = biome.getTemperature();
+				if (temp > 0.9){
+					dec = 4;
+				}else if(temp > 0 && temp < 0.4){
+					dec = 1;
+				}else if (temp <= 0){
+					dec = 0;
+				}
+				timelimit -=dec;
+			}
+		}
 
 		if (this.worldObj.isRemote) {
 			// Client
@@ -274,8 +308,6 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 				this.motionY *= 0.5D;
 				this.motionZ *= 0.5D;
 				setDispensed(false);
-				// setVelocityの呼ばれる回数が少なくて変な動きをするので対策
-//                this.velocityChanged = true;
 			}
 			this.moveEntity(this.motionX, this.motionY, this.motionZ);
 
@@ -306,7 +338,8 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 
 
 			// 当たり判定
-			List<Entity> var16 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.17D, 0.0D, 0.17D));
+			//List<Entity> var16 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.17D, 0.0D, 0.17D));
+			List<Entity> var16 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.0D, 1.0D, 0.0D));
 			if (var16 != null && !var16.isEmpty()) {
 				Iterator var28 = var16.iterator();
 				while (var28.hasNext()) {
@@ -356,9 +389,15 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 			if (ice == null){
 				ice = new ItemStack(ItemFoods.item_icecream,1,flavor);
 			}
-            entityplayer.getFoodStats().addStats((ItemIceCream)ice.getItem(), ice);
+
+			EnumIceFlavor flv = EnumIceFlavor.getValue(flavor);
+			ItemIceCream iIce = (ItemIceCream)ice.getItem();
+			iIce.setHealAmount(flv.getFoodLevel());
+			iIce.setSaturation(flv.getFoodSaturation());
+
+            entityplayer.getFoodStats().addStats(iIce, ice);
             this.worldObj.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.entity_player_burp, SoundCategory.PLAYERS, 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
-            entityplayer.addStat(StatList.func_188057_b((ItemIceCream)ice.getItem()));
+            entityplayer.addStat(StatList.func_188057_b(iIce));
             timelimit = 0;
             dropItem();
             this.setDead();
@@ -413,6 +452,4 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 			return false;
 		}
 	}
-
-
 }
