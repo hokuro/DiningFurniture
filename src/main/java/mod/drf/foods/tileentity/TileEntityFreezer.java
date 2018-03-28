@@ -1,11 +1,17 @@
 package mod.drf.foods.tileentity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mod.drf.core.ModCommon;
+import mod.drf.core.Mod_DiningFurniture;
+import mod.drf.core.log.ModLog;
 import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.Item.ItemIceCreamMix;
 import mod.drf.foods.block.BlockFreezer;
 import mod.drf.foods.inventory.ContainerFreezer;
 import mod.drf.foods.inventory.ICnvertInventory;
+import mod.drf.foods.network.MessageFreezer;
 import mod.drf.recipie.OriginalRecipie;
 import mod.drf.recipie.OriginalRecipie.ORIGINAL_RECIPIES;
 import mod.drf.util.ModUtil;
@@ -20,16 +26,65 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 
 public class TileEntityFreezer extends TileEntityLockable implements ITickable, ICnvertInventory {
+
+	public static final int FLDIDX_TNKCNT = 1;
+	public static final int FLDIDX_FUEL = 2;
+	public static final int FLDIDX_INFT = 3;
+	public static final int FLDIDX_ICE = 4;
+	public static final int FLDIDX_FLZ = 5;
+	public static final int FLDIDX_FLZ2 = 6;
+	public static final int FLDIDX_FLZ3 = 7;
+	public static final int FLDIDX_FLZ4 = 8;
+	public static final int FLDIDX_FLZ5 = 9;
+	public static final int FLDIDX_FLZ6 = 10;
+	public static final int FLDIDX_FLZ7 = 11;
+	public static final int FLDIDX_FLZ8 = 12;
+	public static final int FLDIDX_FLZ9 = 13;
+	public static final int FLDIDX_FLZ10 = 14;
+	public static final int FLDIDX_FLZ11 = 15;
+	public static final int FLDIDX_FLZ12 = 16;
+	public static final int FLDIDX_FLZ13 = 17;
+	public static final int FLDIDX_FLZ14 = 18;
+	public static final int FLDIDX_FLZ15 = 19;
+	public static final int FLDIDX_FLZ16 = 20;
+	public static final int FLDIDX_FLZ17 = 21;
+	public static final int FLDIDX_FLZ18 = 22;
+	public static final int FLDIDX_FLZ19 = 23;
+	public static final int FLDIDX_FLZ20 = 24;
+	public static final int FLDIDX_FLZ21 = 25;
+	public static final int FLDIDX_FLZ22 = 26;
+	public static final int FLDIDX_FLZ23 = 27;
+	public static final int FLDIDX_FLZ24 = 28;
+	public static final int FLDIDX_FLZ25 = 29;
+	public static final int FLDIDX_FLZ26 = 30;
+	public static final int FLDIDX_FLZ27 = 31;
+
 	public static final String REGISTER_NAME = "TileEntityFreezer";
-	public static final int FREEZING_TIME_MAX=1200;
-	private ItemStack[] inventory = new ItemStack[54];
-	private int[] freezingTimer = new int[27];
+	public static final int FREEZING_TIME_MAX = 1200;
+	public static final int FREEZING_FULE_TIME = 168000;	// 1200秒(1日) * 20tic * 1週刊
+	public static final int TANK_MAX = 256;
+	public static final int OUTPUTMAX = 55;
+	// 0~26:IN
+	// 27~53:OUT
+	// 54:FUEL
+	// 55:ICE_IN
+	// 56:ICE_OUT
+	// 57:Buket_OUT
+	private ItemStack[] inventory = new ItemStack[58];
+	// 0~26:IN Timer
+	private int[] timerCnt = new int[27];
+	private int timerFule;
+	private int timerIce;
+	private boolean isInfinit;
+	private int tankCnt;
+
 	private String freezerCustomName;
 	private boolean isOpen;
 	private boolean canSounds;
@@ -38,24 +93,33 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 	private int ticksSinceSync;
 	public float prevLidAngle;
 	public float lidAngle;
-	private static final ItemStack return_potion = new ItemStack(Items.glass_bottle,1);
-	private static final ItemStack return_buket = new ItemStack(Items.bucket,1);
+
+	private static final ItemStack return_potion = new ItemStack(Items.GLASS_BOTTLE,1);
+	private static final ItemStack return_buket = new ItemStack(Items.BUCKET,1);
 
 
-	private static final int[] slotsTop = new int[]    { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26};
-	private static final int[] slotsBottom = new int[] {27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53};
-	private static final int[] slotsSides = new int[] {27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53};
+	private static final int[] slotsTop = new int[]    { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,55};
+	private static final int[] slotsBottom = new int[] {27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,56};
+	private static final int[] slotsSides = new int[] {54};
+	private int xflag = 0;
 
 	public TileEntityFreezer(){
 		super();
 		isOpen = false;
 		canSounds = false;
+		isInfinit = false;
+		timerFule = 0;
+		timerIce = 0;
+		tankCnt = 0;
 		lidAngle = 0.0F;
+		xflag = 0;
+		this.clear();
 	}
 
 	public TileEntityFreezer(EnumFacing meta){
 		this();
 		this.facing = meta;
+		this.clear();
 	}
 
 	public EnumFacing getFace(){
@@ -63,7 +127,32 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 	}
 
 	public int getFreezingTime(int idx){
-		return this.freezingTimer[idx];
+		return this.timerCnt[idx];
+	}
+
+	public int getIcingTime(){
+		return this.timerIce;
+	}
+
+	public int getTankCnt(){
+		return this.tankCnt;
+	}
+
+	public int getFuel(){
+		return this.timerFule;
+	}
+
+	public boolean IsInfinitFuel(){
+		return this.isInfinit;
+	}
+
+	public boolean InjectionTank(){
+		boolean ret = false;
+		if (this.tankCnt< TANK_MAX){
+			this.tankCnt++;
+			ret = true;
+		}
+		return ret;
 	}
 
 	public void readFromNBT(NBTTagCompound compound)
@@ -71,7 +160,8 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 		super.readFromNBT(compound);
 		NBTTagList nbttaglist = compound.getTagList("Items", 10);
 		this.inventory = new ItemStack[this.getSizeInventory()];
-
+		this.clear();
+		// アイテムインベントリの読み込み
 		for (int i = 0; i < nbttaglist.tagCount(); ++i)
 		{
 			NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
@@ -79,32 +169,52 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 
 			if (j >= 0 && j < this.inventory.length)
 			{
-				this.inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
+				this.inventory[j] = new ItemStack(nbttagcompound);
 			}
 		}
 
-		for (int i = 0; i < freezingTimer.length; i++){
-			this.freezingTimer[i] = compound.getInteger("FreezeTime"+Integer.toString(i));
+		// カウントタイマの読み込み
+		for (int i = 0; i < timerCnt.length; i++){
+			this.timerCnt[i] = compound.getInteger("FreezeTime"+Integer.toString(i));
 		}
+
+		// 燃料残量
+		timerFule = compound.getInteger("TimerFule");
+		// 製氷皿の時間
+		timerIce = compound.getInteger("TimerIce");
+		// タンク容量の読み込み
+		tankCnt = compound.getInteger("TankCount");
+
+		// 燃料が氷塊で、残燃料がない場合無限燃料
+		if (timerFule == 0 && ModUtil.compareItemStacks(this.inventory[54], new ItemStack(Blocks.PACKED_ICE))){
+			isInfinit = true;
+		}else{
+			isInfinit = false;
+		}
+
 		if (compound.hasKey("CustomName", 8))
 		{
 			this.freezerCustomName = compound.getString("CustomName");
 		}
 	}
 
-	public void writeToNBT(NBTTagCompound compound)
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
 		super.writeToNBT(compound);
 
-		for (int i = 0; i < freezingTimer.length; i++){
-			compound.setInteger("FreezeTime"+Integer.toString(i),this.freezingTimer[i]);
+		compound.setInteger("TimerFule", timerFule);
+		compound.setInteger("TimerIce", timerIce);
+		compound.setInteger("TankCount", tankCnt);
+
+		for (int i = 0; i < timerCnt.length; i++){
+			compound.setInteger("FreezeTime"+Integer.toString(i),this.timerCnt[i]);
 		}
 
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < this.inventory.length; ++i)
 		{
-			if (this.inventory[i] != null)
+			if (!this.inventory[i].isEmpty())
 			{
 				NBTTagCompound nbttagcompound = new NBTTagCompound();
 				nbttagcompound.setByte("Slot", (byte)i);
@@ -119,111 +229,223 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 		{
 			compound.setString("CustomName", this.freezerCustomName);
 		}
+		return compound;
 	}
 
 
 	public void update()
 	{
 		boolean flag1 = false;
+		if (!this.world.isRemote){
 
-		if (!this.worldObj.isRemote){
-			for (int i = 0; i < freezingTimer.length; i++){
-				// アイテムが入っていれば冷凍カウントアップ
-				if (inventory[i] != null){
-					freezingTimer[i]++;
-				}else{
-					freezingTimer[i] = 0;
+			if (this.xflag > 0){
+				this.tankCnt++;
+			}else if(this.xflag < 0){
+				this.tankCnt--;
+			}
+			if (ModUtil.compareItemStacks(this.inventory[54], new ItemStack(Blocks.ICE)) && this.timerFule == 0){
+				this.inventory[54].shrink(1);
+				if (this.inventory[54].getCount() <= 0){this.inventory[54] = ItemStack.EMPTY;}
+				this.timerFule = FREEZING_FULE_TIME;
+				flag1 = true;
+				this.isInfinit = false;
+			}else if (ModUtil.compareItemStacks(this.inventory[54], new ItemStack(Blocks.PACKED_ICE)) && this.timerFule == 0){
+				this.isInfinit = true;
+			}else if (this.timerFule == 0){
+				this.isInfinit = false;
+			}
+
+			if (ModUtil.compareItemStacks(this.inventory[55], new ItemStack(Items.WATER_BUCKET)) &&
+					this.tankCnt < TANK_MAX){
+				// タンクに余裕があり、水バケツが吸水皿に設定されている場合
+				// タンクに水を移し、水バケツを空バケツに変える
+				this.tankCnt++;
+				this.inventory[55] = new ItemStack(Items.BUCKET);
+				flag1 = true;
+			}
+
+			if (ModUtil.compareItemStacks(this.inventory[56], new ItemStack(Items.BUCKET)) &&
+					this.tankCnt != 0){
+				// タンクが空ではなく、製氷皿に空バケツが設定されている場合
+				// タンクの水を移し、空バケツを水バケツに変える
+				if (inventory[57].isEmpty()){
+					this.tankCnt--;
+					this.inventory[57] = new ItemStack(Items.WATER_BUCKET);
+					this.inventory[56].shrink(1);
+					if (this.inventory[56].getCount() <= 0){
+						this.inventory[56] = ItemStack.EMPTY;
+					}
+					if (this.tankCnt == 0){
+						// タンクが空になったら製氷タイマーをリセット
+						this.timerIce = 0;
+					}
+					flag1 = true;
 				}
+			}
 
-				// 冷凍完了
-				if (freezingTimer[i] >= FREEZING_TIME_MAX){
-					// 完成品
-					ItemStack result = OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_FREEZING, inventory[i]);
-					// 副産物
-					ItemStack subResult = null;
-					if (result.getItem() == ItemFoods.item_icecandy){
-						subResult = return_potion;
-					}else if (result.getItem() == Item.getItemFromBlock(Blocks.ice)){
-						subResult = return_buket;
-					}
-
-					// 完成品と副産物を入れるスロットを探す
-					int mi = -1;
-					int si = -1;
-					for (int j = freezingTimer.length; j < inventory.length; j++){
-						if (ModUtil.compareItemStacks(inventory[j], result)){
-							if ((mi < 0 || (mi >= 0&& inventory[mi] == null)) && inventory[j].stackSize < result.getMaxStackSize()){
-								mi = j;
-							}
-						}else if (inventory[j] == null && mi < 0){
-							mi = j;
-						}else if (subResult != null){
-							if (ModUtil.compareItemStacks(inventory[j], subResult)){
-								if ((si < 0 || (si >= 0&& inventory[si] == null)) && inventory[j].stackSize < result.getMaxStackSize()){
-									si = j;
-								}
-							}else if (inventory[j] == null && si < 0){
-								si = j;
-							}
-						}
-					}
-
-					if (mi >= 0 && (subResult == null || (subResult!=null && si >=0))){
-						// 完成品のアウトプット
-						if (inventory[mi] == null){
-							inventory[mi] = result;
-							inventory[mi].stackSize = 1;
+			if (this.timerFule != 0 || isInfinit){
+				for (int i = 0; i < timerCnt.length; i++){
+					// 冷凍庫
+					// アイテムが入っていれば冷凍カウントアップ
+					if (!inventory[i].isEmpty()){
+						// カウント進行
+						if (timerCnt[i] < FREEZING_TIME_MAX){
+							timerCnt[i]++;
 						}else{
-							inventory[mi].stackSize++;
+							timerCnt[i] = FREEZING_TIME_MAX;
 						}
 
-						// 副産物があればアウトプット
-						if (subResult != null){
-							if (inventory[si] == null){
-								inventory[si] = subResult.copy();
-								inventory[si].stackSize = 1;
+						// 冷凍完了
+						if (timerCnt[i] >= FREEZING_TIME_MAX){
+							// 完成品
+							ItemStack result = OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_FREEZING, inventory[i]);
+							// 副産物
+							ItemStack subResult = ItemStack.EMPTY;
+							if (result.getItem() == ItemFoods.item_icecandy){
+								subResult = return_potion;
+							}else if (result.getItem() == Item.getItemFromBlock(Blocks.ICE)){
+								subResult = return_buket;
+							}
+
+							// 完成品と副産物を入れるスロットを探す
+							int mi = -1;
+							int si = -1;
+							for (int j = timerCnt.length; j < OUTPUTMAX; j++){
+								if (ModUtil.compareItemStacks(inventory[j], result)){
+									if ((mi < 0 || (mi >= 0&& inventory[mi].isEmpty())) && inventory[j].getCount() < result.getMaxStackSize()){
+										mi = j;
+									}
+								}else if (inventory[j].isEmpty() && mi < 0){
+									mi = j;
+								}else if (!subResult.isEmpty()){
+									if (ModUtil.compareItemStacks(inventory[j], subResult)){
+										if ((si < 0 || (si >= 0&& inventory[si].isEmpty())) && inventory[j].getCount() < result.getMaxStackSize()){
+											si = j;
+										}
+									}else if (inventory[j].isEmpty() && si < 0){
+										si = j;
+									}
+								}
+							}
+
+							if (mi >= 0 && (subResult.isEmpty() || (!subResult.isEmpty() && si >=0))){
+								// 完成品のアウトプット
+								if (inventory[mi].isEmpty()){
+									inventory[mi] = result;
+									inventory[mi].setCount(1);;
+								}else{
+									inventory[mi].grow(1);
+								}
+
+								// 副産物があればアウトプット
+								if (!subResult.isEmpty()){
+									if (inventory[si].isEmpty()){
+										inventory[si] = subResult.copy();
+										inventory[si].setCount(1);
+									}else{
+										inventory[si].grow(1);
+									}
+								}
+
+								// ソースを減量
+								inventory[i].shrink(1);
+								if (inventory[i].getCount() <= 0){
+									inventory[i] = ItemStack.EMPTY;
+								}
+
+								// タイマーを巻き戻す
+								timerCnt[i] = 0;
+
+								flag1 = true;
 							}else{
-								inventory[si].stackSize++;
+								// 出力する場所が足りない場合、タイマカウントを止める
+								timerCnt[i] = FREEZING_TIME_MAX;
 							}
 						}
-
-						// ソースを減量
-						inventory[i].stackSize--;
-						if (inventory[i].stackSize <= 0){
-							inventory[i] = null;
-						}
-
-						// タイマーを巻き戻す
-						freezingTimer[i] = 0;
-
-						flag1 = true;
 					}else{
-						// 出力する場所が足りない場合、タイマカウントを止める
-						freezingTimer[i] = FREEZING_TIME_MAX;
+						timerCnt[i] = 0;
 					}
 				}
-			}
-		}else{
-			for (int i = 0; i < freezingTimer.length; i++){
+				// 製氷皿
 				// アイテムが入っていれば冷凍カウントアップ
-				if (inventory[i] != null){
-					freezingTimer[i]++;
+				if (this.tankCnt > 0){
+					// 冷凍完了
+					if (this.timerIce < FREEZING_TIME_MAX){
+						this.timerIce ++;
+					}else{
+						this.timerIce = FREEZING_TIME_MAX;
+					}
+					if (timerIce >= FREEZING_TIME_MAX){
+						if (this.inventory[56].isEmpty()){
+							// 製氷皿が空なら
+							// 氷を出力してタンク容量をマイナスし、タイマーをリセット
+							this.inventory[56] = new ItemStack(Blocks.ICE);
+							this.tankCnt--;
+							this.timerIce = 0;
+						}else if(ModUtil.compareItemStacks(this.inventory[56], new ItemStack(Blocks.ICE)) && this.inventory[56].getCount() < 64){
+							// 製氷皿にあるのが氷なら
+							// 氷を増量してタンク容量をマイナスし、タイマーをリセット
+							this.inventory[56].grow(1);;
+							this.tankCnt--;
+							this.timerIce = 0;
+						}else{
+							// 製氷皿がいっぱい、もしくは水バケツが置いてあるなら
+							// タイマーはマックスを保つ
+							this.timerIce = FREEZING_TIME_MAX;
+						}
+						flag1 = true;
+					}
 				}else{
-					freezingTimer[i] = 0;
+					// 水がないならリセット
+					timerIce = 0;
+					tankCnt = 0;
+				}
+			}else{
+				// 燃料が入っていない場合、冷凍カウントダウン
+				for (int i = 0; i < timerCnt.length; i++){
+					if (!inventory[i].isEmpty()){
+						if (timerCnt[i] > 0){
+							timerCnt[i]--;
+						}else{
+							timerCnt[i] = 0;
+						}
+					}else{
+						timerCnt[i] = 0;
+					}
+				}
+				if (this.tankCnt > 0){
+					if (this.timerIce > 0){
+						this.timerIce --;
+					}else{
+						this.timerIce = 0;
+					}
+				}else{
+					this.timerIce = 0;
 				}
 			}
+			// 燃料減少
+			if (this.timerFule > 0){
+				this.timerFule--;
+			}else{
+				this.timerFule = 0;
+			}
+
+			// 変更がある場合クライアントにメッセージを送る
+			Mod_DiningFurniture.Net_Instance.sendToAll(new MessageFreezer(this.timerCnt,this.timerFule,this.timerIce,this.tankCnt,this.isInfinit,this.pos));
 		}
+
 		if (flag1)
 		{
 			this.markDirty();
 		}
 
+		// モデル変形
 		this.prevLidAngle = this.lidAngle;
 		float f1 = 0.1F;
 		if (isOpen){
 			if (this.lidAngle < 1.0F){
 				if (this.canSounds){
-					this.worldObj.playSound((EntityPlayer)null, pos.getX(), (double)pos.getY() + 0.5D, pos.getZ(), SoundEvents.block_chest_open, SoundCategory.BLOCKS, 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+					this.world.playSound((EntityPlayer)null, pos.getX(), (double)pos.getY() + 0.5D, pos.getZ(), SoundEvents.BLOCK_CHEST_LOCKED, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
 					this.canSounds = false;
 				}
 				this.lidAngle += f1;
@@ -233,7 +455,7 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 		}else{
 			if (this.lidAngle > 0.0F){
 				if (this.canSounds){
-					this.worldObj.playSound((EntityPlayer)null, pos.getX(), (double)pos.getY() + 0.5D, pos.getZ(), SoundEvents.block_chest_open, SoundCategory.BLOCKS, 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+					this.world.playSound((EntityPlayer)null, pos.getX(), (double)pos.getY() + 0.5D, pos.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
 					this.canSounds = false;
 				}
 				this.lidAngle -= f1;
@@ -276,28 +498,38 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
-		 return ItemStackHelper.func_188382_a(this.inventory, index, count);
+		List<ItemStack> stack = new ArrayList();
+		for (ItemStack st : this.inventory){
+			stack.add(st);
+		}
+		 return ItemStackHelper.getAndSplit(stack, index, count);
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		return ItemStackHelper.func_188383_a(this.inventory, index);
+		List<ItemStack> stack = new ArrayList();
+		for (ItemStack st : this.inventory){
+			stack.add(st);
+		}
+		return ItemStackHelper.getAndRemove(stack, index);
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		boolean flag = stack != null && stack.isItemEqual(this.inventory[index]) && ItemStack.areItemStackTagsEqual(stack, this.inventory[index]);
+
 		this.inventory[index] = stack;
+		if (!stack.isEmpty()){
+			boolean flag = stack.isItemEqual(this.inventory[index]) && ItemStack.areItemStackTagsEqual(stack, this.inventory[index]);
+			if (stack.getCount() > this.getInventoryStackLimit())
+			{
+				stack.setCount(this.getInventoryStackLimit());
+			}
 
-		if (stack != null && stack.stackSize > this.getInventoryStackLimit())
-		{
-			stack.stackSize = this.getInventoryStackLimit();
-		}
-
-		if (index < this.freezingTimer.length && !flag)
-		{
-			this.freezingTimer[index] = 0;
-			this.markDirty();
+			if (index < this.timerCnt.length && !flag)
+			{
+				this.timerCnt[index] = 0;
+				this.markDirty();
+			}
 		}
 	}
 
@@ -307,8 +539,8 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) {
-		return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+	public boolean isUsableByPlayer(EntityPlayer player) {
+		return this.world.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
 	}
 
 	@Override
@@ -334,7 +566,14 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
 		if (index < 27){
+			if (stack.getItem() == Items.WATER_BUCKET || stack.getItem() == Items.BUCKET){
+				return false;
+			}
 			return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_FREEZING, stack);
+		}else if (index == 55 && stack.getItem() == Items.WATER_BUCKET){
+			return true;
+		}else if (index == 56 && stack.getItem() == Items.BUCKET){
+			return true;
 		}
 		return false;
 	}
@@ -343,7 +582,47 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 	public int getField(int id) {
 		switch(id){
 		case 0:
-			return isOpen?1:0;
+			return ModUtil.BooleanToInteger(isOpen);
+		case FLDIDX_TNKCNT:
+			return this.tankCnt;
+		case FLDIDX_FUEL:
+			return this.timerFule;
+		case FLDIDX_INFT:
+			return ModUtil.BooleanToInteger(this.isInfinit);
+		case FLDIDX_ICE:
+			return this.timerIce;
+		case FLDIDX_FLZ:
+		case FLDIDX_FLZ2:
+		case FLDIDX_FLZ3:
+		case FLDIDX_FLZ4:
+		case FLDIDX_FLZ5:
+		case FLDIDX_FLZ6:
+		case FLDIDX_FLZ7:
+		case FLDIDX_FLZ8:
+		case FLDIDX_FLZ9:
+		case FLDIDX_FLZ10:
+		case FLDIDX_FLZ11:
+		case FLDIDX_FLZ12:
+		case FLDIDX_FLZ13:
+		case FLDIDX_FLZ14:
+		case FLDIDX_FLZ15:
+		case FLDIDX_FLZ16:
+		case FLDIDX_FLZ17:
+		case FLDIDX_FLZ18:
+		case FLDIDX_FLZ19:
+		case FLDIDX_FLZ20:
+		case FLDIDX_FLZ21:
+		case FLDIDX_FLZ22:
+		case FLDIDX_FLZ23:
+		case FLDIDX_FLZ24:
+		case FLDIDX_FLZ25:
+		case FLDIDX_FLZ26:
+		case FLDIDX_FLZ27:
+			if (id < FLDIDX_FLZ || id > FLDIDX_FLZ27){
+				ModLog.log().warn("Warning TileEntityFreezing FLDIDX OVER:"+Integer.toString(id));
+				return 0;
+			}
+			return this.timerCnt[id-FLDIDX_FLZ];
 		}
 		return 0;
 	}
@@ -352,8 +631,57 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 	public void setField(int id, int value) {
 		switch(id){
 		case 0:
-			isOpen = value==0?false:true;
+			isOpen =  ModUtil.IntegerToBoolean(value);
+		case FLDIDX_TNKCNT:
+			this.tankCnt = value;
+			break;
+		case FLDIDX_FUEL:
+			this.timerFule = value;
+			break;
+		case FLDIDX_INFT:
+			this.isInfinit = ModUtil.IntegerToBoolean(value);
+			break;
+		case FLDIDX_ICE:
+			this.timerIce = value;
+			break;
+		case FLDIDX_FLZ:
+		case FLDIDX_FLZ2:
+		case FLDIDX_FLZ3:
+		case FLDIDX_FLZ4:
+		case FLDIDX_FLZ5:
+		case FLDIDX_FLZ6:
+		case FLDIDX_FLZ7:
+		case FLDIDX_FLZ8:
+		case FLDIDX_FLZ9:
+		case FLDIDX_FLZ10:
+		case FLDIDX_FLZ11:
+		case FLDIDX_FLZ12:
+		case FLDIDX_FLZ13:
+		case FLDIDX_FLZ14:
+		case FLDIDX_FLZ15:
+		case FLDIDX_FLZ16:
+		case FLDIDX_FLZ17:
+		case FLDIDX_FLZ18:
+		case FLDIDX_FLZ19:
+		case FLDIDX_FLZ20:
+		case FLDIDX_FLZ21:
+		case FLDIDX_FLZ22:
+		case FLDIDX_FLZ23:
+		case FLDIDX_FLZ24:
+		case FLDIDX_FLZ25:
+		case FLDIDX_FLZ26:
+		case FLDIDX_FLZ27:
+			if (id < FLDIDX_FLZ || id > FLDIDX_FLZ27){
+				ModLog.log().warn("Warning TileEntityFreezing FLDIDX OVER:"+Integer.toString(id));
+			}else{
+				this.timerCnt[id-FLDIDX_FLZ] = value;
+			}
+			break;
+		case 32:
+			xflag = value;
+			break;
 		}
+
 	}
 
 	@Override
@@ -366,7 +694,7 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 	public void clear() {
 		for (int i = 0; i < this.inventory.length; ++i)
 		{
-			this.inventory[i] = null;
+			this.inventory[i] = ItemStack.EMPTY;
 		}
 	}
 
@@ -387,10 +715,14 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 
 	@Override
 	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		if (direction == EnumFacing.DOWN && index > 26)
-		{
-			Item item = stack.getItem();
-			return true;
+		if (direction == EnumFacing.DOWN ){
+			if (index == 55 && (stack.getItem() == Items.WATER_BUCKET)){
+				return false;
+			}else if (index > 26)
+			{
+				Item item = stack.getItem();
+				return true;
+			}
 		}
 
 		return false;
@@ -400,7 +732,7 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 	private boolean canFreezeing(ItemStack stack){
 		Item item = stack.getItem();
 
-		if ((stack != null) &&
+		if ((stack.isEmpty()) &&
 			((item instanceof ItemIceCreamMix) ||
 			 (item == ItemFoods.item_sugarwater))){
 			return true;
@@ -412,6 +744,39 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
     public boolean canRenderBreaking()
     {
         return true;
+    }
+
+	@Override
+	public boolean isEmpty() {
+		boolean ret = true;
+		for (ItemStack st: this.inventory){
+			if (!st.isEmpty()){
+				ret = false;
+				break;
+			}
+		}
+		return ret;
+	}
+
+	@Override
+    public NBTTagCompound getUpdateTag()
+    {
+        NBTTagCompound cp = super.getUpdateTag();
+        return this.writeToNBT(cp);
+    }
+
+	@Override
+    public void handleUpdateTag(NBTTagCompound tag)
+    {
+		super.handleUpdateTag(tag);
+		this.readFromNBT(tag);
+    }
+
+	@Override
+	public SPacketUpdateTileEntity getUpdatePacket()
+    {
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        return new SPacketUpdateTileEntity(this.pos, 1,  this.writeToNBT(nbtTagCompound));
     }
 
 }

@@ -13,7 +13,7 @@ public class RenderMillStone extends TileEntitySpecialRenderer<TileEntityMillSto
 
 	private ModelMillStone mainModel = new ModelMillStone();
 	@Override
-	public void renderTileEntityAt(TileEntityMillStone te, double x, double y, double z, float partialTicks, int destroyStage) {
+	public void render(TileEntityMillStone te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		renderMill((TileEntityMillStone)te,x,y,z,partialTicks,destroyStage);
 
 	}

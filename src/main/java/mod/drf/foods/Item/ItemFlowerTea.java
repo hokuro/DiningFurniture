@@ -1,18 +1,16 @@
 package mod.drf.foods.Item;
 
-import java.util.List;
-
 import mod.drf.foods.Item.ItemFoods.EnumFlowerHalb;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -34,8 +32,9 @@ public class ItemFlowerTea extends ItemPotion {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
+    public void getSubItems( CreativeTabs tab, NonNullList<ItemStack> subItems)
     {
+    	if ( this.getCreativeTab() != tab){return;}
         for (EnumFlowerHalb halb : EnumFlowerHalb.values())
         {
         	subItems.add(new ItemStack(this, 1, halb.getDamage()));
@@ -49,7 +48,7 @@ public class ItemFlowerTea extends ItemPotion {
     {
         if (entityLiving instanceof EntityPlayer && !((EntityPlayer)entityLiving).capabilities.isCreativeMode)
         {
-            --stack.stackSize;
+        	stack.shrink(1);
         }
 
         if (!worldIn.isRemote)
@@ -74,9 +73,9 @@ public class ItemFlowerTea extends ItemPotion {
 
         if (entityLiving instanceof EntityPlayer)
         {
-            ((EntityPlayer)entityLiving).addStat(StatList.func_188057_b(this));
+            ((EntityPlayer)entityLiving).addStat(StatList.getObjectUseStats(this));
         }
 
-        return stack.stackSize <= 0 ? new ItemStack(Items.bucket) : stack;
+        return stack.getCount() <= 0 ? new ItemStack(Items.GLASS_BOTTLE) : stack;
     }
 }

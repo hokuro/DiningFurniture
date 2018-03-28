@@ -27,7 +27,7 @@ public class BlockItemPie extends ItemBlock {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         Block block = iblockstate.getBlock();
 
-        if (block == Blocks.snow_layer && ((Integer)iblockstate.getValue(BlockSnow.LAYERS)).intValue() < 1)
+        if (block == Blocks.SNOW_LAYER && ((Integer)iblockstate.getValue(BlockSnow.LAYERS)).intValue() < 1)
         {
             side = EnumFacing.UP;
         }
@@ -40,15 +40,15 @@ public class BlockItemPie extends ItemBlock {
         {
             return false;
         }
-        else if (stack.stackSize == 0)
+        else if (stack.getCount() == 0)
         {
             return false;
         }
         else
         {
-            if (worldIn.canBlockBePlaced(this.block, pos, false, side, (Entity)null, stack))
+        	if (worldIn.mayPlace(this.block, pos, false, side, (Entity)null))
             {
-                IBlockState iblockstate1 = this.block.onBlockPlaced(worldIn, pos, side, hitX, hitY, hitZ, 0, playerIn);
+                IBlockState iblockstate1 = this.block.getStateForPlacement(worldIn, pos, side, hitX, hitY, hitZ, 0, playerIn);
 
                 if (worldIn.setBlockState(pos, iblockstate1, 3))
                 {
@@ -60,9 +60,9 @@ public class BlockItemPie extends ItemBlock {
                         iblockstate1.getBlock().onBlockPlacedBy(worldIn, pos, iblockstate1, playerIn, stack);
                     }
 
-                    SoundType soundtype = this.block.getStepSound();
+                    SoundType soundtype = this.block.getSoundType();
                     worldIn.playSound(playerIn, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
-                    --stack.stackSize;
+                    stack.shrink(1);
                     return true;
                 }
             }

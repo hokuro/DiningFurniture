@@ -18,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -28,6 +29,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ClientProxy extends CommonProxy{
+    @Override
+    public EntityPlayer getEntityPlayerInstance() {
+        return Minecraft.getMinecraft().player;
+    }
+
 
 	@SideOnly(Side.CLIENT)
 	public void registerTileEntity(){
@@ -72,6 +78,12 @@ public class ClientProxy extends CommonProxy{
             {
                 return ((ItemChairZabuton)ItemFurniture.item_zabuton).getColorFromItemStack(stack,tintIndex);
             }
+
+			@Override
+			public int colorMultiplier(ItemStack stack, int tintIndex) {
+				// TODO 自動生成されたメソッド・スタブ
+				return 0;
+			}
         }, new Item[] {ItemFurniture.item_zabuton});
 	}
 }

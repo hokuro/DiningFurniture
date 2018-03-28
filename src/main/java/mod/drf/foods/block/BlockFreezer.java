@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,6 +19,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 public class BlockFreezer extends BlockHorizontalContainer {
@@ -33,7 +35,7 @@ public class BlockFreezer extends BlockHorizontalContainer {
     };
 
 	protected BlockFreezer() {
-		super(Material.glass);
+		super(Material.GLASS);
 		this.setHardness(1.0F);
 	}
 
@@ -77,7 +79,8 @@ public class BlockFreezer extends BlockHorizontalContainer {
     	return colligeBox[2];
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (worldIn.isRemote)
         {
@@ -85,11 +88,22 @@ public class BlockFreezer extends BlockHorizontalContainer {
         }
         else
         {
+        	ItemStack stack = playerIn.getHeldItem(hand);
             TileEntity tileentity = worldIn.getTileEntity(pos);
-
             if (tileentity instanceof TileEntityFreezer)
             {
-            	playerIn.openGui(Mod_DiningFurniture.instance, ModCommon.MOD_GUI_ID_FREEZER, worldIn, pos.getX(),pos.getY(),pos.getZ());
+                if (stack.getItem() == Items.WATER_BUCKET){
+                    if (((TileEntityFreezer) tileentity).InjectionTank()){
+                    	if (!playerIn.isCreative()){
+                    		playerIn.setHeldItem(hand, new ItemStack(Items.BUCKET,1));
+                    	}
+                    	playerIn.sendStatusMessage(new TextComponentString(((TileEntityFreezer) tileentity).getField(TileEntityFreezer.FLDIDX_TNKCNT)+"/" + TileEntityFreezer.TANK_MAX),false);
+                    }else{
+                    	playerIn.sendStatusMessage(new TextComponentString("water tank is max"),false);
+                    }
+                }else{
+                	playerIn.openGui(Mod_DiningFurniture.instance, ModCommon.MOD_GUI_ID_FREEZER, worldIn, pos.getX(),pos.getY(),pos.getZ());
+                }
             }
 
             return true;
@@ -133,6 +147,11 @@ public class BlockFreezer extends BlockHorizontalContainer {
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
         return new ItemStack(BlockFoods.block_freezer);
+    }
+
+    @Override
+	public boolean hasCustomBreakingProgress(IBlockState state){
+    	return true;
     }
 
 }

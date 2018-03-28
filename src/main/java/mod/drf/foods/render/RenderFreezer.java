@@ -13,7 +13,7 @@ public class RenderFreezer extends TileEntitySpecialRenderer<TileEntityFreezer> 
 	private ModelFreezer mainModel = new ModelFreezer();
 
 	@Override
-	public void renderTileEntityAt(TileEntityFreezer te, double x, double y, double z, float partialTicks, int destroyStage) {
+	public void render(TileEntityFreezer te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		renderFreezer(te,x,y,z,partialTicks,destroyStage);
 	}
 

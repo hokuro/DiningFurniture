@@ -1,7 +1,5 @@
 package mod.drf.furniture.item;
 
-import java.util.List;
-
 import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.furniture.entity.EntityChairZabuton;
 import net.minecraft.block.properties.PropertyInteger;
@@ -12,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -39,8 +38,9 @@ public class ItemChairZabuton extends Item{
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemstack, World world, EntityPlayer player, EnumHand hand){
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand){
 	//public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player){
+		ItemStack itemstack = player.getHeldItem(hand);
 		float f = 1.0F;
 		float f1 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * f;
 		float f2 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * f;
@@ -74,14 +74,14 @@ public class ItemChairZabuton extends Item{
 								(byte)(itemstack.getItemDamage() & 0x0f));
 						// 方向ぎめはここに入れる
 						zabuton.rotationYaw = (MathHelper
-								.floor_double((double) ((player.rotationYaw * 4F) / 360F) + 2.50D) & 3) * 90;
-						world.spawnEntityInWorld(zabuton);
+								.floor((double) ((player.rotationYaw * 4F) / 360F) + 2.50D) & 3) * 90;
+						world.spawnEntity(zabuton);
 					} catch (Exception e) {
 					}
 
 				}
 				if (!player.capabilities.isCreativeMode) {
-					itemstack.stackSize--;
+					itemstack.shrink(1);;
 				}
 			}
 		}
@@ -102,9 +102,9 @@ public class ItemChairZabuton extends Item{
 
 	@Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems){
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems){
 		for (int li = 0; li < 16; li++) {
-			subItems.add(new ItemStack(itemIn, 1, li));
+			subItems.add(new ItemStack(this, 1, li));
 		}
 	}
 }

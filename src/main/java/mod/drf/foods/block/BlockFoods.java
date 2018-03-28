@@ -18,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 public class BlockFoods {
 
 	public static final List<String> NAME_LIST = new ArrayList<String>(){
+		{add(NAME_COOKINGWORKBENCH);}
 		{add(NAME_FREEZER);}
 		{add(NAME_ICECRASHER);}
 		{add(NAME_MILLSTONE);}
@@ -47,6 +48,10 @@ public class BlockFoods {
 		{add(NAME_CHEESE);}
 		{add(NAME_BLUECHEESE);}
 	};
+	// ############作業台#######################Workbench
+	// 料理台
+	public static final String NAME_COOKINGWORKBENCH = "cworkbench";
+
 	//#############################################################################################
 	// Block Machine
 	// 製氷機
@@ -117,43 +122,82 @@ public class BlockFoods {
 	private static final int EffectLevel = 1;
 	private static final int EffectTime = 1600;
 
-	public static final Block block_freezer          = new BlockFreezer().setCreativeTab(Mod_DiningFurniture.tabColdFood).setUnlocalizedName(NAME_FREEZER);
-	public static final Block block_icecrasher       = new BlockIceCrasher().setCreativeTab(Mod_DiningFurniture.tabColdFood).setUnlocalizedName(NAME_ICECRASHER);
-	public static final Block block_millstone        = new BlockMillStone().setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_MILLSTONE);
-	public static final Block block_saltpan          = new BlockSaltPan().setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_SALTPAN);
+	public static  Block block_cookingworkbench;// = new BlockCookingWorkBench().setRegistryName(NAME_COOKINGWORKBENCH).setUnlocalizedName(NAME_COOKINGWORKBENCH);
+	public static  Block block_freezer;//          = new BlockFreezer().setCreativeTab(Mod_DiningFurniture.tabFurniture).setRegistryName(NAME_FREEZER).setUnlocalizedName(NAME_FREEZER);
+	public static  Block block_icecrasher;//       = new BlockIceCrasher().setCreativeTab(Mod_DiningFurniture.tabFurniture).setRegistryName(NAME_ICECRASHER).setUnlocalizedName(NAME_ICECRASHER);
+	public static  Block block_millstone;//        = new BlockMillStone().setCreativeTab(Mod_DiningFurniture.tabFurniture).setRegistryName(NAME_MILLSTONE).setUnlocalizedName(NAME_MILLSTONE);
+	public static  Block block_saltpan;//          = new BlockSaltPan().setCreativeTab(Mod_DiningFurniture.tabFurniture).setRegistryName(NAME_SALTPAN).setUnlocalizedName(NAME_SALTPAN);
 
 
-	public static final Block block_pie_hall         = new BlockPie(2,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_PIE_HALL);
-	public static final Block block_caramelpie_hall  = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_CARAMELPIE_HALL);
-	public static final Block block_chocopie_hall    = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_CHOCOPIE_HALL);
-	public static final Block block_salada_hall      = new BlockPie(6,0.3F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_SALADA_HALL);
-	public static final Block block_meetpie_hall     = new BlockPie(8,0.4F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_MEETPIE_HALL);
-	public static final Block block_fishpie_hall     = new BlockPie(8,0.4F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_FISHPIE_HALL);
-	public static final Block block_pumpkinpie_hall  = new BlockPie(6,0.3F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_PUMPKINPIE_HALL);
-	public static final Block block_applepie_hall    = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_APPLEPIE_HALL);
-	public static final Block block_black_pie        = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_BLACK_PIE);
-	public static final Block block_zombipei_hall    = new BlockPie(2,0.1F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.hunger, 600, 0)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_ZOMBIPEI_HALL);
+	public static  Block block_pie_hall;//         = new BlockPie(2,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_PIE_HALL).setUnlocalizedName(NAME_PIE_HALL);
+	public static  Block block_caramelpie_hall;//  = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_CARAMELPIE_HALL).setUnlocalizedName(NAME_CARAMELPIE_HALL);
+	public static  Block block_chocopie_hall;//    = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_CHOCOPIE_HALL).setUnlocalizedName(NAME_CHOCOPIE_HALL);
+	public static  Block block_salada_hall;//      = new BlockPie(6,0.3F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_SALADA_HALL).setUnlocalizedName(NAME_SALADA_HALL);
+	public static  Block block_meetpie_hall;//     = new BlockPie(8,0.4F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_MEETPIE_HALL).setUnlocalizedName(NAME_MEETPIE_HALL);
+	public static  Block block_fishpie_hall;//     = new BlockPie(8,0.4F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_FISHPIE_HALL).setUnlocalizedName(NAME_FISHPIE_HALL);
+	public static  Block block_pumpkinpie_hall;//  = new BlockPie(6,0.3F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_PUMPKINPIE_HALL).setUnlocalizedName(NAME_PUMPKINPIE_HALL);
+	public static  Block block_applepie_hall;//    = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_APPLEPIE_HALL).setUnlocalizedName(NAME_APPLEPIE_HALL);
+	public static  Block block_black_pie;//        = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_BLACK_PIE).setUnlocalizedName(NAME_BLACK_PIE);
+	public static  Block block_zombipei_hall;//    = new BlockPie(2,0.1F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.HUNGER, 600, 0)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_ZOMBIPEI_HALL).setUnlocalizedName(NAME_ZOMBIPEI_HALL);
 
-	public static final Block block_choco_cake       = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.nightVision,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_CHOCO_CAKE);
-	public static final Block block_apple_cake       = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.regeneration,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_APPLE_CAKE );
-	public static final Block block_salada_cake      = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.digSpeed,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_SALADA_CAKE );
-	public static final Block block_mellon_cake      = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.heal,0,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_MELLON_CAKE);
-	public static final Block block_pumpkin_cake     = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.invisibility,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_PUMPKIN_CAKE);
-	public static final Block block_reacheese_cake   = new BlockPie(4,0.4F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.jump,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_REACHEESE_CAKE);
-	public static final Block block_bakedcheese_cake = new BlockPie(4,0.4F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.fireResistance,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_BAKEDCHEESE_CAKE);
-	public static final Block block_black_cake       = new BlockPie(2,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.waterBreathing,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_BLACK_CAEK);
-	public static final Block block_zombi_cake       = new BlockPie(2,0.1F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.hunger, 600, 0)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_ZOMBI_CAKE);
+	public static  Block block_choco_cake;//       = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.NIGHT_VISION,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_CHOCO_CAKE).setUnlocalizedName(NAME_CHOCO_CAKE);
+	public static  Block block_apple_cake;//       = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.REGENERATION,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_APPLE_CAKE).setUnlocalizedName(NAME_APPLE_CAKE );
+	public static  Block block_salada_cake;//      = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.HASTE,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_SALADA_CAKE).setUnlocalizedName(NAME_SALADA_CAKE );
+	public static  Block block_mellon_cake;//      = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.INSTANT_HEALTH,0,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_MELLON_CAKE).setUnlocalizedName(NAME_MELLON_CAKE);
+	public static  Block block_pumpkin_cake;//     = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.INVISIBILITY,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_PUMPKIN_CAKE).setUnlocalizedName(NAME_PUMPKIN_CAKE);
+	public static  Block block_reacheese_cake;//   = new BlockPie(4,0.4F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.JUMP_BOOST,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_REACHEESE_CAKE).setUnlocalizedName(NAME_REACHEESE_CAKE);
+	public static  Block block_bakedcheese_cake;// = new BlockPie(4,0.4F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.FIRE_RESISTANCE,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_BAKEDCHEESE_CAKE).setUnlocalizedName(NAME_BAKEDCHEESE_CAKE);
+	public static  Block block_black_cake;//       = new BlockPie(2,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.WATER_BREATHING,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_BLACK_CAEK).setUnlocalizedName(NAME_BLACK_CAEK);
+	public static  Block block_zombi_cake;//       = new BlockPie(2,0.1F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.HUNGER, 600, 0)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_ZOMBI_CAKE).setUnlocalizedName(NAME_ZOMBI_CAKE);
 
-	public static final Block block_pizza            = new BlockPie(2,0.5F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.regeneration,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_PIZZA);
-	public static final Block block_meet_pizza       = new BlockPie(4,0.4F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.damageBoost,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_MEETPIZZA);
-	public static final Block block_fish_pizza       = new BlockPie(4,0.4F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.moveSpeed,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_FISHPIZZA);
+	public static  Block block_pizza;//            = new BlockPie(2,0.5F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.REGENERATION,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_PIZZA).setUnlocalizedName(NAME_PIZZA);
+	public static  Block block_meet_pizza;//       = new BlockPie(4,0.4F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.STRENGTH,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_MEETPIZZA).setUnlocalizedName(NAME_MEETPIZZA);
+	public static  Block block_fish_pizza;//       = new BlockPie(4,0.4F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.SPEED,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_FISHPIZZA).setUnlocalizedName(NAME_FISHPIZZA);
 
-	public static final Block block_cheese           = new BlockPie(2,0.1F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_CHEESE);
-	public static final Block block_bluecheese       = new BlockPie(2,0.1F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.regeneration,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setUnlocalizedName(NAME_BLUECHEESE);
+	public static  Block block_cheese;//           = new BlockPie(2,0.1F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_CHEESE).setUnlocalizedName(NAME_CHEESE);
+	public static  Block block_bluecheese;//       = new BlockPie(2,0.1F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.REGENERATION,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_BLUECHEESE).setUnlocalizedName(NAME_BLUECHEESE);
+
+	public static void init(){
+
+		 block_cookingworkbench = new BlockCookingWorkBench().setRegistryName(NAME_COOKINGWORKBENCH).setUnlocalizedName(NAME_COOKINGWORKBENCH);
+		 block_freezer          = new BlockFreezer().setCreativeTab(Mod_DiningFurniture.tabFurniture).setRegistryName(NAME_FREEZER).setUnlocalizedName(NAME_FREEZER);
+		 block_icecrasher       = new BlockIceCrasher().setCreativeTab(Mod_DiningFurniture.tabFurniture).setRegistryName(NAME_ICECRASHER).setUnlocalizedName(NAME_ICECRASHER);
+		 block_millstone        = new BlockMillStone().setCreativeTab(Mod_DiningFurniture.tabFurniture).setRegistryName(NAME_MILLSTONE).setUnlocalizedName(NAME_MILLSTONE);
+		 block_saltpan          = new BlockSaltPan().setCreativeTab(Mod_DiningFurniture.tabFurniture).setRegistryName(NAME_SALTPAN).setUnlocalizedName(NAME_SALTPAN);
 
 
+		 block_pie_hall         = new BlockPie(2,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_PIE_HALL).setUnlocalizedName(NAME_PIE_HALL);
+		 block_caramelpie_hall  = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_CARAMELPIE_HALL).setUnlocalizedName(NAME_CARAMELPIE_HALL);
+		 block_chocopie_hall    = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_CHOCOPIE_HALL).setUnlocalizedName(NAME_CHOCOPIE_HALL);
+		 block_salada_hall      = new BlockPie(6,0.3F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_SALADA_HALL).setUnlocalizedName(NAME_SALADA_HALL);
+		 block_meetpie_hall     = new BlockPie(8,0.4F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_MEETPIE_HALL).setUnlocalizedName(NAME_MEETPIE_HALL);
+		 block_fishpie_hall     = new BlockPie(8,0.4F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_FISHPIE_HALL).setUnlocalizedName(NAME_FISHPIE_HALL);
+		 block_pumpkinpie_hall  = new BlockPie(6,0.3F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_PUMPKINPIE_HALL).setUnlocalizedName(NAME_PUMPKINPIE_HALL);
+		 block_applepie_hall    = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_APPLEPIE_HALL).setUnlocalizedName(NAME_APPLEPIE_HALL);
+		 block_black_pie        = new BlockPie(4,0.2F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_BLACK_PIE).setUnlocalizedName(NAME_BLACK_PIE);
+		 block_zombipei_hall    = new BlockPie(2,0.1F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.HUNGER, 600, 0)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_ZOMBIPEI_HALL).setUnlocalizedName(NAME_ZOMBIPEI_HALL);
+
+		 block_choco_cake       = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.NIGHT_VISION,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_CHOCO_CAKE).setUnlocalizedName(NAME_CHOCO_CAKE);
+		 block_apple_cake       = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.REGENERATION,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_APPLE_CAKE).setUnlocalizedName(NAME_APPLE_CAKE );
+		 block_salada_cake      = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.HASTE,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_SALADA_CAKE).setUnlocalizedName(NAME_SALADA_CAKE );
+		 block_mellon_cake      = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.INSTANT_HEALTH,EffectLevel, 0)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_MELLON_CAKE).setUnlocalizedName(NAME_MELLON_CAKE);
+		 block_pumpkin_cake     = new BlockPie(4,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.INVISIBILITY,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_PUMPKIN_CAKE).setUnlocalizedName(NAME_PUMPKIN_CAKE);
+		 block_reacheese_cake   = new BlockPie(4,0.4F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.JUMP_BOOST,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_REACHEESE_CAKE).setUnlocalizedName(NAME_REACHEESE_CAKE);
+		 block_bakedcheese_cake = new BlockPie(4,0.4F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.FIRE_RESISTANCE,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_BAKEDCHEESE_CAKE).setUnlocalizedName(NAME_BAKEDCHEESE_CAKE);
+		 block_black_cake       = new BlockPie(2,0.2F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.WATER_BREATHING,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_BLACK_CAEK).setUnlocalizedName(NAME_BLACK_CAEK);
+		 block_zombi_cake       = new BlockPie(2,0.1F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.HUNGER, 600, 0)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_ZOMBI_CAKE).setUnlocalizedName(NAME_ZOMBI_CAKE);
+
+		 block_pizza            = new BlockPie(2,0.5F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.REGENERATION,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_PIZZA).setUnlocalizedName(NAME_PIZZA);
+		 block_meet_pizza       = new BlockPie(4,0.4F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.STRENGTH,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_MEETPIZZA).setUnlocalizedName(NAME_MEETPIZZA);
+		 block_fish_pizza       = new BlockPie(4,0.4F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.SPEED,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_FISHPIZZA).setUnlocalizedName(NAME_FISHPIZZA);
+
+		 block_cheese           = new BlockPie(2,0.1F).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_CHEESE).setUnlocalizedName(NAME_CHEESE);
+		 block_bluecheese       = new BlockPie(2,0.1F).setPotionEffect(new PotionEffect[]{new PotionEffect(MobEffects.REGENERATION,EffectTime,EffectLevel)}).setCreativeTab(Mod_DiningFurniture.tabPieCakes).setRegistryName(NAME_BLUECHEESE).setUnlocalizedName(NAME_BLUECHEESE);
+
+	}
 	public static Map<String, Block> blockMap(){
 		return  (new HashMap<String, Block>(){
+			{put(NAME_COOKINGWORKBENCH, block_cookingworkbench);}
 			{put(NAME_FREEZER, block_freezer);}
 			{put(NAME_ICECRASHER,block_icecrasher);}
 			{put(NAME_MILLSTONE, block_millstone);}
@@ -187,39 +231,41 @@ public class BlockFoods {
 
 	public static Map<String,Item> itemMap(){
 		return (new HashMap<String, Item>(){
-			{put(NAME_FREEZER, new ItemBlock(block_freezer));}
-			{put(NAME_ICECRASHER,new ItemBlock(block_icecrasher));}
-			{put(NAME_MILLSTONE, new ItemBlock(block_millstone));}
-			{put(NAME_SALTPAN, new ItemBlock(block_saltpan));}
-			{put(NAME_PIE_HALL, new BlockItemPie(block_pie_hall).setMaxStackSize(16));}
-			{put(NAME_CARAMELPIE_HALL, new BlockItemPie(block_caramelpie_hall).setMaxStackSize(16));}
-			{put(NAME_CHOCOPIE_HALL, new BlockItemPie(block_chocopie_hall).setMaxStackSize(16));}
-			{put(NAME_SALADA_HALL, new BlockItemPie(block_salada_hall).setMaxStackSize(16));}
-			{put(NAME_MEETPIE_HALL, new BlockItemPie(block_meetpie_hall).setMaxStackSize(16));}
-			{put(NAME_FISHPIE_HALL, new BlockItemPie(block_fishpie_hall).setMaxStackSize(16));}
-			{put(NAME_PUMPKINPIE_HALL, new BlockItemPie(block_pumpkinpie_hall).setMaxStackSize(16));}
-			{put(NAME_ZOMBIPEI_HALL, new BlockItemPie(block_zombipei_hall).setMaxStackSize(16));}
-			{put(NAME_APPLEPIE_HALL, new BlockItemPie(block_applepie_hall).setMaxStackSize(16));}
-			{put(NAME_BLACK_PIE, new BlockItemPie(block_black_pie).setMaxStackSize(16));}
-			{put(NAME_PIZZA, new BlockItemPie(block_pizza).setMaxStackSize(32));}
-			{put(NAME_MEETPIZZA, new BlockItemPie(block_meet_pizza).setMaxStackSize(32));}
-			{put(NAME_FISHPIZZA, new BlockItemPie(block_fish_pizza).setMaxStackSize(32));}
-			{put(NAME_CHEESE, new BlockItemPie(block_cheese).setMaxStackSize(64));}
-			{put(NAME_BLUECHEESE, new BlockItemPie(block_bluecheese).setMaxStackSize(64));}
-			{put(NAME_CHOCO_CAKE, new BlockItemPie(block_choco_cake).setMaxStackSize(1));}
-			{put(NAME_APPLE_CAKE, new BlockItemPie(block_apple_cake).setMaxStackSize(1));}
-			{put(NAME_SALADA_CAKE, new BlockItemPie(block_salada_cake).setMaxStackSize(1));}
-			{put(NAME_MELLON_CAKE, new BlockItemPie(block_mellon_cake).setMaxStackSize(1));}
-			{put(NAME_PUMPKIN_CAKE, new BlockItemPie(block_pumpkin_cake).setMaxStackSize(1));}
-			{put(NAME_REACHEESE_CAKE, new BlockItemPie(block_reacheese_cake).setMaxStackSize(1));}
-			{put(NAME_BAKEDCHEESE_CAKE, new BlockItemPie(block_bakedcheese_cake).setMaxStackSize(1));}
-			{put(NAME_BLACK_CAEK, new BlockItemPie(block_black_cake).setMaxStackSize(1));}
-			{put(NAME_ZOMBI_CAKE, new BlockItemPie(block_zombi_cake).setMaxStackSize(1));}
+			{put(NAME_COOKINGWORKBENCH, (new ItemBlock(block_cookingworkbench).setRegistryName(NAME_COOKINGWORKBENCH)));}
+			{put(NAME_FREEZER, (new ItemBlock(block_freezer)).setRegistryName(NAME_FREEZER));}
+			{put(NAME_ICECRASHER,(new ItemBlock(block_icecrasher)).setRegistryName(NAME_ICECRASHER));}
+			{put(NAME_MILLSTONE, (new ItemBlock(block_millstone)).setRegistryName(NAME_MILLSTONE));}
+			{put(NAME_SALTPAN, (new ItemBlock(block_saltpan)).setRegistryName(NAME_SALTPAN));}
+			{put(NAME_PIE_HALL, (new BlockItemPie(block_pie_hall).setMaxStackSize(16)).setRegistryName(NAME_PIE_HALL));}
+			{put(NAME_CARAMELPIE_HALL, (new BlockItemPie(block_caramelpie_hall).setMaxStackSize(16)).setRegistryName(NAME_CARAMELPIE_HALL));}
+			{put(NAME_CHOCOPIE_HALL, (new BlockItemPie(block_chocopie_hall).setMaxStackSize(16)).setRegistryName(NAME_CHOCOPIE_HALL));}
+			{put(NAME_SALADA_HALL, (new BlockItemPie(block_salada_hall).setMaxStackSize(16)).setRegistryName(NAME_SALADA_HALL));}
+			{put(NAME_MEETPIE_HALL, (new BlockItemPie(block_meetpie_hall).setMaxStackSize(16)).setRegistryName(NAME_MEETPIE_HALL));}
+			{put(NAME_FISHPIE_HALL, (new BlockItemPie(block_fishpie_hall).setMaxStackSize(16)).setRegistryName(NAME_FISHPIE_HALL));}
+			{put(NAME_PUMPKINPIE_HALL, (new BlockItemPie(block_pumpkinpie_hall).setMaxStackSize(16)).setRegistryName(NAME_PUMPKINPIE_HALL));}
+			{put(NAME_ZOMBIPEI_HALL, (new BlockItemPie(block_zombipei_hall).setMaxStackSize(16)).setRegistryName(NAME_ZOMBIPEI_HALL));}
+			{put(NAME_APPLEPIE_HALL, (new BlockItemPie(block_applepie_hall).setMaxStackSize(16)).setRegistryName(NAME_APPLEPIE_HALL));}
+			{put(NAME_BLACK_PIE, (new BlockItemPie(block_black_pie).setMaxStackSize(16)).setRegistryName(NAME_BLACK_PIE));}
+			{put(NAME_PIZZA, (new BlockItemPie(block_pizza).setMaxStackSize(32)).setRegistryName(NAME_PIZZA));}
+			{put(NAME_MEETPIZZA, (new BlockItemPie(block_meet_pizza).setMaxStackSize(32)).setRegistryName(NAME_MEETPIZZA));}
+			{put(NAME_FISHPIZZA, (new BlockItemPie(block_fish_pizza).setMaxStackSize(32)).setRegistryName(NAME_FISHPIZZA));}
+			{put(NAME_CHEESE, (new BlockItemPie(block_cheese).setMaxStackSize(64)).setRegistryName(NAME_CHEESE));}
+			{put(NAME_BLUECHEESE, (new BlockItemPie(block_bluecheese).setMaxStackSize(64)).setRegistryName(NAME_BLUECHEESE));}
+			{put(NAME_CHOCO_CAKE, (new BlockItemPie(block_choco_cake).setMaxStackSize(1)).setRegistryName(NAME_CHOCO_CAKE));}
+			{put(NAME_APPLE_CAKE, (new BlockItemPie(block_apple_cake).setMaxStackSize(1)).setRegistryName(NAME_APPLE_CAKE));}
+			{put(NAME_SALADA_CAKE, (new BlockItemPie(block_salada_cake).setMaxStackSize(1)).setRegistryName(NAME_SALADA_CAKE));}
+			{put(NAME_MELLON_CAKE, (new BlockItemPie(block_mellon_cake).setMaxStackSize(1)).setRegistryName(NAME_MELLON_CAKE));}
+			{put(NAME_PUMPKIN_CAKE, (new BlockItemPie(block_pumpkin_cake).setMaxStackSize(1)).setRegistryName(NAME_PUMPKIN_CAKE));}
+			{put(NAME_REACHEESE_CAKE, (new BlockItemPie(block_reacheese_cake).setMaxStackSize(1)).setRegistryName(NAME_REACHEESE_CAKE));}
+			{put(NAME_BAKEDCHEESE_CAKE, (new BlockItemPie(block_bakedcheese_cake).setMaxStackSize(1)).setRegistryName(NAME_BAKEDCHEESE_CAKE));}
+			{put(NAME_BLACK_CAEK, (new BlockItemPie(block_black_cake).setMaxStackSize(1)).setRegistryName(NAME_BLACK_CAEK));}
+			{put(NAME_ZOMBI_CAKE, (new BlockItemPie(block_zombi_cake).setMaxStackSize(1)).setRegistryName(NAME_ZOMBI_CAKE));}
 			});
 	}
 
 	public static Map<String,ResourceLocation[]> resourceMap(){
 		return (new HashMap<String,ResourceLocation[]>(){
+			{put(NAME_COOKINGWORKBENCH, new ResourceLocation[]{new ResourceLocation(ModCommon.MOD_ID+":"+NAME_COOKINGWORKBENCH)});}
 			{put(NAME_FREEZER, new ResourceLocation[]{new ResourceLocation(ModCommon.MOD_ID+":"+NAME_FREEZER)});}
 			{put(NAME_ICECRASHER, new ResourceLocation[]{new ResourceLocation(ModCommon.MOD_ID+":"+NAME_ICECRASHER)});}
 			{put(NAME_MILLSTONE, new ResourceLocation[]{new ResourceLocation(ModCommon.MOD_ID+":"+NAME_MILLSTONE)});}

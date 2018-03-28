@@ -12,10 +12,50 @@ public class ModUtil {
 	private static final Map<String,Integer> debugCounterIndex = ModCommon.isDebug?new HashMap<String,Integer>():null;
 	private static final List<Integer> debugCounter = ModCommon.isDebug?new ArrayList():null;
 
-	public static boolean compareItemStacks(ItemStack stack1, ItemStack stack2){
+	public static enum CompaierLevel{
+		LEVEL_EQUAL_ITEM,
+		LEVEL_EQUAL_META,
+		LEVEL_EQUAL_COUNT,
+		LEVEL_EQUAL_ALL
+	};
+
+	public static boolean compareItemStacks(ItemStack stack1, ItemStack stack2 ){
 		if (stack1 == null){return false;}
 		if (stack2 == null){return false;}
+		if (stack1.isEmpty()){return false;}
+		if (stack2.isEmpty()){return false;}
 		return (stack2.getItem() == stack1.getItem() && (stack2.getMetadata() == 32767 || stack2.getMetadata() == stack1.getMetadata()));
+	}
+
+	public static boolean compareItemStacks(ItemStack stack1, ItemStack stack2, CompaierLevel level){
+		if (stack1 == null){return false;}
+		if (stack2 == null){return false;}
+		if (stack1.isEmpty()){return false;}
+		if (stack2.isEmpty()){return false;}
+
+		boolean ret = false;
+		switch(level){
+		case LEVEL_EQUAL_ALL:
+			ret = ((stack1.getItem() == stack2.getItem()) &&
+					stack1.getMetadata() == stack2.getMetadata() &&
+					stack1.getCount() == stack2.getCount());
+			break;
+		case LEVEL_EQUAL_COUNT:
+			ret = ((stack1.getItem() == stack2.getItem()) &&
+					stack1.getCount() == stack2.getCount());
+			break;
+		case LEVEL_EQUAL_ITEM:
+			ret = ((stack1.getItem() == stack2.getItem()));
+			break;
+		case LEVEL_EQUAL_META:
+			ret = ((stack1.getItem() == stack2.getItem()) &&
+					stack1.getMetadata() == stack2.getMetadata());
+			break;
+		default:
+			break;
+		}
+
+		return ret;
 	}
 
 	public static boolean CheckCounter(String key, int limit){
@@ -69,5 +109,13 @@ public class ModUtil {
 		if (debugCounterIndex.containsKey(key)){
 			debugCounter.set(debugCounterIndex.get(key), start);
 		}
+	}
+
+	public static int BooleanToInteger(boolean value){
+		return value?1:0;
+	}
+
+	public static boolean IntegerToBoolean(int value){
+		return value==0?false:true;
 	}
 }

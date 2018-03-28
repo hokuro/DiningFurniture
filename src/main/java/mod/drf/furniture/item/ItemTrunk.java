@@ -22,8 +22,9 @@ public class ItemTrunk extends Item {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World world, EntityPlayer player, EnumHand hand)
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
 	{
+		ItemStack itemStackIn = player.getHeldItem(hand);
 		player.openGui(Mod_DiningFurniture.instance, ModCommon.MOD_GUI_ID_TRUNK, world, player.chunkCoordX, player.chunkCoordY, player.chunkCoordZ);
     	return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
     }
@@ -57,15 +58,15 @@ public class ItemTrunk extends Item {
 	public SavedDataTrunk getData(ItemStack item, World world)
 	{
 		String itemName = "Trunk";
-		int itemDamage = MathHelper.clamp_int(item.getItemDamage(),0,15);
+		int itemDamage = MathHelper.clamp(item.getItemDamage(),0,15);
 		String name = String.format("%s_%s", itemName, itemDamage);
-		SavedDataTrunk data = (SavedDataTrunk)world.loadItemData(SavedDataTrunk.class, name);
+		SavedDataTrunk data = (SavedDataTrunk)world.loadData(SavedDataTrunk.class, name);
 
 		if (data == null)
 		{
 			data = new SavedDataTrunk(name);
 			data.markDirty();
-			world.setItemData(name, data);
+			world.setData(name, data);
 		}
 
 		return data;

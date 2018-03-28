@@ -1,5 +1,6 @@
 package mod.drf.foods.block;
 
+import java.util.List;
 import java.util.Random;
 
 import mod.drf.core.ModCommon;
@@ -9,6 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
@@ -27,17 +29,65 @@ public class BlockIceCrasher extends BlockHorizontalContainer {
 
     // あたり判定
     private static final AxisAlignedBB[] colligeBox =  new AxisAlignedBB[] {
-    		new AxisAlignedBB(0D, 0D, 0D, 0D, 0D, 0D), // 不使用
-    		new AxisAlignedBB(0D, 0D, 0D, 0D, 0D, 0D), // 不使用
-    		new AxisAlignedBB(0.125D, 0D, 0.0625D, 0.875D, 1D, 1.0D),	// NORTH
-    		new AxisAlignedBB(0.125D, 0D, 0.9375D, 0.875D, 1D, 0.0D),	// SOUTH
-    		new AxisAlignedBB(0.0625D, 0D, 0.125D, 1.0D, 1D, 0.875D),	// WEST
-    		new AxisAlignedBB(0.9375D, 0D, 0.125D, 0.0D, 1D, 0.875D)		// EAST
+    		new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 1.0D,   1.0D, 0.875D),	// SOUTH
+    		new AxisAlignedBB(0.125D, 0.0D, 0.0625D, 0.9375D, 1.0D, 1.0D),	    // WEST
+    		new AxisAlignedBB(0.9375D, 0.0D, 0.9375D, 0.0D,   1.0D, 0.125D),	// NORTH
+    		new AxisAlignedBB(0.875D, 0.0D, 0.9375D, 0.0625D, 1.0D, 0.0D)		// EAST
+    };
+
+    private static final AxisAlignedBB[][] colligBoxeis= {
+    		//South
+    		{new AxisAlignedBB(0.0625,   0.0D,    0.0625D,  0.1875D,   0.0625D, 0.875D),
+        	 new AxisAlignedBB(0.75,     0.0D,    0.0625D,  0.875D,    0.0625D, 0.875D),
+        	 new AxisAlignedBB(0.71875D, 0.0625D, 0.0625D,  0.84375D, 0.8125,  0.25D),
+        	 new AxisAlignedBB(0.71875D, 0.0625D, 0.6875D,  0.84375D, 0.8125,  0.875D),
+        	 new AxisAlignedBB(0.09375D, 0.0625D, 0.0625D,  0.21875D, 0.8125,  0.25D),
+        	 new AxisAlignedBB(0.09375D, 0.0625D, 0.6875D,  0.21875D, 0.8125,  0.875D),
+        	 new AxisAlignedBB(0.125D,   0.8125D, 0.1875D,  0.8125D,  0.9375D, 0.75D),
+        	 new AxisAlignedBB(0.125D,   0.375D,  0.1875D,  0.8125D,  0.9375D, 0.75D),
+        	 new AxisAlignedBB(0.9375D,  0.75D,   0.28125D, 1.0D,     0.8125D, 0.34375D),
+        	 new AxisAlignedBB(0.875D,   0.5625D, 0.28125D, 0.9375D,  1.0D,    0.71875D)},
+
+    		//West
+    		{new AxisAlignedBB(0.125D,   0.0D,     0.0625D,   0.9375D,  0.0625D, 0.1875D),
+        	 new AxisAlignedBB(0.125D,   0.0D,     0.75D,     0.9375D,  0.0625D, 0.875D),
+        	 new AxisAlignedBB(0.125D,   0.0625D,  0.71875D,  0.3125D,  0.8125D, 0.84375D),
+        	 new AxisAlignedBB(0.75D,    0.0625D,  0.71875D,  0.9375D,  0.8125D, 0.84375D),
+        	 new AxisAlignedBB(0.125D,   0.0625D,  0.09375D,  0.3125D,  0.8125D, 0.21875D),
+        	 new AxisAlignedBB(0.75D,    0.0625D,  0.09375D,  0.9375D,  0.8125D, 0.21875D),
+        	 new AxisAlignedBB(0.25D,    0.8125D,  0.125D,    0.8125D,  0.9375D, 0.8125D),
+        	 new AxisAlignedBB(0.25D,    0.375D,   0.125D,    0.8125D,  0.9375D, 0.8125D),
+         	 new AxisAlignedBB(0.34375D, 0.75D,    0.9375D,   0.40625D, 0.8125D, 1.0D),
+        	 new AxisAlignedBB(0.34375D, 0.5625D,  0.875D,    0.78125D, 1.0D,    0.9375D)},
+
+    		//North
+    		{new AxisAlignedBB(0.9375D,  0.0D,    0.9375D,  0.8125D,  0.0625D, 0.125D),
+         	 new AxisAlignedBB(0.25D,    0.0D,    0.9375D,  0.125D,   0.0625D, 0.125D),
+         	 new AxisAlignedBB(0.28125D, 0.0625D, 0.9375D,  0.15625D, 0.8125D, 0.75D),
+          	 new AxisAlignedBB(0.28125D, 0.0625D, 0.3125D,  0.15625D, 0.8125D, 0.125D),
+         	 new AxisAlignedBB(0.90625D, 0.0625D, 0.9375D,  0.78125D, 0.8125D, 0.75D),
+        	 new AxisAlignedBB(0.90625D, 0.0625D, 0.3125D,  0.78125D, 0.8125D, 0.125D),
+        	 new AxisAlignedBB(0.875D,   0.8125D, 0.8125D,  0.1875D,  0.9375D, 0.25D),
+        	 new AxisAlignedBB(0.875D,   0.375D,  0.8125D,  0.1875D,  0.9375D, 0.25D),
+        	 new AxisAlignedBB(0.0625D,  0.75D,   0.71875D, 0.0D,     0.8125D, 0.65625D),
+        	 new AxisAlignedBB(0.125D,   0.5625D, 0.71875D, 0.0625D,  1.0D,    0.28125D)},
+
+    		//East
+    		{new AxisAlignedBB(0.875D,   0.00D,   0.9375D,  0.0625D,   0.0625D, 0.8125D),
+             new AxisAlignedBB(0.875D,   0.0D,    0.25D,    0.0625D,   0.0625D, 0.125D),
+             new AxisAlignedBB(0.875D,   0.0625D, 0.28125D, 0.125D,    0.8125D, 0.15625D),
+             new AxisAlignedBB(0.25D,    0.0625D, 0.28125D, 0.0625D,   0.8125D, 0.15625D),
+             new AxisAlignedBB(0.875D,   0.0625D, 0.90625D, 0.125D,    0.8125D, 0.78125D),
+             new AxisAlignedBB(0.25D,    0.0625D, 0.90625D, 0.0625D,   0.8125D, 0.78125D),
+             new AxisAlignedBB(0.75D,    0.8125D, 0.875D,   0.1875D,   0.9375D, 0.1875D),
+             new AxisAlignedBB(0.75D,    0.375D,  0.875D,   0.1875D,   0.9375D, 0.1875D),
+             new AxisAlignedBB(0.65625D, 0.75D,   0.0625D,  0.59375D,  0.8125D, 0.0D),
+             new AxisAlignedBB(0.65625D, 0.5625D, 0.125D,   0.21875D,  1.0D,    0.0625D)}
     };
 
     protected BlockIceCrasher()
     {
-        super(Material.glass);
+        super(Material.GLASS);
 		this.setHardness(1.0F);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
@@ -80,15 +130,22 @@ public class BlockIceCrasher extends BlockHorizontalContainer {
     }
 
     @Override
-    protected AxisAlignedBB getRealBoundingBox(IBlockState state){
-    	int idx = this.getMetaFromState(state);
-    	if (idx >= 2 &&  6 > idx){
-            return colligeBox[idx];
-    	}
-    	return colligeBox[2];
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB p_185477_4_, List<AxisAlignedBB> p_185477_5_, Entity p_185477_6, boolean isActualState_)
+    {
+        state = this.getActualState(state, worldIn, pos);
+
+        for(int lp = 0; lp < colligBoxeis[state.getValue(FACING).getHorizontalIndex()].length; lp++){
+        	addCollisionBoxToList(pos, p_185477_4_, p_185477_5_,  colligBoxeis[state.getValue(FACING).getHorizontalIndex()][lp]);
+        }
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+    @Override
+    protected AxisAlignedBB getRealBoundingBox(IBlockState state){
+    	return colligeBox[state.getValue(FACING).getHorizontalIndex()];
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (worldIn.isRemote)
         {
@@ -165,6 +222,11 @@ public class BlockIceCrasher extends BlockHorizontalContainer {
     public int getMetaFromState(IBlockState state)
     {
         return ((EnumFacing)state.getValue(FACING)).getIndex();
+    }
+
+    @Override
+	public boolean hasCustomBreakingProgress(IBlockState state){
+    	return true;
     }
 
 

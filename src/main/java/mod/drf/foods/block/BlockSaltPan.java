@@ -41,7 +41,7 @@ public class BlockSaltPan extends BlockContainer {
     protected static final AxisAlignedBB AABB_WALL_WEST = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.0625D, 1.0D, 1.0D);
 
 	protected BlockSaltPan() {
-		super(Material.glass);
+		super(Material.GLASS);
 		this.setHardness(1.0F);
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
 	}
@@ -82,8 +82,10 @@ public class BlockSaltPan extends BlockContainer {
         }
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
     {
+    	ItemStack heldItem = playerIn.getHeldItem(hand);
         if (heldItem == null)
         {
             return true;
@@ -107,44 +109,44 @@ public class BlockSaltPan extends BlockContainer {
                     				heldItem.damageItem(1, playerIn);
                 			}
                 		}
-                        worldIn.playSound(playerIn, pos, SoundEvents.item_shovel_flatten, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                        playerIn.addStat(StatList.cauldronUsed);
-                	}else if(item==Items.water_bucket){
+                        worldIn.playSound(playerIn, pos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        playerIn.addStat(StatList.CAULDRON_USED);
+                	}else if(item==Items.WATER_BUCKET){
                 		return true;
                 	}
                 }else if (level == 1){
-                	if ( item == Items.bucket){
+                	if ( item == Items.BUCKET){
                 		 if (level == 1 && !worldIn.isRemote)
                          {
                              if (!playerIn.capabilities.isCreativeMode)
                              {
-                                 --heldItem.stackSize;
+                            	 heldItem.shrink(1);
 
-                                 if (heldItem.stackSize == 0)
+                                 if (heldItem.getCount() == 0)
                                  {
-                                     playerIn.setHeldItem(hand, new ItemStack(Items.water_bucket));
+                                     playerIn.setHeldItem(hand, new ItemStack(Items.WATER_BUCKET));
                                  }
-                                 else if (!playerIn.inventory.addItemStackToInventory(new ItemStack(Items.water_bucket)))
+                                 else if (!playerIn.inventory.addItemStackToInventory(new ItemStack(Items.WATER_BUCKET)))
                                  {
-                                     playerIn.dropPlayerItemWithRandomChoice(new ItemStack(Items.water_bucket), false);
+                                	 playerIn.dropItem(new ItemStack(Items.WATER_BUCKET), false);
                                  }
                              }
                              ((TileEntitySaltPan) tileentity).clear();
                          }
                 		 return true;
-                	}else if(item==Items.water_bucket){
+                	}else if(item==Items.WATER_BUCKET){
                 		return true;
                 	}
                 }else{
-                	if (item == Items.water_bucket)
+                	if (item == Items.WATER_BUCKET)
                     {
                         if (level == 0 && !worldIn.isRemote)
                         {
                             if (!playerIn.capabilities.isCreativeMode)
                             {
-                                playerIn.setHeldItem(hand, new ItemStack(Items.bucket));
+                                playerIn.setHeldItem(hand, new ItemStack(Items.BUCKET));
                             }
-                            ((TileEntitySaltPan) tileentity).setInventorySlotContents(0, new ItemStack(Items.potionitem));
+                            ((TileEntitySaltPan) tileentity).setInventorySlotContents(0, new ItemStack(Items.POTIONITEM));
                         }
                         return true;
                     }
@@ -157,7 +159,7 @@ public class BlockSaltPan extends BlockContainer {
     public static void setWaterLevel(World worldIn, BlockPos pos, IBlockState state, EnumSaltPanLevel level)
     {
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        IBlockState saltPan = state.withProperty(LEVEL, Integer.valueOf(MathHelper.clamp_int(level.getLevel(), 0, 3)));
+        IBlockState saltPan = state.withProperty(LEVEL, Integer.valueOf(MathHelper.clamp(level.getLevel(), 0, 3)));
         worldIn.setBlockState(pos, saltPan, 2);
         worldIn.updateComparatorOutputLevel(pos, saltPan.getBlock());
 

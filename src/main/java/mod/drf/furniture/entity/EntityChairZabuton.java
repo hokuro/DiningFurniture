@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySpider;
@@ -83,8 +84,8 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 		motionZ = 0.0D;
 	}
 
-	public void setThrowableHeading(double px, double py, double pz, float f, float f1){
-		float f2 = MathHelper.sqrt_double(px*px+py*py+pz*pz);
+	public void shoot(double px, double py, double pz, float f, float f1){
+		float f2 = MathHelper.sqrt(px*px+py*py+pz*pz);
 		py /= f2;
 		px /= f2;
 		pz /= f2;
@@ -101,7 +102,7 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 		motionY = py;
 		motionZ = pz;
 
-		float f3 = MathHelper.sqrt_double(px*px+pz*pz);
+		float f3 = MathHelper.sqrt(px*px+pz*pz);
 		prevRotationYaw = rotationYaw = (float)((Math.atan2(px, pz) * 180D) / 3.1415927410125732D);
 		prevRotationPitch = rotationPitch = (float)((Math.atan2(py, f3) * 180D) / 3.1415927410125732D);
 		setDispensed(true);
@@ -121,10 +122,10 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 	@Override
 	protected void entityInit() {
 		// TODO 自動生成されたメソッド・スタブ
-		this.dataWatcher.register(DISPENCE, isDispensed);
-		this.dataWatcher.register(RIDEENTITY, 0);
-//		dataWatcher.addObject(17,  new Byte((byte)(isDispensed ? 0x01: 0x00)));
-//		dataWatcher.addObject(18,  Integer.valueOf(0));
+		this.dataManager.register(DISPENCE, isDispensed);
+		this.dataManager.register(RIDEENTITY, 0);
+//		dataManager.addObject(17,  new Byte((byte)(isDispensed ? 0x01: 0x00)));
+//		dataManager.addObject(18,  Integer.valueOf(0));
 	}
 
 	@Override
@@ -179,7 +180,7 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 		// 独自の水没判定
 		AxisAlignedBB  bbbox = getEntityBoundingBox();
 		StructureBoundingBox box = new StructureBoundingBox((int)bbbox.minX, (int)bbbox.minY,(int)bbbox.minZ,(int)bbbox.maxX+1,(int)bbbox.maxY+1,(int)bbbox.maxZ+1);
-		if (!worldObj.isAreaLoaded(box)) {
+		if (!world.isAreaLoaded(box)) {
 			return false;
 		} else {
 			boolean var10 = false;
@@ -187,10 +188,10 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 			for (int x = box.minX; x < box.maxX; ++x) {
 				for (int y = box.minY; y < box.maxY; ++y) {
 					for (int z = box.minZ; z < box.maxZ; ++z) {
-						Block blk = worldObj.getBlockState(new BlockPos(x,y,z)).getBlock();
-						if (blk != null && blk.getMaterial(null) == Material.water) {
+						Block blk = world.getBlockState(new BlockPos(x,y,z)).getBlock();
+						if (blk != null && blk.getMaterial(null) == Material.WATER) {
 							inWater = true;
-							double var16 = (double)((float)(y + 1) - BlockLiquid.getLiquidHeightPercent(blk.getMetaFromState(worldObj.getBlockState(new BlockPos(x, y, z)))));
+							double var16 = (double)((float)(y + 1) - BlockLiquid.getLiquidHeightPercent(blk.getMetaFromState(world.getBlockState(new BlockPos(x, y, z)))));
 							if ((double)box.maxY >= var16) {
 								var10 = true;
 							}
@@ -206,11 +207,11 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 	@Override
 	public boolean attackEntityFrom(DamageSource damagesource, float pDammage) {
 		// 攻撃したもの
-		Entity entity = damagesource.getEntity();
-		if(worldObj.isRemote || isDead) {
+		Entity entity = damagesource.getTrueSource();
+		if(world.isRemote || isDead) {
 			return true;
 		}
-		setBeenAttacked();
+		markVelocityChanged();
 		if (entity instanceof EntityPlayer) {
 			// プレイヤーからの攻撃ならアイテムドロップ
 			entityDropItem(new ItemStack(ItemFurniture.item_zabuton, 1, color), 0.0F);
@@ -242,7 +243,7 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 
 	@Override
 	@ SideOnly(Side.CLIENT)
-    public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_)
+    public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_)
      {
 		this.setPosition(x, y, z);
 		this.setRotation(yaw, pitch);
@@ -276,13 +277,13 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 		// 座ってるモブを取り出す
 		Entity ridden = this.riddenentity();
 
-		if (this.worldObj.isRemote) {
+		if (this.world.isRemote) {
 			// Client
 			if (this.posIncrements > 0) {
 				var6 = this.posX + (this.zabutonX - this.posX) / (double)this.posIncrements;
 				var8 = this.posY + (this.zabutonY - this.posY) / (double)this.posIncrements;
 				var26 = this.posZ + (this.zabutonZ - this.posZ) / (double)this.posIncrements;
-				var12 = MathHelper.wrapAngleTo180_double(this.zabutonYaw - (double)this.rotationYaw);
+				var12 = MathHelper.wrapDegrees(this.zabutonYaw - (double)this.rotationYaw);
 				this.rotationYaw = (float)((double)this.rotationYaw + var12 / (double)this.posIncrements);
 				this.rotationPitch = (float)((double)this.rotationPitch + (this.zabutonPitch - (double)this.rotationPitch) / (double)this.posIncrements);
 				--this.posIncrements;
@@ -296,7 +297,7 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 					this.motionZ *= 0.5D;
 					setDispensed(false);
 				}
-				this.moveEntity(this.motionX, this.motionY, this.motionZ);
+				this.move(MoverType.PLAYER, this.motionX, this.motionY, this.motionZ);
 
 				this.motionX *= 0.9900000095367432D;
 				this.motionY *= 0.949999988079071D;
@@ -330,7 +331,7 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 				// setVelocityの呼ばれる回数が少なくて変な動きをするので対策
 //                this.velocityChanged = true;
 			}
-			this.moveEntity(this.motionX, this.motionY, this.motionZ);
+			this.move(MoverType.PLAYER, this.motionX, this.motionY, this.motionZ);
 
 			this.motionX *= 0.9900000095367432D;
 			this.motionY *= 0.949999988079071D;
@@ -346,7 +347,7 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 				var8 = (double)((float)(Math.atan2(var12, var26) * 180.0D / Math.PI));
 			}
 
-			double var14 = MathHelper.wrapAngleTo180_double(var8 - (double)this.rotationYaw);
+			double var14 = MathHelper.wrapDegrees(var8 - (double)this.rotationYaw);
 			if (var14 > 20.0D) {
 				var14 = 20.0D;
 			}
@@ -359,7 +360,7 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 
 
 			// 当たり判定
-			List<Entity> var16 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.17D, 0.0D, 0.17D));
+			List<Entity> var16 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.17D, 0.0D, 0.17D));
 			if (var16 != null && !var16.isEmpty()) {
 				Iterator var28 = var16.iterator();
 				while (var28.hasNext()) {
@@ -398,7 +399,7 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 	@Override
 	public void applyEntityCollision(Entity entity) {
 		// 吸着判定
-		if (worldObj.isRemote) {
+		if (world.isRemote) {
 			return;
 		}
 		Entity ridden = riddenentity();
@@ -420,13 +421,13 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 
 	@Override
 	//public boolean interactFirst(EntityPlayer entityplayer) {
-	public boolean processInitialInteract(EntityPlayer entityplayer, ItemStack stack, EnumHand hand){
+	public boolean processInitialInteract(EntityPlayer entityplayer, EnumHand hand){
 		// ラーイド・オン！
 		if (!this.getPassengers().isEmpty()){// && (riddenByEntity instanceof EntityPlayer) && riddenByEntity != entityplayer) {
 			// 誰か座ってるよ
 			return true;
 		}
-		if (!worldObj.isRemote) {
+		if (!world.isRemote) {
 			entityplayer.startRiding(this);
 		}
 		return true;
@@ -437,29 +438,29 @@ public class EntityChairZabuton extends Entity  implements IProjectile, IEntityA
 	// 射出判定
 	public boolean isDispensed() {
 		try{
-			return dataWatcher.get(DISPENCE);
+			return dataManager.get(DISPENCE);
 		}catch(Exception ex){
 			return false;
 		}
 	}
 
 	public void setDispensed(boolean isDispensed) {
-		this.dataWatcher.set(DISPENCE, isDispensed);
+		this.dataManager.set(DISPENCE, isDispensed);
 	}
 
 	// クライアント側補正用
 	public int getRiddenByEntityID() {
-		int li = dataWatcher.get(RIDEENTITY);
+		int li = dataManager.get(RIDEENTITY);
 		return li;
 	}
 
 	public Entity getRiddenByEntity() {
-		return ((WorldClient)worldObj).getEntityByID(getRiddenByEntityID());
+		return ((WorldClient)world).getEntityByID(getRiddenByEntityID());
 	}
 
 	public void setRiddenByEntityID(Entity pentity) {
-		dataWatcher.set(RIDEENTITY, pentity==null?0:pentity.getEntityId());
-		///dataWatcher.updateObject(18, Integer.valueOf(pentity == null ? 0 : pentity.getEntityId()));
+		dataManager.set(RIDEENTITY, pentity==null?0:pentity.getEntityId());
+		///dataManager.updateObject(18, Integer.valueOf(pentity == null ? 0 : pentity.getEntityId()));
 	}
 
 	@Override

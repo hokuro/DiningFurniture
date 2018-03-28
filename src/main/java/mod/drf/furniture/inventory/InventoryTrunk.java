@@ -47,7 +47,7 @@ public class InventoryTrunk implements IInventory{
 			int idx = index +(page*ModCommon.TrunkCsize*ModCommon.TrunkRsize);
 			if (this.data.items[idx] != null)
 			{
-				if (this.data.items[idx].stackSize <= count)
+				if (this.data.items[idx].getCount() <= count)
 				{
 					ItemStack item = this.data.items[idx];
 					this.data.items[idx] = null;
@@ -55,7 +55,7 @@ public class InventoryTrunk implements IInventory{
 					return item;
 				}
 				ItemStack item = this.data.items[idx].splitStack(count);
-				if (this.data.items[idx].stackSize == 0)
+				if (this.data.items[idx].getCount() == 0)
 				{
 					this.data.items[idx] = null;
 				}
@@ -126,7 +126,7 @@ public class InventoryTrunk implements IInventory{
 		}
 
 		@Override
-		public boolean isUseableByPlayer(EntityPlayer player) {
+		public boolean isUsableByPlayer(EntityPlayer player) {
 			// TODO 自動生成されたメソッド・スタブ
 			return true;
 		}
@@ -147,6 +147,12 @@ public class InventoryTrunk implements IInventory{
 		public void clear() {
 			// TODO 自動生成されたメソッド・スタブ
 
+		}
+
+		@Override
+		public boolean isEmpty() {
+			// TODO 自動生成されたメソッド・スタブ
+			return false;
 		}
 
 }

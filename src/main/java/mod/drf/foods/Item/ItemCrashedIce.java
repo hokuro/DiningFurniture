@@ -1,40 +1,49 @@
 package mod.drf.foods.Item;
 
-import java.util.List;
-
 import mod.drf.config.ConfigValue;
+import mod.drf.config.ConfigValue.Setting_CrashedIce;
 import mod.drf.core.ModCommon;
+import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.core.log.ModLog;
 import mod.drf.foods.Item.ItemFoods.EnumFlapeSyrup;
 import mod.drf.foods.entity.EntityCrashedIce;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemCrashedIce extends ItemResetFood {
-	public ItemCrashedIce(int amount, float saturation, boolean isWolfFood) {
+	//private static final PotionEffect confu = new PotionEffect(MobEffects.NAUSEA,600,1);
+	private final boolean isMillk;
+
+	public ItemCrashedIce(int amount, float saturation, boolean isWolfFood, boolean millk) {
 		super(amount, saturation, isWolfFood);
 		this.setHasSubtypes(true);
+		setPotionEffect(new PotionEffect(MobEffects.NAUSEA,100,1), 25.0F);
+		setCreativeTab(Mod_DiningFurniture.tabColdFood);
+		isMillk = millk;
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemstack, World world, EntityPlayer player, EnumHand hand){
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand){
+		ItemStack itemstack = player.getHeldItem(hand);
 		float f = 1.0F;
 		float f1 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * f;
 		float f2 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * f;
@@ -55,7 +64,7 @@ public class ItemCrashedIce extends ItemResetFood {
 
 		if (movingbjectposition == null){
 			// 置くブロックがないのでそのまま食べる
-	        if (player.canEat(ConfigValue.General.CrashedIceCanEatAllways) || ModCommon.isDeveloped)
+	        if (player.canEat(ConfigValue.Setting_CrashedIce.CrashedIceCanEatAllways) || ModCommon.isDeveloped)
 	        {
 	            player.setActiveHand(hand);
 	            return new ActionResult(EnumActionResult.SUCCESS, itemstack);
@@ -64,23 +73,21 @@ public class ItemCrashedIce extends ItemResetFood {
 	        {
 	            return new ActionResult(EnumActionResult.FAIL, itemstack);
 	        }
-		}
-
-		if (movingbjectposition.typeOfHit == RayTraceResult.Type.BLOCK){
+		}else if (movingbjectposition.typeOfHit == RayTraceResult.Type.BLOCK){
 			// アイスを置く
 			BlockPos blockpos = movingbjectposition.getBlockPos();
 			if (world.isAirBlock(blockpos.add(0,1,0))){
 				if (!world.isRemote){
 					try{
-						EntityCrashedIce ice = new EntityCrashedIce(world, blockpos, itemstack.getItemDamage());
-						ice.rotationYaw = (MathHelper.floor_double((double)((player.rotationYaw*4F)/360F)+2.5D)&3)*90;
-						world.spawnEntityInWorld(ice);
+						EntityCrashedIce ice = new EntityCrashedIce(world, blockpos.add(0,1,0), itemstack.getItemDamage(),isMillk);
+						ice.rotationYaw = (MathHelper.floor((double)((player.rotationYaw*4F)/360F)+2.5D)&3)*90;
+						world.spawnEntity(ice);
 					}catch(Exception e){
 						ModLog.log().error(e.getMessage());
 					}
 				}
 				if(!player.capabilities.isCreativeMode){
-					itemstack.stackSize--;
+					itemstack.shrink(1);;
 				}
 			}
 		}
@@ -90,45 +97,94 @@ public class ItemCrashedIce extends ItemResetFood {
 	@Override
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
     {
-        --stack.stackSize;
+        stack.shrink(1);
 
         if (entityLiving instanceof EntityPlayer)
         {
-        	EnumFlapeSyrup flavor = ItemFoods.EnumFlapeSyrup.getValue(stack.getItemDamage());
-            this.setHealAmount(flavor.getFoodLevel());
-            this.setSaturation(flavor.getFoodSaturation());
-            EntityPlayer entityplayer = (EntityPlayer)entityLiving;
-            entityplayer.getFoodStats().addStats(this, stack);
-            worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.entity_player_burp, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
-            this.onFoodEaten(stack, worldIn, entityplayer);
-            entityplayer.addStat(StatList.func_188057_b(this));
+        	onEat(stack, worldIn, (EntityPlayer)entityLiving);
+        	if (!worldIn.isRemote){
+                if (!((EntityPlayer)entityLiving).inventory.addItemStackToInventory(new ItemStack(ItemFoods.item_icefoodbowl,1))){
+                	((EntityPlayer)entityLiving).dropItem(new ItemStack(ItemFoods.item_icefoodbowl), false);
+                }
+        	}
         }
 
         return stack;
     }
 
-    protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player)
-    {
-    	EnumFlapeSyrup flavor = ItemFoods.EnumFlapeSyrup.getValue(stack.getItemDamage());
-    	PotionEffect[] potion = flavor.getPotion();
-    	if (potion!=null){
-    		for (PotionEffect effect:potion){
-    			player.addPotionEffect(effect);
-    		}
-    	}
-    }
+	public static void onEat(ItemStack stack, World worldIn, EntityPlayer player){
+		if (stack.getItem() instanceof ItemCrashedIce){
+			// 空腹の回復
+	    	EnumFlapeSyrup flavor = ItemFoods.EnumFlapeSyrup.getValue(stack.getItemDamage());
+	    	// フレーバーごとの回復量を設定
+	    	ItemCrashedIce eat = (ItemCrashedIce)stack.getItem();
+	    	eat.setHealAmount(flavor.getFoodLevel());
+	    	eat.setSaturation(flavor.getFoodSaturation());
 
+	    	// 咀嚼
+	        EntityPlayer entityplayer = (EntityPlayer)player;
+	        entityplayer.getFoodStats().addStats(eat, stack);
+	        worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
 
+	        // 鎮火
+	        entityplayer.extinguish();
+	        if (eat.isMillk){
+	        	// 練乳掛けの場合、ポーション効果を解除
+	        	entityplayer.clearActivePotions();
+	        }
+
+	        // ポーション効果を付与
+	    	PotionEffect[] potion = flavor.getPotion();
+	    	if (potion!=null){
+	    		for (PotionEffect effect:potion){
+	    			entityplayer.addPotionEffect(effect);
+	    		}
+	    	}
+	    	// かき氷での頭痛
+	        if (worldIn.rand.nextFloat() < 80.0F)
+	        {
+	            player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA,600,1));
+	        }
+	        entityplayer.addStat(StatList.getObjectUseStats(eat));
+		}
+	}
+
+	@Override
+	public String getItemStackDisplayName(ItemStack stack)
+	{
+		String ret = Setting_CrashedIce.getFlavorName(EnumFlapeSyrup.getValue(stack.getItemDamage()));
+		if (ret.isEmpty()){
+			ret = I18n.translateToLocal(this.getUnlocalizedName() + "." + EnumFlapeSyrup.getValue(stack.getItemDamage()).getFlavor() + ".name");
+		}else{
+			if (this.isMillk){
+				ret =  I18n.translateToLocal("mk_crashedice_config")+"("+ret + ")";
+			}else{
+				ret = I18n.translateToLocal("crashedice_config")+"("+ret+")";
+			}
+		}
+		return ret;
+	}
 
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return this.getUnlocalizedName() + "." + EnumFlapeSyrup.getValue(par1ItemStack.getItemDamage()).getFlavor();
+		String ret = Setting_CrashedIce.getFlavorName(EnumFlapeSyrup.getValue(par1ItemStack.getItemDamage()));
+		if (ret.isEmpty()){
+			ret = this.getUnlocalizedName() + "." + EnumFlapeSyrup.getValue(par1ItemStack.getItemDamage()).getFlavor();
+		}else{
+			if (this.isMillk){
+				ret =  I18n.translateToLocal("mk_crashedice_config")+"("+ret + ")";
+			}else{
+				ret = I18n.translateToLocal("crashedice_config")+"("+ret+")";
+			}
+		}
+		return ret;
 	}
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems)
     {
+    	if (this.getCreativeTab() != tab){return;}
         for (EnumFlapeSyrup syrup : EnumFlapeSyrup.values())
         {
         	subItems.add(new ItemStack(this, 1, syrup.getDamage()));

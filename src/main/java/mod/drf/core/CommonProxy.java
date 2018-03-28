@@ -1,7 +1,7 @@
 package mod.drf.core;
 
-import mod.drf.foods.tileentity.TileEntityIceCrasher;
 import mod.drf.foods.tileentity.TileEntityFreezer;
+import mod.drf.foods.tileentity.TileEntityIceCrasher;
 import mod.drf.foods.tileentity.TileEntityMillStone;
 import mod.drf.foods.tileentity.TileEntitySaltPan;
 import mod.drf.furniture.client.gui.GuiTrunk;
@@ -16,6 +16,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CommonProxy implements IGuiHandler {
 
+	public EntityPlayer getEntityPlayerInstance() {return null;}
+	
 	public void registerTileEntity(){
 		GameRegistry.registerTileEntity(TileEntitySaltPan.class, TileEntitySaltPan.REGISTER_NAME);
 		GameRegistry.registerTileEntity(TileEntityIceCrasher.class,TileEntityIceCrasher.REGISTER_NAME);

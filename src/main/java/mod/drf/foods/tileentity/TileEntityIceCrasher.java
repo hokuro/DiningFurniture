@@ -1,10 +1,14 @@
 package mod.drf.foods.tileentity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import mod.drf.config.ConfigValue;
 import mod.drf.core.ModCommon;
 import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.core.log.ModLog;
+import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.inventory.ContainerIceCrasher;
 import mod.drf.foods.inventory.ICnvertInventory;
 import mod.drf.foods.network.MessageIceCrasherUpdate;
@@ -18,7 +22,6 @@ import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
@@ -29,21 +32,30 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 	public static final String REGISTER_NAME = "TileEntityIceCrasher";
 	public static final int CRUSH_TIME_MAX = 300;
 	public static final int CRUSH_SIZE = 4;
-	private ItemStack[] inventory = new ItemStack[2];
+
+	private static final int S_IN1 = 0;
+	private static final int S_IN2 = 1;
+	private static final int S_OT1 = 2;
+
+	private Random random = new Random();
+	private ItemStack[] inventory = new ItemStack[3];
 	private String customName;
 	private boolean isRun;
 	private int crushTime;
 	private EnumFacing facing;
-	private Random random = new Random();
+	private int sound_count = 0;
+	private int sound_count_max = 20;
+	private int sound_count_rand = 30;
 
-	private static final int[] slotsTop = new int[] {0};
-	private static final int[] slotsBottom = new int[] {1};
-	private static final int[] slotsSides = new int[] {0};
+	private static final int[] slotsTop = new int[] {0,1};
+	private static final int[] slotsBottom = new int[] {2};
+	private static final int[] slotsSides = new int[] {0,1};
 
 	public TileEntityIceCrasher(){
 		super();
 		isRun = false;
 		crushTime = 0;
+		this.clear();
 	}
 
 	public TileEntityIceCrasher(EnumFacing enumFacing){
@@ -51,6 +63,7 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 		this.isRun = false;
 		this.facing = enumFacing;
 		crushTime = 0;
+		this.clear();
 	}
 
 	public void readFromNBT(NBTTagCompound compound)
@@ -58,6 +71,7 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 		super.readFromNBT(compound);
 		NBTTagList nbttaglist = compound.getTagList("Items", 10);
 		this.inventory = new ItemStack[this.getSizeInventory()];
+		this.clear();
 
 		for (int i = 0; i < nbttaglist.tagCount(); ++i)
 		{
@@ -66,7 +80,7 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 
 			if (j >= 0 && j < this.inventory.length)
 			{
-				this.inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
+				this.inventory[j] = new ItemStack(nbttagcompound);
 			}
 		}
 
@@ -79,7 +93,7 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 		}
 	}
 
-	public void writeToNBT(NBTTagCompound compound)
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
 		super.writeToNBT(compound);
 		compound.setInteger("CrushTime", this.crushTime);
@@ -88,7 +102,7 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 
 		for (int i = 0; i < this.inventory.length; ++i)
 		{
-			if (this.inventory[i] != null)
+			if (!this.inventory[i].isEmpty())
 			{
 				NBTTagCompound nbttagcompound = new NBTTagCompound();
 				nbttagcompound.setByte("Slot", (byte)i);
@@ -103,6 +117,7 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 		{
 			compound.setString("CustomName", this.customName);
 		}
+		return compound;
 	}
 
 	public boolean isRunning()
@@ -110,15 +125,24 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 		return isRun;
 	}
 
+	public boolean isSetIce(){
+		return (!inventory[S_IN1].isEmpty());
+	}
+
+	public boolean isSetBowl(){
+		return (!inventory[S_IN2].isEmpty());
+	}
+
 	public EnumFacing face(){
 		return this.facing;
 	}
+
 
 	public void update()
 	{
 		boolean flag = this.isRun;
 		boolean flag1 = false;
-		if (!this.worldObj.isRemote){
+		if (!this.world.isRemote){
 			if (this.isRun){
 				// かきかきちゅう
 				if (canOutput()){
@@ -137,15 +161,25 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 			}
 			if (this.crushTime > CRUSH_TIME_MAX){
 				// かきごおりかんせい
-				if (this.inventory[1] == null){
-					this.inventory[1] = OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_CRASHING, this.inventory[0]);
-					this.inventory[1].stackSize = CRUSH_SIZE;
+				if (this.inventory[S_OT1].isEmpty()){
+					this.inventory[S_OT1] = OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_CRASHING, this.inventory[S_IN1]);
+					this.inventory[S_OT1].setCount(CRUSH_SIZE);
 				}else{
-					this.inventory[1].stackSize += CRUSH_SIZE;
+					this.inventory[S_OT1].grow(CRUSH_SIZE);
 				}
-				this.inventory[0].stackSize--;
-				if (this.inventory[0].stackSize <= 0){
-					this.inventory[0] = null;
+
+				if (!this.inventory[S_IN1].isEmpty()){
+					this.inventory[S_IN1].shrink(1);
+					if (this.inventory[S_IN1].getCount() <= 0){
+						this.inventory[S_IN1] = ItemStack.EMPTY;
+					}
+				}
+
+				if (!this.inventory[S_IN2].isEmpty()){
+					this.inventory[S_IN2].shrink(CRUSH_SIZE);
+					if(this.inventory[S_IN2].getCount() <= 0){
+						this.inventory[S_IN2] = ItemStack.EMPTY;
+					}
 				}
 				this.crushTime = 0;
 				flag1 = true;
@@ -157,9 +191,12 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 		}else{
 			if (this.isRun && canOutput()){
 				this.crushTime++;
-	            if (random.nextDouble() < 0.1D)
+	            if (ConfigValue.Setting_CrashedIce.sound_on &&(sound_count >= sound_count_max + random.nextInt(sound_count_rand)))
 	            {
-	            	worldObj.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, SoundManager.sound_makeflape, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+	            	world.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, SoundManager.sound_makeflape, SoundCategory.BLOCKS, 0.4F + random.nextFloat()*0.3F, 1.0F, false);
+	            	sound_count = 0;
+	            }else{
+	            	sound_count++;
 	            }
 			}else{
 				this.crushTime = 0;
@@ -202,7 +239,7 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 	 */
 	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
 	{
-		if (direction == EnumFacing.DOWN && index == 1)
+		if (direction == EnumFacing.DOWN && index == 2)
 		{
 			return true;
 		}
@@ -239,33 +276,46 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
+		if (this.inventory[index].isEmpty()){
+			return ItemStack.EMPTY;
+		}
 		return this.inventory[index];
 	}
 
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
-		 return ItemStackHelper.func_188382_a(this.inventory, index, count);
+		List<ItemStack> stack = new ArrayList<ItemStack>();
+		for (ItemStack st : inventory){
+			stack.add(st);
+		}
+		 return ItemStackHelper.getAndSplit(stack, index, count);
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		return ItemStackHelper.func_188383_a(this.inventory, index);
+		List<ItemStack> stack = new ArrayList<ItemStack>();
+		for (ItemStack st : inventory){
+			stack.add(st);
+		}
+		return ItemStackHelper.getAndRemove(stack, index);
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		boolean flag = stack != null && stack.isItemEqual(this.inventory[index]) && ItemStack.areItemStackTagsEqual(stack, this.inventory[index]);
 		this.inventory[index] = stack;
+		if (!stack.isEmpty()){
+			boolean flag = stack.isItemEqual(this.inventory[index]) && ItemStack.areItemStackTagsEqual(stack, this.inventory[index]);
 
-		if (stack != null && stack.stackSize > this.getInventoryStackLimit())
-		{
-			stack.stackSize = this.getInventoryStackLimit();
-		}
+			if (stack.getCount() > this.getInventoryStackLimit())
+			{
+				stack.setCount(this.getInventoryStackLimit());
+			}
 
-		if (!flag)
-		{
-			this.crushTime = 0;
-			this.markDirty();
+			if (!flag)
+			{
+				this.crushTime = 0;
+				this.markDirty();
+			}
 		}
 	}
 
@@ -275,8 +325,8 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) {
-		return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+	public boolean isUsableByPlayer(EntityPlayer player) {
+		return this.world.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
 
 	}
 
@@ -294,11 +344,14 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		if (index == 1)
-		{
+		switch(index){
+		case S_IN1:
+			return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_CRASHING, stack);
+		case S_IN2:
+			return (stack.getItem()==ItemFoods.item_icefoodbowl);
+		default:
 			return false;
 		}
-		return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_CRASHING, stack);
 	}
 
 	@Override
@@ -310,7 +363,7 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 			case 1:
 				return this.isRun?1:0;
 			case 3:
-				return inventory[1]!=null?inventory[1].stackSize:0;
+				return inventory[S_OT1].isEmpty()?0:inventory[S_OT1].getCount();
 			default:
 				return 0;
 		}
@@ -325,6 +378,7 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 				break;
 			case 1:
 				this.isRun = value==0?false:true;
+				break;
 		}
 	}
 
@@ -338,7 +392,7 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 	{
 		for (int i = 0; i < this.inventory.length; ++i)
 		{
-			this.inventory[i] = null;
+			this.inventory[i] = ItemStack.EMPTY;
 		}
 	}
 
@@ -367,15 +421,21 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 	}
 
 	public boolean canOutput(){
-		return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_CRASHING, this.inventory[0]) && (inventory[1] == null || (inventory[1] != null && inventory[1].stackSize <= (this.getInventoryStackLimit()-CRUSH_SIZE)));
+		// 氷が入っているか確認
+		boolean inIce = OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_CRASHING, this.inventory[S_IN1]);
+		// ボウルが入っているか確認
+		boolean inBowl = (!inventory[S_IN2].isEmpty() && (inventory[S_IN2].getItem()==ItemFoods.item_icefoodbowl && inventory[S_IN2].getCount() >=4));
+		// 出力側の数を確認
+		boolean outIce = inventory[S_OT1].isEmpty() || (!inventory[S_OT1].isEmpty() && inventory[S_OT1].getCount() <= (this.getInventoryStackLimit()-CRUSH_SIZE));
+
+		return inIce && inBowl && outIce;
 	}
 
 	@Override
-    public Packet<?> getDescriptionPacket()
+	public SPacketUpdateTileEntity getUpdatePacket()
     {
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        this.writeToNBT(nbtTagCompound);
-        return new SPacketUpdateTileEntity(this.pos, 1, nbtTagCompound);
+        return new SPacketUpdateTileEntity(this.pos, 1, this.writeToNBT(nbtTagCompound));
     }
 
 	@Override
@@ -388,5 +448,31 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
     public boolean canRenderBreaking()
     {
         return true;
+    }
+
+	@Override
+	public boolean isEmpty() {
+		boolean ret = true;
+		for (ItemStack st: this.inventory){
+			if (!st.isEmpty()){
+				ret = false;
+				break;
+			}
+		}
+		return ret;
+	}
+
+	@Override
+    public NBTTagCompound getUpdateTag()
+    {
+        NBTTagCompound cp = super.getUpdateTag();
+        return this.writeToNBT(cp);
+    }
+
+	@Override
+    public void handleUpdateTag(NBTTagCompound tag)
+    {
+		super.handleUpdateTag(tag);
+		this.readFromNBT(tag);
     }
 }

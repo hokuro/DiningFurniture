@@ -28,8 +28,8 @@ public class GuiIceCrasher extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
         String s = this.tileFlapeMaker.getDisplayName().getUnformattedText();
-        this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
-        this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
+        this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
     }
 
 	@Override
@@ -41,7 +41,11 @@ public class GuiIceCrasher extends GuiContainer {
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
 
         int l = this.getCrushProgressScaled(16);
-        this.drawTexturedModalRect(i + 77, j + 35, 176, 0, 19, l);
+        this.drawTexturedModalRect(i + 54, j + 35, 176, 0, 19, l);
+
+
+        l = this.getCrushProgressScaled(23);
+        this.drawTexturedModalRect(i + 78, j + 35, 176, 17, l, 17);
 	}
 
     private int getCrushProgressScaled(int pixels)

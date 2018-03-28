@@ -20,6 +20,6 @@ public abstract class ItemFoodRetBaul extends ItemFood {
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
     {
         super.onItemUseFinish(stack, worldIn, entityLiving);
-        return new ItemStack(Items.bowl);
+        return new ItemStack(Items.BOWL);
     }
 }

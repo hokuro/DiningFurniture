@@ -29,7 +29,7 @@ public class MessageIceCrasherUpdate implements IMessage, IMessageHandler<Messag
 
 	@Override
 	public IMessage onMessage(MessageIceCrasherUpdate message, MessageContext ctx) {
-		TileEntity te = Minecraft.getMinecraft().theWorld.getTileEntity(message.getPos());
+		TileEntity te = Minecraft.getMinecraft().world.getTileEntity(message.getPos());
 		if (te instanceof TileEntityIceCrasher){
 			((TileEntityIceCrasher)te).setField(0, message.crushTime);
 			((TileEntityIceCrasher)te).setField(1, message.getIsRun()?1:0);

@@ -1,7 +1,10 @@
 package mod.drf.foods.tileentity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import mod.drf.config.ConfigValue;
 import mod.drf.core.ModCommon;
 import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.core.log.ModLog;
@@ -19,7 +22,6 @@ import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
@@ -35,6 +37,9 @@ public class TileEntityMillStone extends TileEntityLockable implements ITickable
 	private boolean isRun;
 	private int millTime;
 	private Random random = new Random();
+	private float voluem = 0.4F;
+	private float pitch = 1.0F;
+	private int musecount = 0;
 
 	private static final int[] slotsTop = new int[] {0};
 	private static final int[] slotsBottom = new int[] {1};
@@ -43,19 +48,23 @@ public class TileEntityMillStone extends TileEntityLockable implements ITickable
 	public TileEntityMillStone(){
 		isRun = false;
 		millTime = 0;
+		this.clear();
 	}
 
 	public TileEntityMillStone(boolean isRun){
 		this.isRun = isRun;
 		millTime = 0;
 		this.canRenderBreaking();
+		this.clear();
 	}
 
+	@Override
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);
 		NBTTagList nbttaglist = compound.getTagList("Items", 10);
 		this.inventory = new ItemStack[this.getSizeInventory()];
+		this.clear();
 
 		for (int i = 0; i < nbttaglist.tagCount(); ++i)
 		{
@@ -64,7 +73,7 @@ public class TileEntityMillStone extends TileEntityLockable implements ITickable
 
 			if (j >= 0 && j < this.inventory.length)
 			{
-				this.inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
+				this.inventory[j] = new ItemStack(nbttagcompound);
 			}
 		}
 
@@ -77,7 +86,8 @@ public class TileEntityMillStone extends TileEntityLockable implements ITickable
 		}
 	}
 
-	public void writeToNBT(NBTTagCompound compound)
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
 		super.writeToNBT(compound);
 		compound.setInteger("CrushTime", this.millTime);
@@ -86,7 +96,7 @@ public class TileEntityMillStone extends TileEntityLockable implements ITickable
 
 		for (int i = 0; i < this.inventory.length; ++i)
 		{
-			if (this.inventory[i] != null)
+			if (!this.inventory[i].isEmpty())
 			{
 				NBTTagCompound nbttagcompound = new NBTTagCompound();
 				nbttagcompound.setByte("Slot", (byte)i);
@@ -101,6 +111,7 @@ public class TileEntityMillStone extends TileEntityLockable implements ITickable
 		{
 			compound.setString("CustomName", this.customName);
 		}
+		return compound;
 	}
 
 	public boolean isRunning()
@@ -112,7 +123,7 @@ public class TileEntityMillStone extends TileEntityLockable implements ITickable
 	{
 		boolean flag = this.isRun;
 		boolean flag1 = false;
-		if (!this.worldObj.isRemote){
+		if (!this.world.isRemote){
 			if (this.isRun){
 				// かきかきちゅう
 				if (canOutput()){
@@ -131,32 +142,36 @@ public class TileEntityMillStone extends TileEntityLockable implements ITickable
 			}
 			if (this.millTime > MILL_TIME_MAX){
 				// かんせい
-				if (this.inventory[1] == null){
+				if (this.inventory[1].isEmpty()){
 					this.inventory[1] = OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_MILLING, this.inventory[0]);
-					this.inventory[1].stackSize = MILL_SIZE;
+					this.inventory[1].setCount( MILL_SIZE);
 				}else{
-					this.inventory[1].stackSize += MILL_SIZE;
+					this.inventory[1].grow(MILL_SIZE);
 				}
-				this.inventory[0].stackSize--;
-				if (this.inventory[0].stackSize <= 0){
-					this.inventory[0] = null;
+				this.inventory[0].shrink(1);
+				if (this.inventory[0].getCount() <= 0){
+					this.inventory[0] = ItemStack.EMPTY;
 				}
 				this.millTime = 0;
 				flag1 = true;
 			}
 
-			if (flag != this.isRun){
+			if (flag != this.isRun ){
 				Mod_DiningFurniture.Net_Instance.sendToAll(new MessageMillStoneUpdate(this.millTime,this.isRun,this.pos));
 			}
 		}else{
-			if (this.isRun && canOutput()){
+			if (this.isRun ){
 				this.millTime++;
-	            if (random.nextDouble() < 0.1D)
+	            if (ConfigValue.Setting_Mill.sound_on &&(musecount > 30 + random.nextInt(30)))
 	            {
-	            	worldObj.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, SoundManager.sound_mill, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+	            	world.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, SoundManager.sound_mill, SoundCategory.BLOCKS, this.voluem + random.nextFloat() * 0.07F, this.pitch, false);
+	            	musecount = 0;
+	            }else{
+	            	musecount++;
 	            }
 			}else{
 				this.millTime = 0;
+				musecount = 0;
 			}
 			if (this.millTime > MILL_TIME_MAX){
 				this.millTime = 0;
@@ -238,26 +253,33 @@ public class TileEntityMillStone extends TileEntityLockable implements ITickable
 
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
-		 return ItemStackHelper.func_188382_a(this.inventory, index, count);
+		List<ItemStack> stack = new ArrayList();
+		for (ItemStack st : inventory){
+			stack.add(st);
+		}
+		 return ItemStackHelper.getAndSplit(stack, index, count);
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		return ItemStackHelper.func_188383_a(this.inventory, index);
+		List<ItemStack> stack = new ArrayList();
+		for (ItemStack st : inventory){
+			stack.add(st);
+		}
+		return ItemStackHelper.getAndRemove(stack, index);
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		boolean flag = stack != null && stack.isItemEqual(this.inventory[index]) && ItemStack.areItemStackTagsEqual(stack, this.inventory[index]);
 		this.inventory[index] = stack;
+		if (!stack.isEmpty()){
+			boolean flag = stack.isItemEqual(this.inventory[index]) && ItemStack.areItemStackTagsEqual(stack, this.inventory[index]);
 
-		if (stack != null && stack.stackSize > this.getInventoryStackLimit())
-		{
-			stack.stackSize = this.getInventoryStackLimit();
-		}
-
-		if (!flag)
-		{
+			if (stack.getCount() > this.getInventoryStackLimit())
+			{
+				stack.setCount(this.getInventoryStackLimit());
+			}
+		}else{
 			this.millTime = 0;
 			this.markDirty();
 		}
@@ -269,8 +291,8 @@ public class TileEntityMillStone extends TileEntityLockable implements ITickable
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) {
-		return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+	public boolean isUsableByPlayer(EntityPlayer player) {
+		return this.world.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
 
 	}
 
@@ -304,7 +326,7 @@ public class TileEntityMillStone extends TileEntityLockable implements ITickable
 			case 1:
 				return this.isRun?1:0;
 			case 3:
-				return inventory[1]!=null?inventory[1].stackSize:0;
+				return inventory[1].isEmpty()?0:inventory[1].getCount();
 			default:
 				return 0;
 		}
@@ -332,7 +354,7 @@ public class TileEntityMillStone extends TileEntityLockable implements ITickable
 	{
 		for (int i = 0; i < this.inventory.length; ++i)
 		{
-			this.inventory[i] = null;
+			this.inventory[i] = ItemStack.EMPTY;
 		}
 	}
 
@@ -362,16 +384,15 @@ public class TileEntityMillStone extends TileEntityLockable implements ITickable
 
 	public boolean canOutput(){
 		return OriginalRecipie.Instance().canConvert(ORIGINAL_RECIPIES.RECIPIE_MILLING, this.inventory[0]) &&
-				(inventory[1] == null || (inventory[1] != null && inventory[1].stackSize <= (this.getInventoryStackLimit()-MILL_SIZE))) &&
-				(inventory[1] == null || (inventory[1] != null && ModUtil.compareItemStacks(inventory[1], OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_MILLING, this.inventory[0]))));
+				(inventory[1].isEmpty() || ((!inventory[1].isEmpty()) && inventory[1].getCount() <= (this.getInventoryStackLimit()-MILL_SIZE))) &&
+				(inventory[1].isEmpty() || ((!inventory[1].isEmpty()) && ModUtil.compareItemStacks(inventory[1], OriginalRecipie.Instance().getResultItem(ORIGINAL_RECIPIES.RECIPIE_MILLING, this.inventory[0]))));
 	}
 
 	@Override
-    public Packet<?> getDescriptionPacket()
+	public SPacketUpdateTileEntity getUpdatePacket()
     {
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        this.writeToNBT(nbtTagCompound);
-        return new SPacketUpdateTileEntity(this.pos, 1, nbtTagCompound);
+        return new SPacketUpdateTileEntity(this.pos, 1,  this.writeToNBT(nbtTagCompound));
     }
 
 	@Override
@@ -384,5 +405,33 @@ public class TileEntityMillStone extends TileEntityLockable implements ITickable
     public boolean canRenderBreaking()
     {
         return true;
+    }
+
+	@Override
+	public boolean isEmpty() {
+		boolean ret = true;
+		for(ItemStack st : this.inventory){
+			if (!st.isEmpty()){
+				ret = false;
+				break;
+			}
+		}
+		return ret;
+	}
+
+
+
+	@Override
+    public NBTTagCompound getUpdateTag()
+    {
+        NBTTagCompound cp = super.getUpdateTag();
+        return this.writeToNBT(cp);
+    }
+
+	@Override
+    public void handleUpdateTag(NBTTagCompound tag)
+    {
+		super.handleUpdateTag(tag);
+		this.readFromNBT(tag);
     }
 }

@@ -25,6 +25,9 @@ public class ModelIcecream extends ModelBase
   private ModelRenderer casecupsid2;
   private ModelRenderer casecupsid1;
   private ModelRenderer Ice1;
+  private ModelRenderer Ice2;
+  private ModelRenderer Ice3;
+  private ModelRenderer Ice4;
 
   public ModelIcecream()
   {
@@ -79,7 +82,27 @@ public class ModelIcecream extends ModelBase
 	      Ice1.setTextureSize(64, 32);
 	      Ice1.mirror = true;
 	      setRotation(Ice1, (float)Math.PI, 0F, 0F);
-  }
+
+
+	      Ice2 = new ModelRenderer(this, 3, 20);
+	      Ice2.addBox(-2F, -10F, -2F, 4, 3, 4);
+	      Ice2.setRotationPoint(0F, 23F, 0F);
+	      Ice2.setTextureSize(64, 32);
+	      Ice2.mirror = true;
+	      setRotation(Ice2, (float)Math.PI, 0F, 0F);
+	      Ice3 = new ModelRenderer(this, 0, 24);
+	      Ice3.addBox(-1F, -9F, -1F, 2, 2, 2);
+	      Ice3.setRotationPoint(0F, 23F, 0F);
+	      Ice3.setTextureSize(64, 32);
+	      Ice3.mirror = true;
+	      setRotation(Ice3, (float)Math.PI, 0F, 0F);
+	      Ice4 = new ModelRenderer(this, 0, 24);
+	      Ice4.addBox(0F, -8F, 0F, 1, 1, 1);
+	      Ice4.setRotationPoint(0F, 23F, 0F);
+	      Ice4.setTextureSize(64, 32);
+	      Ice4.mirror = true;
+	      setRotation(Ice4, (float)Math.PI, 0F, 0F);
+	}
 
   public void render(EnumIcecreamLevel level, float scale){
 	    casebase.render(scale);
@@ -93,13 +116,13 @@ public class ModelIcecream extends ModelBase
 		case LEVEL0:
 			break;
 		case LEVEL1:
-			Ice1.render(scale*0.3F);
+			Ice4.render(scale);
 			break;
 		case LEVEL2:
-			Ice1.render(scale*0.5F);
+			Ice3.render(scale);
 			break;
 		case LEVEL3:
-			Ice1.render(scale*0.8F);
+			Ice2.render(scale);
 			break;
 		case LEVEL4:
 			Ice1.render(scale);
@@ -127,13 +150,26 @@ public class ModelIcecream extends ModelBase
 
 	  private static final EnumIcecreamLevel[] values = {LEVEL0,LEVEL1,LEVEL2,LEVEL3,LEVEL4};
 
+	  public static int getLevelCnt(){return values.length;}
+
 	  public static EnumIcecreamLevel getValue(int max, int cnt){
-		  int limit = max / values.length;
-		  int level = cnt/limit;
-		  if (level < 0){level = 0;}
-		  if (level >= values.length){level = 4;}
+		  int level = 0;
+		  if (cnt <= 0){level=0;}
+		  else{
+			  int limit = (int)Math.ceil(max / (values.length-1));
+			  level = (int)Math.ceil(cnt/limit)+1;
+			  if (level < 0){level = 0;}
+			  if (level >= values.length){level = values.length-1;}
+		  }
 		  return values[level];
 	  }
+
+	  public static EnumIcecreamLevel getLevel(int level){
+		  if (level < 0){return values[0];}
+		  if (level >= values.length){return values[values.length-1];}
+		  return values[level];
+	  }
+
   }
 
 }

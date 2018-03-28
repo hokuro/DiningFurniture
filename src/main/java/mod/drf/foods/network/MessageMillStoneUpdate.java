@@ -29,7 +29,7 @@ public class MessageMillStoneUpdate implements IMessage, IMessageHandler<Message
 
 	@Override
 	public IMessage onMessage(MessageMillStoneUpdate message, MessageContext ctx) {
-		TileEntity te = Minecraft.getMinecraft().theWorld.getTileEntity(message.getPos());
+		TileEntity te = Minecraft.getMinecraft().world.getTileEntity(message.getPos());
 		if (te instanceof TileEntityMillStone){
 			((TileEntityMillStone)te).setField(0, message.crushTime);
 			((TileEntityMillStone)te).setField(1, message.getIsRun()?1:0);

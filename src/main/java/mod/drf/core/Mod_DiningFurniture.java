@@ -1,5 +1,6 @@
 package mod.drf.core;
 
+import mod.drf.config.ConfigValue;
 import mod.drf.creative.CreativeTabColdFood;
 import mod.drf.creative.CreativeTabFurniture;
 import mod.drf.creative.CreativeTabPieCakes;
@@ -33,6 +34,7 @@ public class Mod_DiningFurniture {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		ConfigValue.init(event);
 		ModRegister.RegisterBlock(event);
 		ModRegister.RegisterItem(event);
 		ModRegister.RegisterEntity(proxy);
@@ -42,6 +44,7 @@ public class Mod_DiningFurniture {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		ModRegister.RegisterEvent();
 		ModRegister.RegisterRecipe();
         ModRegister.RegisterMessage();
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, guiInstance);

@@ -1,5 +1,13 @@
+This mapping 'snapshot_20171003' was designed for MC 1.12! Use at your own peril.
+This mapping 'snapshot_20171003' was designed for MC 1.12! Use at your own peril.
+This mapping 'snapshot_20171003' was designed for MC 1.12! Use at your own peril.
+This mapping 'snapshot_20171003' was designed for MC 1.12! Use at your own peril.
+This mapping 'snapshot_20171003' was designed for MC 1.12! Use at your own peril.
+This mapping 'snapshot_20171003' was designed for MC 1.12! Use at your own peril.
+This mapping 'snapshot_20171003' was designed for MC 1.12! Use at your own peril.
+This mapping 'snapshot_20171003' was designed for MC 1.12! Use at your own peril.
 #################################################
-         ForgeGradle 2.1-SNAPSHOT-da90449        
+         ForgeGradle 2.3-SNAPSHOT-f49079d        
   https://github.com/MinecraftForge/ForgeGradle  
 #################################################
                Powered by MCP unknown               
@@ -7,226 +15,263 @@
          by: Searge, ProfMobius, Fesh0r,         
          R4wk, ZeuX, IngisKahn, bspkrs           
 #################################################
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\_gradle\src\api\resources', not found
-Evaluating project ':AutoPick' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\AutoPick\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\AutoPick\AutoPick', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\AutoPick\src\api\resources', not found
-Evaluating project ':AutoPlanting' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\AutoPlanting\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\AutoPlanting\AutoPlanting', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\AutoPlanting\src\api\resources', not found
-Evaluating project ':Dools' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Dools\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Dools\Dools', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Dools\src\api\resources', not found
-Evaluating project ':ExchangeBlock' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ExchangeBlock\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ExchangeBlock\ExchangeBlock', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ExchangeBlock\src\api\resources', not found
-Evaluating project ':ExpBox' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ExpBox\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ExpBox\ExpBox', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ExpBox\src\api\resources', not found
-Evaluating project ':HPViewer' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\HPViewer\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\HPViewer\HPViewer', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\HPViewer\src\api\resources', not found
-Evaluating project ':HavestAll' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\HavestAll\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\HavestAll\HavestAll', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\HavestAll\src\api\resources', not found
-Evaluating project ':InventryOrder' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\InventryOrder\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\InventryOrder\src\main\resources', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\InventryOrder\src\api\resources', not found
-Evaluating project ':JewelBlocks' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\JewelBlocks\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\JewelBlocks\src\main\resources', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\JewelBlocks\src\api\resources', not found
-Evaluating project ':MDKExample' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MDKExample\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MDKExample\src\main\resources', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MDKExample\src\api\resources', not found
-Evaluating project ':MgMgMod' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MgMgMod\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MgMgMod\MgMgMod', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MgMgMod\src\api\resources', not found
-Evaluating project ':MorChair' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MorChair\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MorChair\MorChair', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MorChair\src\api\resources', not found
-Evaluating project ':MoreMoreMob' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MoreMoreMob\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MoreMoreMob\src\main\resources', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\MoreMoreMob\src\api\resources', not found
-Evaluating project ':ReAnvile' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ReAnvile\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ReAnvile\ReAnvile', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\ReAnvile\src\api\resources', not found
-Evaluating project ':TemperedGlass' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\TemperedGlass\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\TemperedGlass\TemperedGlass', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\TemperedGlass\src\api\resources', not found
-Evaluating project ':Trunk' using build file 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\build.gradle'.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\Trunk', not found
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\src\api\resources', not found
-All projects evaluated.
-Selected primary task ':Trunk:build' from project :Trunk
-Tasks to be executed: [task ':Trunk:deobfCompileDummyTask', task ':Trunk:deobfProvidedDummyTask', task ':Trunk:sourceApiJava', task ':Trunk:compileApiJava', task ':Trunk:processApiResources', task ':Trunk:apiClasses', task ':Trunk:sourceMainJava', task ':Trunk:compileJava', task ':Trunk:processResources', task ':Trunk:classes', task ':Trunk:jar', task ':Trunk:sourceTestJava', task ':Trunk:compileTestJava', task ':Trunk:processTestResources', task ':Trunk:testClasses', task ':Trunk:test', task ':Trunk:extractMcpData', task ':Trunk:extractMcpMappings', task ':Trunk:getVersionJson', task ':Trunk:extractUserdev', task ':Trunk:genSrgs', task ':Trunk:reobfJar', task ':Trunk:extractRangemapReplacedMain', task ':Trunk:retromapReplacedMain', task ':Trunk:sourceJar', task ':Trunk:assemble', task ':Trunk:check', task ':Trunk:build']
-:Trunk:deobfCompileDummyTask (Thread[main,5,main]) started.
-:Trunk:deobfCompileDummyTask
-Executing task ':Trunk:deobfCompileDummyTask' (up-to-date check took 0.001 secs) due to:
-  Task has not declared any outputs.
-:Trunk:deobfCompileDummyTask (Thread[main,5,main]) completed. Took 0.008 secs.
-:Trunk:deobfProvidedDummyTask (Thread[main,5,main]) started.
-:Trunk:deobfProvidedDummyTask
-Executing task ':Trunk:deobfProvidedDummyTask' (up-to-date check took 0.0 secs) due to:
-  Task has not declared any outputs.
-:Trunk:deobfProvidedDummyTask (Thread[main,5,main]) completed. Took 0.004 secs.
-:Trunk:sourceApiJava (Thread[main,5,main]) started.
-:Trunk:sourceApiJava
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\src\api\java', not found
-Skipping task ':Trunk:sourceApiJava' as it is up-to-date (took 0.03 secs).
-:Trunk:sourceApiJava UP-TO-DATE
-:Trunk:sourceApiJava (Thread[main,5,main]) completed. Took 0.033 secs.
-:Trunk:compileApiJava (Thread[main,5,main]) started.
-:Trunk:compileApiJava
-Skipping task ':Trunk:compileApiJava' as it has no source files.
-:Trunk:compileApiJava UP-TO-DATE
-:Trunk:compileApiJava (Thread[main,5,main]) completed. Took 0.002 secs.
-:Trunk:processApiResources (Thread[main,5,main]) started.
-:Trunk:processApiResources
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\src\api\resources', not found
-Skipping task ':Trunk:processApiResources' as it has no source files.
-:Trunk:processApiResources UP-TO-DATE
-:Trunk:processApiResources (Thread[main,5,main]) completed. Took 0.002 secs.
-:Trunk:apiClasses (Thread[main,5,main]) started.
-:Trunk:apiClasses
-Skipping task ':Trunk:apiClasses' as it has no actions.
-:Trunk:apiClasses UP-TO-DATE
-:Trunk:apiClasses (Thread[main,5,main]) completed. Took 0.001 secs.
-:Trunk:sourceMainJava (Thread[main,5,main]) started.
-:Trunk:sourceMainJava
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\Trunk', not found
-Skipping task ':Trunk:sourceMainJava' as it is up-to-date (took 0.019 secs).
-:Trunk:sourceMainJava UP-TO-DATE
-:Trunk:sourceMainJava (Thread[main,5,main]) completed. Took 0.021 secs.
-:Trunk:compileJava (Thread[main,5,main]) started.
-:Trunk:compileJava
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\libs', not found
-Failed to get resource: GET. [HTTP HTTP/1.1 403 Forbidden: https://libraries.minecraft.net/net/minecraftforge/forgeSrc/1.9-12.16.1.1897/forgeSrc-1.9-12.16.1.1897.pom]
-Failed to get resource: GET. [HTTP HTTP/1.1 403 Forbidden: https://libraries.minecraft.net/net/minecraftforge/forgeSrc/1.9-12.16.1.1897/forgeSrc-1.9-12.16.1.1897.pom]
-Executing task ':Trunk:compileJava' (up-to-date check took 1.861 secs) due to:
-  Input file K:\My Document\.gradle\caches\modules-2\files-2.1\com.mojang\netty\1.6\4b75825a06139752bd800d9e29c5fd55b8b1b1e4\netty-1.6.jar has been added.
-  Input file K:\My Document\.gradle\caches\minecraft\deobfedDeps\compileDummy.jar has changed.
-  Input file K:\My Document\.gradle\caches\minecraft\deobfedDeps\providedDummy.jar has changed.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\libs', not found
-Compiling with JDK Java compiler API.
-警告: [options] ブートストラップ・クラスパスが-source 1.6と一緒に設定されていません
-注意:K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\build\sources\main\java\basashi\trunk\item\ItemCore.javaは非推奨のAPIを使用またはオーバーライドしています。
-注意:詳細は、-Xlint:deprecationオプションを指定して再コンパイルしてください。
-警告1個
-:Trunk:compileJava (Thread[main,5,main]) completed. Took 3.001 secs.
-:Trunk:processResources (Thread[main,5,main]) started.
-:Trunk:processResources
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\Trunk', not found
-Executing task ':Trunk:processResources' (up-to-date check took 0.025 secs) due to:
-  Input file K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\src\main\resources\assets\trunk\models\trunk.json has been removed.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\Trunk', not found
-:Trunk:processResources (Thread[main,5,main]) completed. Took 0.066 secs.
-:Trunk:classes (Thread[main,5,main]) started.
-:Trunk:classes
-Skipping task ':Trunk:classes' as it has no actions.
-:Trunk:classes (Thread[main,5,main]) completed. Took 0.001 secs.
-:Trunk:jar (Thread[main,5,main]) started.
-:Trunk:jar
-Executing task ':Trunk:jar' (up-to-date check took 0.012 secs) due to:
-  Output file K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\build\libs\Trunk-1.0.jar has changed.
-  Output file K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\build\libs\Trunk-1.0.jar has been removed.
-:Trunk:jar (Thread[main,5,main]) completed. Took 0.063 secs.
-:Trunk:sourceTestJava (Thread[main,5,main]) started.
-:Trunk:sourceTestJava
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\src\test\java', not found
-Skipping task ':Trunk:sourceTestJava' as it is up-to-date (took 0.002 secs).
-:Trunk:sourceTestJava UP-TO-DATE
-:Trunk:sourceTestJava (Thread[main,5,main]) completed. Took 0.002 secs.
-:Trunk:compileTestJava (Thread[main,5,main]) started.
-:Trunk:compileTestJava
-Skipping task ':Trunk:compileTestJava' as it has no source files.
-:Trunk:compileTestJava UP-TO-DATE
-:Trunk:compileTestJava (Thread[main,5,main]) completed. Took 0.001 secs.
-:Trunk:processTestResources (Thread[main,5,main]) started.
-:Trunk:processTestResources
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\src\test\resources', not found
-Skipping task ':Trunk:processTestResources' as it has no source files.
-:Trunk:processTestResources UP-TO-DATE
-:Trunk:processTestResources (Thread[main,5,main]) completed. Took 0.001 secs.
-:Trunk:testClasses (Thread[main,5,main]) started.
-:Trunk:testClasses
-Skipping task ':Trunk:testClasses' as it has no actions.
-:Trunk:testClasses UP-TO-DATE
-:Trunk:testClasses (Thread[main,5,main]) completed. Took 0.0 secs.
-:Trunk:test (Thread[main,5,main]) started.
-:Trunk:test
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\build\classes\test', not found
-Skipping task ':Trunk:test' as it has no source files.
-:Trunk:test UP-TO-DATE
-:Trunk:test (Thread[main,5,main]) completed. Took 0.002 secs.
-:Trunk:extractMcpData (Thread[main,5,main]) started.
-:Trunk:extractMcpData
-Failed to get resource: GET. [HTTP HTTP/1.1 403 Forbidden: https://libraries.minecraft.net/de/oceanlabs/mcp/mcp/1.9/mcp-1.9.pom]
-Failed to get resource: GET. [HTTP HTTP/1.1 403 Forbidden: https://libraries.minecraft.net/de/oceanlabs/mcp/mcp/1.9/mcp-1.9.pom]
-Skipping task ':Trunk:extractMcpData' as task onlyIf is false.
-:Trunk:extractMcpData SKIPPED
-:Trunk:extractMcpData (Thread[main,5,main]) completed. Took 1.348 secs.
-:Trunk:extractMcpMappings (Thread[main,5,main]) started.
-:Trunk:extractMcpMappings
-Failed to get resource: GET. [HTTP HTTP/1.1 403 Forbidden: https://libraries.minecraft.net/de/oceanlabs/mcp/mcp_snapshot/20160312-1.9/mcp_snapshot-20160312-1.9.pom]
-Failed to get resource: GET. [HTTP HTTP/1.1 403 Forbidden: https://libraries.minecraft.net/de/oceanlabs/mcp/mcp_snapshot/20160312-1.9/mcp_snapshot-20160312-1.9.pom]
-Skipping task ':Trunk:extractMcpMappings' as task onlyIf is false.
-:Trunk:extractMcpMappings SKIPPED
-:Trunk:extractMcpMappings (Thread[main,5,main]) completed. Took 1.3 secs.
-:Trunk:getVersionJson (Thread[main,5,main]) started.
-:Trunk:getVersionJson
-Executing task ':Trunk:getVersionJson' (up-to-date check took 0.003 secs) due to:
-  Task.upToDateWhen is false.
-:Trunk:getVersionJson (Thread[main,5,main]) completed. Took 0.078 secs.
-:Trunk:extractUserdev (Thread[main,5,main]) started.
-:Trunk:extractUserdev
-Skipping task ':Trunk:extractUserdev' as it is up-to-date (took 0.012 secs).
-:Trunk:extractUserdev UP-TO-DATE
-:Trunk:extractUserdev (Thread[main,5,main]) completed. Took 0.012 secs.
-:Trunk:genSrgs (Thread[main,5,main]) started.
-:Trunk:genSrgs
-Skipping task ':Trunk:genSrgs' as task onlyIf is false.
-:Trunk:genSrgs SKIPPED
-:Trunk:genSrgs (Thread[main,5,main]) completed. Took 0.436 secs.
-:Trunk:reobfJar (Thread[main,5,main]) started.
-:Trunk:reobfJar
-Executing task ':Trunk:reobfJar' (up-to-date check took 0.0 secs) due to:
-  Task.upToDateWhen is false.
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\libs', not found
-:Trunk:reobfJar (Thread[main,5,main]) completed. Took 0.547 secs.
-:Trunk:extractRangemapReplacedMain (Thread[main,5,main]) started.
-:Trunk:extractRangemapReplacedMain
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\libs', not found
-Executing task ':Trunk:extractRangemapReplacedMain' (up-to-date check took 0.023 secs) due to:
-  Input file K:\My Document\.gradle\caches\modules-2\files-2.1\com.mojang\netty\1.6\4b75825a06139752bd800d9e29c5fd55b8b1b1e4\netty-1.6.jar has been added.
-  Input file K:\My Document\.gradle\caches\minecraft\deobfedDeps\compileDummy.jar has changed.
-  Input file K:\My Document\.gradle\caches\minecraft\deobfedDeps\providedDummy.jar has changed.
-K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\build\sources\main\java
-file or directory 'K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\libs', not found
-:Trunk:extractRangemapReplacedMain (Thread[main,5,main]) completed. Took 2.284 secs.
-:Trunk:retromapReplacedMain (Thread[main,5,main]) started.
-:Trunk:retromapReplacedMain
-Skipping task ':Trunk:retromapReplacedMain' as it is up-to-date (took 0.006 secs).
-:Trunk:retromapReplacedMain UP-TO-DATE
-:Trunk:retromapReplacedMain (Thread[main,5,main]) completed. Took 0.009 secs.
-:Trunk:sourceJar (Thread[main,5,main]) started.
-:Trunk:sourceJar
-Executing task ':Trunk:sourceJar' (up-to-date check took 0.371 secs) due to:
-  Input file K:\Programs\Minecraft\forge-1.9-12.16.1.1897\Trunk\build\resources\main\assets\trunk\models\trunk.json has been removed.
-:Trunk:sourceJar (Thread[main,5,main]) completed. Took 0.418 secs.
-:Trunk:assemble (Thread[main,5,main]) started.
-:Trunk:assemble
-Skipping task ':Trunk:assemble' as it has no actions.
-:Trunk:assemble (Thread[main,5,main]) completed. Took 0.001 secs.
-:Trunk:check (Thread[main,5,main]) started.
-:Trunk:check
-Skipping task ':Trunk:check' as it has no actions.
-:Trunk:check UP-TO-DATE
-:Trunk:check (Thread[main,5,main]) completed. Took 0.001 secs.
-:Trunk:build (Thread[main,5,main]) started.
-:Trunk:build
-Skipping task ':Trunk:build' as it has no actions.
-:Trunk:build (Thread[main,5,main]) completed. Took 0.001 secs.
+:deobfCompileDummyTask
+:deobfProvidedDummyTask
+:getVersionJson
+:extractUserdev UP-TO-DATE
+:extractDependencyATs SKIPPED
+:extractMcpData SKIPPED
+:extractMcpMappings SKIPPED
+:genSrgs SKIPPED
+:downloadClient SKIPPED
+:downloadServer SKIPPED
+:splitServerJar SKIPPED
+:mergeJars SKIPPED
+:deobfMcSRG SKIPPED
+:decompileMc SKIPPED
+:fixMcSources
+:applySourcePatches
+:remapMcSources SKIPPED
+:recompileMc
+:extractNatives SKIPPED
+:getAssetIndex UP-TO-DATE
+:getAssets
+Current status: 871/1283   67%
+:makeStart
+:setupDecompWorkspace
+:AutoPick:deobfCompileDummyTask
+:AutoPick:deobfProvidedDummyTask
+:AutoPick:getVersionJson
+:AutoPick:extractUserdev
+:AutoPick:extractDependencyATs SKIPPED
+:AutoPick:extractMcpData SKIPPED
+:AutoPick:extractMcpMappings SKIPPED
+:AutoPick:genSrgs SKIPPED
+:AutoPick:downloadClient SKIPPED
+:AutoPick:downloadServer SKIPPED
+:AutoPick:splitServerJar SKIPPED
+:AutoPick:mergeJars SKIPPED
+:AutoPick:deobfMcSRG SKIPPED
+:AutoPick:decompileMc SKIPPED
+:AutoPick:fixMcSources SKIPPED
+:AutoPick:applySourcePatches SKIPPED
+:AutoPick:remapMcSources SKIPPED
+:AutoPick:recompileMc SKIPPED
+:AutoPick:extractNatives SKIPPED
+:AutoPick:getAssetIndex UP-TO-DATE
+:AutoPick:getAssets
+Current status: 1282/1283   99%
+:AutoPick:makeStart
+:AutoPick:setupDecompWorkspace
+:ConvenienceBox:deobfCompileDummyTask
+:ConvenienceBox:deobfProvidedDummyTask
+:ConvenienceBox:getVersionJson
+:ConvenienceBox:extractUserdev
+:ConvenienceBox:extractDependencyATs SKIPPED
+:ConvenienceBox:extractMcpData SKIPPED
+:ConvenienceBox:extractMcpMappings SKIPPED
+:ConvenienceBox:genSrgs SKIPPED
+:ConvenienceBox:downloadClient SKIPPED
+:ConvenienceBox:downloadServer SKIPPED
+:ConvenienceBox:splitServerJar SKIPPED
+:ConvenienceBox:mergeJars SKIPPED
+:ConvenienceBox:deobfMcSRG SKIPPED
+:ConvenienceBox:decompileMc SKIPPED
+:ConvenienceBox:fixMcSources SKIPPED
+:ConvenienceBox:applySourcePatches SKIPPED
+:ConvenienceBox:remapMcSources SKIPPED
+:ConvenienceBox:recompileMc SKIPPED
+:ConvenienceBox:extractNatives SKIPPED
+:ConvenienceBox:getAssetIndex UP-TO-DATE
+:ConvenienceBox:getAssets
+Current status: 1282/1283   99%
+:ConvenienceBox:makeStart
+:ConvenienceBox:setupDecompWorkspace
+:DiningFurniture:deobfCompileDummyTask
+:DiningFurniture:deobfProvidedDummyTask
+:DiningFurniture:getVersionJson
+:DiningFurniture:extractUserdev
+:DiningFurniture:extractDependencyATs SKIPPED
+:DiningFurniture:extractMcpData SKIPPED
+:DiningFurniture:extractMcpMappings SKIPPED
+:DiningFurniture:genSrgs SKIPPED
+:DiningFurniture:downloadClient SKIPPED
+:DiningFurniture:downloadServer SKIPPED
+:DiningFurniture:splitServerJar SKIPPED
+:DiningFurniture:mergeJars SKIPPED
+:DiningFurniture:deobfMcSRG SKIPPED
+:DiningFurniture:decompileMc SKIPPED
+:DiningFurniture:fixMcSources SKIPPED
+:DiningFurniture:applySourcePatches SKIPPED
+:DiningFurniture:remapMcSources SKIPPED
+:DiningFurniture:recompileMc SKIPPED
+:DiningFurniture:extractNatives SKIPPED
+:DiningFurniture:getAssetIndex UP-TO-DATE
+:DiningFurniture:getAssets
+:DiningFurniture:makeStart
+:DiningFurniture:setupDecompWorkspace
+:Dools:deobfCompileDummyTask
+:Dools:deobfProvidedDummyTask
+:Dools:getVersionJson
+:Dools:extractUserdev
+:Dools:extractDependencyATs SKIPPED
+:Dools:extractMcpData SKIPPED
+:Dools:extractMcpMappings SKIPPED
+:Dools:genSrgs SKIPPED
+:Dools:downloadClient SKIPPED
+:Dools:downloadServer SKIPPED
+:Dools:splitServerJar SKIPPED
+:Dools:mergeJars SKIPPED
+:Dools:deobfMcSRG SKIPPED
+:Dools:decompileMc SKIPPED
+:Dools:fixMcSources SKIPPED
+:Dools:applySourcePatches SKIPPED
+:Dools:remapMcSources SKIPPED
+:Dools:recompileMc SKIPPED
+:Dools:extractNatives SKIPPED
+:Dools:getAssetIndex UP-TO-DATE
+:Dools:getAssets
+:Dools:makeStart
+:Dools:setupDecompWorkspace
+:ERM:deobfCompileDummyTask
+:ERM:deobfProvidedDummyTask
+:ERM:getVersionJson
+:ERM:extractUserdev
+:ERM:extractDependencyATs SKIPPED
+:ERM:extractMcpData SKIPPED
+:ERM:extractMcpMappings SKIPPED
+:ERM:genSrgs SKIPPED
+:ERM:downloadClient SKIPPED
+:ERM:downloadServer SKIPPED
+:ERM:splitServerJar SKIPPED
+:ERM:mergeJars SKIPPED
+:ERM:deobfMcSRG SKIPPED
+:ERM:decompileMc SKIPPED
+:ERM:fixMcSources SKIPPED
+:ERM:applySourcePatches SKIPPED
+:ERM:remapMcSources SKIPPED
+:ERM:recompileMc SKIPPED
+:ERM:extractNatives SKIPPED
+:ERM:getAssetIndex UP-TO-DATE
+:ERM:getAssets
+:ERM:makeStart
+:ERM:setupDecompWorkspace
+:ExBombs:deobfCompileDummyTask
+:ExBombs:deobfProvidedDummyTask
+:ExBombs:getVersionJson
+:ExBombs:extractUserdev
+:ExBombs:extractDependencyATs SKIPPED
+:ExBombs:extractMcpData SKIPPED
+:ExBombs:extractMcpMappings SKIPPED
+:ExBombs:genSrgs SKIPPED
+:ExBombs:downloadClient SKIPPED
+:ExBombs:downloadServer SKIPPED
+:ExBombs:splitServerJar SKIPPED
+:ExBombs:mergeJars SKIPPED
+:ExBombs:deobfMcSRG SKIPPED
+:ExBombs:decompileMc SKIPPED
+:ExBombs:fixMcSources SKIPPED
+:ExBombs:applySourcePatches SKIPPED
+:ExBombs:remapMcSources SKIPPED
+:ExBombs:recompileMc SKIPPED
+:ExBombs:extractNatives SKIPPED
+:ExBombs:getAssetIndex UP-TO-DATE
+:ExBombs:getAssets
+:ExBombs:makeStart
+:ExBombs:setupDecompWorkspace
+:ExchangeBlock:deobfCompileDummyTask
+:ExchangeBlock:deobfProvidedDummyTask
+:ExchangeBlock:getVersionJson
+:ExchangeBlock:extractUserdev
+:ExchangeBlock:extractDependencyATs SKIPPED
+:ExchangeBlock:extractMcpData SKIPPED
+:ExchangeBlock:extractMcpMappings SKIPPED
+:ExchangeBlock:genSrgs SKIPPED
+:ExchangeBlock:downloadClient SKIPPED
+:ExchangeBlock:downloadServer SKIPPED
+:ExchangeBlock:splitServerJar SKIPPED
+:ExchangeBlock:mergeJars SKIPPED
+:ExchangeBlock:deobfMcSRG SKIPPED
+:ExchangeBlock:decompileMc SKIPPED
+:ExchangeBlock:fixMcSources SKIPPED
+:ExchangeBlock:applySourcePatches SKIPPED
+:ExchangeBlock:remapMcSources SKIPPED
+:ExchangeBlock:recompileMc SKIPPED
+:ExchangeBlock:extractNatives SKIPPED
+:ExchangeBlock:getAssetIndex UP-TO-DATE
+:ExchangeBlock:getAssets
+:ExchangeBlock:makeStart
+:ExchangeBlock:setupDecompWorkspace
+:HPViewer:deobfCompileDummyTask
+:HPViewer:deobfProvidedDummyTask
+:HPViewer:getVersionJson
+:HPViewer:extractUserdev
+:HPViewer:extractDependencyATs SKIPPED
+:HPViewer:extractMcpData SKIPPED
+:HPViewer:extractMcpMappings SKIPPED
+:HPViewer:genSrgs SKIPPED
+:HPViewer:downloadClient SKIPPED
+:HPViewer:downloadServer SKIPPED
+:HPViewer:splitServerJar SKIPPED
+:HPViewer:mergeJars SKIPPED
+:HPViewer:deobfMcSRG SKIPPED
+:HPViewer:decompileMc SKIPPED
+:HPViewer:fixMcSources SKIPPED
+:HPViewer:applySourcePatches SKIPPED
+:HPViewer:remapMcSources SKIPPED
+:HPViewer:recompileMc SKIPPED
+:HPViewer:extractNatives SKIPPED
+:HPViewer:getAssetIndex UP-TO-DATE
+:HPViewer:getAssets
+:HPViewer:makeStart
+:HPViewer:setupDecompWorkspace
+:HavestAll:deobfCompileDummyTask
+:HavestAll:deobfProvidedDummyTask
+:HavestAll:getVersionJson
+:HavestAll:extractUserdev
+:HavestAll:extractDependencyATs SKIPPED
+:HavestAll:extractMcpData SKIPPED
+:HavestAll:extractMcpMappings SKIPPED
+:HavestAll:genSrgs SKIPPED
+:HavestAll:downloadClient SKIPPED
+:HavestAll:downloadServer SKIPPED
+:HavestAll:splitServerJar SKIPPED
+:HavestAll:mergeJars SKIPPED
+:HavestAll:deobfMcSRG SKIPPED
+:HavestAll:decompileMc SKIPPED
+:HavestAll:fixMcSources SKIPPED
+:HavestAll:applySourcePatches SKIPPED
+:HavestAll:remapMcSources SKIPPED
+:HavestAll:recompileMc SKIPPED
+:HavestAll:extractNatives SKIPPED
+:HavestAll:getAssetIndex UP-TO-DATE
+:HavestAll:getAssets
+:HavestAll:makeStart
+:HavestAll:setupDecompWorkspace
+:TemperedGlass:deobfCompileDummyTask
+:TemperedGlass:deobfProvidedDummyTask
+:TemperedGlass:getVersionJson
+:TemperedGlass:extractUserdev
+:TemperedGlass:extractDependencyATs SKIPPED
+:TemperedGlass:extractMcpData SKIPPED
+:TemperedGlass:extractMcpMappings SKIPPED
+:TemperedGlass:genSrgs SKIPPED
+:TemperedGlass:downloadClient SKIPPED
+:TemperedGlass:downloadServer SKIPPED
+:TemperedGlass:splitServerJar SKIPPED
+:TemperedGlass:mergeJars SKIPPED
+:TemperedGlass:deobfMcSRG SKIPPED
+:TemperedGlass:decompileMc SKIPPED
+:TemperedGlass:fixMcSources SKIPPED
+:TemperedGlass:applySourcePatches SKIPPED
+:TemperedGlass:remapMcSources SKIPPED
+:TemperedGlass:recompileMc SKIPPED
+:TemperedGlass:extractNatives SKIPPED
+:TemperedGlass:getAssetIndex UP-TO-DATE
+:TemperedGlass:getAssets
+:TemperedGlass:makeStart
+:TemperedGlass:setupDecompWorkspace
 
 BUILD SUCCESSFUL
 
-Total time: 17.721 secs
+Total time: 4 mins 0.267 secs

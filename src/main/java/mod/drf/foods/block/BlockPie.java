@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import mod.drf.core.ModCommon;
+import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.core.log.ModLog;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCake;
@@ -39,8 +40,9 @@ public class BlockPie extends BlockCake {
 
 	private BlockPie(){
 		super();
-		this.setStepSound(SoundType.CLOTH);
+		this.setSoundType(SoundType.CLOTH);
 		this.setHardness(0.5F);
+		this.setCreativeTab(Mod_DiningFurniture.tabPieCakes);
 	}
 
 	public BlockPie(int heall, float saturation){
@@ -59,7 +61,7 @@ public class BlockPie extends BlockCake {
     }
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         this.eatPie(worldIn, pos, state, playerIn);
         return true;

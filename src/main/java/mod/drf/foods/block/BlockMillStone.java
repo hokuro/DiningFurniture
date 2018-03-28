@@ -26,7 +26,7 @@ public class BlockMillStone extends BlockContainer {
     private static final AxisAlignedBB colligeBox = new AxisAlignedBB(0.125D, 0D, 0.125D, 0.875D, 0.75D, 0.875D);
 
 	protected BlockMillStone() {
-        super(Material.glass);
+        super(Material.GLASS);
 		this.setHardness(1.0F);
 	}
 
@@ -72,7 +72,8 @@ public class BlockMillStone extends BlockContainer {
     }
 
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (worldIn.isRemote)
         {
@@ -97,7 +98,9 @@ public class BlockMillStone extends BlockContainer {
 
         if (tileentity instanceof TileEntityMillStone)
         {
-            InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityMillStone)tileentity);
+        	if (!((TileEntityMillStone)tileentity).isEmpty()){
+        		InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityMillStone)tileentity);
+        	}
             worldIn.updateComparatorOutputLevel(pos, this);
         }
         super.breakBlock(worldIn, pos, state);
@@ -106,5 +109,10 @@ public class BlockMillStone extends BlockContainer {
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
         return new ItemStack(BlockFoods.block_millstone);
+    }
+
+    @Override
+	public boolean hasCustomBreakingProgress(IBlockState state){
+    	return true;
     }
 }

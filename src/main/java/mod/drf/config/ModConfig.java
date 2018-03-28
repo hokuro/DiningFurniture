@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 import mod.drf.core.log.ModLog;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -111,7 +112,7 @@ public class ModConfig implements IModConfig{
 							ModLog.log().warn("unknowntype :"+type.getCanonicalName());
 						}
 						if ((null != p) && (null != comment)) {
-							p.setComment(comment);
+							p.setComment(I18n.translateToLocal(comment));
 						}
 					} catch (IllegalArgumentException localIllegalArgumentException) {
 					} catch (IllegalAccessException localIllegalAccessException) {
@@ -162,7 +163,7 @@ public class ModConfig implements IModConfig{
 							ModLog.log().warn("unknowntype :"+type.getCanonicalName());
 						}
 						if ((null != p) && (null != comment)) {
-							p.setComment(comment);
+							p.setComment(I18n.translateToLocal(comment));
 						}
 					} catch (IllegalArgumentException localIllegalArgumentException) {
 					} catch (IllegalAccessException localIllegalAccessException) {

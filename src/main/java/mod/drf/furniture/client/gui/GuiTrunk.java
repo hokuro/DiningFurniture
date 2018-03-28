@@ -71,7 +71,7 @@ public class GuiTrunk extends GuiContainer {
 
     protected void drawGuiContainerForegroundLayer(int x, int y){
     	String s = _page + 1+"/10";
-    	fontRendererObj.drawString(s, 8+(2*18)+(8*18) + 20, 126+30, 4210752);
+    	fontRenderer.drawString(s, 8+(2*18)+(8*18) + 20, 126+30, 4210752);
 
     }
 

@@ -6,9 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldSavedData;
 
-public class SavedDataTrunk extends WorldSavedData {
+public class SavedDataTrunk extends net.minecraft.world.storage.WorldSavedData {
 	// トランク内のアイテムサイズ
 	public ItemStack[] items =  new ItemStack[ModCommon.TRUNK_MAX_PAGE*(ModCommon.TrunkCsize*ModCommon.TrunkRsize)];
 	private boolean init = false;
@@ -50,13 +49,13 @@ public class SavedDataTrunk extends WorldSavedData {
 
             if (slt >= 0 && slt < this.items.length)
             {
-                this.items[slt] = ItemStack.loadItemStackFromNBT(tag);
+                this.items[slt] = new ItemStack(tag);
             }
         }
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbt) {
+	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		// TODO 自動生成されたメソッド・スタブ
 		NBTTagList ntblst = new NBTTagList();
 
@@ -71,6 +70,7 @@ public class SavedDataTrunk extends WorldSavedData {
 			}
 		}
 		nbt.setTag("Items", ntblst);
+		return nbt;
 	}
 
 }
