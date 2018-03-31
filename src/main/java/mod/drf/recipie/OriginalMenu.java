@@ -1,5 +1,7 @@
 package mod.drf.recipie;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import mod.drf.util.ModUtil;
@@ -8,6 +10,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
 public abstract class OriginalMenu implements IOriginalMenu {
+
 	protected final ItemStack resultItem;
 	protected final ItemStack[] ingItem;
 
@@ -38,12 +41,6 @@ public abstract class OriginalMenu implements IOriginalMenu {
 
 	@Override
 	public OriginalMenuKind getKind() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
-
-	@Override
-	public List<OriginalMenu> getMenu() {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
@@ -89,4 +86,55 @@ public abstract class OriginalMenu implements IOriginalMenu {
 			return this.length;
 		}
 	}
+
+
+
+	protected final static List<String> order = new ArrayList<String>();
+	protected final static HashMap<String,ArrayList<OriginalMenu>> register = new HashMap<String,ArrayList<OriginalMenu>>();
+
+	public static void registerMenu(final OriginalMenu menu){
+		ItemStack result = menu.getResultItem().copy();
+		String key = result.getUnlocalizedName();
+		if (!register.containsKey(key)){
+			register.put(key, new ArrayList<OriginalMenu>(){{add(menu);}});
+			order.add(key);
+		}else{
+			register.get(key).add(menu);
+		}
+	}
+
+	public List<ItemStack> getMenuResults(){
+		if (order.size() == 0){makeMenu();}
+		List<ItemStack> ret = new ArrayList<ItemStack>();
+		for (String key : order){
+			ret.add(register.get(key).get(0).resultItem.copy());
+			ret.get(ret.size()-1).setCount(1);
+		}
+		return ret;
+	}
+
+	public int getMenouCount(){
+		if (order.size() == 0){makeMenu();}
+		return order.size();
+	}
+
+	public List<OriginalMenu> getMenuInfo(int index){
+		if (order.size() == 0){makeMenu();}
+		if (index >= 0 && index < order.size()){
+			String key = order.get(index);
+			return register.get(key);
+		}
+		return null;
+	}
+
+	public int getRecipiCount(int index){
+		if (order.size() == 0){makeMenu();}
+		if (index >= 0 && index < order.size()){
+			String key = order.get(index);
+			return register.get(key).size();
+		}
+		return 0;
+	}
+
+	public abstract void makeMenu();
 }

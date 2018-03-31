@@ -27,54 +27,55 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import scala.actors.threadpool.Arrays;
 
 @SideOnly(Side.CLIENT)
 public class GuiOriginalWorkBench extends GuiContainer {
 	private static final int TOPPINGCHANGE_TIMER = 20 * 3;
+	private static final int TOPPING_ONESET = 6;
     private final EntityPlayer player;
     private final World world;
     private final BlockPos pos;
 
-    private ResourceLocation tex;// = new ResourceLocation("drf:textures/gui/container/originalworkbench.png");
+    private ResourceLocation tex;
 
-    private final OriginalMenu.OriginalMenuKind kind;
-    private List<OriginalMenu> menu;
-
+    private final OriginalMenu menu;
 
     private float currentScroll;
     private int selectMenu;
-    private List<ItemStack> ingIcon;
-    private List<ItemStack> topIcon;
-
-    private int toppingPage = 0;
-    private int timerCnt = 0;
+    private List<ItemStack[]> ingIcon;
+    private List<ItemStack[]> topIcon;
 
     private boolean wasClicking;
     private boolean isScrolling;
 
-	public GuiOriginalWorkBench(EntityPlayer playerIn, World worldIn, BlockPos posIn, OriginalMenu menuIn ) {
+	private int dispRecipie = 0;
+	private int dispTopping = 0;
+	private int timerRecipie = 0;
+	private int timerTopping = 0;
+	private boolean changeRecipie = true;
+
+	public GuiOriginalWorkBench(EntityPlayer playerIn, World worldIn, BlockPos posIn, OriginalMenu menuIn) {
 		super(new ContainerOriginalWorkBench(playerIn.inventory, worldIn, posIn, menuIn));
 		player=playerIn;
 		world = worldIn;
 		pos = posIn;
-		kind = menuIn.getKind();
-		menu = menuIn.getMenu();
+		menu = menuIn;
 		this.xSize = 257;
 		this.ySize = 189;
 
 		selectMenu = -1;
 
 	    currentScroll = 0.0F;
-	    ingIcon = new ArrayList<ItemStack>();
-	    topIcon = new ArrayList<ItemStack>();
-	    if (kind == OriginalMenuKind.COOKING){
+	    ingIcon = new ArrayList<ItemStack[]>();
+	    topIcon = new ArrayList<ItemStack[]>();
+	    if (menu.getKind() == OriginalMenuKind.COOKING){
 	    	tex = new ResourceLocation("drf:textures/gui/container/cworkbench.png");
 	    }else{
 	    	tex = new ResourceLocation("drf:textures/gui/container/dworkbench.png");
@@ -103,31 +104,41 @@ public class GuiOriginalWorkBench extends GuiContainer {
 
         			selectMenu = selectSlot + inv.getMenu().getField(InventoryOriginalMenu.FIELD_SCROLL) * InventoryOriginalMenu.COL;
 
-        			OriginalMenu m = menu.get(selectMenu);
+        			List<OriginalMenu> m = menu.getMenuInfo(selectMenu);
 
         			// 許可リスト
-        			NonNullList<ItemStack[]> arrow =  NonNullList.<ItemStack[]>withSize(kind.getLength(),new ItemStack[]{ItemStack.EMPTY});
-        			// 材料を取得
-        			this.ingIcon.clear();
-        			for (int i = 0; i < m.getIgetIngreadientCount(); i++){
-        				ingIcon.add(m.getIngredient(i));
-        				arrow.set(i, new ItemStack[]{m.getIngredient(i)});
+        			List<List<ItemStack>> arrow = new ArrayList<List<ItemStack>>();
+        			for (int i = 0; i < menu.getKind().getLength(); i++){
+        				arrow.add(new ArrayList());
         			}
 
-        			if (kind == OriginalMenuKind.COOKING){
-        				CookingMenu cm = (CookingMenu)m;
-            			// トッピングを取得
-            			this.topIcon.clear();
-            			if (cm.isTopping()){
-            				for (int i = 0; i < cm.getToppingCount(); i++){
-            					topIcon.add(cm.getTopping(i));
-            				}
-                			arrow.set(cm.getKind().getLength()-1,cm.getToppings());
-            			}
+        			// 材料を取得
+        			this.ingIcon.clear();
+        			this.topIcon.clear();
+        			for (OriginalMenu mitem : m){
+        				ingIcon.add(new ItemStack[mitem.getIgetIngreadientCount()]);
+        				for (int i = 0; i < mitem.getIgetIngreadientCount(); i++){
+        					ingIcon.get(ingIcon.size()-1)[i] = mitem.getIngredient(i);
+        					arrow.get(i).add(mitem.getIngredient(i));
+        				}
+
+        				if (menu.getKind() == OriginalMenuKind.COOKING){
+        					if (((CookingMenu)mitem).isTopping()){
+        						CookingMenu cm = ((CookingMenu)mitem);
+        						topIcon.add(cm.getToppings());
+        						arrow.get(menu.getKind().getLength()-1).addAll(Arrays.asList(cm.getToppings()));
+        					}else{
+        						topIcon.add(new ItemStack[]{ItemStack.EMPTY});
+        					}
+        				}
+
         			}
+
         			inv.setArrowIngredients(arrow);
-        			toppingPage = 0;
-        			timerCnt = 0;
+        			dispRecipie = 0;
+        			dispTopping = 0;
+        			timerRecipie = 0;
+        			timerTopping = 0;
 
         			// サーバーに送信
         			Mod_DiningFurniture.Net_Instance.sendToServer(new MessageSelectMenu(this.currentScroll,selectSlot));
@@ -185,11 +196,12 @@ public class GuiOriginalWorkBench extends GuiContainer {
         }
     }
 
+
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
         String s;
-        if (kind == OriginalMenuKind.COOKING){
+        if (menu.getKind() == OriginalMenuKind.COOKING){
         	s = net.minecraft.util.text.translation.I18n.translateToLocal("cooking workbench");
         }else{
         	s = net.minecraft.util.text.translation.I18n.translateToLocal("furniture workbench");
@@ -200,23 +212,43 @@ public class GuiOriginalWorkBench extends GuiContainer {
         this.fontRenderer.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
 
         if (ingIcon.size() != 0){
-        	for (int i = 0; i < ingIcon.size(); i++){
-        		if (!ingIcon.get(i).isEmpty()){
-        			this.drawItemStack2(ingIcon.get(i), 8 + i*18, 16, null);
+        	int cnting = 0;
+        	for (ItemStack ing : ingIcon.get(dispRecipie)){
+        		if (!ing.isEmpty()){
+        			this.drawItemStack2(ing, 8 + cnting*18, 16, null);
+        			cnting++;
+        		}
+        		timerRecipie++;
+        		if (timerRecipie > TOPPINGCHANGE_TIMER*2 && changeRecipie){
+        			timerRecipie = 0;
+        			dispRecipie++;
+        			if (dispRecipie >= ingIcon.size()){
+        				dispRecipie = 0;
+        			}
         		}
         	}
-        }
+        	if (!topIcon.get(dispRecipie)[0].isEmpty()){
+        		changeRecipie = false;
+        		int cntTop = topIcon.get(dispRecipie).length;
+        		int drawLeft = 8 + 18 * (6 - ((cntTop-TOPPING_ONESET*dispTopping)>6?6:cntTop));
 
-        if (topIcon.size() != 0 && !topIcon.get(0).isEmpty()){
-    		this.drawItemStack2(topIcon.get(toppingPage), 98, 59, null);
-			timerCnt++;
-			if (timerCnt > TOPPINGCHANGE_TIMER){
-				timerCnt = 0;
-				toppingPage++;
-				if (!(toppingPage < topIcon.size())){
-	        		toppingPage = 0;
-	        	}
-			}
+        		int lpstart = TOPPING_ONESET*dispTopping;
+        		int lpmax =  (cntTop<TOPPING_ONESET+TOPPING_ONESET*dispTopping?cntTop:TOPPING_ONESET+TOPPING_ONESET*dispTopping);
+        		for (int i = lpstart; i < lpmax; i++){
+            		this.drawItemStack2(topIcon.get(dispRecipie)[i+TOPPING_ONESET*dispTopping], drawLeft + (i*18), 59, null);
+        		}
+        		timerTopping++;
+        		if (timerTopping > TOPPINGCHANGE_TIMER){
+        			timerTopping = 0;
+        			dispTopping++;
+        			if ((dispTopping >= MathHelper.ceil(cntTop/TOPPING_ONESET))){;
+        				dispTopping = 0;
+        				changeRecipie = true;
+        			}
+        		}
+        	}else{
+        		changeRecipie = true;
+        	}
         }
     }
 

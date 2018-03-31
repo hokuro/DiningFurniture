@@ -2,7 +2,6 @@ package mod.drf.common.inventory;
 
 import java.util.List;
 
-import mod.drf.recipie.OriginalMenu;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -31,11 +30,11 @@ public class InventoryOriginalMenu implements IInventory{
 	    eventHandler = eventHandlerIn;
     }
 
-    public void setMenu(List<OriginalMenu> menus){
+    public void setMenu(List<ItemStack> menus){
     	for (int i = 0; i < menus.size(); i++){
-    		inventory.set(i, menus.get(i).getResultItem());
+    		inventory.set(i, menus.get(i));
     		if (i < COL*ROW){
-    			inventory_view.set(i, menus.get(i).getResultItem());
+    			inventory_view.set(i, menus.get(i));
     		}
     	}
     }

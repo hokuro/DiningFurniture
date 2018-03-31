@@ -59,7 +59,6 @@ public class Mod_DiningFurniture {
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
-//		proxy.registerColorMap();
 	}
 
 

@@ -58,6 +58,18 @@ public class ModUtil {
 		return ret;
 	}
 
+
+	public static boolean containItemStack(ItemStack checkItem, ItemStack[] itemArray, CompaierLevel level) {
+		boolean ret = false;
+		for (ItemStack item: itemArray){
+			if (compareItemStacks(checkItem, item,level)){
+				ret = true;
+				break;
+			}
+		}
+		return ret;
+	}
+
 	public static boolean CheckCounter(String key, int limit){
 		return CheckCounter(key,limit,false);
 	}
@@ -118,4 +130,5 @@ public class ModUtil {
 	public static boolean IntegerToBoolean(int value){
 		return value==0?false:true;
 	}
+
 }

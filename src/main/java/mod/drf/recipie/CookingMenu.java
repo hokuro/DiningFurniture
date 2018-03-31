@@ -1,8 +1,5 @@
 package mod.drf.recipie;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.Item.ItemFoods.EnumFlapeSyrup;
 import mod.drf.foods.Item.ItemFoods.EnumFlowerHalb;
@@ -47,6 +44,7 @@ public class CookingMenu extends OriginalMenu {
         }
         return instance;
     }
+
 
 	@Override
 	public OriginalMenuKind getKind(){
@@ -107,11 +105,9 @@ public class CookingMenu extends OriginalMenu {
 	}
 
 	@Override
-	public List<OriginalMenu> getMenu(){
-		List<OriginalMenu> menus = new ArrayList<OriginalMenu>();
-
+    public void makeMenu(){
 		// パイ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_row_hallpie,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_row_hallpie,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -119,7 +115,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.EGG,1)
 				}));
 		// チョコパイ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_row_chocohallpie,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_row_chocohallpie,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -130,7 +126,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(ItemFoods.item_choco,1)
 				}));
 		// サラダパイ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_row_saladahallpie,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_row_saladahallpie,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -143,7 +139,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.BEETROOT,1)
 				}));
 		// ミートパイ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_row_meethallpie,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_row_meethallpie,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -158,7 +154,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.RABBIT,1),
 				}));
 		// スタゲイジーパイ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_row_fishhallpie,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_row_fishhallpie,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -172,7 +168,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.FISH,1,FishType.SALMON.getMetadata()),
 				}));
 		// かぼちゃパイ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_row_pumpkinhallpie,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_row_pumpkinhallpie,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -183,7 +179,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Blocks.PUMPKIN,1)
 				}));
 		// リンゴパイ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_row_applehallpie,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_row_applehallpie,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -194,7 +190,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.APPLE,1)
 				}));
 		// イカ墨パイ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_row_blackpie,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_row_blackpie,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -205,7 +201,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.DYE,1, EnumDyeColor.BLACK.getDyeDamage())
 				}));
 		// 腐ったパイ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_row_zombihallpie,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_row_zombihallpie,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -217,14 +213,14 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// キャラメルパイ
-		menus.add(new CookingMenu(new ItemStack(BlockFoods.block_caramelpie_hall,1),
+		registerMenu(new CookingMenu(new ItemStack(BlockFoods.block_caramelpie_hall,1),
 				new ItemStack[]{
 						new ItemStack(BlockFoods.block_pie_hall,1)
 				},
 				new ItemStack[]{new ItemStack(ItemFoods.item_caramel,1,0)}));
 
 		// チョコケーキ
-		menus.add(new CookingMenu(new ItemStack(BlockFoods.block_choco_cake,1),
+		registerMenu(new CookingMenu(new ItemStack(BlockFoods.block_choco_cake,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -236,7 +232,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// リンゴケーキ
-		menus.add(new CookingMenu(new ItemStack(BlockFoods.block_apple_cake,1),
+		registerMenu(new CookingMenu(new ItemStack(BlockFoods.block_apple_cake,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -248,7 +244,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// 野菜ケーキ
-		menus.add(new CookingMenu(new ItemStack(BlockFoods.block_salada_cake,1),
+		registerMenu(new CookingMenu(new ItemStack(BlockFoods.block_salada_cake,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -262,7 +258,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// スイカケーキ
-		menus.add(new CookingMenu(new ItemStack(BlockFoods.block_mellon_cake,1),
+		registerMenu(new CookingMenu(new ItemStack(BlockFoods.block_mellon_cake,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -274,7 +270,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// パンプキンケーキ
-		menus.add(new CookingMenu(new ItemStack(BlockFoods.block_pumpkin_cake,1),
+		registerMenu(new CookingMenu(new ItemStack(BlockFoods.block_pumpkin_cake,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -286,7 +282,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// レアチーズケーキ
-		menus.add(new CookingMenu(new ItemStack(BlockFoods.block_reacheese_cake,1),
+		registerMenu(new CookingMenu(new ItemStack(BlockFoods.block_reacheese_cake,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -298,7 +294,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// イカ墨ケーキ
-		menus.add(new CookingMenu(new ItemStack(BlockFoods.block_black_cake,1),
+		registerMenu(new CookingMenu(new ItemStack(BlockFoods.block_black_cake,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -310,7 +306,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// 腐ったケーキ
-		menus.add(new CookingMenu(new ItemStack(BlockFoods.block_zombi_cake,1),
+		registerMenu(new CookingMenu(new ItemStack(BlockFoods.block_zombi_cake,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_butter,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -322,7 +318,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// ピザ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_row_pizza,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_row_pizza,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_flour,3),
 						new ItemStack(BlockFoods.block_cheese,1)
@@ -332,7 +328,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// 肉ピザ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_row_meetpizza,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_row_meetpizza,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_flour,3),
 						new ItemStack(BlockFoods.block_cheese,1)
@@ -346,7 +342,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// アンチョビピザ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_row_fishpizza,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_row_fishpizza,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_flour,3),
 						new ItemStack(BlockFoods.block_cheese,1)
@@ -359,7 +355,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// チーズ
-		menus.add(new CookingMenu(new ItemStack(BlockFoods.block_cheese,1),
+		registerMenu(new CookingMenu(new ItemStack(BlockFoods.block_cheese,1),
 				new ItemStack[]{
 						new ItemStack(Items.MILK_BUCKET,1),
 						new ItemStack(ItemFoods.item_rennet,1)
@@ -369,7 +365,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// ブルーチーズ
-		menus.add(new CookingMenu(new ItemStack(BlockFoods.block_bluecheese,1),
+		registerMenu(new CookingMenu(new ItemStack(BlockFoods.block_bluecheese,1),
 				new ItemStack[]{
 						new ItemStack(Items.MILK_BUCKET,1),
 						new ItemStack(ItemFoods.item_rennet,1)
@@ -383,7 +379,7 @@ public class CookingMenu extends OriginalMenu {
 
 		// アイスクリームの素
 		for (int i = 0; i < EnumIceFlavor.values.length; i++){
-			menus.add(new CookingMenu(new ItemStack(ItemFoods.item_icemix,1, EnumIceFlavor.getValue(i).getDamage()),
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_icemix,1, EnumIceFlavor.getValue(i).getDamage()),
 					new ItemStack[]{
 							new ItemStack(Items.EGG,3),
 							new ItemStack(Items.MILK_BUCKET,1),
@@ -395,7 +391,7 @@ public class CookingMenu extends OriginalMenu {
 		}
 		// シロップ
 		for (int i = 1; i < EnumFlapeSyrup.values.length; i++){
-			menus.add(new CookingMenu(new ItemStack(ItemFoods.item_syrup,1,EnumFlapeSyrup.getValue(i).getDamage()),
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_syrup,1,EnumFlapeSyrup.getValue(i).getDamage()),
 					new ItemStack[]{
 							PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM,1,0), PotionType.getPotionTypeForName("water")),
 							new ItemStack(Items.SUGAR,2)
@@ -406,7 +402,7 @@ public class CookingMenu extends OriginalMenu {
 
 		// シロップかけかき氷
 		for (int i = 1; i < EnumFlapeSyrup.values.length; i++){
-			menus.add(new CookingMenu(new ItemStack(ItemFoods.item_crashedice,1,EnumFlapeSyrup.getValue(i).getDamage()),
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_crashedice,1,EnumFlapeSyrup.getValue(i).getDamage()),
 					new ItemStack[]{
 							new ItemStack(ItemFoods.item_crashedice,1,0),
 							new ItemStack(ItemFoods.item_syrup,1,EnumFlapeSyrup.getValue(i).getDamage())
@@ -414,15 +410,37 @@ public class CookingMenu extends OriginalMenu {
 					));
 		}
 		// 練乳掛けかき氷
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_milkcrashedice,1,0),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_milkcrashedice,1,0),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_crashedice,1,0),
 						new ItemStack(ItemFoods.item_syrupmilk,1)
 				}));
 
-		// 練乳シロップかき氷
+		// 練乳シロップかき氷(シロップ→練乳)
 		for (int i = 1; i < EnumFlapeSyrup.values.length; i++){
-			menus.add(new CookingMenu(new ItemStack(ItemFoods.item_milkcrashedice,1,EnumFlapeSyrup.getValue(i).getDamage()),
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_milkcrashedice,1,EnumFlapeSyrup.getValue(i).getDamage()),
+					new ItemStack[]{
+							new ItemStack(ItemFoods.item_crashedice,1,EnumFlapeSyrup.getValue(i).getDamage()),
+							new ItemStack(ItemFoods.item_syrupmilk,1)
+					}
+					));
+		}
+
+
+		// 練乳シロップかき氷(練乳→シロップ)
+		for (int i = 1; i < EnumFlapeSyrup.values.length; i++){
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_milkcrashedice,1,EnumFlapeSyrup.getValue(i).getDamage()),
+					new ItemStack[]{
+							new ItemStack(ItemFoods.item_milkcrashedice,1,0),
+							new ItemStack(ItemFoods.item_syrup,1,EnumFlapeSyrup.getValue(i).getDamage())
+					}
+					));
+		}
+
+
+		// 練乳シロップかき氷(練乳かき氷+シロップ)
+		for (int i = 1; i < EnumFlapeSyrup.values.length; i++){
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_milkcrashedice,1,EnumFlapeSyrup.getValue(i).getDamage()),
 					new ItemStack[]{
 							new ItemStack(ItemFoods.item_crashedice,1,0),
 							new ItemStack(ItemFoods.item_syrupmilk,1),
@@ -431,8 +449,10 @@ public class CookingMenu extends OriginalMenu {
 					));
 		}
 
+
+
 		// アイスキャンディの素
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_sugarwater,1,0),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_sugarwater,1,0),
 					new ItemStack[]{
 							PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM,1,0), PotionType.getPotionTypeForName("water")),
 							new ItemStack(Items.SUGAR,2),
@@ -443,7 +463,7 @@ public class CookingMenu extends OriginalMenu {
 					}
 					));
 		for (int i = 1; i < EnumFlapeSyrup.values.length; i++){
-			menus.add(new CookingMenu(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.getValue(i).getDamage()),
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.getValue(i).getDamage()),
 					new ItemStack[]{
 							PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM,1,0), PotionType.getPotionTypeForName("water")),
 							new ItemStack(Items.SUGAR,2),
@@ -454,7 +474,7 @@ public class CookingMenu extends OriginalMenu {
 		}
 
 		// チョコ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_choco,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_choco,1),
 				new ItemStack[]{
 						new ItemStack(Items.DYE,3,EnumDyeColor.BROWN.getDyeDamage()),
 						new ItemStack(Items.SUGAR,1)
@@ -463,7 +483,7 @@ public class CookingMenu extends OriginalMenu {
 						ItemStack.EMPTY
 				}));
 		// ホワイトチョコ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_whitechoco,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_whitechoco,1),
 				new ItemStack[]{
 						new ItemStack(Items.DYE,3,EnumDyeColor.BROWN.getDyeDamage()),
 						new ItemStack(Items.SUGAR,1)
@@ -472,7 +492,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.MILK_BUCKET,1)
 				}));
 		// プリン
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_pudding,4),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_pudding,4),
 				new ItemStack[]{
 						new ItemStack(Items.EGG,3),
 						new ItemStack(Items.SUGAR,2),
@@ -482,7 +502,7 @@ public class CookingMenu extends OriginalMenu {
 						ItemStack.EMPTY
 				}));
 		// かぼちゃプリン
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_pumpkinpudding,4),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_pumpkinpudding,4),
 				new ItemStack[]{
 						new ItemStack(Items.EGG,3),
 						new ItemStack(Items.SUGAR,2),
@@ -492,7 +512,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Blocks.PUMPKIN,1)
 				}));
 		// ポテトサラダ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_potatosalada,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_potatosalada,1),
 				new ItemStack[]{
 						new ItemStack(Items.POTATO,3),
 						new ItemStack(Items.CARROT,1),
@@ -502,7 +522,7 @@ public class CookingMenu extends OriginalMenu {
 						ItemStack.EMPTY
 				}));
 		// カボチャサラダ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_pumpkinsalada,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_pumpkinsalada,1),
 				new ItemStack[]{
 						new ItemStack(Blocks.PUMPKIN,1),
 						new ItemStack(Items.CARROT,1),
@@ -512,7 +532,7 @@ public class CookingMenu extends OriginalMenu {
 						ItemStack.EMPTY
 				}));
 		// たまごサンド
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_eggsandwich,3),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_eggsandwich,3),
 				new ItemStack[]{
 						new ItemStack(Items.BREAD,2),
 						new ItemStack(ItemFoods.item_butter,1),
@@ -521,7 +541,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.EGG,1),
 				}));
 		// ポテトサラダサンド
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_potatsaladasandwitch,3),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_potatsaladasandwitch,3),
 				new ItemStack[]{
 						new ItemStack(Items.BREAD,2),
 						new ItemStack(ItemFoods.item_butter,1),
@@ -530,7 +550,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(ItemFoods.item_potatosalada,1),
 				}));
 		// ハムサンド
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_hamsandwich,3),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_hamsandwich,3),
 				new ItemStack[]{
 						new ItemStack(Items.BREAD,2),
 						new ItemStack(ItemFoods.item_butter,1),
@@ -539,7 +559,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.COOKED_PORKCHOP,1),
 				}));
 		// ジンギスカンサンド
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_muttonsandwich,3),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_muttonsandwich,3),
 				new ItemStack[]{
 						new ItemStack(Items.BREAD,2),
 						new ItemStack(ItemFoods.item_butter,1),
@@ -548,7 +568,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.COOKED_MUTTON,1),
 				}));
 		// ステーキサンド
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_stakesandwich,3),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_stakesandwich,3),
 				new ItemStack[]{
 						new ItemStack(Items.BREAD,2),
 						new ItemStack(ItemFoods.item_butter,1),
@@ -557,7 +577,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.COOKED_BEEF,1),
 				}));
 		// 照り焼きサンド
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_chikensandwich,3),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_chikensandwich,3),
 				new ItemStack[]{
 						new ItemStack(Items.BREAD,2),
 						new ItemStack(ItemFoods.item_butter,1),
@@ -566,7 +586,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.COOKED_CHICKEN,1),
 				}));
 		// チョコサンド
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_chocosandwich,3),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_chocosandwich,3),
 				new ItemStack[]{
 						new ItemStack(Items.BREAD,2),
 						new ItemStack(ItemFoods.item_butter,1),
@@ -575,7 +595,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(ItemFoods.item_choco,1),
 				}));
 		// カボチャサンド
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_pumpkinsaladasandwich,3),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_pumpkinsaladasandwich,3),
 				new ItemStack[]{
 						new ItemStack(Items.BREAD,2),
 						new ItemStack(ItemFoods.item_butter,1),
@@ -584,7 +604,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(ItemFoods.item_pumpkinsalada,1),
 				}));
 		// バター
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_butter,3),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_butter,3),
 				new ItemStack[]{
 						new ItemStack(Items.MILK_BUCKET,1),
 						new ItemStack(ItemFoods.item_salt,1),
@@ -593,7 +613,7 @@ public class CookingMenu extends OriginalMenu {
 						ItemStack.EMPTY
 				}));
 		// 白カビ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_mold,4),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_mold,4),
 				new ItemStack[]{
 						new ItemStack(Items.ROTTEN_FLESH,1)
 						},
@@ -602,7 +622,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// アオカビ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_bluemold,4),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_bluemold,4),
 				new ItemStack[]{
 						new ItemStack(Items.ROTTEN_FLESH,1)
 						},
@@ -611,7 +631,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// うどん
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_udon,4),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_udon,4),
 				new ItemStack[]{
 						new ItemStack(Items.WATER_BUCKET,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -622,7 +642,7 @@ public class CookingMenu extends OriginalMenu {
 				}));
 
 		// パスタ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_pasta,4),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_pasta,4),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_flour,3),
 						new ItemStack(ItemFoods.item_salt,1)
@@ -631,7 +651,7 @@ public class CookingMenu extends OriginalMenu {
 						ItemStack.EMPTY
 				}));
 		// ラーメン
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_ramen,4),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_ramen,4),
 				new ItemStack[]{
 						new ItemStack(Items.WATER_BUCKET,1),
 						new ItemStack(ItemFoods.item_flour,3),
@@ -641,7 +661,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.EGG,1)
 				}));
 		// ミートパスタ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_meetpasta,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_meetpasta,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_pasta,1),
 						new ItemStack(Items.BOWL,1)
@@ -653,7 +673,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(ItemFoods.item_millchikin,1)
 				}));
 		// フィッシュパスタ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_fishpasta,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_fishpasta,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_pasta,1),
 						new ItemStack(Items.BOWL,1)
@@ -665,7 +685,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.FISH,1, FishType.PUFFERFISH.getMetadata())
 				}));
 		// イカ墨パスタ
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_blackpasta,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_blackpasta,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_pasta,1),
 						new ItemStack(Items.BOWL,1)
@@ -674,7 +694,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.DYE,1,EnumDyeColor.BLACK.getDyeDamage())
 				}));
 		// ざるうどん
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_zaruudon,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_zaruudon,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_udon,1),
 						new ItemStack(Items.BOWL,1)
@@ -683,7 +703,7 @@ public class CookingMenu extends OriginalMenu {
 						ItemStack.EMPTY
 				}));
 		// かけうどん
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_kakeudon,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_kakeudon,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_udon,1),
 						new ItemStack(Items.BOWL,1),
@@ -693,7 +713,7 @@ public class CookingMenu extends OriginalMenu {
 						ItemStack.EMPTY
 				}));
 		// 月見うどん
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_tsukimiuudon,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_tsukimiuudon,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_udon,1),
 						new ItemStack(Items.BOWL,1),
@@ -703,7 +723,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.EGG,1)
 				}));
 		// 肉うどん
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_nikuudon,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_nikuudon,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_udon,1),
 						new ItemStack(Items.BOWL,1),
@@ -720,7 +740,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(ItemFoods.item_millchikin,1)
 				}));
 		// チャーシュー麺
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_meetramen,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_meetramen,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_ramen,1),
 						new ItemStack(Items.BOWL,1),
@@ -737,7 +757,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(ItemFoods.item_millchikin,1)
 				}));
 		// 魚介ラーメン
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_fishramen,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_fishramen,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_ramen,1),
 						new ItemStack(Items.BOWL,1),
@@ -750,7 +770,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.FISH,1, FishType.PUFFERFISH.getMetadata())
 				}));
 		// 月見ラーメン
-		menus.add(new CookingMenu(new ItemStack(ItemFoods.item_tsukimiramen,1),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_tsukimiramen,1),
 				new ItemStack[]{
 						new ItemStack(ItemFoods.item_ramen,1),
 						new ItemStack(Items.BOWL,1),
@@ -763,7 +783,7 @@ public class CookingMenu extends OriginalMenu {
 
 		// お茶
 		for (int i = 0; i < EnumFlowerHalb.values.length; i++){
-			menus.add(new CookingMenu(new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.getValue(i).getDamage()),
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.getValue(i).getDamage()),
 					new ItemStack[]{
 							PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM,1,0), PotionType.getPotionTypeForName("water")),
 							},
@@ -771,6 +791,5 @@ public class CookingMenu extends OriginalMenu {
 							new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.getValue(i).getDamage())
 					}));
 		}
-		return menus;
-	}
+    }
 }
