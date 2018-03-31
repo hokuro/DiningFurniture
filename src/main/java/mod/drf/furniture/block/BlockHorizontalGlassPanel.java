@@ -3,6 +3,7 @@ package mod.drf.furniture.block;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import mod.drf.core.Mod_DiningFurniture;
 import net.minecraft.block.BlockPane;
@@ -24,6 +25,7 @@ import net.minecraft.world.World;
 
 public class BlockHorizontalGlassPanel extends BlockPane {
 	   public static final PropertyEnum<BlockSlab.EnumBlockHalf> HALF = PropertyEnum.<BlockSlab.EnumBlockHalf>create("half", BlockSlab.EnumBlockHalf.class);
+	   protected boolean tempered;
 
 		protected BlockHorizontalGlassPanel(Material materialIn) {
 			super(materialIn,true);
@@ -36,7 +38,14 @@ public class BlockHorizontalGlassPanel extends BlockPane {
 	        		.withProperty(WEST, Boolean.valueOf(false)));
 	        this.setSoundType(SoundType.GLASS);
 	        this.setCreativeTab(Mod_DiningFurniture.tabFurniture);
+	        tempered = false;
 		}
+
+		protected BlockHorizontalGlassPanel(Material materialIn,boolean tmp) {
+			this(materialIn);
+			tempered = tmp;
+		}
+
 
 		@Override
 	    protected BlockStateContainer createBlockState()
@@ -153,11 +162,21 @@ public class BlockHorizontalGlassPanel extends BlockPane {
 	    @Override
 	    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	    {
-	        return state.withProperty(NORTH, canPaneConnectTo(worldIn, pos, EnumFacing.NORTH))
-	                .withProperty(SOUTH, canPaneConnectTo(worldIn, pos, EnumFacing.SOUTH))
-	                .withProperty(WEST, canPaneConnectTo(worldIn, pos, EnumFacing.WEST))
-	                .withProperty(EAST, canPaneConnectTo(worldIn, pos, EnumFacing.EAST))
+	        return state.withProperty(NORTH, canPaneConnectTo(worldIn, pos, EnumFacing.NORTH, state.getValue(HALF)))
+	                .withProperty(SOUTH, canPaneConnectTo(worldIn, pos, EnumFacing.SOUTH, state.getValue(HALF)))
+	                .withProperty(WEST, canPaneConnectTo(worldIn, pos, EnumFacing.WEST, state.getValue(HALF)))
+	                .withProperty(EAST, canPaneConnectTo(worldIn, pos, EnumFacing.EAST, state.getValue(HALF)))
 	                .withProperty(HALF, canPaneConnectToVertical(worldIn, pos, state));
+	    }
+
+	    public boolean canPaneConnectTo(IBlockAccess world, BlockPos pos, EnumFacing dir, BlockSlab.EnumBlockHalf half)
+	    {
+	        BlockPos other = pos.offset(dir);
+	        IBlockState state = world.getBlockState(other);
+	        if ((state.getBlock().canBeConnectedTo(world, other, dir.getOpposite()) || attachesTo(world, state, other, dir.getOpposite()))){
+	        	return !state.getProperties().containsKey(HALF) || (state.getProperties().containsKey(HALF) && state.getValue(HALF) == half);
+	        }
+	        return false;
 	    }
 
 	    private EnumBlockHalf canPaneConnectToVertical(IBlockAccess world, BlockPos pos, IBlockState state) {
@@ -224,15 +243,15 @@ public class BlockHorizontalGlassPanel extends BlockPane {
 	     * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	     * IBlockstate
 	     */
-	    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+		@Override
+		public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	    {
 	        IBlockState iblockstate = this.getStateFromMeta(meta);
 	        return this.isDouble() ? iblockstate : (facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double)hitY <= 0.5D) ? iblockstate : iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.TOP));
 	    }
 
-	    /**
-	     * Convert the given metadata into a BlockState for this Block
-	     */
+
+		@Override
 	    public IBlockState getStateFromMeta(int meta)
 	    {
 	        IBlockState iblockstate = this.getDefaultState();
@@ -240,9 +259,18 @@ public class BlockHorizontalGlassPanel extends BlockPane {
 	        return iblockstate;
 	    }
 
-	    /**
-	     * Convert the BlockState into the correct metadata value
-	     */
+		@Override
+	    public int quantityDropped(Random random)
+	    {
+	    	if (this.tempered){
+	    		return 1;
+	    	}else{
+	    		return 0;
+	    	}
+	    }
+
+
+		@Override
 	    public int getMetaFromState(IBlockState state)
 	    {
 	        int i = 0;

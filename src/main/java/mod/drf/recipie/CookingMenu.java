@@ -20,7 +20,7 @@ import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 
 public class CookingMenu extends OriginalMenu {
-	private final OriginalMenuKind kind = OriginalMenuKind.COOKING;
+	private static final OriginalMenuKind kind = OriginalMenuKind.COOKING;
 	private static CookingMenu instance;
 	private boolean isTopping = false;
 	private ItemStack[] topping;

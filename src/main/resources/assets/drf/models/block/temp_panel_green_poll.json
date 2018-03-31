@@ -1,0 +1,7 @@
+{
+    "parent": "drf:block/pane_poll",
+    "textures": {
+        "edge": "drf:blocks/tempglass_pane_top_green",
+        "pane": "drf:blocks/tempglass_green"
+    }
+}

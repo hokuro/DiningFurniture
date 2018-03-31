@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = ModCommon.MOD_ID, name = ModCommon.MOD_NAME, version = ModCommon.MOD_VERSION)
 public class Mod_DiningFurniture {
@@ -47,9 +48,13 @@ public class Mod_DiningFurniture {
 		ModRegister.RegisterEvent();
 		ModRegister.RegisterRecipe();
         ModRegister.RegisterMessage();
+
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, guiInstance);
  //       proxy.registerClientInfo();
 
+		if (event.getSide() == Side.CLIENT){
+			proxy.registerColorMap();
+		}
 	}
 
 	@EventHandler

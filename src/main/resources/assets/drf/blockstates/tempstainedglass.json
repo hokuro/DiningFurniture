@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "color=white": { "model": "drf:tempstainedglass_white" },
+        "color=orange": { "model": "drf:tempstainedglass_orange" },
+        "color=magenta": { "model": "drf:tempstainedglass_magenta" },
+        "color=light_blue": { "model": "drf:tempstainedglass_light_blue" },
+        "color=yellow": { "model": "drf:tempstainedglass_yellow" },
+        "color=lime": { "model": "drf:tempstainedglass_lime" },
+        "color=pink": { "model": "drf:tempstainedglass_pink" },
+        "color=gray": { "model": "drf:tempstainedglass_gray" },
+        "color=silver": { "model": "drf:tempstainedglass_silver" },
+        "color=cyan": { "model": "drf:tempstainedglass_cyan" },
+        "color=purple": { "model": "drf:tempstainedglass_purple" },
+        "color=blue": { "model": "drf:tempstainedglass_blue" },
+        "color=brown": { "model": "drf:tempstainedglass_brown" },
+        "color=green": { "model": "drf:tempstainedglass_green" },
+        "color=red": { "model": "drf:tempstainedglass_red" },
+        "color=black": { "model": "drf:tempstainedglass_black" }
+    }
+}

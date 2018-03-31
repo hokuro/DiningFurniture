@@ -1,5 +1,6 @@
 package mod.drf.foods.inventory;
 
+import mod.drf.common.inventory.SlotInOut;
 import mod.drf.recipie.OriginalRecipie;
 import mod.drf.recipie.OriginalRecipie.ORIGINAL_RECIPIES;
 import mod.drf.util.ModUtil;

@@ -688,8 +688,8 @@ public class ItemFoods {
 				new ItemStack(Blocks.LEAVES,1,BlockPlanks.EnumType.SPRUCE.getMetadata()),
 				new ItemStack(Blocks.LEAVES,1,BlockPlanks.EnumType.BIRCH.getMetadata()),
 				new ItemStack(Blocks.LEAVES,1,BlockPlanks.EnumType.JUNGLE.getMetadata()),
-				new ItemStack(Blocks.LEAVES2,1,BlockPlanks.EnumType.ACACIA.getMetadata()),
-				new ItemStack(Blocks.LEAVES2,1,BlockPlanks.EnumType.DARK_OAK.getMetadata()),});
+				new ItemStack(Blocks.LEAVES2,1,BlockPlanks.EnumType.ACACIA.getMetadata()-4),
+				new ItemStack(Blocks.LEAVES2,1,BlockPlanks.EnumType.DARK_OAK.getMetadata()-4),});
 
 		private int index;
 		private int damage;
@@ -749,8 +749,8 @@ public class ItemFoods {
 				new ItemStack(Blocks.LEAVES,1,BlockPlanks.EnumType.SPRUCE.getMetadata()),
 				new ItemStack(Blocks.LEAVES,1,BlockPlanks.EnumType.BIRCH.getMetadata()),
 				new ItemStack(Blocks.LEAVES,1,BlockPlanks.EnumType.JUNGLE.getMetadata()),
-				new ItemStack(Blocks.LEAVES2,1,BlockPlanks.EnumType.ACACIA.getMetadata()),
-				new ItemStack(Blocks.LEAVES2,1,BlockPlanks.EnumType.DARK_OAK.getMetadata()),});
+				new ItemStack(Blocks.LEAVES2,1,BlockPlanks.EnumType.ACACIA.getMetadata()-4),
+				new ItemStack(Blocks.LEAVES2,1,BlockPlanks.EnumType.DARK_OAK.getMetadata()-4),});
 		private int index;
 		private int damage;
 		private String flavor;

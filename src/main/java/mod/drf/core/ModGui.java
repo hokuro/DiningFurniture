@@ -1,16 +1,18 @@
 package mod.drf.core;
 
+import mod.drf.common.gui.GuiOriginalWorkBench;
+import mod.drf.common.inventory.ContainerOriginalWorkBench;
 import mod.drf.core.log.ModLog;
 import mod.drf.foods.block.BlockCookingWorkBench;
 import mod.drf.foods.gui.GuiFreezer;
 import mod.drf.foods.gui.GuiIceCrasher;
 import mod.drf.foods.gui.GuiMillStone;
-import mod.drf.foods.gui.GuiOriginalWorkBench;
-import mod.drf.foods.inventory.ContainerOriginalWorkBench;
 import mod.drf.foods.tileentity.TileEntityFreezer;
 import mod.drf.foods.tileentity.TileEntityIceCrasher;
 import mod.drf.foods.tileentity.TileEntityMillStone;
+import mod.drf.furniture.block.BlockFurnitureWorkBench;
 import mod.drf.recipie.CookingMenu;
+import mod.drf.recipie.FurnitureMenu;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -54,6 +56,12 @@ public class ModGui implements IGuiHandler {
 			bk = world.getBlockState(new BlockPos(x,y,z));
 			if (bk.getBlock() instanceof BlockCookingWorkBench){
 				return new ContainerOriginalWorkBench(player.inventory, world, new BlockPos(x,y,z), CookingMenu.getInstance());
+			}
+		case ModCommon.MOD_GUI_ID_DWORKBENCH:
+			if(ModCommon.isDebug){ModLog.log().debug("Open Gui Dining Workbench");}
+			bk = world.getBlockState(new BlockPos(x,y,z));
+			if (bk.getBlock() instanceof BlockFurnitureWorkBench){
+				return new ContainerOriginalWorkBench(player.inventory, world, new BlockPos(x,y,z), FurnitureMenu.getInstance());
 			}
 		case ModCommon.MOD_GUI_ID_TRUNK:
 			if (ModCommon.isDebug){ModLog.log().debug("Open Container Trunk");}
@@ -101,6 +109,12 @@ public class ModGui implements IGuiHandler {
 			bk = world.getBlockState(new BlockPos(x,y,z));
 			if (bk.getBlock() instanceof BlockCookingWorkBench){
 				return new GuiOriginalWorkBench(player,world, new BlockPos(x,y,z),CookingMenu.getInstance());
+			}
+		case ModCommon.MOD_GUI_ID_DWORKBENCH:
+			if(ModCommon.isDebug){ModLog.log().debug("Open Gui Dining Workbench");}
+			bk = world.getBlockState(new BlockPos(x,y,z));
+			if (bk.getBlock() instanceof BlockFurnitureWorkBench){
+				return new GuiOriginalWorkBench(player,world, new BlockPos(x,y,z),FurnitureMenu.getInstance());
 			}
 		case ModCommon.MOD_GUI_ID_TRUNK:
 			if (ModCommon.isDebug){ModLog.log().debug("Open Gui Trunk");}

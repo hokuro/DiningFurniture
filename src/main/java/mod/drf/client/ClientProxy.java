@@ -12,8 +12,10 @@ import mod.drf.foods.tileentity.TileEntityFreezer;
 import mod.drf.foods.tileentity.TileEntityIceCrasher;
 import mod.drf.foods.tileentity.TileEntityMillStone;
 import mod.drf.foods.tileentity.TileEntitySaltPan;
-import mod.drf.furniture.item.ItemChairZabuton;
+import mod.drf.furniture.entity.EntityChair;
 import mod.drf.furniture.item.ItemFurniture;
+import mod.drf.furniture.item.ItemZabuton;
+import mod.drf.furniture.render.RenderChair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.entity.Render;
@@ -59,6 +61,27 @@ public class ClientProxy extends CommonProxy{
 				return new RenderCrashedIce(manager);
 			}
 		});
+		RenderingRegistry.registerEntityRenderingHandler(EntityChair.class,  new IRenderFactory<EntityChair>() {
+			@Override
+			public Render<? super EntityChair> createRenderFor(RenderManager manager) {
+				return new RenderChair(manager);
+			}
+		});
+
+
+//		RenderingRegistry.registerEntityRenderingHandler(EntityZabuton.class,  new IRenderFactory<EntityZabuton>() {
+//			@Override
+//			public Render<? super EntityZabuton> createRenderFor(RenderManager manager) {
+//				return new EntityZabutonRender(manager);
+//			}
+//		});
+//
+//		RenderingRegistry.registerEntityRenderingHandler(EntityWoodChair.class,  new IRenderFactory<EntityWoodChair>() {
+//			@Override
+//			public Render<? super EntityWoodChair> createRenderFor(RenderManager manager) {
+//				return new EntityWoodChairRender(manager);
+//			}
+//		});
 
 //		RenderingRegistry.registerEntityRenderingHandler(EntityChairZabuton.class,  new IRenderFactory<EntityChairZabuton>() {
 //			@Override
@@ -74,15 +97,9 @@ public class ClientProxy extends CommonProxy{
 	public void registerColorMap(){
 		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor()
         {
-            public int getColorFromItemstack(ItemStack stack, int tintIndex)
-            {
-                return ((ItemChairZabuton)ItemFurniture.item_zabuton).getColorFromItemStack(stack,tintIndex);
-            }
-
 			@Override
 			public int colorMultiplier(ItemStack stack, int tintIndex) {
-				// TODO 自動生成されたメソッド・スタブ
-				return 0;
+				return ((ItemZabuton)ItemFurniture.item_zabuton).getColorFromItemStack(stack,tintIndex);
 			}
         }, new Item[] {ItemFurniture.item_zabuton});
 	}

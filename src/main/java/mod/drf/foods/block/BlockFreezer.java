@@ -2,6 +2,7 @@ package mod.drf.foods.block;
 
 import java.util.Random;
 
+import mod.drf.common.block.BlockHorizontalContainer;
 import mod.drf.core.ModCommon;
 import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.foods.tileentity.TileEntityFreezer;

@@ -1,11 +1,12 @@
 package mod.drf.furniture.dispenser;
 
-import mod.drf.furniture.entity.EntityChairZabuton;
+import mod.drf.furniture.item.ItemChair;
 import net.minecraft.dispenser.BehaviorProjectileDispense;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.IPosition;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class BehaviorZabutonDispense extends BehaviorProjectileDispense
@@ -21,6 +22,9 @@ public class BehaviorZabutonDispense extends BehaviorProjectileDispense
 
 	@Override
 	protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stack) {
-		return new EntityChairZabuton(worldIn, position.getX(), position.getY(), position.getZ(), (byte)fitemstack.getItemDamage());
+		if ( stack.getItem() instanceof ItemChair){
+			return (((ItemChair)stack.getItem()).getEntityChair(worldIn, null, new BlockPos(position.getX(),position.getY(),position.getZ()),stack));
+		}
+		return null;
 	}
 }

@@ -59,6 +59,7 @@ public class BlockCookingWorkBench extends BlockHorizontal {
 	@Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
+		if (!worldIn.isRemote)
         playerIn.openGui(Mod_DiningFurniture.instance, ModCommon.MOD_GUI_ID_CWORKBENCH, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }

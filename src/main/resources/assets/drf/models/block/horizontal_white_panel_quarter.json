@@ -1,0 +1,7 @@
+{
+    "parent": "drf:block/horizpane_quarter",
+    "textures": {
+        "edge": "drf:blocks/tempglass_pane_top_white",
+        "pane": "drf:blocks/tempglass_white"
+    }
+}

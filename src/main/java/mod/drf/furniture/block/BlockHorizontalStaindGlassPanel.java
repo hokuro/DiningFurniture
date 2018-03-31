@@ -1,5 +1,7 @@
 package mod.drf.furniture.block;
 
+import java.util.Random;
+
 import mod.drf.core.Mod_DiningFurniture;
 import net.minecraft.block.BlockBeacon;
 import net.minecraft.block.BlockSlab;
@@ -31,6 +33,11 @@ public class BlockHorizontalStaindGlassPanel extends BlockHorizontalGlassPanel {
         this.setSoundType(SoundType.GLASS);
         this.setCreativeTab(Mod_DiningFurniture.tabFurniture);
     }
+
+	protected BlockHorizontalStaindGlassPanel(boolean tmp) {
+		this();
+		tempered = tmp;
+	}
 
     /**
      * Gets the metadata of the item this Block can drop. This method is called when the block gets destroyed. It
@@ -91,6 +98,16 @@ public class BlockHorizontalStaindGlassPanel extends BlockHorizontalGlassPanel {
             i |= 15;
         }
         return i;
+    }
+
+	@Override
+    public int quantityDropped(Random random)
+    {
+    	if (this.tempered){
+    		return 1;
+    	}else{
+    		return 0;
+    	}
     }
 
     protected BlockStateContainer createBlockState()

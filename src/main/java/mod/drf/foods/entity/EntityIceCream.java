@@ -8,7 +8,6 @@ import mod.drf.config.ConfigValue;
 import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.Item.ItemFoods.EnumIceFlavor;
 import mod.drf.foods.Item.ItemIceCream;
-import mod.drf.furniture.entity.EntityChairZabuton;
 import mod.drf.util.ModUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -45,7 +44,7 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 	public static final String NAME = "EntityIceCream";
 	public static final int LIMIT_TIME = 12000;
 
-	private static final DataParameter<Boolean> DISPENCE = EntityDataManager.<Boolean>createKey(EntityChairZabuton.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> DISPENCE = EntityDataManager.<Boolean>createKey(EntityIceCream.class, DataSerializers.BOOLEAN);
 	private int flavor;
 	private boolean inCookie;
 	private int timelimit;
@@ -364,7 +363,7 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 				Iterator var28 = var16.iterator();
 				while (var28.hasNext()) {
 					Entity var18 = (Entity)var28.next();
-					if (var18.canBePushed() && !(var18 instanceof EntityChairZabuton)){
+					if (var18.canBePushed() && !(var18 instanceof EntityIceCream)){
 						this.applyEntityCollision(var18);
 					}
 				}

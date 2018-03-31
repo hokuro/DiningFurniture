@@ -1,0 +1,7 @@
+{
+    "parent": "drf:block/pane_sw",
+    "textures": {
+        "edge": "drf:blocks/tempglass_pane_top_orange",
+        "pane": "drf:blocks/tempglass_orange"
+    }
+}

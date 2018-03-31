@@ -22,6 +22,8 @@ public final class ModCommon {
     // Entity ID
 	public static final int ENTITY_ID_ICECREAM = 1;
 	public static final int ENTITY_ID_CRAHSEDICE = 2;
+	public static final int ENTITY_ID_ZABUTON = 101;
+	public static final int ENTITY_ID_WOODCHAIR = 102;
 
 	//===========================================================//
     // GUI ID
@@ -29,7 +31,7 @@ public final class ModCommon {
 	public static final int MOD_GUI_ID_MILLSTONE = 2;
 	public static final int MOD_GUI_ID_FREEZER = 3;
 	public static final int MOD_GUI_ID_CWORKBENCH = 4;
-	public static final int MOD_GUI_ID_CWORKBENCHSELECT = 5;
+	public static final int MOD_GUI_ID_DWORKBENCH = 101;
 	public static final int MOD_GUI_ID_TRUNK = 104;
 	public static final int MOD_GUI_ID_UNLIMITANVIL = 102;
 	public static final int MOD_GUI_ID_ENTDELETER = 103;
@@ -41,6 +43,7 @@ public final class ModCommon {
 	public static final String MOD_GUI_FREEZER_NAME = ModCommon.MOD_ID + ":Freezer";
 	public static final String MOD_GUI_SALTPAN_NAME = ModCommon.MOD_ID + ":SaltPan";
 	public static final String MOD_GUI_CWORKBENCH_NAME = ModCommon.MOD_ID +":cworkbench";
+	public static final String MOD_GUI_DWORKBENCH_NAME = ModCommon.MOD_ID +":dworkbench";
 
 
 
