@@ -29,6 +29,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 
@@ -432,6 +433,13 @@ public class TileEntityFreezer extends TileEntityLockable implements ITickable, 
 
 			// 変更がある場合クライアントにメッセージを送る
 			Mod_DiningFurniture.Net_Instance.sendToAll(new MessageFreezer(this.timerCnt,this.timerFule,this.timerIce,this.tankCnt,this.isInfinit,this.pos));
+		}else{
+			if (this.timerFule != 0 || isInfinit){
+                double d3 = (double)pos.getX() + world.rand.nextDouble() * 0.10000000149011612D;
+                double d8 = (double)pos.getY() + world.rand.nextDouble();
+                double d13 = (double)pos.getZ() + world.rand.nextDouble();
+				world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, d3, d8, d13, 0.0D, 0.0D, 0.0D);
+			}
 		}
 
 		if (flag1)

@@ -215,7 +215,7 @@ public class ConfigValue {
 	}
 
 	public static class Setting_Mill{
-		@ConfigProperty(category="Setting_IceCream", comment="config.comment.soundon")
+		@ConfigProperty(category="Setting_Mill", comment="config.comment.soundon")
 		public static boolean sound_on = true;
 	}
 }
