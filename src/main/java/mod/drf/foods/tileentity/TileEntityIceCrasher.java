@@ -138,6 +138,7 @@ public class TileEntityIceCrasher extends TileEntityLockable implements ITickabl
 	}
 
 
+	@Override
 	public void update()
 	{
 		boolean flag = this.isRun;

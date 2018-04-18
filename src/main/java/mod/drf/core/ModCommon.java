@@ -3,8 +3,8 @@ package mod.drf.core;
 public final class ModCommon {
 	//===========================================================//
 	// デバッグ関連
-	public static boolean isDebug = true;                              // デバッグモードか?
-	public static boolean isDeveloped = true;                         // 開発モードか?
+	public static boolean isDebug = false;                              // デバッグモードか?
+	public static boolean isDeveloped = false;                         // 開発モードか?
 
 
 	//===========================================================//
