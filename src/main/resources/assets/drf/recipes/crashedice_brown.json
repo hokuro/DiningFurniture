@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "crashedice",
+  "ingredients": [
+    {
+      "item": "drf:syrup",
+      "data": 5
+    },
+    {
+      "item": "drf:crashedice",
+      "data": 0
+    }
+  ],
+  "result": {
+    "item": "drf:crashedice",
+    "data": 5
+  }
+}

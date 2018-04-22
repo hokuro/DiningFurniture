@@ -16,7 +16,10 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod(modid = ModCommon.MOD_ID, name = ModCommon.MOD_NAME, version = ModCommon.MOD_VERSION)
+@Mod(modid = ModCommon.MOD_ID,
+name = ModCommon.MOD_NAME,
+version = ModCommon.MOD_VERSION,
+acceptedMinecraftVersions = ModCommon.MOD_ACCEPTED_MC_VERSIONS)
 public class Mod_DiningFurniture {
 	@Mod.Instance(ModCommon.MOD_ID)
 	public static Mod_DiningFurniture instance;
@@ -46,7 +49,7 @@ public class Mod_DiningFurniture {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		ModRegister.RegisterEvent();
-		ModRegister.RegisterRecipe();
+		//ModRegister.RegisterRecipe();
         ModRegister.RegisterMessage();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, guiInstance);

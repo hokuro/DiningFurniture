@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "mk_crashedice",
+  "ingredients": [
+    {
+      "item": "drf:crashedice",
+      "data": 14
+    },
+    {
+      "item": "drf:condencedmilk"
+    }
+  ],
+  "result": {
+    "item": "drf:mk_crashedice",
+    "data": 14
+  }
+}

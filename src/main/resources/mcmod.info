@@ -1,21 +1,20 @@
 [
-{
-    "modid": "MgMg",
-    "name": "MgMgMod",
-    "description": "Add food. ",
-    "mcversion": "$mcversion",
-    "version": "$version",
-    "url": "",
-    "updateUrl": "",
-    "authors": [
-        "OhoNou"
-    ],
-    "credits": "",
-    "logoFile": "",
-    "screenshots": [
-    ],
+  {
+    "description":"Add foods and chairs . ",
     "parent":"",
-    "dependencies": [
-    ]
-}
+    "logoFile":"",
+    "credits":"basashi",
+    "dependencies":[],
+    "modid":"drf",
+    "mcversion":"1.12.2",
+    "screenshots":[],
+    "authorList":[
+      "basashi"
+    ],
+    "name":"DiningFurniture",
+    "url":"",
+    "updateUrl":"",
+    "version":"1.12.0",
+    "requiredMods":["Minecraft Forge1.12.2-14.23.3.2655+"]
+  }
 ]

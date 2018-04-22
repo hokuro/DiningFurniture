@@ -15,8 +15,12 @@ public final class ModCommon {
 	public static final String MOD_CLIENT_SIDE = ".client.ClientProxy";  // クライアントプロキシパッケージ
 	public static final String MOD_SERVER_SIDE = ".core.CommonProxy";    // サーバプロキシパッケージ
 	public static final String MOD_FACTRY = ".client.config.drmFactory"; // ファクトリパッケージ
-	public static final String MOD_VERSION = "@VERSION@";                // バージョン
+	public static final String MOD_VERSION = "1.12.0";                // バージョン
 	public static final String MOD_CHANEL ="Mod_Channel_DiningFurniture";// ネットワークチャンネル
+    // 前に読み込まれるべき前提MODをバージョン込みで指定
+    public static final String MOD_DEPENDENCIES = "required-after:Forge@[1.9-12.16.0.1853,)";
+    // 起動出来るMinecraft本体のバージョン。記法はMavenのVersion Range Specificationを検索すること。
+    public static final String MOD_ACCEPTED_MC_VERSIONS = "[1.12]";
 
 	//===========================================================//
     // Entity ID

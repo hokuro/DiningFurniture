@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "ckicecream",
+  "ingredients": [
+    {
+      "item": "minecraft:cookie"
+    },
+    {
+      "item": "drf:icecream",
+      "data": 22
+    }
+  ],
+  "result": {
+    "item": "drf:ck_icecream",
+    "data": 22
+  }
+}

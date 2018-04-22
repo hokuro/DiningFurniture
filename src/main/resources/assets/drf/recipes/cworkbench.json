@@ -1,0 +1,52 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "cworkbench",
+  "pattern": [
+    "WBH",
+    "IGI"
+  ],
+  "key": {
+    "W":   [
+      {
+        "item": "minecraft:planks",
+        "data": 0
+      },
+      {
+        "item": "minecraft:planks",
+        "data": 1
+      },
+      {
+        "item": "minecraft:planks",
+        "data": 2
+      },
+      {
+        "item": "minecraft:planks",
+        "data": 3
+      },
+      {
+        "item": "minecraft:planks",
+        "data": 4
+      },
+      {
+        "item": "minecraft:planks",
+        "data": 5
+      }
+    ],
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "H": {
+      "item": "minecraft:flint_and_steel"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "G": {
+      "item": "minecraft:iron_block"
+    }
+  },
+  "result": {
+    "item": "drf:cworkbench",
+    "count": 1
+  }
+}

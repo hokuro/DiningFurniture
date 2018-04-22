@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "saltpan",
+  "pattern": [
+    "WBW",
+    "WWW"
+  ],
+  "key": {
+    "W": [
+      {
+        "item": "minecraft:planks",
+        "data": 0
+      },
+      {
+        "item": "minecraft:planks",
+        "data": 1
+      },
+      {
+        "item": "minecraft:planks",
+        "data": 2
+      },
+      {
+        "item": "minecraft:planks",
+        "data": 3
+      },
+      {
+        "item": "minecraft:planks",
+        "data": 4
+      },
+      {
+        "item": "minecraft:planks",
+        "data": 5
+      }
+    ],
+    "B": {
+        "item": "minecraft:bucket"
+      }
+  },
+  "result": {
+    "item": "drf:saltpan",
+    "count": 1
+  }
+}

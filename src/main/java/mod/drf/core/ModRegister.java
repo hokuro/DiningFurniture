@@ -141,8 +141,9 @@ public class ModRegister {
 		proxy.registRender();
 	}
 
+	public static boolean flag = true;
 	public static void RegisterRecipe(){
-
+		if (flag){return;}
 		// 調理台
 		GameRegistry.addShapedRecipe(new ResourceLocation(ModCommon.MOD_ID + ":" + BlockFoods.NAME_COOKINGWORKBENCH),
 				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
@@ -232,56 +233,56 @@ public class ModRegister {
 					Ingredient.fromStacks(new ItemStack(ItemFoods.item_syrupmilk,1,0)));
 		}
 
-		// パイ
-		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":" + ItemFoods.NAME_PIECEPIE),
-				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
-				new ItemStack(ItemFoods.item_piecepie,7),
-				Ingredient.fromStacks(new ItemStack(BlockFoods.block_pie_hall)));
-		// キャラメルパイ
-		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":" + ItemFoods.NAME_PIECECARAMELPIE),
-				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
-				new ItemStack(ItemFoods.item_piececaramelpie,7),
-				Ingredient.fromStacks(new ItemStack(BlockFoods.block_caramelpie_hall)));
-		// チョコパイ
-		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":" + ItemFoods.NAME_PIECECHOCOPIE),
-				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
-				new ItemStack(ItemFoods.item_row_chocohallpie,7),
-				Ingredient.fromStacks(new ItemStack(BlockFoods.block_chocopie_hall)));
-		// 野菜パイ
-		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":"  + ItemFoods.NAME_PIECESALADAPIE),
-				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
-				new ItemStack(ItemFoods.item_piecesaladapie,7),
-				Ingredient.fromStacks(new ItemStack(BlockFoods.block_salada_hall)));
-		// ミートパイ
-		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":"  + ItemFoods.NAME_PIECEMEETPIE),
-				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
-				new ItemStack(ItemFoods.item_row_meethallpie,7),
-				Ingredient.fromStacks(new ItemStack(BlockFoods.block_meetpie_hall)));
-		// ふぃしゅぱい
-		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":"  + ItemFoods.NAME_PIECEFISHPIE),
-				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
-				new ItemStack(ItemFoods.item_row_fishhallpie,7),
-				Ingredient.fromStacks(new ItemStack(BlockFoods.block_fishpie_hall)));
-		// かぼちゃパイ
-		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":"  + ItemFoods.NAME_PIECEPUMPUKINPIE),
-				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
-				new ItemStack(ItemFoods.item_row_pumpkinhallpie,7),
-				Ingredient.fromStacks(new ItemStack(BlockFoods.block_pumpkinpie_hall)));
-		// リンゴパイ
-		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":"  + ItemFoods.NAME_PIECEAPPLEPIE),
-				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
-				new ItemStack(ItemFoods.item_pieceapplepie,7),
-				Ingredient.fromStacks(new ItemStack(BlockFoods.block_applepie_hall)));
-		// イカ墨パイ
-		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":"  + ItemFoods.NAME_PIECEblackPIE),
-				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
-				new ItemStack(ItemFoods.item_row_blackpie,7),
-				Ingredient.fromStacks(new ItemStack(BlockFoods.block_applepie_hall)));
-		// 腐ったパイ
-		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":" + ItemFoods.NAME_PIECEZOMBIPIE),
-				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
-				new ItemStack(ItemFoods.item_piecezombipie,7),
-				Ingredient.fromStacks(new ItemStack(BlockFoods.block_zombipei_hall)));
+//		// パイ
+//		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":" + ItemFoods.NAME_PIECEPIE),
+//				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
+//				new ItemStack(ItemFoods.item_piecepie,7),
+//				Ingredient.fromStacks(new ItemStack(BlockFoods.block_pie_hall)));
+//		// キャラメルパイ
+//		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":" + ItemFoods.NAME_PIECECARAMELPIE),
+//				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
+//				new ItemStack(ItemFoods.item_piececaramelpie,7),
+//				Ingredient.fromStacks(new ItemStack(BlockFoods.block_caramelpie_hall)));
+//		// チョコパイ
+//		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":" + ItemFoods.NAME_PIECECHOCOPIE),
+//				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
+//				new ItemStack(ItemFoods.item_row_chocohallpie,7),
+//				Ingredient.fromStacks(new ItemStack(BlockFoods.block_chocopie_hall)));
+//		// 野菜パイ
+//		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":"  + ItemFoods.NAME_PIECESALADAPIE),
+//				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
+//				new ItemStack(ItemFoods.item_piecesaladapie,7),
+//				Ingredient.fromStacks(new ItemStack(BlockFoods.block_salada_hall)));
+//		// ミートパイ
+//		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":"  + ItemFoods.NAME_PIECEMEETPIE),
+//				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
+//				new ItemStack(ItemFoods.item_row_meethallpie,7),
+//				Ingredient.fromStacks(new ItemStack(BlockFoods.block_meetpie_hall)));
+//		// ふぃしゅぱい
+//		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":"  + ItemFoods.NAME_PIECEFISHPIE),
+//				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
+//				new ItemStack(ItemFoods.item_row_fishhallpie,7),
+//				Ingredient.fromStacks(new ItemStack(BlockFoods.block_fishpie_hall)));
+//		// かぼちゃパイ
+//		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":"  + ItemFoods.NAME_PIECEPUMPUKINPIE),
+//				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
+//				new ItemStack(ItemFoods.item_row_pumpkinhallpie,7),
+//				Ingredient.fromStacks(new ItemStack(BlockFoods.block_pumpkinpie_hall)));
+//		// リンゴパイ
+//		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":"  + ItemFoods.NAME_PIECEAPPLEPIE),
+//				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
+//				new ItemStack(ItemFoods.item_pieceapplepie,7),
+//				Ingredient.fromStacks(new ItemStack(BlockFoods.block_applepie_hall)));
+//		// イカ墨パイ
+//		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":"  + ItemFoods.NAME_PIECEblackPIE),
+//				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
+//				new ItemStack(ItemFoods.item_row_blackpie,7),
+//				Ingredient.fromStacks(new ItemStack(BlockFoods.block_applepie_hall)));
+//		// 腐ったパイ
+//		GameRegistry.addShapelessRecipe(new ResourceLocation(ModCommon.MOD_ID + ":" + ItemFoods.NAME_PIECEZOMBIPIE),
+//				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
+//				new ItemStack(ItemFoods.item_piecezombipie,7),
+//				Ingredient.fromStacks(new ItemStack(BlockFoods.block_zombipei_hall)));
 		// 万能薬
 		GameRegistry.addShapedRecipe(new ResourceLocation(ModCommon.MOD_ID + ":" + ItemFoods.NAME_DUST_FLOWER + "_" + EnumFlowerHalb.PANACEA.toString()),
 				new ResourceLocation(ModCommon.MOD_ID + ":" + "Dining"),
