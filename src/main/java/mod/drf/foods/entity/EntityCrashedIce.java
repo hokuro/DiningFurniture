@@ -141,6 +141,10 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 	}
 
 	@Override
+	public void move(MoverType type, double x, double y, double z){
+	}
+
+	@Override
 	public boolean canBePushed() {
 		return true;
 	}

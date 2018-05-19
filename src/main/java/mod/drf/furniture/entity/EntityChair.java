@@ -401,9 +401,11 @@ public abstract class  EntityChair extends Entity  implements IProjectile, IEnti
 		if (ridden == entity) {
 			return;
 		}
-		if ((entity instanceof EntityLiving) && !(entity instanceof EntityPlayer) && ridden == null && entity.getPassengers().isEmpty()) {
-			entity.startRiding(this);
-			setRiddenByEntityID(entity);
+		if ((entity instanceof EntityLiving) && !(entity instanceof EntityPlayer) &&
+				ridden == null && entity.getPassengers().isEmpty() && !entity.isRiding()) {
+			if (entity.startRiding(this)){
+				setRiddenByEntityID(entity);
+			}
 		}
 		super.applyEntityCollision(entity);
 	}
