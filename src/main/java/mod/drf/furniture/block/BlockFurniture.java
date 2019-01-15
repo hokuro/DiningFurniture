@@ -53,6 +53,8 @@ public class BlockFurniture {
 	// 水平強化色付きガラスパネル
 	public static final String NAME_HORIZONTALTEMPERDSTAINDGLASSPANEL = "htempstainedglass_panel";
 
+	public static final String NAME_MAGICGLASS = "magicglass";
+
 	public static Block block_dworkbench;
 	public static Block block_temperedglass;
 	public static Block block_temperedglasspanel;
@@ -62,6 +64,7 @@ public class BlockFurniture {
 	public static Block block_horizontalstainedglasspanel;
 	public static Block block_horizontaltemperedglasspanel;
 	public static Block block_horizontaltemperedstainedglasspanel;
+	public static Block block_magicglass;
 
 
 
@@ -134,6 +137,13 @@ public class BlockFurniture {
 				.setUnlocalizedName(NAME_HORIZONTALTEMPERDSTAINDGLASSPANEL)
 				.setRegistryName(NAME_HORIZONTALTEMPERDSTAINDGLASSPANEL)
 				.setCreativeTab(Mod_DiningFurniture.tabFurniture);
+
+		block_magicglass = new BlockMagicGlass(Material.GROUND)
+				.setHardness(10.0F)
+				.setResistance(2000.0F)
+				.setUnlocalizedName(NAME_MAGICGLASS)
+				.setRegistryName(NAME_MAGICGLASS)
+				.setCreativeTab(Mod_DiningFurniture.tabFurniture);
 	}
 
 	public static Map<String,Block> blockMap(){
@@ -147,6 +157,7 @@ public class BlockFurniture {
 			{put(NAME_HORIZONTALSTAINEDGLASSPANEL,block_horizontalstainedglasspanel);}
 			{put(NAME_HORIZONTALTEMPERDGLASSPANEL,block_horizontaltemperedglasspanel);}
 			{put(NAME_HORIZONTALTEMPERDSTAINDGLASSPANEL,block_horizontaltemperedstainedglasspanel);}
+			{put(NAME_MAGICGLASS,block_magicglass);}
 		});
 	}
 
@@ -161,6 +172,7 @@ public class BlockFurniture {
 			{put(NAME_HORIZONTALSTAINEDGLASSPANEL,new BlockItemTemperedStainedGlassPane(block_horizontalstainedglasspanel).setRegistryName(NAME_HORIZONTALSTAINEDGLASSPANEL));}
 			{put(NAME_HORIZONTALTEMPERDGLASSPANEL,new BlockItemTemperedGlassPane(block_horizontaltemperedglasspanel).setRegistryName(NAME_HORIZONTALTEMPERDGLASSPANEL));}
 			{put(NAME_HORIZONTALTEMPERDSTAINDGLASSPANEL,new BlockItemTemperedStainedGlassPane(block_horizontaltemperedstainedglasspanel).setRegistryName(NAME_HORIZONTALTEMPERDSTAINDGLASSPANEL));}
+			{put(NAME_MAGICGLASS,new ItemBlock(block_magicglass).setRegistryName(NAME_MAGICGLASS));}
 			});
 	}
 
@@ -243,6 +255,7 @@ public class BlockFurniture {
 					new ResourceLocation(ModCommon.MOD_ID+":"+NAME_HORIZONTALSTAINEDGLASSPANEL+"_"+EnumDyeColor.RED),
 					new ResourceLocation(ModCommon.MOD_ID+":"+NAME_HORIZONTALSTAINEDGLASSPANEL+"_"+EnumDyeColor.BLACK)
 					});}
+			{put(NAME_MAGICGLASS,new ResourceLocation[]{new ResourceLocation(ModCommon.MOD_ID+":"+NAME_MAGICGLASS)});}
 			});
 	}
 }
