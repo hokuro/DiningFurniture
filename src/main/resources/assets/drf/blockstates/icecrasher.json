@@ -1,8 +1,8 @@
 {
     "variants": {
-        "facing=north": { "model": "drf:icecrasher"},
-        "facing=south": { "model": "drf:icecrasher", "y": 180 },
-        "facing=west":  { "model": "drf:icecrasher", "y": 270 },
-        "facing=east":  { "model": "drf:icecrasher", "y": 90 }
+        "facing=north": { "model": "drf:block/icecrasher"},
+        "facing=south": { "model": "drf:block/icecrasher", "y": 180 },
+        "facing=west":  { "model": "drf:block/icecrasher", "y": 270 },
+        "facing=east":  { "model": "drf:block/icecrasher", "y": 90 }
     }
 }

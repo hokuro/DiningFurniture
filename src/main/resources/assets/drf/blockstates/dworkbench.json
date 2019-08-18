@@ -1,9 +1,9 @@
 {
     "variants": {
-        "facing=north": { "model": "drf:dworkbench"},
-        "facing=south": { "model": "drf:dworkbench", "y": 180 },
-        "facing=west":  { "model": "drf:dworkbench", "y": 270 },
-        "facing=east":  { "model": "drf:dworkbench", "y": 90 }
+        "facing=north": { "model": "drf:block/dworkbench"},
+        "facing=south": { "model": "drf:block/dworkbench", "y": 180 },
+        "facing=west":  { "model": "drf:block/dworkbench", "y": 270 },
+        "facing=east":  { "model": "drf:block/dworkbench", "y": 90 }
     }
 }
 

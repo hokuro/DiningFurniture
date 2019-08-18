@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "millstone",
+  "pattern": [
+    "SS",
+    "YY",
+    "SS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:stone"
+    },
+    "Y": {
+      "item": "minecraft:flint"
+    }
+  },
+  "result": {
+    "item": "drf:millstone"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "crashedice",
+  "ingredients": [
+    {
+      "item": "drf:syrup_pumpkin"
+    },
+    {
+      "item": "drf:crashedice_pumpkin"
+    }
+  ],
+  "result": {
+    "item": "drf:crashedice_pumpkin"
+  }
+}

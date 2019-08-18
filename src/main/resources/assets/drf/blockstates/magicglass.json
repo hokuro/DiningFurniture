@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "drf:magicglass" }
+        "": { "model": "drf:block/magicglass" }
     }
 }

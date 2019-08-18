@@ -1,11 +1,11 @@
 {
     "variants": {
-        "bites=0": { "model": "drf:piehallsalada_uneaten" },
-        "bites=1": { "model": "drf:piehallsalada_slice1" },
-        "bites=2": { "model": "drf:piehallsalada_slice2" },
-        "bites=3": { "model": "drf:piehallsalada_slice3" },
-        "bites=4": { "model": "drf:piehallsalada_slice4" },
-        "bites=5": { "model": "drf:piehallsalada_slice5" },
-        "bites=6": { "model": "drf:piehallsalada_slice6" }
+        "bites=0": { "model": "drf:block/piehallsalada_uneaten" },
+        "bites=1": { "model": "drf:block/piehallsalada_slice1" },
+        "bites=2": { "model": "drf:block/piehallsalada_slice2" },
+        "bites=3": { "model": "drf:block/piehallsalada_slice3" },
+        "bites=4": { "model": "drf:block/piehallsalada_slice4" },
+        "bites=5": { "model": "drf:block/piehallsalada_slice5" },
+        "bites=6": { "model": "drf:block/piehallsalada_slice6" }
     }
 }

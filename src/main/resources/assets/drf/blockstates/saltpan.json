@@ -1,7 +1,7 @@
 {
     "variants": {
-        "level=0":{ "model":"drf:saltpan" },
-        "level=1":{ "model":"drf:saltpan_fill" },
-        "level=2":{ "model":"drf:saltpan_salt" }
+        "level=0":{ "model":"drf:block/saltpan" },
+        "level=1":{ "model":"drf:block/saltpan_fill" },
+        "level=2":{ "model":"drf:block/saltpan_salt" }
     }
 }

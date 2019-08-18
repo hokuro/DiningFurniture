@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal":{ "model":"drf:millstone" }
+        "":{ "model":"drf:block/millstone" }
     }
 }

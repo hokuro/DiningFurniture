@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "east=false,north=false,south=false,west=false": { "model": "drf:block/temp_panel_green_poll" },
+        "east=false,north=true,south=false,west=false": { "model": "drf:block/temp_panel_green_n" },
+        "east=true,north=false,south=false,west=false": { "model": "drf:block/temp_panel_green_n", "y": 90 },
+        "east=false,north=false,south=true,west=false": { "model": "drf:block/temp_panel_green_s" },
+        "east=false,north=false,south=false,west=true": { "model": "drf:block/temp_panel_green_s", "y": 90 },
+        "east=true,north=true,south=false,west=false": { "model": "drf:block/temp_panel_green_ne" },
+        "east=true,north=false,south=true,west=false": { "model": "drf:block/temp_panel_green_se" },
+        "east=false,north=false,south=true,west=true": { "model": "drf:block/temp_panel_green_sw" },
+        "east=false,north=true,south=false,west=true": { "model": "drf:block/temp_panel_green_nw" },
+        "east=false,north=true,south=true,west=false": { "model": "drf:block/temp_panel_green_ns" },
+        "east=true,north=false,south=false,west=true": { "model": "drf:block/temp_panel_green_ns", "y": 90 },
+        "east=true,north=true,south=true,west=false": { "model": "drf:block/temp_panel_green_nse" },
+        "east=true,north=false,south=true,west=true": { "model": "drf:block/temp_panel_green_sew" },
+        "east=false,north=true,south=true,west=true": { "model": "drf:block/temp_panel_green_nsw" },
+        "east=true,north=true,south=false,west=true": { "model": "drf:block/temp_panel_green_new" },
+        "east=true,north=true,south=true,west=true": { "model": "drf:block/temp_panel_green_nsew" }
+    }
+}

@@ -1,11 +1,11 @@
 {
     "variants": {
-        "bites=0": { "model": "drf:piehallzombi_uneaten" },
-        "bites=1": { "model": "drf:piehallzombi_slice1" },
-        "bites=2": { "model": "drf:piehallzombi_slice2" },
-        "bites=3": { "model": "drf:piehallzombi_slice3" },
-        "bites=4": { "model": "drf:piehallzombi_slice4" },
-        "bites=5": { "model": "drf:piehallzombi_slice5" },
-        "bites=6": { "model": "drf:piehallzombi_slice6" }
+        "bites=0": { "model": "drf:block/piehallzombi_uneaten" },
+        "bites=1": { "model": "drf:block/piehallzombi_slice1" },
+        "bites=2": { "model": "drf:block/piehallzombi_slice2" },
+        "bites=3": { "model": "drf:block/piehallzombi_slice3" },
+        "bites=4": { "model": "drf:block/piehallzombi_slice4" },
+        "bites=5": { "model": "drf:block/piehallzombi_slice5" },
+        "bites=6": { "model": "drf:block/piehallzombi_slice6" }
     }
 }
