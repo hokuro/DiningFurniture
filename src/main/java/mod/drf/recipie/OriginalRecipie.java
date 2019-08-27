@@ -6,12 +6,7 @@ import java.util.Map.Entry;
 import com.google.common.collect.Maps;
 
 import mod.drf.foods.Item.ItemFoods;
-import mod.drf.foods.Item.ItemFoods.EnumFlapeSyrup;
-import mod.drf.foods.Item.ItemFoods.EnumFlowerHalb;
-import mod.drf.foods.Item.ItemFoods.EnumIceFlavor;
 import mod.drf.util.ModUtil;
-import net.minecraft.block.BlockDoublePlant.EnumPlantType;
-import net.minecraft.block.BlockFlower.EnumFlowerType;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -31,74 +26,75 @@ public class OriginalRecipie {
 		addRecipie(new ItemStack(Items.CHICKEN), new ItemStack(ItemFoods.item_millchikin), ORIGINAL_RECIPIES.RECIPIE_MILLING);
 		addRecipie(new ItemStack(Items.MUTTON), new ItemStack(ItemFoods.item_millmutton), ORIGINAL_RECIPIES.RECIPIE_MILLING);
 		addRecipie(new ItemStack(Items.WHEAT),new ItemStack(ItemFoods.item_flour), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.DOUBLE_PLANT,1,EnumPlantType.SUNFLOWER.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.SUNFLOWER.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.DOUBLE_PLANT,1,EnumPlantType.ROSE.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.ROSE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.DOUBLE_PLANT,1,EnumPlantType.PAEONIA.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.PEONY.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.DOUBLE_PLANT,1,EnumPlantType.SYRINGA.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.LILAC.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.RED_FLOWER,1,EnumFlowerType.ALLIUM.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.ALLIUM.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.RED_FLOWER,1,EnumFlowerType.PINK_TULIP.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.TULIP.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.RED_FLOWER,1,EnumFlowerType.ORANGE_TULIP.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.TULIP.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.RED_FLOWER,1,EnumFlowerType.RED_TULIP.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.TULIP.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.RED_FLOWER,1,EnumFlowerType.WHITE_TULIP.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.TULIP.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.RED_FLOWER,1,EnumFlowerType.BLUE_ORCHID.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.ORCHID.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.YELLOW_FLOWER), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.DANDELION.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.RED_FLOWER,1,EnumFlowerType.HOUSTONIA.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.AZUREBLUET.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.RED_FLOWER,1,EnumFlowerType.OXEYE_DAISY.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.OXEYDAISY.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-		addRecipie(new ItemStack(Blocks.RED_FLOWER,1,EnumFlowerType.POPPY.getMeta()), new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.POPY.getDamage()), ORIGINAL_RECIPIES.RECIPIE_MILLING);
-
+		addRecipie(new ItemStack(Blocks.SUNFLOWER,1), new ItemStack(ItemFoods.item_flowerdust_sunflower,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.ROSE_BUSH,1), new ItemStack(ItemFoods.item_flowerdust_rose,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.PEONY,1), new ItemStack(ItemFoods.item_flowerdust_peony,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.LILAC,1), new ItemStack(ItemFoods.item_flowerdust_lilac,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.ALLIUM,1), new ItemStack(ItemFoods.item_flowerdust_allium,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.PINK_TULIP,1), new ItemStack(ItemFoods.item_flowerdust_tulip,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.ORANGE_TULIP,1), new ItemStack(ItemFoods.item_flowerdust_tulip,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.RED_TULIP,1), new ItemStack(ItemFoods.item_flowerdust_tulip,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.WHITE_TULIP,1), new ItemStack(ItemFoods.item_flowerdust_tulip,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.BLUE_ORCHID,1), new ItemStack(ItemFoods.item_flowerdust_orchid,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.DANDELION), new ItemStack(ItemFoods.item_flowerdust_dandelion,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.AZURE_BLUET,1), new ItemStack(ItemFoods.item_flowerdust_azurebluet,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.OXEYE_DAISY,1), new ItemStack(ItemFoods.item_flowerdust_oxeydaisy,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);
+		addRecipie(new ItemStack(Blocks.POPPY,1), new ItemStack(ItemFoods.item_flowerdust_popy,1), ORIGINAL_RECIPIES.RECIPIE_MILLING);
 		// Chasshing
-		addRecipie(new ItemStack(Blocks.ICE,1,32767), new ItemStack(ItemFoods.item_crashedice,1,0), ORIGINAL_RECIPIES.RECIPIE_CRASHING);
-		addRecipie(new ItemStack(Blocks.PACKED_ICE,1,32767), new ItemStack(ItemFoods.item_crashedice,1,0), ORIGINAL_RECIPIES.RECIPIE_CRASHING);
+		addRecipie(new ItemStack(Blocks.ICE,1), new ItemStack(ItemFoods.item_crashedice_none,1), ORIGINAL_RECIPIES.RECIPIE_CRASHING);
+		addRecipie(new ItemStack(Blocks.PACKED_ICE,1), new ItemStack(ItemFoods.item_crashedice_none,1), ORIGINAL_RECIPIES.RECIPIE_CRASHING);
+		addRecipie(new ItemStack(Blocks.BLUE_ICE,1), new ItemStack(ItemFoods.item_crashedice_none,1), ORIGINAL_RECIPIES.RECIPIE_CRASHING);
 
 		// Freezing
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_VANILA.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_VANILA.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_BLACK.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_BLACK.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_RED.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_RED.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_GREEN.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_GREEN.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_BROWN.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_BROWN.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_BLUE.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_BLUE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_PURPLE.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_PURPLE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_CYAN.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_CYAN.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_SILVER.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_SILVER.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_GRAY.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_GRAY.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_PINK.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_PINK.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_LIME.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_LIME.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_YELLOW.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_YELLOW.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_LIGHT_BLUE.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_LIGHT_BLUE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_MAGENTA.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_MAGENTA.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_ORANGE.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_ORANGE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_WHITE.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_WHITE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_APPLE.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_APPLE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_CACTUS.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_CACTUS.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_PUMPKIN.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_PUMPKIN.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_POTATO.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_POTATO.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_CARROT.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_CARROT.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_MELLON.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_MELLON.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_icemix,1,EnumIceFlavor.ICE_GREENTEA.getDamage()), new ItemStack(ItemFoods.item_icecream,1,EnumIceFlavor.ICE_GREENTEA.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_vanila,1), new ItemStack(ItemFoods.item_icecream_vanila,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_black,1), new ItemStack(ItemFoods.item_icecream_black,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_red,1), new ItemStack(ItemFoods.item_icecream_red,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_green,1), new ItemStack(ItemFoods.item_icecream_green,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_brown,1), new ItemStack(ItemFoods.item_icecream_brown,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_blue,1), new ItemStack(ItemFoods.item_icecream_blue,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_purple,1), new ItemStack(ItemFoods.item_icecream_purple,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_cyan,1), new ItemStack(ItemFoods.item_icecream_cyan,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_silver,1), new ItemStack(ItemFoods.item_icecream_silver,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_gray,1), new ItemStack(ItemFoods.item_icecream_gray,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_pink,1), new ItemStack(ItemFoods.item_icecream_pink,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_lime,1), new ItemStack(ItemFoods.item_icecream_lime,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_yellow,1), new ItemStack(ItemFoods.item_icecream_yellow,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_light_blue,1), new ItemStack(ItemFoods.item_icecream_light_blue,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_magenta,1), new ItemStack(ItemFoods.item_icecream_magenta,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_orange,1), new ItemStack(ItemFoods.item_icecream_orange,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_white,1), new ItemStack(ItemFoods.item_icecream_white,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_apple,1), new ItemStack(ItemFoods.item_icecream_apple,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_cactus,1), new ItemStack(ItemFoods.item_icecream_cactus,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_pumpkin,1), new ItemStack(ItemFoods.item_icecream_pumpkin,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_potato,1), new ItemStack(ItemFoods.item_icecream_potato,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_carrot,1), new ItemStack(ItemFoods.item_icecream_carrot,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_melon,1), new ItemStack(ItemFoods.item_icecream_melon,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_ice_mix_greentea,1), new ItemStack(ItemFoods.item_icecream_greentea,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
 
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_NONE.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_NONE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_SUGAR.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_SUGAR.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_BLACK.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_BLACK.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_RED.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_RED.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_GREEN.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_GREEN.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_BROWN.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_BROWN.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_BLUE.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_BLUE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_PURPLE.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_PURPLE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_CYAN.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_CYAN.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_SILVER.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_SILVER.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_GRAY.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_GRAY.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_PINK.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_PINK.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_LIME.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_LIME.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_YELLOW.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_YELLOW.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_LIGHT_BLUE.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_LIGHT_BLUE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_MAGENTA.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_MAGENTA.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_ORANGE.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_ORANGE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_WHITE.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_WHITE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_APPLE.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_APPLE.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_CACTUS.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_CACTUS.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_MELLON.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_MELLON.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_PUMPKIN.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_PUMPKIN.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
-		addRecipie(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.SYRUP_GREENTEA.getDamage()), new ItemStack(ItemFoods.item_icecandy,1,EnumFlapeSyrup.SYRUP_GREENTEA.getDamage()), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_none,1), new ItemStack(ItemFoods.item_icecandy_none,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_sugar,1), new ItemStack(ItemFoods.item_icecandy_sugar,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_black,1), new ItemStack(ItemFoods.item_icecandy_black,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_red,1), new ItemStack(ItemFoods.item_icecandy_red,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_green,1), new ItemStack(ItemFoods.item_icecandy_green,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_brown,1), new ItemStack(ItemFoods.item_icecandy_brown,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_blue,1), new ItemStack(ItemFoods.item_icecandy_blue,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_purple,1), new ItemStack(ItemFoods.item_icecandy_purple,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_cyan,1), new ItemStack(ItemFoods.item_icecandy_cyan,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_silver,1), new ItemStack(ItemFoods.item_icecandy_silver,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_gray,1), new ItemStack(ItemFoods.item_icecandy_gray,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_pink,1), new ItemStack(ItemFoods.item_icecandy_pink,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_lime,1), new ItemStack(ItemFoods.item_icecandy_lime,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_yellow,1), new ItemStack(ItemFoods.item_icecandy_yellow,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_light_blue,1), new ItemStack(ItemFoods.item_icecandy_light_blue,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_magenta,1), new ItemStack(ItemFoods.item_icecandy_magenta,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_orange,1), new ItemStack(ItemFoods.item_icecandy_orange,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_white,1), new ItemStack(ItemFoods.item_icecandy_white,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_apple,1), new ItemStack(ItemFoods.item_icecandy_apple,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_cactus,1), new ItemStack(ItemFoods.item_icecandy_cactus,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_melon,1), new ItemStack(ItemFoods.item_icecandy_melon,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_pumpkin,1), new ItemStack(ItemFoods.item_icecandy_pumpkin,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
+		addRecipie(new ItemStack(ItemFoods.item_sugar_water_greentea,1), new ItemStack(ItemFoods.item_icecandy_greentea,1), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
 
 		addRecipie(new ItemStack(Items.WATER_BUCKET), new ItemStack(Blocks.ICE), ORIGINAL_RECIPIES.RECIPIE_FREEZING);
 	}
@@ -125,7 +121,6 @@ public class OriginalRecipie {
 
 		Map<ItemStack,ItemStack> list = getList(kind);
 		if (list == null) {new IllegalArgumentException();}
-        if (getResultItem(list, input) != null) { net.minecraftforge.fml.common.FMLLog.info("Ignored smelting recipe with conflicting input: " + input + " = " + output); return; }
         list.put(input, output);
 	}
 

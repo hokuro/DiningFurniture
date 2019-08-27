@@ -6,10 +6,10 @@
       "item": "minecraft:cookie"
     },
     {
-      "item": "drf:icecream_lightblue"
+      "item": "drf:icecream_light_blue"
     }
   ],
   "result": {
-    "item": "drf:ck_icecream_lightblue"
+    "item": "drf:ck_icecream_light_blue"
   }
 }

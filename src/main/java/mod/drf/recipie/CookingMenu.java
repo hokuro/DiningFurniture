@@ -2,7 +2,6 @@ package mod.drf.recipie;
 
 import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.Item.ItemFoods.EnumFlapeSyrup;
-import mod.drf.foods.Item.ItemFoods.EnumFlowerHalb;
 import mod.drf.foods.Item.ItemFoods.EnumIceFlavor;
 import mod.drf.foods.block.BlockFoods;
 import mod.drf.util.ModUtil;
@@ -10,8 +9,6 @@ import mod.drf.util.ModUtil.CompaierLevel;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.ItemFishFood.FishType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
@@ -65,7 +62,7 @@ public class CookingMenu extends OriginalMenu {
 		if (check && this.isTopping){
 			check = false;
 			for (ItemStack item : topping){
-				if (ModUtil.compareItemStacks(ings[OriginalMenuKind.COOKING.getLength()-1], item, CompaierLevel.LEVEL_EQUAL_META)&&
+				if (ModUtil.compareItemStacks(ings[OriginalMenuKind.COOKING.getLength()-1], item, CompaierLevel.LEVEL_EQUAL_ITEM)&&
 						ings[OriginalMenuKind.COOKING.getLength()-1].getCount() >= item.getCount()){
 					check = true;
 					break;
@@ -162,10 +159,10 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.EGG,1)
 				},
 				new ItemStack[]{
-						new ItemStack(Items.FISH,1,FishType.COD.getMetadata()),
-						new ItemStack(Items.FISH,1,FishType.CLOWNFISH.getMetadata()),
-						new ItemStack(Items.FISH,1,FishType.PUFFERFISH.getMetadata()),
-						new ItemStack(Items.FISH,1,FishType.SALMON.getMetadata()),
+						new ItemStack(Items.COD,1),
+						new ItemStack(Items.TROPICAL_FISH,1),
+						new ItemStack(Items.PUFFERFISH,1),
+						new ItemStack(Items.SALMON,1),
 				}));
 		// かぼちゃパイ
 		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_row_pumpkinhallpie,1),
@@ -198,7 +195,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.EGG,1)
 				},
 				new ItemStack[]{
-						new ItemStack(Items.DYE,1, EnumDyeColor.BLACK.getDyeDamage())
+						new ItemStack(Items.INK_SAC,1)
 				}));
 		// 腐ったパイ
 		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_row_zombihallpie,1),
@@ -217,7 +214,7 @@ public class CookingMenu extends OriginalMenu {
 				new ItemStack[]{
 						new ItemStack(BlockFoods.block_pie_hall,1)
 				},
-				new ItemStack[]{new ItemStack(ItemFoods.item_caramel,1,0)}));
+				new ItemStack[]{new ItemStack(ItemFoods.item_caramel,1)}));
 
 		// チョコケーキ
 		registerMenu(new CookingMenu(new ItemStack(BlockFoods.block_choco_cake,1),
@@ -266,7 +263,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.EGG,1)
 				},
 				new ItemStack[]{
-						new ItemStack(Items.MELON,1)
+						new ItemStack(Items.MELON_SLICE,1)
 				}));
 
 		// パンプキンケーキ
@@ -302,7 +299,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.EGG,1)
 				},
 				new ItemStack[]{
-						new ItemStack(Items.DYE,1, EnumDyeColor.BLACK.getDyeDamage())
+						new ItemStack(Items.INK_SAC,1)
 				}));
 
 		// 腐ったケーキ
@@ -348,10 +345,10 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(BlockFoods.block_cheese,1)
 				},
 				new ItemStack[]{
-						new ItemStack(Items.FISH,1,FishType.COD.getMetadata()),
-						new ItemStack(Items.FISH,1,FishType.CLOWNFISH.getMetadata()),
-						new ItemStack(Items.FISH,1,FishType.PUFFERFISH.getMetadata()),
-						new ItemStack(Items.FISH,1,FishType.SALMON.getMetadata()),
+						new ItemStack(Items.COD,1),
+						new ItemStack(Items.TROPICAL_FISH,1),
+						new ItemStack(Items.PUFFERFISH,1),
+						new ItemStack(Items.SALMON,1),
 				}));
 
 		// チーズ
@@ -379,7 +376,7 @@ public class CookingMenu extends OriginalMenu {
 
 		// アイスクリームの素
 		for (int i = 0; i < EnumIceFlavor.values.length; i++){
-			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_icemix,1, EnumIceFlavor.getValue(i).getDamage()),
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.icemixList[i],1),
 					new ItemStack[]{
 							new ItemStack(Items.EGG,3),
 							new ItemStack(Items.MILK_BUCKET,1),
@@ -391,9 +388,9 @@ public class CookingMenu extends OriginalMenu {
 		}
 		// シロップ
 		for (int i = 1; i < EnumFlapeSyrup.values.length; i++){
-			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_syrup,1,EnumFlapeSyrup.getValue(i).getDamage()),
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.syrupList[i-1],1),
 					new ItemStack[]{
-							PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM,1,0), PotionType.getPotionTypeForName("water")),
+							PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
 							new ItemStack(Items.SUGAR,2)
 					},
 					EnumFlapeSyrup.getValue(i).getBaseItem()
@@ -402,25 +399,25 @@ public class CookingMenu extends OriginalMenu {
 
 		// シロップかけかき氷
 		for (int i = 1; i < EnumFlapeSyrup.values.length; i++){
-			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_crashedice,1,EnumFlapeSyrup.getValue(i).getDamage()),
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.flapelist[i],1),
 					new ItemStack[]{
-							new ItemStack(ItemFoods.item_crashedice,1,0),
-							new ItemStack(ItemFoods.item_syrup,1,EnumFlapeSyrup.getValue(i).getDamage())
+							new ItemStack(ItemFoods.item_crashedice_none,1),
+							new ItemStack(ItemFoods.syrupList[i-1],1)
 					}
 					));
 		}
 		// 練乳掛けかき氷
-		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_milkcrashedice,1,0),
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_crashedice_milk_none,1),
 				new ItemStack[]{
-						new ItemStack(ItemFoods.item_crashedice,1,0),
+						new ItemStack(ItemFoods.item_crashedice_none,1),
 						new ItemStack(ItemFoods.item_syrupmilk,1)
 				}));
 
 		// 練乳シロップかき氷(シロップ→練乳)
-		for (int i = 1; i < EnumFlapeSyrup.values.length; i++){
-			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_milkcrashedice,1,EnumFlapeSyrup.getValue(i).getDamage()),
+		for (int i = 0; i < EnumFlapeSyrup.values.length; i++){
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.mkflapelist[i],1),
 					new ItemStack[]{
-							new ItemStack(ItemFoods.item_crashedice,1,EnumFlapeSyrup.getValue(i).getDamage()),
+							new ItemStack(ItemFoods.flapelist[i],1),
 							new ItemStack(ItemFoods.item_syrupmilk,1)
 					}
 					));
@@ -429,10 +426,10 @@ public class CookingMenu extends OriginalMenu {
 
 		// 練乳シロップかき氷(練乳→シロップ)
 		for (int i = 1; i < EnumFlapeSyrup.values.length; i++){
-			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_milkcrashedice,1,EnumFlapeSyrup.getValue(i).getDamage()),
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.mkflapelist[i],1),
 					new ItemStack[]{
-							new ItemStack(ItemFoods.item_milkcrashedice,1,0),
-							new ItemStack(ItemFoods.item_syrup,1,EnumFlapeSyrup.getValue(i).getDamage())
+							new ItemStack(ItemFoods.item_crashedice_milk_none,1),
+							new ItemStack(ItemFoods.syrupList[i-1],1)
 					}
 					));
 		}
@@ -440,11 +437,11 @@ public class CookingMenu extends OriginalMenu {
 
 		// 練乳シロップかき氷(練乳かき氷+シロップ)
 		for (int i = 1; i < EnumFlapeSyrup.values.length; i++){
-			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_milkcrashedice,1,EnumFlapeSyrup.getValue(i).getDamage()),
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.mkflapelist[i],1),
 					new ItemStack[]{
-							new ItemStack(ItemFoods.item_crashedice,1,0),
+							new ItemStack(ItemFoods.item_crashedice_none,1),
 							new ItemStack(ItemFoods.item_syrupmilk,1),
-							new ItemStack(ItemFoods.item_syrup,1,EnumFlapeSyrup.getValue(i).getDamage())
+							new ItemStack(ItemFoods.syrupList[i-1],1)
 					}
 					));
 		}
@@ -452,20 +449,17 @@ public class CookingMenu extends OriginalMenu {
 
 
 		// アイスキャンディの素
-		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_sugarwater,1,0),
-					new ItemStack[]{
-							PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM,1,0), PotionType.getPotionTypeForName("water")),
-							new ItemStack(Items.SUGAR,2),
-							new ItemStack(Items.STICK,1)
-					},
-					new ItemStack[]{
-							new ItemStack(Items.MILK_BUCKET,1)
-					}
-					));
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.sugarwaterList[0],1),
+				new ItemStack[]{
+						PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
+						new ItemStack(Items.STICK,1)
+				},
+				EnumFlapeSyrup.getValue(0).getBaseItem()
+				));
 		for (int i = 1; i < EnumFlapeSyrup.values.length; i++){
-			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_sugarwater,1,EnumFlapeSyrup.getValue(i).getDamage()),
+			registerMenu(new CookingMenu(new ItemStack(ItemFoods.sugarwaterList[i],1),
 					new ItemStack[]{
-							PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM,1,0), PotionType.getPotionTypeForName("water")),
+							PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
 							new ItemStack(Items.SUGAR,2),
 							new ItemStack(Items.STICK,1)
 					},
@@ -476,7 +470,7 @@ public class CookingMenu extends OriginalMenu {
 		// チョコ
 		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_choco,1),
 				new ItemStack[]{
-						new ItemStack(Items.DYE,3,EnumDyeColor.BROWN.getDyeDamage()),
+						new ItemStack(Items.COCOA_BEANS,3),
 						new ItemStack(Items.SUGAR,1)
 						},
 				new ItemStack[]{
@@ -485,7 +479,7 @@ public class CookingMenu extends OriginalMenu {
 		// ホワイトチョコ
 		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_whitechoco,1),
 				new ItemStack[]{
-						new ItemStack(Items.DYE,3,EnumDyeColor.BROWN.getDyeDamage()),
+						new ItemStack(Items.COCOA_BEANS,3),
 						new ItemStack(Items.SUGAR,1)
 						},
 				new ItemStack[]{
@@ -618,7 +612,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.ROTTEN_FLESH,1)
 						},
 				new ItemStack[]{
-						new ItemStack(Items.DYE,1,EnumDyeColor.WHITE.getDyeDamage())
+						new ItemStack(Items.BONE_MEAL,1)
 				}));
 
 		// アオカビ
@@ -627,7 +621,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.ROTTEN_FLESH,1)
 						},
 				new ItemStack[]{
-						new ItemStack(Items.DYE,1,EnumDyeColor.BLUE.getDyeDamage())
+						new ItemStack(Items.LAPIS_LAZULI,1)
 				}));
 
 		// うどん
@@ -679,10 +673,10 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.BOWL,1)
 						},
 				new ItemStack[]{
-						new ItemStack(Items.FISH,1, FishType.CLOWNFISH.getMetadata()),
-						new ItemStack(Items.FISH,1, FishType.COD.getMetadata()),
-						new ItemStack(Items.FISH,1, FishType.SALMON.getMetadata()),
-						new ItemStack(Items.FISH,1, FishType.PUFFERFISH.getMetadata())
+						new ItemStack(Items.COD,1),
+						new ItemStack(Items.TROPICAL_FISH,1),
+						new ItemStack(Items.PUFFERFISH,1),
+						new ItemStack(Items.SALMON,1),
 				}));
 		// イカ墨パスタ
 		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_blackpasta,1),
@@ -691,7 +685,7 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.BOWL,1)
 						},
 				new ItemStack[]{
-						new ItemStack(Items.DYE,1,EnumDyeColor.BLACK.getDyeDamage())
+						new ItemStack(Items.INK_SAC,1)
 				}));
 		// ざるうどん
 		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_zaruudon,1),
@@ -764,10 +758,10 @@ public class CookingMenu extends OriginalMenu {
 						new ItemStack(Items.WATER_BUCKET,1)
 						},
 				new ItemStack[]{
-						new ItemStack(Items.FISH,1, FishType.CLOWNFISH.getMetadata()),
-						new ItemStack(Items.FISH,1, FishType.COD.getMetadata()),
-						new ItemStack(Items.FISH,1, FishType.SALMON.getMetadata()),
-						new ItemStack(Items.FISH,1, FishType.PUFFERFISH.getMetadata())
+						new ItemStack(Items.COD,1),
+						new ItemStack(Items.TROPICAL_FISH,1),
+						new ItemStack(Items.PUFFERFISH,1),
+						new ItemStack(Items.SALMON,1),
 				}));
 		// 月見ラーメン
 		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_tsukimiramen,1),
@@ -782,14 +776,100 @@ public class CookingMenu extends OriginalMenu {
 
 
 		// お茶
-		for (int i = 0; i < EnumFlowerHalb.values.length; i++){
-			registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_teaflower,1,EnumFlowerHalb.getValue(i).getDamage()),
-					new ItemStack[]{
-							PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM,1,0), PotionType.getPotionTypeForName("water")),
-							},
-					new ItemStack[]{
-							new ItemStack(ItemFoods.item_dustflower,1,EnumFlowerHalb.getValue(i).getDamage())
-					}));
-		}
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_flowertea_dandelion,1),
+				new ItemStack[]{
+						PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
+						},
+				new ItemStack[]{
+						new ItemStack(ItemFoods.item_flowerdust_dandelion,1)
+				}));
+
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_flowertea_popy,1),
+				new ItemStack[]{
+						PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
+						},
+				new ItemStack[]{
+						new ItemStack(ItemFoods.item_flowerdust_popy,1)
+				}));
+
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_flowertea_orchid,1),
+				new ItemStack[]{
+						PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
+						},
+				new ItemStack[]{
+						new ItemStack(ItemFoods.item_flowerdust_orchid,1)
+				}));
+
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_flowertea_allium,1),
+				new ItemStack[]{
+						PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
+						},
+				new ItemStack[]{
+						new ItemStack(ItemFoods.item_flowerdust_allium,1)
+				}));
+
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_flowertea_azurebluet,1),
+				new ItemStack[]{
+						PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
+						},
+				new ItemStack[]{
+						new ItemStack(ItemFoods.item_flowerdust_azurebluet,1)
+				}));
+
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_flowertea_tulip,1),
+				new ItemStack[]{
+						PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
+						},
+				new ItemStack[]{
+						new ItemStack(ItemFoods.item_flowerdust_tulip,1)
+				}));
+
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_flowertea_oxeydaisy,1),
+				new ItemStack[]{
+						PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
+						},
+				new ItemStack[]{
+						new ItemStack(ItemFoods.item_flowerdust_oxeydaisy,1)
+				}));
+
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_flowertea_sunflower,1),
+				new ItemStack[]{
+						PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
+						},
+				new ItemStack[]{
+						new ItemStack(ItemFoods.item_flowerdust_sunflower,1)
+				}));
+
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_flowertea_lilac,1),
+				new ItemStack[]{
+						PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
+						},
+				new ItemStack[]{
+						new ItemStack(ItemFoods.item_flowerdust_lilac,1)
+				}));
+
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_flowertea_rose,1),
+				new ItemStack[]{
+						PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
+						},
+				new ItemStack[]{
+						new ItemStack(ItemFoods.item_flowerdust_rose,1)
+				}));
+
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_flowertea_peony,1),
+				new ItemStack[]{
+						PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
+						},
+				new ItemStack[]{
+						new ItemStack(ItemFoods.item_flowerdust_peony,1)
+				}));
+
+		registerMenu(new CookingMenu(new ItemStack(ItemFoods.item_flowertea_panacea,1),
+				new ItemStack[]{
+						PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION,1), PotionType.getPotionTypeForName("water")),
+						},
+				new ItemStack[]{
+						new ItemStack(ItemFoods.item_flowerdust_panacea,1)
+				}));
     }
 }

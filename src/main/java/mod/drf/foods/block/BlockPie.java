@@ -4,23 +4,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import mod.drf.core.ModCommon;
-import mod.drf.core.Mod_DiningFurniture;
-import mod.drf.core.log.ModLog;
+import javax.annotation.Nullable;
+
+import mod.drf.config.ConfigValue;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCake;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class BlockPie extends BlockCake {
 
@@ -39,10 +44,9 @@ public class BlockPie extends BlockCake {
 	};
 
 	private BlockPie(){
-		super();
-		this.setSoundType(SoundType.CLOTH);
-		this.setHardness(0.5F);
-		this.setCreativeTab(Mod_DiningFurniture.tabPieCakes);
+		super(Block.Properties.create(Material.CAKE).
+				hardnessAndResistance(0.5F)
+				.sound(SoundType.CLOTH));
 	}
 
 	public BlockPie(int heall, float saturation){
@@ -61,35 +65,31 @@ public class BlockPie extends BlockCake {
     }
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
-    {
+	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         this.eatPie(worldIn, pos, state, playerIn);
         return true;
     }
 
 	@Override
-    public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
-    {
+	public void onBlockClicked(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn) {
         this.eatPie(worldIn, pos, worldIn.getBlockState(pos), playerIn);
     }
 
     private void eatPie(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player)
     {
-		if (ModCommon.isDebug){ModLog.log().debug("start eat " + this.getRegistryName());}
     	// 回復
-        if (player.canEat(false) || player.capabilities.isCreativeMode)
+        if (player.canEat(ConfigValue.piecake.CanEatAllways()) || player.isCreative())
         {
             player.getFoodStats().addStats(_heall, _saturationLevel);
-    		if (ModCommon.isDebug){ ModLog.log().debug("(" + _heall + ", " + (_saturationLevel*2.0*_heall) + ")" );}
-            int i = ((Integer)state.getValue(BITES)).intValue();
+            int i = ((Integer)state.getValues().get(BITES)).intValue();
 
             if (i < 6)
             {
-                worldIn.setBlockState(pos, state.withProperty(BITES, Integer.valueOf(i + 1)), 3);
+                worldIn.setBlockState(pos, state.with(BITES, Integer.valueOf(i + 1)), 3);
             }
             else
             {
-                worldIn.setBlockToAir(pos);
+                worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
             }
         }
 
@@ -101,11 +101,9 @@ public class BlockPie extends BlockCake {
                 for (PotionEffect potioneffect : _effect)
                 {
                 	player.addPotionEffect(new PotionEffect(potioneffect));
-            		ModLog.log().debug("potion:"+potioneffect.getEffectName());
                 }
             }
         }
-		if (ModCommon.isDebug){ ModLog.log().debug("end" + this.getRegistryName());}
     }
 
 
@@ -121,16 +119,14 @@ public class BlockPie extends BlockCake {
     }
 
 
-    /**
-     * allows items to add custom lines of information to the mouseover description
-     */
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
-    {
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         PotionUtils.addPotionTooltip(stack, tooltip, 1.0F);
     }
 
-    @SideOnly(Side.CLIENT)
+
     public boolean hasEffect(ItemStack stack)
     {
         return !PotionUtils.getEffectsFromStack(stack).isEmpty();

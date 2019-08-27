@@ -1,6 +1,6 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "drf:items/zabuton"
+        "layer0": "drf:items/zabuton_magenta"
     }
 }

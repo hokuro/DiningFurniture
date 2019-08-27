@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.BlockFlowingFluid;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -21,6 +22,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -30,12 +32,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.structure.StructureBoundingBox;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class  EntityChair extends Entity  implements IProjectile, IEntityAdditionalSpawnData{
 	private static final DataParameter<Boolean> DISPENCE = EntityDataManager.<Boolean>createKey(EntityZabuton.class, DataSerializers.BOOLEAN);
@@ -57,8 +58,8 @@ public abstract class  EntityChair extends Entity  implements IProjectile, IEnti
 	public boolean isDispensed;
 	protected int posIncrements;
 
-	public EntityChair(World worldIn){
-		super(worldIn);
+	public EntityChair(EntityType<?> etype, World worldIn){
+		super(etype, worldIn);
 		this.preventEntitySpawning = true;
 		setSize(0.81F,0.2F);
 		health = 20;
@@ -66,14 +67,14 @@ public abstract class  EntityChair extends Entity  implements IProjectile, IEnti
 		entityItem = ItemStack.EMPTY;
 	}
 
-	public EntityChair(World worldIn, ItemStack item) {
-		super(worldIn);
+	public EntityChair(EntityType<?> etype, World worldIn, ItemStack item) {
+		this(etype, worldIn);
 		entityItem = item.copy();
 		entityItem.setCount(1);
 	}
 
-	public EntityChair(World worldIn, double x, double y, double z, ItemStack item){
-		this(worldIn, item);
+	public EntityChair(EntityType<?> etype, World worldIn, double x, double y, double z, ItemStack item){
+		this(etype, worldIn, item);
 		setPositionAndRotation(x,y,z,0F,0F);
 		motionX = 0.0D;
 		motionY = 0.0D;
@@ -116,19 +117,19 @@ public abstract class  EntityChair extends Entity  implements IProjectile, IEnti
 
 
 	@Override
-	protected void entityInit() {
+	protected void registerData() {
 		this.dataManager.register(DISPENCE, isDispensed);
 		this.dataManager.register(RIDEENTITY, 0);
 	}
 
 	@Override
 	public AxisAlignedBB getCollisionBox(Entity par1Entity) {
-		return par1Entity.getEntityBoundingBox();
+		return par1Entity.getBoundingBox();
 	}
 
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox() {
-		return this.getEntityBoundingBox();
+		return this.getBoundingBox();
 	}
 
 	@Override
@@ -137,23 +138,22 @@ public abstract class  EntityChair extends Entity  implements IProjectile, IEnti
 	}
 
 
-
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound tagCompund) {
+	protected void readAdditional(NBTTagCompound tagCompund) {
 		health = tagCompund.getShort("Health");
 
 		if (tagCompund.getBoolean("hasItem")){
-			entityItem = new ItemStack(tagCompund);
+			entityItem = ItemStack.read(tagCompund);
 		}
 	}
 
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound tagCompound) {
+	protected void writeAdditional(NBTTagCompound tagCompound) {
 		tagCompound.setShort("Health", (byte)health);
 		if (!entityItem.isEmpty()){
 			tagCompound.setBoolean("hasItem", true);
-			entityItem.writeToNBT(tagCompound);
+			entityItem.write(tagCompound);
 		}
 	}
 
@@ -175,8 +175,8 @@ public abstract class  EntityChair extends Entity  implements IProjectile, IEnti
 	@Override
 	public boolean handleWaterMovement() {
 		// 独自の水没判定
-		AxisAlignedBB  bbbox = getEntityBoundingBox();
-		StructureBoundingBox box = new StructureBoundingBox((int)bbbox.minX, (int)bbbox.minY,(int)bbbox.minZ,(int)bbbox.maxX+1,(int)bbbox.maxY+1,(int)bbbox.maxZ+1);
+		AxisAlignedBB  bbbox = this.getBoundingBox();
+		MutableBoundingBox box = new MutableBoundingBox((int)bbbox.minX, (int)bbbox.minY,(int)bbbox.minZ,(int)bbbox.maxX+1,(int)bbbox.maxY+1,(int)bbbox.maxZ+1);
 		if (!world.isAreaLoaded(box)) {
 			return false;
 		} else {
@@ -185,10 +185,13 @@ public abstract class  EntityChair extends Entity  implements IProjectile, IEnti
 			for (int x = box.minX; x < box.maxX; ++x) {
 				for (int y = box.minY; y < box.maxY; ++y) {
 					for (int z = box.minZ; z < box.maxZ; ++z) {
-						Block blk = world.getBlockState(new BlockPos(x,y,z)).getBlock();
+						IBlockState state = world.getBlockState(new BlockPos(x,y,z));
+						Block blk = state.getBlock();
 						if (blk != null && blk.getMaterial(null) == Material.WATER) {
 							inWater = true;
-							double var16 = (double)((float)(y + 1) - BlockLiquid.getLiquidHeightPercent(blk.getMetaFromState(world.getBlockState(new BlockPos(x, y, z)))));
+							int level = (int)state.getValues().get(BlockFlowingFluid.LEVEL);
+							if (level < 8) {level = 0;}
+							double var16 = (double)((float)(y + 1) - (level+1)/9.0F);
 							if ((double)box.maxY >= var16) {
 								var10 = true;
 							}
@@ -206,26 +209,26 @@ public abstract class  EntityChair extends Entity  implements IProjectile, IEnti
 	public boolean attackEntityFrom(DamageSource damagesource, float pDammage) {
 		// 攻撃したもの
 		Entity entity = damagesource.getTrueSource();
-		if(world.isRemote || isDead) {
+		if(world.isRemote || !isAlive()) {
 			return true;
 		}
 		markVelocityChanged();
 		if (entity instanceof EntityPlayer) {
 			// プレイヤーからの攻撃ならアイテムドロップ
 			entityDropItem(entityItem.copy(), 0.0F);
-			setDead();
+			remove();
 		} else {
 			// そのほかからなら、ダメージ、体力がなくなったら消滅
 			health -= pDammage;
 			if(health <= 0) {
-				setDead();
+				remove();
 			}
 		}
 		// エンティティが消ええた
-		if (isDead) {
+		if (!isAlive()) {
 			// 座っているやつをどける
 			for(Entity ent : this.getPassengers()){
-				ent.dismountRidingEntity();	// 立ち上がらせる
+				ent.stopRiding();	// 立ち上がらせる
 				setRiddenByEntityID(null);  // 座っているエンティティのIDを設定
 			}
 		}
@@ -234,11 +237,11 @@ public abstract class  EntityChair extends Entity  implements IProjectile, IEnti
 
 	@Override
 	public boolean canBeCollidedWith() {
-		return !this.isDead;
+		return isAlive();
 	}
 
 	@Override
-	@ SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
     public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_)
      {
 		this.setPosition(x, y, z);
@@ -253,8 +256,8 @@ public abstract class  EntityChair extends Entity  implements IProjectile, IEnti
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tick() {
+		super.tick();
 
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;
@@ -356,7 +359,8 @@ public abstract class  EntityChair extends Entity  implements IProjectile, IEnti
 
 
 			// 当たり判定
-			List<Entity> var16 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.17D, 0.0D, 0.17D));
+
+			List<Entity> var16 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getBoundingBox().expand(0.5D, 0.5D, 0.5D).expand(-0.5D, -0.5D, -0.5D));
 			if (var16 != null && !var16.isEmpty()) {
 				Iterator var28 = var16.iterator();
 				while (var28.hasNext()) {
@@ -372,14 +376,14 @@ public abstract class  EntityChair extends Entity  implements IProjectile, IEnti
 				// 座ってる間は消滅させない
 				setEntityLivingAge((EntityLivingBase)ridden, 0);
 			}
-			if (ridden.isDead) {
+			if (!ridden.isAlive()) {
 				// 着座対象が死んだら無人化
-				ridden.dismountRidingEntity();
+				ridden.stopRiding();
 				setRiddenByEntityID(null);
 			}
 			else if (inWater) {
 				// ぬれた座布団はひゃぁってなる
-				ridden.dismountRidingEntity();
+				ridden.stopRiding();
 				setRiddenByEntityID(null);
 			}
 		}
@@ -387,7 +391,8 @@ public abstract class  EntityChair extends Entity  implements IProjectile, IEnti
 
 	public void setEntityLivingAge(EntityLivingBase entity, int a)
 	{
-		ObfuscationReflectionHelper.setPrivateValue(EntityLivingBase.class, entity, a, "field_70708_bq","entityAge");
+		entity.deathTime = 0;
+		//ObfuscationReflectionHelper.getPrivateValue(EntityLivingBase.class, entity, a, "field_70708_bq","entityAge");
 	}
 
 	@Override
@@ -455,11 +460,11 @@ public abstract class  EntityChair extends Entity  implements IProjectile, IEnti
 	}
 
 	@Override
-	public void writeSpawnData(ByteBuf data) {
+	public void writeSpawnData(PacketBuffer data) {
 		data.writeFloat(rotationYaw);
 	}
 	@Override
-	public void readSpawnData(ByteBuf data) {
+	public void readSpawnData(PacketBuffer data) {
 		setRotation(data.readFloat(), 0.0F);
 	}
 

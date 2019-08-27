@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.lwjgl.opengl.GL11;
 
+import mod.drf.config.ConfigValue;
 import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.entity.EntityIceCream;
 import mod.drf.foods.model.ModelIcecream;
@@ -40,7 +41,7 @@ public class RenderIceCream extends Render<EntityIceCream> {
 		{put(ItemFoods.EnumIceFlavor.ICE_PUMPKIN ,new ResourceLocation("drf:textures/entity/icecream_pumpkin.png"));}
 		{put(ItemFoods.EnumIceFlavor.ICE_POTATO ,new ResourceLocation("drf:textures/entity/icecream_potato.png"));}
 		{put(ItemFoods.EnumIceFlavor.ICE_CARROT ,new ResourceLocation("drf:textures/entity/icecream_callot.png"));}
-		{put(ItemFoods.EnumIceFlavor.ICE_MELLON ,new ResourceLocation("drf:textures/entity/icecream_mellon.png"));}
+		{put(ItemFoods.EnumIceFlavor.ICE_MELON ,new ResourceLocation("drf:textures/entity/icecream_mellon.png"));}
 		{put(ItemFoods.EnumIceFlavor.ICE_GREENTEA ,new ResourceLocation("drf:textures/entity/icecream_greentea.png"));}
 
 	};
@@ -68,7 +69,7 @@ public class RenderIceCream extends Render<EntityIceCream> {
 		{put(ItemFoods.EnumIceFlavor.ICE_PUMPKIN ,new ResourceLocation("drf:textures/entity/icecream_cookie_pumpkin.png"));}
 		{put(ItemFoods.EnumIceFlavor.ICE_POTATO ,new ResourceLocation("drf:textures/entity/icecream_cookie_potato.png"));}
 		{put(ItemFoods.EnumIceFlavor.ICE_CARROT ,new ResourceLocation("drf:textures/entity/icecream_cookie_callot.png"));}
-		{put(ItemFoods.EnumIceFlavor.ICE_MELLON ,new ResourceLocation("drf:textures/entity/icecream_cookie_mellon.png"));}
+		{put(ItemFoods.EnumIceFlavor.ICE_MELON ,new ResourceLocation("drf:textures/entity/icecream_cookie_mellon.png"));}
 		{put(ItemFoods.EnumIceFlavor.ICE_GREENTEA ,new ResourceLocation("drf:textures/entity/icecream_cookie_greentea.png"));}
 
 	};
@@ -105,7 +106,7 @@ public class RenderIceCream extends Render<EntityIceCream> {
 		GlStateManager.enableBlend();
 		bindEntityTexture(icecream);
 
-		int limit = EntityIceCream.LIMIT_TIME/(EnumIcecreamLevel.getLevelCnt()-1);
+		int limit = ConfigValue.icecream.MelltingTime()/(EnumIcecreamLevel.getLevelCnt());
 		int level = (int) Math.ceil((double)icecream.countdown()/limit);
 
 		mainmodel.render(EnumIcecreamLevel.getLevel(level),0.0625F);

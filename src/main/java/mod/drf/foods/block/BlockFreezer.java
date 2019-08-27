@@ -1,15 +1,15 @@
 package mod.drf.foods.block;
 
-import java.util.Random;
-
 import mod.drf.common.block.BlockHorizontalContainer;
-import mod.drf.core.ModCommon;
-import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.foods.tileentity.TileEntityFreezer;
+import mod.drf.intaractionobject.IntaractionObjectFreezer;
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
@@ -18,10 +18,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BlockFreezer extends BlockHorizontalContainer {
 
@@ -35,11 +39,21 @@ public class BlockFreezer extends BlockHorizontalContainer {
     		new AxisAlignedBB(1D, 0D, 0.0625D, 0.0625D, 1D, 0.9375D)	// EAST
     };
 
-	protected BlockFreezer() {
-		super(Material.GLASS);
-		this.setHardness(1.0F);
-	}
+    protected static final VoxelShape[] colligBoxeis = new VoxelShape[]{
+	    Block.makeCuboidShape(0,0,0,0,0,0), // 不使用
+	    Block.makeCuboidShape(0,0,0,0,0,0), // 不使用
+	    Block.makeCuboidShape(15,0,0,1,16,15),// NORTH
+	    Block.makeCuboidShape(1,0,16,15,16,1),// SOUTH
+	    Block.makeCuboidShape(0,0,1,15,16,15),// WEST
+	    Block.makeCuboidShape(16,0,1,1,16,15)// EAST
+	};
 
+	protected BlockFreezer() {
+		super(Block.Properties.create(Material.GRASS)
+				.hardnessAndResistance(1.0F,99.0F)
+				.sound(SoundType.METAL));
+		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, EnumFacing.NORTH));
+	}
 
 	@Override
     public EnumBlockRenderType getRenderType(IBlockState state)
@@ -47,33 +61,38 @@ public class BlockFreezer extends BlockHorizontalContainer {
         return EnumBlockRenderType.INVISIBLE;
     }
 
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
-    }
-
+	@Override
     public boolean isFullCube(IBlockState state)
     {
         return false;
     }
 
-
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityFreezer(this.getStateFromMeta(meta).getValue(FACING));
+	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+		// TODO 自動生成されたメソッド・スタブ
+		return createTileEntity(null,worldIn);
 	}
 
-    /**
-     * Get the Item that this Block should drop when harvested.
-     */
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
+
+	@Override
+	public TileEntity createTileEntity(IBlockState state, IBlockReader world) {
+		return new TileEntityFreezer();
+	}
+
+    @Override
+    public IItemProvider getItemDropped(IBlockState state, World worldIn, BlockPos pos, int fortune) {
         return Item.getItemFromBlock(BlockFoods.block_freezer);
     }
 
     @Override
+	public VoxelShape getShape(IBlockState state, IBlockReader worldIn, BlockPos pos){
+    	int idx = ((EnumFacing)state.getValues().get(FACING)).getIndex();
+	    return colligBoxeis[idx];
+	}
+
+    @Override
     protected AxisAlignedBB getRealBoundingBox(IBlockState state){
-    	int idx = this.getMetaFromState(state);
+    	int idx = ((EnumFacing)state.getValues().get(FACING)).getIndex();
     	if (idx >= 2 &&  6 > idx){
             return colligeBox[idx];
     	}
@@ -81,8 +100,7 @@ public class BlockFreezer extends BlockHorizontalContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
-    {
+    public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote)
         {
             return true;
@@ -103,7 +121,14 @@ public class BlockFreezer extends BlockHorizontalContainer {
                     	playerIn.sendStatusMessage(new TextComponentString("water tank is max"),false);
                     }
                 }else{
-                	playerIn.openGui(Mod_DiningFurniture.instance, ModCommon.MOD_GUI_ID_FREEZER, worldIn, pos.getX(),pos.getY(),pos.getZ());
+                	NetworkHooks.openGui((EntityPlayerMP)playerIn,
+                			new IntaractionObjectFreezer(pos),
+                			(buf)->{
+        						buf.writeInt(pos.getX());
+        						buf.writeInt(pos.getY());
+        						buf.writeInt(pos.getZ());
+        					});
+                	//playerIn.openGui(Mod_DiningFurniture.instance, ModCommon.MOD_GUI_ID_FREEZER, worldIn, pos.getX(),pos.getY(),pos.getZ());
                 }
             }
 
@@ -111,12 +136,10 @@ public class BlockFreezer extends BlockHorizontalContainer {
         }
     }
 
-    /**
-     * Called by ItemBlocks after a block is set in the world, to allow post-place logic
-     */
+    @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
-        worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+        worldIn.setBlockState(pos, state.with(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 
         if (stack.hasDisplayName())
         {
@@ -124,13 +147,13 @@ public class BlockFreezer extends BlockHorizontalContainer {
 
             if (tileentity instanceof TileEntityFreezer)
             {
-                ((TileEntityFreezer)tileentity).setCustomInventoryName(stack.getDisplayName());
+                ((TileEntityFreezer)tileentity).setCustomInventoryName(stack.getDisplayName().getFormattedText());
             }
         }
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
-    {
+    @Override
+    public void onReplaced(IBlockState state, World worldIn, BlockPos pos, IBlockState newState, boolean isMoving) {
         if (!keepInventory)
         {
             TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -142,7 +165,7 @@ public class BlockFreezer extends BlockHorizontalContainer {
             }
         }
 
-        super.breakBlock(worldIn, pos, state);
+        super.onReplaced(state,worldIn, pos, newState,isMoving);
     }
 
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
@@ -154,5 +177,7 @@ public class BlockFreezer extends BlockHorizontalContainer {
 	public boolean hasCustomBreakingProgress(IBlockState state){
     	return true;
     }
+
+
 
 }

@@ -14,7 +14,6 @@ public class ModUtil {
 
 	public static enum CompaierLevel{
 		LEVEL_EQUAL_ITEM,
-		LEVEL_EQUAL_META,
 		LEVEL_EQUAL_COUNT,
 		LEVEL_EQUAL_ALL
 	};
@@ -24,7 +23,7 @@ public class ModUtil {
 		if (stack2 == null){return false;}
 		if (stack1.isEmpty()){return false;}
 		if (stack2.isEmpty()){return false;}
-		return (stack2.getItem() == stack1.getItem() && (stack2.getMetadata() == 32767 || stack2.getMetadata() == stack1.getMetadata()));
+		return (stack2.getItem() == stack1.getItem());
 	}
 
 	public static boolean compareItemStacks(ItemStack stack1, ItemStack stack2, CompaierLevel level){
@@ -37,7 +36,6 @@ public class ModUtil {
 		switch(level){
 		case LEVEL_EQUAL_ALL:
 			ret = ((stack1.getItem() == stack2.getItem()) &&
-					stack1.getMetadata() == stack2.getMetadata() &&
 					stack1.getCount() == stack2.getCount());
 			break;
 		case LEVEL_EQUAL_COUNT:
@@ -46,10 +44,6 @@ public class ModUtil {
 			break;
 		case LEVEL_EQUAL_ITEM:
 			ret = ((stack1.getItem() == stack2.getItem()));
-			break;
-		case LEVEL_EQUAL_META:
-			ret = ((stack1.getItem() == stack2.getItem()) &&
-					stack1.getMetadata() == stack2.getMetadata());
 			break;
 		default:
 			break;

@@ -1,5 +1,5 @@
 {
-    "parent": "block/pane_side_alt",
+    "parent": "block/glass_pane_side_alt",
     "textures": {
         "edge": "drf:blocks/tempglass_pane_top",
         "pane": "drf:blocks/tempglass"

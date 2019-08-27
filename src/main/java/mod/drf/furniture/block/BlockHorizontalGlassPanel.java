@@ -1,57 +1,54 @@
 package mod.drf.furniture.block;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import mod.drf.core.Mod_DiningFurniture;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
-import net.minecraft.block.BlockSlab;
-import net.minecraft.block.BlockSlab.EnumBlockHalf;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.state.EnumProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.SlabType;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class BlockHorizontalGlassPanel extends BlockPane {
-	   public static final PropertyEnum<BlockSlab.EnumBlockHalf> HALF = PropertyEnum.<BlockSlab.EnumBlockHalf>create("half", BlockSlab.EnumBlockHalf.class);
+	   public static final EnumProperty<SlabType> HALF =  BlockStateProperties.SLAB_TYPE;
 	   protected boolean tempered;
 
-		protected BlockHorizontalGlassPanel(Material materialIn) {
-			super(materialIn,true);
-	        this.fullBlock = this.isDouble();
+		protected BlockHorizontalGlassPanel(Block.Properties property) {
+			super(property);
 	        this.setDefaultState(
-	        		this.blockState.getBaseState()
-	        		.withProperty(NORTH, Boolean.valueOf(false))
-	        		.withProperty(EAST, Boolean.valueOf(false))
-	        		.withProperty(SOUTH, Boolean.valueOf(false))
-	        		.withProperty(WEST, Boolean.valueOf(false)));
-	        this.setSoundType(SoundType.GLASS);
-	        this.setCreativeTab(Mod_DiningFurniture.tabFurniture);
+	        		this.stateContainer.getBaseState()
+	        		.with(NORTH, Boolean.valueOf(false))
+	        		.with(EAST, Boolean.valueOf(false))
+	        		.with(SOUTH, Boolean.valueOf(false))
+	        		.with(WEST, Boolean.valueOf(false))
+	        		.with(HALF, SlabType.BOTTOM)
+	        		.with(WATERLOGGED,false));
 	        tempered = false;
 		}
 
-		protected BlockHorizontalGlassPanel(Material materialIn,boolean tmp) {
-			this(materialIn);
+		protected BlockHorizontalGlassPanel(Block.Properties property,boolean tmp) {
+			this(property);
 			tempered = tmp;
 		}
 
 
 		@Override
-	    protected BlockStateContainer createBlockState()
-	    {
-	        return new BlockStateContainer(this, new IProperty[] {NORTH, EAST, WEST, SOUTH, HALF});
-	    }
+		protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+			super.fillStateContainer(builder);
+			builder.add(HALF);
+		}
 
 	    private static final String DOWN_NORTH="down_north";
 	    private static final String DOWN_SOUTH="down_south";
@@ -102,86 +99,139 @@ public class BlockHorizontalGlassPanel extends BlockPane {
 	    	{put(UP_ALL,22);}
 	    };
 
-	    protected static final AxisAlignedBB[] collideBoxes = new AxisAlignedBB[] {
-	    		new AxisAlignedBB(0.4375D, 0.0D, 0.4375D, 0.5625D, 0.1250D, 0.5625D),  // normal_down
-	    		new AxisAlignedBB(0.0D,    0.0D, 0.0D,    1.0D,    0.1250D, 0.5625D),  // north_down
-	    		new AxisAlignedBB(0.0D,    0.0D, 0.4375D, 1.0D,    0.1250D, 1.0D),     // south_down
-	    		new AxisAlignedBB(0.4375D, 0.0D, 0.0D,    1.0D,    0.1250D, 1.0D),     // east_down
-	    		new AxisAlignedBB(0.0D,    0.0D, 0.0D,    0.5625D, 0.1250D, 1.0D),     // west_down
-	    		new AxisAlignedBB(0.4375D, 0.0D, 0.0D,    1.0,     0.1250D, 0.5625D ), // north-east_down
-	    		new AxisAlignedBB(0.0D,    0.0D, 0.0D,    0.5625D, 0.1250D, 0.5625D),  // north-west_down
-	    		new AxisAlignedBB(0.4375D, 0.0D, 0.0D,    0.5625D, 0.1250D, 1.0D),     // north-south_down
-	    		new AxisAlignedBB(0.4375D, 0.0D, 0.4375D, 1.0D,    0.1250D, 1.0D),     // south-east_down
-	    		new AxisAlignedBB(0.0D,    0.0D, 0.4375D, 0.5625D, 0.1250D, 1.0D),     // south-west_down
-	    		new AxisAlignedBB(0.0D,    0.0D, 0.4375D, 1.0D,    0.1250D, 0.5625D),  // east-west_down
-	    		new AxisAlignedBB(0.0D,    0.0D, 0.0D,    1.0D,    0.1250D, 1.0D),     // allDirect_down
-	    		new AxisAlignedBB(0.0D,    0.8750D, 0.0D,    1.0D,    1.0D, 0.5625D),  // north_up
-	    		new AxisAlignedBB(0.0D,    0.8750D, 0.4375D, 1.0D,    1.0D, 1.0D),     // south_up
-	    		new AxisAlignedBB(0.4375D, 0.8750D, 0.0D,    1.0D,    1.0D, 1.0D),     // east_up
-	    		new AxisAlignedBB(0.0D,    0.8750D, 0.0D,    0.5625D, 1.0D, 1.0D),     // west_up
-	    		new AxisAlignedBB(0.4375D, 0.8750D, 0.0D,    1.0,     1.0D, 0.5625D ), // north-east_up
-	    		new AxisAlignedBB(0.0D,    0.8750D, 0.0D,    0.5625D, 1.0D, 0.5625D),  // north-west_up
-	    		new AxisAlignedBB(0.4375D, 0.8750D, 0.0D,    0.5625D, 1.0D, 1.0D),     // north-south_up
-	    		new AxisAlignedBB(0.4375D, 0.8750D, 0.4375D, 1.0D,    1.0D, 1.0D),     // south-east_up
-	    		new AxisAlignedBB(0.0D,    0.8750D, 0.4375D, 0.5625D, 1.0D, 1.0D),     // south-west_up
-	    		new AxisAlignedBB(0.0D,    0.8750D, 0.4375D, 1.0D,    1.0D, 0.5625D),  // east-west_up
-	    		new AxisAlignedBB(0.0D,    0.8750D, 0.0D,    1.0D,    1.0D, 1.0D)      // allDirect_up
-
+//	    protected static final AxisAlignedBB[] collideBoxes = new AxisAlignedBB[] {
+//	    		new AxisAlignedBB(0.4375D, 0.0D, 0.4375D, 0.5625D, 0.1250D, 0.5625D),  // normal_down
+//	    		new AxisAlignedBB(0.0D,    0.0D, 0.0D,    1.0D,    0.1250D, 0.5625D),  // north_down
+//	    		new AxisAlignedBB(0.0D,    0.0D, 0.4375D, 1.0D,    0.1250D, 1.0D),     // south_down
+//	    		new AxisAlignedBB(0.4375D, 0.0D, 0.0D,    1.0D,    0.1250D, 1.0D),     // east_down
+//	    		new AxisAlignedBB(0.0D,    0.0D, 0.0D,    0.5625D, 0.1250D, 1.0D),     // west_down
+//	    		new AxisAlignedBB(0.4375D, 0.0D, 0.0D,    1.0,     0.1250D, 0.5625D ), // north-east_down
+//	    		new AxisAlignedBB(0.0D,    0.0D, 0.0D,    0.5625D, 0.1250D, 0.5625D),  // north-west_down
+//	    		new AxisAlignedBB(0.4375D, 0.0D, 0.0D,    0.5625D, 0.1250D, 1.0D),     // north-south_down
+//	    		new AxisAlignedBB(0.4375D, 0.0D, 0.4375D, 1.0D,    0.1250D, 1.0D),     // south-east_down
+//	    		new AxisAlignedBB(0.0D,    0.0D, 0.4375D, 0.5625D, 0.1250D, 1.0D),     // south-west_down
+//	    		new AxisAlignedBB(0.0D,    0.0D, 0.4375D, 1.0D,    0.1250D, 0.5625D),  // east-west_down
+//	    		new AxisAlignedBB(0.0D,    0.0D, 0.0D,    1.0D,    0.1250D, 1.0D),     // allDirect_down
+//	    		new AxisAlignedBB(0.0D,    0.8750D, 0.0D,    1.0D,    1.0D, 0.5625D),  // north_up
+//	    		new AxisAlignedBB(0.0D,    0.8750D, 0.4375D, 1.0D,    1.0D, 1.0D),     // south_up
+//	    		new AxisAlignedBB(0.4375D, 0.8750D, 0.0D,    1.0D,    1.0D, 1.0D),     // east_up
+//	    		new AxisAlignedBB(0.0D,    0.8750D, 0.0D,    0.5625D, 1.0D, 1.0D),     // west_up
+//	    		new AxisAlignedBB(0.4375D, 0.8750D, 0.0D,    1.0,     1.0D, 0.5625D ), // north-east_up
+//	    		new AxisAlignedBB(0.0D,    0.8750D, 0.0D,    0.5625D, 1.0D, 0.5625D),  // north-west_up
+//	    		new AxisAlignedBB(0.4375D, 0.8750D, 0.0D,    0.5625D, 1.0D, 1.0D),     // north-south_up
+//	    		new AxisAlignedBB(0.4375D, 0.8750D, 0.4375D, 1.0D,    1.0D, 1.0D),     // south-east_up
+//	    		new AxisAlignedBB(0.0D,    0.8750D, 0.4375D, 0.5625D, 1.0D, 1.0D),     // south-west_up
+//	    		new AxisAlignedBB(0.0D,    0.8750D, 0.4375D, 1.0D,    1.0D, 0.5625D),  // east-west_up
+//	    		new AxisAlignedBB(0.0D,    0.8750D, 0.0D,    1.0D,    1.0D, 1.0D)      // allDirect_up
+//
+//	    };
+	    protected static final VoxelShape[] collideBoxes = new VoxelShape[] {
+		    Block.makeCuboidShape(7D,  0D, 7D,  9D,  2D,  9D),  // normal_down
+		    Block.makeCuboidShape(0D,  0D, 0D, 16D,  2D,  9D),  // north_down
+		    Block.makeCuboidShape(0D,  0D, 7D, 16D,  2D, 16D),  // south_down
+		    Block.makeCuboidShape(7D,  0D, 0D, 16D,  2D, 16D),  // east_down
+		    Block.makeCuboidShape(0D,  0D, 0D,  9D,  2D, 16D),  // west_down
+		    Block.makeCuboidShape(7D,  0D, 0D, 16D,  2D,  9D),  // north-east_down
+		    Block.makeCuboidShape(0D,  0D, 0D,  9D,  2D,  9D),  // north-west_down
+		    Block.makeCuboidShape(7D,  0D, 0D,  9D,  2D, 16D),  // north-south_down
+		    Block.makeCuboidShape(7D,  0D, 7D, 16D,  2D, 16D),  // south-east_down
+		    Block.makeCuboidShape(0D,  0D, 7D,  9D,  2D, 16D),  // south-west_down
+		    Block.makeCuboidShape(0D,  0D, 7D, 16D,  2D,  9D),  // east-west_down
+		    Block.makeCuboidShape(0D,  0D, 0D, 16D,  2D, 16D),  // allDirect_down
+		    Block.makeCuboidShape(0D, 14D, 0D, 16D, 16D,  9D),  // north_up
+		    Block.makeCuboidShape(0D, 14D, 7D, 16D, 16D, 16D),  // south_up
+		    Block.makeCuboidShape(7D, 14D, 0D, 16D, 16D, 16D),  // east_up
+		    Block.makeCuboidShape(0D, 14D, 0D,  9D, 16D, 16D),  // west_up
+		    Block.makeCuboidShape(7D, 14D, 0D, 16D, 16D,  9D),  // north-east_up
+		    Block.makeCuboidShape(0D, 14D, 0D,  9D, 16D,  9D),  // north-west_up
+		    Block.makeCuboidShape(7D, 14D, 0D,  9D, 16D, 16D),  // north-south_up
+		    Block.makeCuboidShape(7D, 14D, 7D, 16D, 16D, 16D),  // south-east_up
+		    Block.makeCuboidShape(0D, 14D, 7D,  9D, 16D, 16D),  // south-west_up
+		    Block.makeCuboidShape(0D, 14D, 7D, 16D, 16D,  9D),  // east-west_up
+		    Block.makeCuboidShape(0D, 14D, 0D, 16D, 16D, 16D)   // allDirect_up
 	    };
 
 	    private IBlockState _state;
 	    public boolean North(){
-	    	return (Boolean)_state.getValue(NORTH).booleanValue();
+	    	return (Boolean)_state.get(NORTH).booleanValue();
 	    }
 	    public boolean South(){
-	    	return (Boolean)_state.getValue(SOUTH).booleanValue();
+	    	return (Boolean)_state.get(SOUTH).booleanValue();
 	    }
 	    public boolean West(){
-	    	return (Boolean)_state.getValue(WEST).booleanValue();
+	    	return (Boolean)_state.get(WEST).booleanValue();
 	    }
 	    public boolean East(){
-	    	return (Boolean)_state.getValue(EAST).booleanValue();
+	    	return (Boolean)_state.get(EAST).booleanValue();
 	    }
 	    public boolean Half(){
-	    	return _state.getValue(HALF) == EnumBlockHalf.BOTTOM;
+	    	return _state.get(HALF) == SlabType.BOTTOM;
 	    }
 
-	    @Override
-	    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB p_185477_4_, List<AxisAlignedBB> p_185477_5_, Entity p_185477_6_, boolean isActualState)
-	    {
-	        addCollisionBoxToList(pos, p_185477_4_, p_185477_5_, collideBoxes[getBoundingBoxIndex(state)]);
-	    }
+//	    @Override
+//	    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB p_185477_4_, List<AxisAlignedBB> p_185477_5_, Entity p_185477_6_, boolean isActualState)
+//	    {
+//	        addCollisionBoxToList(pos, p_185477_4_, p_185477_5_, collideBoxes[getBoundingBoxIndex(state)]);
+//	    }
 
-	    @Override
-	    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-	    {
-	        state = this.getActualState(state, source, pos);
-	        return collideBoxes[getBoundingBoxIndex(state)];
-	    }
 
-	    @Override
-	    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-	    {
-	        return state.withProperty(NORTH, canPaneConnectTo(worldIn, pos, EnumFacing.NORTH, state.getValue(HALF)))
-	                .withProperty(SOUTH, canPaneConnectTo(worldIn, pos, EnumFacing.SOUTH, state.getValue(HALF)))
-	                .withProperty(WEST, canPaneConnectTo(worldIn, pos, EnumFacing.WEST, state.getValue(HALF)))
-	                .withProperty(EAST, canPaneConnectTo(worldIn, pos, EnumFacing.EAST, state.getValue(HALF)))
-	                .withProperty(HALF, canPaneConnectToVertical(worldIn, pos, state));
-	    }
+		@Override
+		public VoxelShape getShape(IBlockState state, IBlockReader worldIn, BlockPos pos)
+		{
+			return collideBoxes[getBoundingBoxIndex(state)];
+//			VoxelShape sh1 = field_185730_f[0];
+//			VoxelShape sh2 = Block.makeCuboidShape(0, 0, 0, 0, 0, 0);
+//		    if (this.shouldConnectTo(worldIn.getBlockState(pos.add(0,1,0)))){
+//		    	// UP
+//		    	sh1 = VoxelShapes.or(sh1,field_185730_f[2]);
+//		    }
+//		    if (this.shouldConnectTo(worldIn.getBlockState(pos.add(0,-1,0)))){
+//		    	// DOWN
+//		    	sh1 = VoxelShapes.or(sh1,field_185730_f[1]);
+//		    }
+//		    if (this.shouldConnectTo(worldIn.getBlockState(pos.add(0,0,1)))){
+//		    	// NORTH
+//		    	sh1 =VoxelShapes.or(sh1,field_185730_f[3]);
+//		    }
+//		    if (this.shouldConnectTo(worldIn.getBlockState(pos.add(0,0,-1)))){
+//		    	// SOUTH
+//		    	sh1 = VoxelShapes.or(sh1,field_185730_f[4]);
+//		    }
+//		    if (this.shouldConnectTo(worldIn.getBlockState(pos.add(-1,0,0)))){
+//		    	// WEST
+//		    	sh1 = VoxelShapes.or(sh1,field_185730_f[5]);
+//		    }
+//		    if (this.shouldConnectTo(worldIn.getBlockState(pos.add(1,0,0)))){
+//		    	// EASHT
+//		    	sh2 = VoxelShapes.or(sh1,field_185730_f[6]);
+//		    }
+//		    return sh1;
 
-	    public boolean canPaneConnectTo(IBlockAccess world, BlockPos pos, EnumFacing dir, BlockSlab.EnumBlockHalf half)
-	    {
-	        BlockPos other = pos.offset(dir);
-	        IBlockState state = world.getBlockState(other);
-	        if ((state.getBlock().canBeConnectedTo(world, other, dir.getOpposite()) || attachesTo(world, state, other, dir.getOpposite()))){
-	        	return !state.getProperties().containsKey(HALF) || (state.getProperties().containsKey(HALF) && state.getValue(HALF) == half);
-	        }
-	        return false;
-	    }
-
-	    private EnumBlockHalf canPaneConnectToVertical(IBlockAccess world, BlockPos pos, IBlockState state) {
-	        return state.getValue(HALF);
 		}
+
+//	    @Override
+//	    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+//	    {
+//	        return state.with(NORTH, canPaneConnectTo(worldIn, pos, EnumFacing.NORTH, state.get(HALF)))
+//	                .with(SOUTH, canPaneConnectTo(worldIn, pos, EnumFacing.SOUTH, state.get(HALF)))
+//	                .with(WEST, canPaneConnectTo(worldIn, pos, EnumFacing.WEST, state.get(HALF)))
+//	                .with(EAST, canPaneConnectTo(worldIn, pos, EnumFacing.EAST, state.get(HALF)))
+//	                .with(HALF, canPaneConnectToVertical(worldIn, pos, state));
+//	    }
+
+//	    public boolean canPaneConnectTo(IBlockAccess world, BlockPos pos, EnumFacing dir, BlockSlab.EnumBlockHalf half)
+//	    {
+//	        BlockPos other = pos.offset(dir);
+//	        IBlockState state = world.getBlockState(other);
+//	        if ((state.getBlock().canBeConnectedTo(world, other, dir.getOpposite()) || attachesTo(world, state, other, dir.getOpposite()))){
+//	        	return !state.getProperties().containsKey(HALF) || (state.getProperties().containsKey(HALF) && state.getValue(HALF) == half);
+//	        }
+//	        return false;
+//	    }
+
+//	    private EnumBlockHalf canPaneConnectToVertical(IBlockAccess world, BlockPos pos, IBlockState state) {
+//	        return state.getValue(HALF);
+//		}
 
 		private int getBoundingBoxIndex(IBlockState state)
 	    {
@@ -244,23 +294,26 @@ public class BlockHorizontalGlassPanel extends BlockPane {
 	     * IBlockstate
 	     */
 		@Override
-		public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-	    {
-	        IBlockState iblockstate = this.getStateFromMeta(meta);
-	        return this.isDouble() ? iblockstate : (facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double)hitY <= 0.5D) ? iblockstate : iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.TOP));
-	    }
-
+		public IBlockState getStateForPlacement(BlockItemUseContext context) {
+			IBlockState iblockstate = this.getDefaultState();
+			iblockstate = this.isDouble() ? iblockstate : (context.getFace() != EnumFacing.DOWN && (context.getFace() == EnumFacing.UP || (double)context.getHitY() <= 0.5D) ? iblockstate.with(HALF, SlabType.BOTTOM) : iblockstate.with(HALF, SlabType.TOP));
+			if (context.getWorld().getBlockState(context.getPos().east()).getMaterial() != Material.AIR) {
+				iblockstate = iblockstate.with(EAST, true);
+			}
+			if (context.getWorld().getBlockState(context.getPos().west()).getMaterial() != Material.AIR) {
+				iblockstate = iblockstate.with(WEST, true);
+			}
+			if (context.getWorld().getBlockState(context.getPos().north()).getMaterial() != Material.AIR) {
+				iblockstate = iblockstate.with(NORTH, true);
+			}
+			if (context.getWorld().getBlockState(context.getPos().south()).getMaterial() != Material.AIR) {
+				iblockstate = iblockstate.with(SOUTH, true);
+			}
+			return iblockstate;
+		}
 
 		@Override
-	    public IBlockState getStateFromMeta(int meta)
-	    {
-	        IBlockState iblockstate = this.getDefaultState();
-	        iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
-	        return iblockstate;
-	    }
-
-		@Override
-	    public int quantityDropped(Random random)
+	    public int quantityDropped(IBlockState state,Random random)
 	    {
 	    	if (this.tempered){
 	    		return 1;
@@ -269,20 +322,17 @@ public class BlockHorizontalGlassPanel extends BlockPane {
 	    	}
 	    }
 
-
-		@Override
-	    public int getMetaFromState(IBlockState state)
-	    {
-	        int i = 0;
-	        if (state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP)
-	        {
-	            i |= 8;
-	        }
-	        return i;
-	    }
-
 	    public boolean isDouble()
 	    {
 	        return false;
 	    }
+
+
+	    @OnlyIn(Dist.CLIENT)
+	    @Override
+	    public BlockRenderLayer getRenderLayer()
+	    {
+	        return BlockRenderLayer.TRANSLUCENT;
+	    }
+
 }

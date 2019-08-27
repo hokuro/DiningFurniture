@@ -1,18 +1,21 @@
 package mod.drf.furniture.block;
 
-import mod.drf.core.Mod_DiningFurniture;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.state.StateContainer;
 
 public class BlockTemperedGlassPanel extends BlockPane {
 	/**
 	 * コンストラクタ
 	 * @param materialIn マテリアル
 	 */
-	public BlockTemperedGlassPanel(Material materialIn){
-		super(materialIn,true);
-        this.setSoundType(SoundType.GLASS);
-        this.setCreativeTab(Mod_DiningFurniture.tabFurniture);
+	public BlockTemperedGlassPanel(Block.Properties property){
+		super(property);
+	}
+	
+	@Override
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		super.fillStateContainer(builder);
 	}
 }

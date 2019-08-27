@@ -1,27 +1,21 @@
 package mod.drf.common.gui;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
-import org.lwjgl.input.Mouse;
-
 import mod.drf.common.inventory.ContainerOriginalWorkBench;
 import mod.drf.common.inventory.InventoryOriginalMenu;
-import mod.drf.core.Mod_DiningFurniture;
-import mod.drf.foods.network.MessageSelectMenu;
-import mod.drf.foods.network.MessageToServe;
+import mod.drf.network.MessageHandler;
 import mod.drf.recipie.CookingMenu;
 import mod.drf.recipie.OriginalMenu;
 import mod.drf.recipie.OriginalMenu.OriginalMenuKind;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;
@@ -31,11 +25,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import scala.actors.threadpool.Arrays;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+
+@OnlyIn(Dist.CLIENT)
 public class GuiOriginalWorkBench extends GuiContainer {
 	private static final int TOPPINGCHANGE_TIMER = 20 * 3;
 	private static final int TOPPING_ONESET = 6;
@@ -86,9 +80,16 @@ public class GuiOriginalWorkBench extends GuiContainer {
 	@Override
 	public void initGui(){
 		super.initGui();
-		this.buttonList.clear();
-		String s = net.minecraft.util.text.translation.I18n.translateToLocal("button.originalworkbench.create");
-        buttonList.add(new GuiButton(101, 200, 105, 55, 20,  s));
+		this.buttons.clear();
+		String s = I18n.format("button.originalworkbench.create");
+		GuiButton b1 = new GuiButton(101,200,105,55,20,s) {
+    		@Override
+    		public void onClick(double mouseX, double moudeY){
+    			actionPerformed(this);
+    		}
+		};
+    	this.buttons.add(b1);
+		this.children.addAll(this.buttons);
 	}
 
 	@Override
@@ -141,7 +142,7 @@ public class GuiOriginalWorkBench extends GuiContainer {
         			timerTopping = 0;
 
         			// サーバーに送信
-        			Mod_DiningFurniture.Net_Instance.sendToServer(new MessageSelectMenu(this.currentScroll,selectSlot));
+        			MessageHandler.Send_MessageSelectMenu(this.currentScroll,selectSlot);
         		}
         		return;
         	}else if (slotIn.inventory == inv.getResult()){
@@ -151,48 +152,78 @@ public class GuiOriginalWorkBench extends GuiContainer {
         		 slotId = slotIn.slotNumber;
         	}
         }
-        this.mc.playerController.windowClick(this.inventorySlots.windowId, slotId, mouseButton, type, this.mc.player);
+        super.handleMouseClick(slotIn, slotId, mouseButton, type);
     }
 
 	@Override
-    public void handleMouseInput() throws IOException
-    {
-        super.handleMouseInput();
-        int i = Mouse.getEventDWheel();
+	public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+		if(mouseButton == 0) {
+			double d0 = mouseX - (double)this.guiLeft;
+			double d1 = mouseY - (double)this.guiTop;
+			if (mouseX >= 320 && mouseX <= 335 && mouseY >= 40 && mouseY <= 200 ) {
+				this.isScrolling = ((InventoryOriginalMenu)((ContainerOriginalWorkBench)this.inventorySlots).getMenu()).needScroll();
+				return this.isScrolling;
+			}
+		}
+		return super.mouseClicked(mouseX, mouseY, mouseButton);
+	}
 
+	@Override
+	public boolean mouseReleased(double p_mouseReleased_1_, double p_mouseReleased_3_, int p_mouseReleased_5_) {
+		if (p_mouseReleased_5_ == 0) {
+			double d0 = p_mouseReleased_1_ - (double)this.guiLeft;
+			double d1 = p_mouseReleased_3_ - (double)this.guiTop;
+			this.isScrolling = false;
+			return  super.mouseReleased(p_mouseReleased_1_, p_mouseReleased_3_, p_mouseReleased_5_);//((InventoryOriginalMenu)((ContainerOriginalWorkBench)this.inventorySlots).getMenu()).needScroll();
+		}
+		return super.mouseReleased(p_mouseReleased_1_, p_mouseReleased_3_, p_mouseReleased_5_);
+	}
+
+	@Override
+	public boolean mouseDragged(double p_mouseDragged_1_, double p_mouseDragged_3_, int p_mouseDragged_5_, double p_mouseDragged_6_, double p_mouseDragged_8_) {
+		if (this.isScrolling) {
+			int i = this.guiTop + 18;
+			int j = i + 112;
+            this.currentScroll = ((float)(p_mouseDragged_3_ - i) - 7.5F) / ((float)(j - i) - 15.0F);
+            this.currentScroll = MathHelper.clamp(this.currentScroll, 0.0F, 1.0F);
+            ((InventoryOriginalMenu)((ContainerOriginalWorkBench)this.inventorySlots).getMenu()).scrollTo(this.currentScroll);
+			return true;
+		} else {
+			return super.mouseDragged(p_mouseDragged_1_, p_mouseDragged_3_, p_mouseDragged_5_, p_mouseDragged_6_, p_mouseDragged_8_);
+		}
+	}
+
+	@Override
+	public boolean mouseScrolled(double scrolle) {
         InventoryOriginalMenu inv = ((InventoryOriginalMenu)(((ContainerOriginalWorkBench)this.inventorySlots).getMenu()));
-        if (i != 0 && inv.needScroll())
+        if (scrolle != 0 && inv.needScroll())
         {
-            int j = (inv.menuCount() + 3- 1) / 3 - 8;
+        	int j = (inv.menuCount() + 3- 1) / 3 - 8;
 
-            if (i > 0)
-            {
-                i = 1;
-            }
-
-            if (i < 0)
-            {
-                i = -1;
-            }
-
-            this.currentScroll = (float)((double)this.currentScroll - (double)i / (double)j);
+        	if (scrolle > 1.0D) {
+        		scrolle = 1.0D;
+        	}
+        	if (scrolle < -1.0D) {
+        		scrolle = -1.0D;
+        	}
+            this.currentScroll = (float)((double)this.currentScroll - (double)scrolle / (double)j);
             this.currentScroll = MathHelper.clamp(this.currentScroll, 0.0F, 1.0F);
             inv.scrollTo(this.currentScroll);
         }
-    }
+        return true;
+	}
 
-	@Override
-    protected void actionPerformed(GuiButton button) throws IOException
+    protected void actionPerformed(GuiButton button)
     {
         if (button.id == 1)
         {
-            this.mc.displayGuiScreen(new GuiStats(this, this.mc.player.getStatFileWriter()));
+            this.mc.displayGuiScreen(new GuiStats(this, this.mc.player.getStats()));
         }
 
         if (button.id == 101)
         {
         	// サーバーに送信
-			Mod_DiningFurniture.Net_Instance.sendToServer(new MessageToServe());
+			MessageHandler.Send_MessageToServer();
         }
     }
 
@@ -202,11 +233,11 @@ public class GuiOriginalWorkBench extends GuiContainer {
     {
         String s;
         if (menu.getKind() == OriginalMenuKind.COOKING){
-        	s = net.minecraft.util.text.translation.I18n.translateToLocal("cooking workbench");
+        	s = I18n.format("cooking workbench");
         }else{
-        	s = net.minecraft.util.text.translation.I18n.translateToLocal("furniture workbench");
+        	s = I18n.format("furniture workbench");
         }
-        String s2 = net.minecraft.util.text.translation.I18n.translateToLocal("menu");
+        String s2 = I18n.format("menu");
         this.fontRenderer.drawString(s, this.xSize / 4 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
         this.fontRenderer.drawString(s2, this.xSize * 3 / 4 - this.fontRenderer.getStringWidth(s2) / 2, 6, 4210752);
         this.fontRenderer.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
@@ -227,7 +258,7 @@ public class GuiOriginalWorkBench extends GuiContainer {
         			}
         		}
         	}
-        	if (!topIcon.get(dispRecipie)[0].isEmpty()){
+        	if (topIcon.size() != 0 && !topIcon.get(dispRecipie)[0].isEmpty()){
         		changeRecipie = false;
         		int cntTop = topIcon.get(dispRecipie).length;
         		int drawLeft = 8 + 18 * (6 - ((cntTop-TOPPING_ONESET*dispTopping)>6?6:cntTop));
@@ -254,7 +285,7 @@ public class GuiOriginalWorkBench extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(tex);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
@@ -274,10 +305,10 @@ public class GuiOriginalWorkBench extends GuiContainer {
 
 
 	@Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
+    public void render(int mouseX, int mouseY, float partialTicks)
     {
         this.drawDefaultBackground();
-        boolean flag = Mouse.isButtonDown(0);
+        //boolean flag = Mouse.isButtonDown(0);
         int i = this.guiLeft;
         int j = this.guiTop;
         int k = i + 236;
@@ -285,26 +316,26 @@ public class GuiOriginalWorkBench extends GuiContainer {
         int i1 = k + 13;
         int j1 = l + 158;
 
-        if (!this.wasClicking && flag && mouseX >= k && mouseY >= l && mouseX < i1 && mouseY < j1)
-        {
-            this.isScrolling = ((InventoryOriginalMenu)((ContainerOriginalWorkBench)this.inventorySlots).getMenu()).needScroll();
-        }
+//        if (!this.wasClicking && flag && mouseX >= k && mouseY >= l && mouseX < i1 && mouseY < j1)
+//        {
+//            this.isScrolling = ((InventoryOriginalMenu)((ContainerOriginalWorkBench)this.inventorySlots).getMenu()).needScroll();
+//        }
+//
+//        if (!flag)
+//        {
+//            this.isScrolling = false;
+//        }
+//
+//        this.wasClicking = flag;
 
-        if (!flag)
-        {
-            this.isScrolling = false;
-        }
+//        if (this.isScrolling)
+//        {
+//            this.currentScroll = ((float)(mouseY - l) - 7.5F) / ((float)(j1 - l) - 15.0F);
+//            this.currentScroll = MathHelper.clamp(this.currentScroll, 0.0F, 1.0F);
+//            ((InventoryOriginalMenu)((ContainerOriginalWorkBench)this.inventorySlots).getMenu()).scrollTo(this.currentScroll);
+//        }
 
-        this.wasClicking = flag;
-
-        if (this.isScrolling)
-        {
-            this.currentScroll = ((float)(mouseY - l) - 7.5F) / ((float)(j1 - l) - 15.0F);
-            this.currentScroll = MathHelper.clamp(this.currentScroll, 0.0F, 1.0F);
-            ((InventoryOriginalMenu)((ContainerOriginalWorkBench)this.inventorySlots).getMenu()).scrollTo(this.currentScroll);
-        }
-
-        super.drawScreen(mouseX, mouseY, partialTicks);
+        super.render(mouseX, mouseY, partialTicks);
 
         this.renderHoveredToolTip(mouseX, mouseY);
     }
@@ -315,21 +346,7 @@ public class GuiOriginalWorkBench extends GuiContainer {
         super.onGuiClosed();
     }
 
-
-    private void drawItemStack2(ItemStack stack, int x, int y, String altText)
-    {
-        GlStateManager.translate(0.0F, 0.0F, 32.0F);
-        float zLevel = 200.0F;
-        RenderItem itemRender = Minecraft.getMinecraft().getRenderItem();
-        itemRender.zLevel = 200.0F;
-        net.minecraft.client.gui.FontRenderer font = stack.getItem().getFontRenderer(stack);
-        if (font == null) font = Minecraft.getMinecraft().fontRenderer;
-        itemRender.renderItemAndEffectIntoGUI(stack, x, y);
-        itemRender.renderItemOverlayIntoGUI(font, stack, x, y , altText);
-        zLevel = 0.0F;
-        itemRender.zLevel = 0.0F;
-    }
-
+    @Override
     protected void renderHoveredToolTip(int p_191948_1_, int p_191948_2_)
     {
         if (this.mc.player.inventory.getItemStack().isEmpty() && this.getSlotUnderMouse() != null && this.getSlotUnderMouse().getHasStack())
@@ -340,4 +357,33 @@ public class GuiOriginalWorkBench extends GuiContainer {
         	}
         }
     }
+
+    private void drawItemStack2(ItemStack stack, int x, int y, String altText)
+    {
+        GlStateManager.translatef(0.0F, 0.0F, 32.0F);
+        this.zLevel = 200.0F;
+        this.itemRender.zLevel = 200.0F;
+        net.minecraft.client.gui.FontRenderer font = stack.getItem().getFontRenderer(stack);
+        if (font == null) font = fontRenderer;
+        this.itemRender.renderItemAndEffectIntoGUI(stack, x, y);
+        this.itemRender.renderItemOverlayIntoGUI(font, stack, x, y, altText);
+        this.zLevel = 0.0F;
+        this.itemRender.zLevel = 0.0F;
+    }
+
+
+
+    private boolean needsScrollBars() {
+        return  true;
+     }
+
+    protected boolean func_195376_a(double p_195376_1_, double p_195376_3_) {
+        int i = this.guiLeft;
+        int j = this.guiTop;
+        int k = i + 175;
+        int l = j + 18;
+        int i1 = k + 14;
+        int j1 = l + 112;
+        return p_195376_1_ >= (double)k && p_195376_3_ >= (double)l && p_195376_1_ < (double)i1 && p_195376_3_ < (double)j1;
+     }
 }

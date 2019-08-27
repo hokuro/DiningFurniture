@@ -10,8 +10,8 @@ import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ContainerMillStone extends Container {
 	private final IInventory tile;
@@ -19,21 +19,21 @@ public class ContainerMillStone extends Container {
 
 	public ContainerMillStone(InventoryPlayer playerInventory, IInventory tileEntityMill) {
 		this.tile = tileEntityMill;
-		this.addSlotToContainer(new SlotInOut(tile, 0, 80, 17,true, ORIGINAL_RECIPIES.RECIPIE_MILLING));
-		this.addSlotToContainer(new SlotInOut(tile, 1, 80, 53,false, ORIGINAL_RECIPIES.RECIPIE_MILLING));
+		this.addSlot(new SlotInOut(tile, 0, 80, 17,true, ORIGINAL_RECIPIES.RECIPIE_MILLING));
+		this.addSlot(new SlotInOut(tile, 1, 80, 53,false, ORIGINAL_RECIPIES.RECIPIE_MILLING));
 
 
 		for (int i = 0; i < 3; ++i)
 		{
 			for (int j = 0; j < 9; ++j)
 			{
-				this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (int k = 0; k < 9; ++k)
 		{
-			this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142));
+			this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 142));
 		}
 	}
 
@@ -61,7 +61,7 @@ public class ContainerMillStone extends Container {
 		listener.sendAllWindowProperties(this, this.tile);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void updateProgressBar(int id, int data)
 	{
 		this.tile.setField(id, data);

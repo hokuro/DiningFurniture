@@ -8,8 +8,8 @@ package mod.drf.foods.model;
 
 import mod.drf.foods.model.ModelCrashedIce.EnumCrashedIceLevel;
 import mod.drf.foods.tileentity.TileEntityIceCrasher;
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.ModelBase;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 
 public class ModelIceCrasher extends ModelBase
 {

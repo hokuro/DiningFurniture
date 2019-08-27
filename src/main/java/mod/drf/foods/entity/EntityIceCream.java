@@ -3,18 +3,17 @@ package mod.drf.foods.entity;
 import java.util.Iterator;
 import java.util.List;
 
-import io.netty.buffer.ByteBuf;
 import mod.drf.config.ConfigValue;
+import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.Item.ItemFoods.EnumIceFlavor;
 import mod.drf.foods.Item.ItemIceCream;
 import mod.drf.util.ModUtil;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.BlockFlowingFluid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +21,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -30,22 +30,21 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.structure.StructureBoundingBox;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData, IProjectile {
 
-	public static final String NAME = "EntityIceCream";
+	public static final String NAME = "entityicecream";
 	public static final int LIMIT_TIME = 12000;
 
 	private static final DataParameter<Boolean> DISPENCE = EntityDataManager.<Boolean>createKey(EntityIceCream.class, DataSerializers.BOOLEAN);
-	private int flavor;
+	private EnumIceFlavor flavor;
 	private boolean inCookie;
 	private int timelimit;
 	private ItemStack ice;
@@ -68,39 +67,28 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 	protected int posIncrements;
 
 	public EntityIceCream(World worldIn) {
-		super(worldIn);
+		super(Mod_DiningFurniture.RegistryEvents.ICECREAM, worldIn);
 		this.preventEntitySpawning = true;
 		setSize(0.81F,0.2F);
 
-		timelimit = ConfigValue.Setting_IceCream.melltingTime;
-		flavor = 0;
+		timelimit = ConfigValue.icecream.MelltingTime();
+		flavor = EnumIceFlavor.ICE_VANILA;
 		isDispensed = false;
 	}
 
-	public EntityIceCream(World world, BlockPos blockpos, int itemDamage) {
+	public EntityIceCream(World world, BlockPos blockpos, EnumIceFlavor itemDamage, boolean cookie) {
 		this(world);
 		flavor = itemDamage;
+		inCookie = cookie;
 		setPositionAndRotation(blockpos.getX()+0.5f,blockpos.getY(),blockpos.getZ()+0.5f,0F,0F);
 		motionX = 0.0D;
 		motionY = 0.0D;
 		motionZ = 0.0D;
-		ice = new ItemStack(ItemFoods.item_icecream,1,flavor);
+		ice = ItemFoods.getIceCream(flavor, inCookie);
 	}
-
-	public EntityIceCream(World world, BlockPos blockpos, int itemDamage, boolean inCookie) {
-		this(world);
-		flavor = itemDamage;
-		this.inCookie = inCookie;
-		setPositionAndRotation(blockpos.getX()+0.5f,blockpos.getY(),blockpos.getZ()+0.5f,0F,0F);
-		motionX = 0.0D;
-		motionY = 0.0D;
-		motionZ = 0.0D;
-		ice = new ItemStack(ItemFoods.item_icecream,1,flavor);
-	}
-
 
 	public EnumIceFlavor getFlavor(){
-		return EnumIceFlavor.getValue(flavor);
+		return flavor;
 	}
 
 	public boolean isInCookie(){
@@ -122,33 +110,34 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 	}
 
 	@Override
-	public void writeSpawnData(ByteBuf data) {
-		data.writeInt(flavor);
+	public void writeSpawnData(PacketBuffer data) {
+		data.writeInt(flavor.getDamage());
 		data.writeInt(timelimit);
 		data.writeFloat(rotationYaw);
 		data.writeBoolean(inCookie);
 	}
+
 	@Override
-	public void readSpawnData(ByteBuf data) {
-		flavor = data.readInt();
+	public void readSpawnData(PacketBuffer data) {
+		flavor = EnumIceFlavor.getValue(data.readInt());
 		timelimit = data.readInt();
 		setRotation(data.readFloat(), 0.0F);
 		inCookie = data.readBoolean();
 	}
 
 	@Override
-	protected void entityInit() {
+	protected void registerData() {
 		this.dataManager.register(DISPENCE, isDispensed);
 	}
 
 	@Override
 	public AxisAlignedBB getCollisionBox(Entity par1Entity) {
-		return par1Entity.getEntityBoundingBox();
+		return par1Entity.getBoundingBox();
 	}
 
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox() {
-		return this.getEntityBoundingBox();
+		return this.getBoundingBox();
 	}
 
 	@Override
@@ -165,8 +154,8 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 	@Override
 	public boolean handleWaterMovement() {
 		// 独自の水没判定
-		AxisAlignedBB  bbbox = getEntityBoundingBox();
-		StructureBoundingBox box = new StructureBoundingBox((int)bbbox.minX, (int)bbbox.minY,(int)bbbox.minZ,(int)bbbox.maxX+1,(int)bbbox.maxY+1,(int)bbbox.maxZ+1);
+		AxisAlignedBB  bbbox = this.getBoundingBox();
+		MutableBoundingBox box = new MutableBoundingBox((int)bbbox.minX, (int)bbbox.minY,(int)bbbox.minZ,(int)bbbox.maxX+1,(int)bbbox.maxY+1,(int)bbbox.maxZ+1);
 		if (!this.world.isAreaLoaded(box)) {
 			return false;
 		} else {
@@ -175,10 +164,13 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 			for (int x = box.minX; x < box.maxX; ++x) {
 				for (int y = box.minY; y < box.maxY; ++y) {
 					for (int z = box.minZ; z < box.maxZ; ++z) {
-						Block blk = this.world.getBlockState(new BlockPos(x,y,z)).getBlock();
+						IBlockState state =  this.world.getBlockState(new BlockPos(x,y,z));
+						Block blk = state.getBlock();
 						if (blk != null && blk.getMaterial(null) == Material.WATER) {
 							inWater = true;
-							double var16 = (double)((float)(y + 1) - BlockLiquid.getLiquidHeightPercent(blk.getMetaFromState(this.world.getBlockState(new BlockPos(x, y, z)))));
+							int level = (int)state.getValues().get(BlockFlowingFluid.LEVEL);
+							if (level < 8) {level = 0;}
+							double var16 = (double)((float)(y + 1) - (level+1)/9.0F);
 							if ((double)box.maxY >= var16) {
 								ret = true;
 							}
@@ -197,14 +189,14 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 	public boolean attackEntityFrom(DamageSource damagesource, float pDammage) {
 		// 攻撃したもの
 		Entity entity = damagesource.getTrueSource();
-		if(this.world.isRemote || isDead) {
+		if(this.world.isRemote || !this.isAlive()) {
 			return true;
 		}
 		markVelocityChanged();
 		if (entity instanceof EntityPlayer) {
 			// プレイヤーからの攻撃ならアイテムドロップ
 			dropItem();
-			setDead();
+			remove();
 		} else {
 //			// そのほかからなら、ダメージ、体力がなくなったら消滅
 //			health -= pDammage;
@@ -218,11 +210,11 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 
 	@Override
 	public boolean canBeCollidedWith() {
-		return !this.isDead;
+		return this.isAlive();
 	}
 
 	@Override
-	@ SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
     public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_)
      {
 		this.setPosition(x, y, z);
@@ -237,8 +229,8 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tick() {
+		super.tick();
 
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;
@@ -255,13 +247,13 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 		double var26;
 		double var24 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
 		if (timelimit > 0){
-			boolean flagMelt = ConfigValue.Setting_IceCream.melltingFlag;
+			boolean flagMelt = ConfigValue.icecream.MelltingFlag();
 			BlockPos pos = new BlockPos(this.posX,this.posY,this.posZ);
 			for ( int x = -1; x <= 1 && flagMelt; x++){
 				for (int y = -1; y <= 1 && flagMelt; y++){
 					for ( int z = -1; z <= 1 && flagMelt; z++){
 						IBlockState state =  this.world.getBlockState(pos.add(x,y,z));
-						if ( state.getMaterial() == Material.ICE || state.getBlock() == Blocks.PACKED_ICE || state.getBlock() == Blocks.FROSTED_ICE){
+						if ( state.getMaterial() == Material.ICE || state.getBlock() == Blocks.PACKED_ICE || state.getBlock() == Blocks.FROSTED_ICE || state.getBlock() == Blocks.BLUE_ICE){
 							flagMelt = false;
 						}
 					}
@@ -358,7 +350,7 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 
 			// 当たり判定
 			//List<Entity> var16 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.17D, 0.0D, 0.17D));
-			List<Entity> var16 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.0D, 1.0D, 0.0D));
+			List<Entity> var16 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getBoundingBox().expand(0.0D, 1.0D, 0.0D));
 			if (var16 != null && !var16.isEmpty()) {
 				Iterator var28 = var16.iterator();
 				while (var28.hasNext()) {
@@ -371,16 +363,16 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 			if (inWater){
 				// 水にぬれるとアイテム化
 				dropItem();
-				this.setDead();
+				this.remove();
 			}
 		}
 
 	}
 
-	public void setEntityLivingAge(EntityLivingBase entity, int a)
-	{
-		ObfuscationReflectionHelper.setPrivateValue(EntityLivingBase.class, entity, a, "field_70708_bq","entityAge");
-	}
+//	public void setEntityLivingAge(EntityLivingBase entity, int a)
+//	{
+//		ObfuscationReflectionHelper.setPrivateValue(EntityLivingBase.class, entity, a, "field_70708_bq","entityAge");
+//	}
 
 	@Override
 	public boolean processInitialInteract(EntityPlayer entityplayer,  EnumHand hand){
@@ -395,13 +387,9 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 				}
 				inCookie = true;
 			}else if (hand == EnumHand.MAIN_HAND){
-				if (entityplayer.canEat(ConfigValue.Setting_CrashedIce.CrashedIceCanEatAllways)){
+				if (entityplayer.canEat(ConfigValue.icecream.CanEatAllways())){
 					if (!this.world.isRemote){
-						if (inCookie){
-							ItemIceCream.onEat(new ItemStack(ItemFoods.item_icecream,1,this.flavor), this.world, entityplayer);
-						}else{
-							ItemIceCream.onEat(new ItemStack(ItemFoods.item_icecreamcookie,1,this.flavor), this.world, entityplayer);
-						}
+						ItemIceCream.onEat(ItemFoods.getIceCream(flavor, this.inCookie), this.world, entityplayer);
 					}
 					this.timelimit = 0;
 				}else{
@@ -414,7 +402,7 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 			if (!this.world.isRemote){
 				if (hand == EnumHand.MAIN_HAND){
 					dropItem();
-					setDead();
+					remove();
 				}
 			}
 		}
@@ -422,26 +410,22 @@ public class EntityIceCream extends Entity implements IEntityAdditionalSpawnData
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound tagCompund) {
-		flavor = tagCompund.getByte("Flavor");
+	protected void readAdditional(NBTTagCompound tagCompund) {
+		flavor = EnumIceFlavor.getValue(tagCompund.getInt("Flavor"));
 		timelimit = tagCompund.getShort("Limit");
 		inCookie = tagCompund.getBoolean("InCookie");
 	}
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound tagCompound) {
-		tagCompound.setInteger("Flavor",flavor);
-		tagCompound.setInteger("Limit",timelimit);
+	protected void writeAdditional(NBTTagCompound tagCompound) {
+		tagCompound.setInt("Flavor",flavor.getDamage());
+		tagCompound.setInt("Limit",timelimit);
 		tagCompound.setBoolean("InCookie", inCookie);
 	}
 
 	private void dropItem(){
 		if (timelimit > 0){
-			if (inCookie){
-				entityDropItem(new ItemStack(ItemFoods.item_icecreamcookie,1, flavor),0.0F);
-			}else{
-				entityDropItem(new ItemStack(ItemFoods.item_icecream, 1, flavor), 0.0F);
-			}
+			entityDropItem(ItemFoods.getIceCream(flavor, this.inCookie),0.0F);
 		}else{
 			entityDropItem(new ItemStack(Items.GLASS_BOTTLE,1),0.0F);
 		}

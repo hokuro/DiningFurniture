@@ -6,10 +6,10 @@
       "item": "drf:syrup_lightblue"
     },
     {
-      "item": "drf:crashedice_lightblue"
+      "item": "drf:crashedice_none"
     }
   ],
   "result": {
-    "item": "drf:crashedice_lightblue"
+    "item": "drf:crashedice_light_blue"
   }
 }

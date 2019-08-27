@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.lwjgl.opengl.GL11;
 
+import mod.drf.config.ConfigValue;
 import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.entity.EntityCrashedIce;
-import mod.drf.foods.entity.EntityIceCream;
 import mod.drf.foods.model.ModelCrashedIce;
 import mod.drf.foods.model.ModelCrashedIce.EnumCrashedIceLevel;
 import net.minecraft.client.renderer.GlStateManager;
@@ -38,7 +38,7 @@ public class RenderCrashedIce extends Render<EntityCrashedIce> {
 		{put(ItemFoods.EnumFlapeSyrup.SYRUP_WHITE,new ResourceLocation("drf:textures/entity/crashedice_white.png"));}
 		{put(ItemFoods.EnumFlapeSyrup.SYRUP_APPLE,new ResourceLocation("drf:textures/entity/crashedice_apple.png"));}
 		{put(ItemFoods.EnumFlapeSyrup.SYRUP_CACTUS,new ResourceLocation("drf:textures/entity/crashedice_cactus.png"));}
-		{put(ItemFoods.EnumFlapeSyrup.SYRUP_MELLON,new ResourceLocation("drf:textures/entity/crashedice_mellon.png"));}
+		{put(ItemFoods.EnumFlapeSyrup.SYRUP_MELON,new ResourceLocation("drf:textures/entity/crashedice_mellon.png"));}
 		{put(ItemFoods.EnumFlapeSyrup.SYRUP_PUMPKIN,new ResourceLocation("drf:textures/entity/crashedice_pumpkin.png"));}
 		{put(ItemFoods.EnumFlapeSyrup.SYRUP_GREENTEA,new ResourceLocation("drf:textures/entity/crashedice_greentea.png"));}
 	};
@@ -64,7 +64,7 @@ public class RenderCrashedIce extends Render<EntityCrashedIce> {
 		{put(ItemFoods.EnumFlapeSyrup.SYRUP_WHITE,new ResourceLocation("drf:textures/entity/crashedice_millk_white.png"));}
 		{put(ItemFoods.EnumFlapeSyrup.SYRUP_APPLE,new ResourceLocation("drf:textures/entity/crashedice_millk_apple.png"));}
 		{put(ItemFoods.EnumFlapeSyrup.SYRUP_CACTUS,new ResourceLocation("drf:textures/entity/crashedice_millk_cactus.png"));}
-		{put(ItemFoods.EnumFlapeSyrup.SYRUP_MELLON,new ResourceLocation("drf:textures/entity/crashedice_millk_mellon.png"));}
+		{put(ItemFoods.EnumFlapeSyrup.SYRUP_MELON,new ResourceLocation("drf:textures/entity/crashedice_millk_mellon.png"));}
 		{put(ItemFoods.EnumFlapeSyrup.SYRUP_PUMPKIN,new ResourceLocation("drf:textures/entity/crashedice_millk_pumpkin.png"));}
 		{put(ItemFoods.EnumFlapeSyrup.SYRUP_GREENTEA,new ResourceLocation("drf:textures/entity/crashedice_millk_greentea.png"));}
 	};
@@ -102,7 +102,7 @@ public class RenderCrashedIce extends Render<EntityCrashedIce> {
 		GlStateManager.enableBlend();
 		bindEntityTexture(icecream);
 
-		int limit = EntityIceCream.LIMIT_TIME/(EnumCrashedIceLevel.getLevelCnt()-1);
+		int limit = ConfigValue.crashedice.MelltingTime()/(EnumCrashedIceLevel.getLevelCnt()-1);
 		int level = (int) Math.ceil((double)icecream.countdown()/limit);
 
 		mainmodel.render(EnumCrashedIceLevel.getLevel(level),0,0,0,0.0625F);

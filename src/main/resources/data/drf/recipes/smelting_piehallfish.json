@@ -1,0 +1,9 @@
+{
+    "type": "smelting",
+    "ingredient": {
+        "item": "drf:row_piehallfish"
+    },
+    "result": "drf:piehallfish",
+    "experience": 0.1,
+    "cookingtime": 200
+}

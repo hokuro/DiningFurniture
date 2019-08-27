@@ -1,15 +1,15 @@
 package mod.drf.foods.network;
 
-import io.netty.buffer.ByteBuf;
+import java.util.function.Supplier;
+
 import mod.drf.foods.tileentity.TileEntityMillStone;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.network.NetworkEvent;
 
-public class MessageMillStoneUpdate implements IMessage, IMessageHandler<MessageMillStoneUpdate,IMessage>{
+public class MessageMillStoneUpdate{
 
 	private int crushTime;
 	private boolean isRun;
@@ -27,33 +27,40 @@ public class MessageMillStoneUpdate implements IMessage, IMessageHandler<Message
 	public boolean getIsRun(){return this.isRun;}
 	public BlockPos getPos(){return this.pos;}
 
-	@Override
-	public IMessage onMessage(MessageMillStoneUpdate message, MessageContext ctx) {
-		TileEntity te = Minecraft.getMinecraft().world.getTileEntity(message.getPos());
-		if (te instanceof TileEntityMillStone){
-			((TileEntityMillStone)te).setField(0, message.crushTime);
-			((TileEntityMillStone)te).setField(1, message.getIsRun()?1:0);
-		}
-		return null;
+
+	public static void encode(MessageMillStoneUpdate pkt, PacketBuffer buf)
+	{
+		buf.writeInt(pkt.crushTime);
+		buf.writeBoolean(pkt.isRun);
+		buf.writeInt(pkt.pos.getX());
+		buf.writeInt(pkt.pos.getY());
+		buf.writeInt(pkt.pos.getZ());
 	}
 
-	@Override
-	public void fromBytes(ByteBuf buf) {
-		this.crushTime = buf.readInt();
-		this.isRun =  buf.readBoolean();
-		pos = new BlockPos(buf.readInt(),
+	public static MessageMillStoneUpdate decode(PacketBuffer buf)
+	{
+		int crushTime = buf.readInt();
+		boolean isRun =  buf.readBoolean();
+		BlockPos pos = new BlockPos(buf.readInt(),
 				buf.readInt(),
 				buf.readInt()
 				);
+		return new MessageMillStoneUpdate(crushTime, isRun, pos);
 	}
 
-	@Override
-	public void toBytes(ByteBuf buf) {
-		buf.writeInt(this.crushTime);
-		buf.writeBoolean(this.isRun);
-		buf.writeInt(pos.getX());
-		buf.writeInt(pos.getY());
-		buf.writeInt(pos.getZ());
+	public static class Handler
+	{
+		public static void handle(final MessageMillStoneUpdate pkt, Supplier<NetworkEvent.Context> ctx)
+		{
+			ctx.get().enqueueWork(() -> {
+				TileEntity te = Minecraft.getInstance().world.getTileEntity(pkt.getPos());
+				if (te instanceof TileEntityMillStone){
+					((TileEntityMillStone)te).setField(0, pkt.crushTime);
+					((TileEntityMillStone)te).setField(1, pkt.getIsRun()?1:0);
+				}
+			});
+			ctx.get().setPacketHandled(true);
+		}
 	}
 
 }

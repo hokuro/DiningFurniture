@@ -1,66 +1,61 @@
 package mod.drf.foods.block;
 
-import mod.drf.core.ModCommon;
-import mod.drf.core.Mod_DiningFurniture;
+import mod.drf.intaractionobject.IntaractionObjectCookingWorkBench;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BlockCookingWorkBench extends BlockHorizontal {
 
 	protected BlockCookingWorkBench(){
-		super(Material.WOOD);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-		this.setCreativeTab(Mod_DiningFurniture.tabFurniture);
-		this.setSoundType(SoundType.WOOD);
-		this.setHardness(2.5F);
+		super(Properties.create(Material.WOOD)
+				.sound(SoundType.WOOD)
+				.hardnessAndResistance(2.5F,0.0F));
+		this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, EnumFacing.NORTH));
 	}
 
 	@Override
-    public IBlockState withRotation(IBlockState state, Rotation rot)
+    public IBlockState rotate(IBlockState state, Rotation rot)
     {
-        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+        return state.with(HORIZONTAL_FACING, rot.rotate((EnumFacing)state.get(HORIZONTAL_FACING)));
     }
 
 	@Override
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+	public IBlockState getStateForPlacement(BlockItemUseContext context) {
+        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
 
-	@Override
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
-    }
 
 	@Override
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((EnumFacing)state.getValue(FACING)).getHorizontalIndex();
-    }
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+	   builder.add(HORIZONTAL_FACING);
+	}
 
 	@Override
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {FACING});
-    }
-
-	@Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-		if (!worldIn.isRemote)
-        playerIn.openGui(Mod_DiningFurniture.instance, ModCommon.MOD_GUI_ID_CWORKBENCH, worldIn, pos.getX(), pos.getY(), pos.getZ());
+	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if (!worldIn.isRemote)
+        {
+        	NetworkHooks.openGui((EntityPlayerMP)playerIn,
+        			new IntaractionObjectCookingWorkBench(pos),
+        			(buf)->{
+						buf.writeInt(pos.getX());
+						buf.writeInt(pos.getY());
+						buf.writeInt(pos.getZ());
+					});
+        	return true;
+        }
         return true;
     }
 

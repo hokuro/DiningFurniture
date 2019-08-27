@@ -1,7 +1,5 @@
 package mod.drf.furniture.item;
 
-import mod.drf.core.Mod_DiningFurniture;
-import mod.drf.core.log.ModLog;
 import mod.drf.furniture.entity.EntityChair;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,11 +14,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public abstract class ItemChair  extends Item{
-	public ItemChair(){
-		super();
-		maxStackSize = 16;
-		setCreativeTab(Mod_DiningFurniture.tabFurniture);
-		this.setHasSubtypes(true);
+	public ItemChair(Item.Properties property){
+		super(property);
 	}
 
 	@Override
@@ -41,14 +36,14 @@ public abstract class ItemChair  extends Item{
 		float f8 = f6;
 		float f9 = f3 * f5;
 		double d3 = 5D;
-		Vec3d vec3d1 = vec3.addVector((double) f7 * d3, (double) f8 * d3, (double) f9 * d3);
-		RayTraceResult movingobjectposition = world.rayTraceBlocks(vec3, vec3d1, true);
+		Vec3d vec3d1 = vec3.add((double) f7 * d3, (double) f8 * d3, (double) f9 * d3);
+		RayTraceResult movingobjectposition = world.rayTraceBlocks(vec3, vec3d1);
 
 		if (movingobjectposition == null) {
 			return new ActionResult(EnumActionResult.SUCCESS, itemstack);
 		}
 
-		if (movingobjectposition.typeOfHit == RayTraceResult.Type.BLOCK) {
+		if (movingobjectposition.type == RayTraceResult.Type.BLOCK) {
 			BlockPos blockpos = movingobjectposition.getBlockPos();
 			if (world.isAirBlock(blockpos.add(0, 1, 0))) {
 				if (!world.isRemote) {
@@ -56,11 +51,11 @@ public abstract class ItemChair  extends Item{
 						EntityChair chair = this.getEntityChair(world, player, blockpos, itemstack);
 						world.spawnEntity(chair);
 					} catch (Exception e) {
-						ModLog.log().debug("spawn error");
+						System.console().printf("error");
 					}
 
 				}
-				if (!player.capabilities.isCreativeMode) {
+				if (!player.isCreative()) {
 					itemstack.shrink(1);;
 				}
 			}
@@ -70,5 +65,5 @@ public abstract class ItemChair  extends Item{
 
 	public abstract EntityChair getEntityChair(World world, EntityPlayer player, BlockPos blockpos, ItemStack stack);
 
-	public abstract String getName();
+	public abstract String getChairName();
 }

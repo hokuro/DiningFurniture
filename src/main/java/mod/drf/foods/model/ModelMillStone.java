@@ -1,7 +1,7 @@
 package mod.drf.foods.model;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.ModelBase;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 
 //Date: 2016/10/18 23:33:34
 //Template version 1.1

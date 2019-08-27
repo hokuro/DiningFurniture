@@ -13,8 +13,8 @@ import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ContainerFreezer extends Container {
 
@@ -27,28 +27,28 @@ public class ContainerFreezer extends Container {
 		// 冷凍スロット
 		for (int i = 0; i < 3; ++i){
 			for ( int j = 0; j < 9; j++){
-				this.addSlotToContainer(new SlotInOut(tile, j + i * 9, 44 + j * 18, 18 + i * 18,true, ORIGINAL_RECIPIES.RECIPIE_FREEZING));
+				this.addSlot(new SlotInOut(tile, j + i * 9, 44 + j * 18, 18 + i * 18,true, ORIGINAL_RECIPIES.RECIPIE_FREEZING));
 			}
 		}
 
 		// 完成品スロット
 		for (int i = 3; i < 6; ++i){
 			for ( int j = 0; j < 9; j++){
-				this.addSlotToContainer(new SlotInOut(tile, j + i * 9, 44 + j * 18, 27 + i * 18,false, ORIGINAL_RECIPIES.RECIPIE_FREEZING));
+				this.addSlot(new SlotInOut(tile, j + i * 9, 44 + j * 18, 27 + i * 18,false, ORIGINAL_RECIPIES.RECIPIE_FREEZING));
 			}
 		}
 
 		// 燃料スロット
-		this.addSlotToContainer(new SlotInOut(tile,6*9, 17, 18, new ItemStack[]{new ItemStack(Blocks.ICE),new ItemStack(Blocks.PACKED_ICE)}));
+		this.addSlot(new SlotInOut(tile,6*9, 17, 18, new ItemStack[]{new ItemStack(Blocks.ICE),new ItemStack(Blocks.PACKED_ICE), new ItemStack(Blocks.BLUE_ICE)}));
 
 		// 水スロット
-		this.addSlotToContainer(new SlotInOut(tile,6*9+1, 17, 18 + 2 * 18, new ItemStack[]{new ItemStack(Items.WATER_BUCKET)}));
+		this.addSlot(new SlotInOut(tile,6*9+1, 17, 18 + 2 * 18, new ItemStack[]{new ItemStack(Items.WATER_BUCKET)}));
 
 		// 氷スロット
-		this.addSlotToContainer(new SlotInOut(tile,6*9+2, 17, 27 + 5 * 18, new ItemStack[]{new ItemStack(Items.BUCKET)}));
+		this.addSlot(new SlotInOut(tile,6*9+2, 17, 27 + 5 * 18, new ItemStack[]{new ItemStack(Items.BUCKET)}));
 
 		// 氷スロット
-		this.addSlotToContainer(new SlotInOut(tile,6*9+3, 17, 140, null));
+		this.addSlot(new SlotInOut(tile,6*9+3, 17, 140, null));
 
 
 		// プレイヤーインベントリ
@@ -56,14 +56,14 @@ public class ContainerFreezer extends Container {
 		{
 			for (int j = 0; j < 9; ++j)
 			{
-				this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 44 + j * 18, 140 + i * 18));
+				this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 44 + j * 18, 140 + i * 18));
 			}
 		}
 
 		// メインインベントリ
 		for (int k = 0; k < 9; ++k)
 		{
-			this.addSlotToContainer(new Slot(playerInventory, k, 44 + k * 18, 198));
+			this.addSlot(new Slot(playerInventory, k, 44 + k * 18, 198));
 		}
 	}
 
@@ -90,7 +90,7 @@ public class ContainerFreezer extends Container {
 		listener.sendAllWindowProperties(this, this.tile);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void updateProgressBar(int id, int data)
 	{
 		this.tile.setField(id, data);

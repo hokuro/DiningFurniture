@@ -6,10 +6,10 @@
       "item": "drf:condencedmilk"
     },
     {
-      "item": "drf:crashedice"
+      "item": "drf:crashedice_none"
     }
   ],
   "result": {
-    "item": "drf:mk_crashedice"
+    "item": "drf:mk_crashedice_none"
   }
 }

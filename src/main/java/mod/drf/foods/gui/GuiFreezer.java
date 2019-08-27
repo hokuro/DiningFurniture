@@ -30,7 +30,7 @@ public class GuiFreezer  extends GuiContainer {
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        String s = this.tileFreezer.getDisplayName().getUnformattedText();
+        String s = this.tileFreezer.getDisplayName().getFormattedText();
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
 
         int x = (this.width - this.xSize) / 2;
@@ -42,13 +42,13 @@ public class GuiFreezer  extends GuiContainer {
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks){
-    	super.drawScreen(mouseX, mouseY, partialTicks);
+    public void render(int mouseX, int mouseY, float partialTicks){
+    	super.render(mouseX, mouseY, partialTicks);
 
 
     	GlStateManager.pushMatrix();
-    	GlStateManager.disableDepth();
-        GlStateManager.color(5.0F, 5.0F, 5.0F, 1.0F);
+    	GlStateManager.disableDepthTest();
+        GlStateManager.color4f(5.0F, 5.0F, 5.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(tex);
         int x = (this.width - this.xSize) / 2;
         int y = (this.height - this.ySize) / 2;
@@ -81,13 +81,13 @@ public class GuiFreezer  extends GuiContainer {
 
 		// タンク
 		this.drawTexturedModalRect(x + 22, y + 73, 212, 37, 7, (int)(42 * (1.0D-((double)tile.getTankCnt()/TileEntityFreezer.TANK_MAX))));
-    	GlStateManager.enableDepth();
+    	GlStateManager.enableDepthTest();
     	GlStateManager.popMatrix();
     }
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(tex);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;

@@ -3,18 +3,18 @@ package mod.drf.foods.entity;
 import java.util.Iterator;
 import java.util.List;
 
-import io.netty.buffer.ByteBuf;
 import mod.drf.config.ConfigValue;
+import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.foods.Item.ItemCrashedIce;
 import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.Item.ItemFoods.EnumFlapeSyrup;
+import mod.drf.foods.Item.ItemSyrup;
 import mod.drf.util.ModUtil;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.BlockFlowingFluid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +22,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -30,22 +31,21 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.structure.StructureBoundingBox;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnData, IProjectile {
 
-	public static final String NAME = "EntityCrashedIce";
+	public static final String NAME = "entitycrashedice";
 	public static final int LIMIT_TIME = 12000;
 
 	private static final DataParameter<Boolean> DISPENCE = EntityDataManager.<Boolean>createKey(EntityCrashedIce.class, DataSerializers.BOOLEAN);
-	private int flavor;
+	private EnumFlapeSyrup flavor;
 	private boolean isMillk;
 	private int timelimit;
 	private ItemStack ice;
@@ -68,28 +68,28 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 	protected int posIncrements;
 
 	public EntityCrashedIce(World worldIn) {
-		super(worldIn);
+		super(Mod_DiningFurniture.RegistryEvents.CRASHEDICE, worldIn);
 		this.preventEntitySpawning = true;
 		setSize(0.81F,0.2F);
 
-		timelimit = ConfigValue.Setting_CrashedIce.melltingTime;
-		flavor = 0;
+		timelimit = ConfigValue.crashedice.MelltingTime();
+		flavor = EnumFlapeSyrup.SYRUP_NONE;
 		isDispensed = false;
 	}
 
-	public EntityCrashedIce(World world, BlockPos blockpos, int itemDamage, boolean millk) {
+	public EntityCrashedIce(World world, BlockPos blockpos, EnumFlapeSyrup itemFlavor, boolean millk) {
 		this(world);
-		flavor = itemDamage;
+		flavor = itemFlavor;
 		isMillk = millk;
 		setPositionAndRotation(blockpos.getX()+0.5f,blockpos.getY(),blockpos.getZ()+0.5f,0F,0F);
 		motionX = 0.0D;
 		motionY = 0.0D;
 		motionZ = 0.0D;
-		ice = new ItemStack(ItemFoods.item_crashedice,1,flavor);
+		ice = ItemFoods.getCrachedIce(flavor, millk);
 	}
 
 	public EnumFlapeSyrup getFlavor(){
-		return EnumFlapeSyrup.getValue(flavor);
+		return flavor;
 	}
 
 	public boolean isMillk() {
@@ -111,33 +111,34 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 	}
 
 	@Override
-	public void writeSpawnData(ByteBuf data) {
-		data.writeInt(flavor);
+	public void writeSpawnData(PacketBuffer data) {
+		data.writeInt(flavor.getDamage());
 		data.writeInt(timelimit);
 		data.writeFloat(rotationYaw);
 		data.writeBoolean(isMillk);
 	}
 	@Override
-	public void readSpawnData(ByteBuf data) {
-		flavor = data.readInt();
+	public void readSpawnData(PacketBuffer data) {
+		flavor = EnumFlapeSyrup.getValue(data.readInt());
 		timelimit = data.readInt();
 		setRotation(data.readFloat(), 0.0F);
 		isMillk = data.readBoolean();
 	}
 
 	@Override
-	protected void entityInit() {
+	protected void registerData() {
 		this.dataManager.register(DISPENCE, isDispensed);
 	}
 
 	@Override
 	public AxisAlignedBB getCollisionBox(Entity par1Entity) {
-		return par1Entity.getEntityBoundingBox();
+	     // if (getCollisionHandler() != null) return getCollisionHandler().getCollisionBox(this, entityIn);
+	      return par1Entity.canBePushed() ? par1Entity.getBoundingBox() : null;
 	}
 
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox() {
-		return this.getEntityBoundingBox();
+		return this.getBoundingBox();
 	}
 
 	@Override
@@ -154,8 +155,8 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 	@Override
 	public boolean handleWaterMovement() {
 		// 独自の水没判定
-		AxisAlignedBB  bbbox = getEntityBoundingBox();
-		StructureBoundingBox box = new StructureBoundingBox((int)bbbox.minX, (int)bbbox.minY,(int)bbbox.minZ,(int)bbbox.maxX+1,(int)bbbox.maxY+1,(int)bbbox.maxZ+1);
+		AxisAlignedBB  bbbox = this.getBoundingBox();
+		MutableBoundingBox box = new MutableBoundingBox((int)bbbox.minX, (int)bbbox.minY,(int)bbbox.minZ,(int)bbbox.maxX+1,(int)bbbox.maxY+1,(int)bbbox.maxZ+1);
 		if (!world.isAreaLoaded(box)) {
 			return false;
 		} else {
@@ -164,10 +165,13 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 			for (int x = box.minX; x < box.maxX; ++x) {
 				for (int y = box.minY; y < box.maxY; ++y) {
 					for (int z = box.minZ; z < box.maxZ; ++z) {
-						Block blk = world.getBlockState(new BlockPos(x,y,z)).getBlock();
+						IBlockState state = world.getBlockState(new BlockPos(x,y,z));
+						Block blk = state.getBlock();
 						if (blk != null && blk.getMaterial(null) == Material.WATER) {
 							inWater = true;
-							double var16 = (double)((float)(y + 1) - BlockLiquid.getLiquidHeightPercent(blk.getMetaFromState(world.getBlockState(new BlockPos(x, y, z)))));
+							int level = (int)state.getValues().get(BlockFlowingFluid.LEVEL);
+							if (level < 8) {level = 0;}
+							double var16 = (double)((float)(y + 1) - (level+1)/9.0F);
 							if ((double)box.maxY >= var16) {
 								ret = true;
 							}
@@ -186,14 +190,14 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 	public boolean attackEntityFrom(DamageSource damagesource, float pDammage) {
 		// 攻撃したもの
 		Entity entity = damagesource.getTrueSource();
-		if(world.isRemote || isDead) {
+		if(world.isRemote || !this.isAlive()) {
 			return true;
 		}
 		markVelocityChanged();
 		if (entity instanceof EntityPlayer) {
 			// プレイヤーからの攻撃ならアイテムドロップ
 			dropItem();
-			setDead();
+			this.remove();
 		} else {
 //			// そのほかからなら、ダメージ、体力がなくなったら消滅
 //			health -= pDammage;
@@ -207,11 +211,11 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 
 	@Override
 	public boolean canBeCollidedWith() {
-		return !this.isDead;
+		return this.isAlive();
 	}
 
 	@Override
-	@ SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
     public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_)
      {
 		this.setPosition(x, y, z);
@@ -226,8 +230,8 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tick() {
+		super.tick();
 
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;
@@ -244,7 +248,7 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 		double var26;
 		double var24 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
 		if (timelimit > 0){
-			boolean flagMelt = ConfigValue.Setting_CrashedIce.melltingFlag;
+			boolean flagMelt = ConfigValue.crashedice.MelltingFlag();
 			BlockPos pos = new BlockPos(this.posX,this.posY,this.posZ);
 
 			// 周囲に氷があるか確認
@@ -252,7 +256,7 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 				for (int y = -1; y <= 1 && flagMelt; y++){
 					for ( int z = -1; z <= 1 && flagMelt; z++){
 						IBlockState state =  this.world.getBlockState(pos.add(x,y,z));
-						if ( state.getMaterial() == Material.ICE || state.getBlock() == Blocks.PACKED_ICE || state.getBlock() == Blocks.FROSTED_ICE){
+						if ( state.getMaterial() == Material.ICE || state.getBlock() == Blocks.PACKED_ICE || state.getBlock() == Blocks.FROSTED_ICE || state.getBlock() == Blocks.BLUE_ICE){
 							flagMelt = false;
 						}
 					}
@@ -350,7 +354,7 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 
 
 			// 当たり判定
-			List<Entity> var16 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.0D, 1.0D, 0.0D));
+			List<Entity> var16 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getBoundingBox().expand(0.0D, 1.0D, 0.0D));
 			if (var16 != null && !var16.isEmpty()) {
 				Iterator var28 = var16.iterator();
 				while (var28.hasNext()) {
@@ -363,16 +367,16 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 			if (inWater){
 				// 水にぬれるとアイテム化
 				dropItem();
-				this.setDead();
+				this.remove();
 			}
 		}
 
 	}
 
-	public void setEntityLivingAge(EntityLivingBase entity, int a)
-	{
-		ObfuscationReflectionHelper.setPrivateValue(EntityLivingBase.class, entity, a, "field_70708_bq","entityAge");
-	}
+//	public void setEntityLivingAge(EntityLivingBase entity, int a)
+//	{
+//		ObfuscationReflectionHelper.setPrivateValue(EntityLivingBase.class, entity, a, "field_70708_bq","entityAge");
+//	}
 
 	@Override
 	public boolean processInitialInteract(EntityPlayer entityplayer, EnumHand hand){
@@ -386,21 +390,21 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 				if (!this.world.isRemote){
 					entityplayer.getHeldItem(hand).shrink(1);;
 					if (entityplayer.getHeldItem(hand).getCount() <= 0){
-						entityplayer.setHeldItem(hand, null);
+						entityplayer.setHeldItem(hand, ItemStack.EMPTY);
 					}
 		            if (!entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET,1))){
 		            	entityplayer.dropItem(new ItemStack(Items.BUCKET), false);
 		            }
 				}
 				// シロップを持っている場合
-			}else if (ModUtil.compareItemStacks(entityplayer.getHeldItem(hand), new ItemStack(ItemFoods.item_syrup,1,32767)) && this.flavor == 0){
+			}else if ( entityplayer.getHeldItem(hand).getItem() instanceof ItemSyrup && this.flavor == EnumFlapeSyrup.SYRUP_NONE){
 				// ただのかき氷にシロップを持って接触した場合
 				// 持っているシロップをかける
-				this.flavor = entityplayer.getHeldItem(hand).getItemDamage();
+				this.flavor = ((ItemSyrup)entityplayer.getHeldItem(hand).getItem()).getFlavor();
 				if (!this.world.isRemote){
 					entityplayer.getHeldItem(hand).shrink(1);;
 					if (entityplayer.getHeldItem(hand).getCount() <= 0){
-						entityplayer.setHeldItem(hand, null);
+						entityplayer.setHeldItem(hand, ItemStack.EMPTY);
 					}
 					if (!entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE,1))){
 			            	entityplayer.dropItem(new ItemStack(Items.GLASS_BOTTLE), false);
@@ -408,13 +412,9 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 				}
 			}else{
 				if (hand == EnumHand.MAIN_HAND){
-					if (entityplayer.canEat(ConfigValue.Setting_CrashedIce.CrashedIceCanEatAllways)){
+					if (entityplayer.canEat(ConfigValue.crashedice.CanEatAllways())){
 						if (!this.world.isRemote){
-							if (this.isMillk){
-								ItemCrashedIce.onEat(new ItemStack(ItemFoods.item_crashedice,1,this.flavor), this.world, entityplayer);
-							}else{
-								ItemCrashedIce.onEat(new ItemStack(ItemFoods.item_milkcrashedice,1,this.flavor), this.world, entityplayer);
-							}
+							ItemCrashedIce.onEat(ItemFoods.getCrachedIce(flavor,isMillk), this.world, entityplayer);
 						}
 			            timelimit = 0;
 					}else{
@@ -429,7 +429,7 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 				if (hand == EnumHand.MAIN_HAND){
 					// 完全に溶けている場合、秋ガラスを回収する
 					dropItem();
-					setDead();
+					remove();
 				}
 			}
 		}
@@ -438,26 +438,22 @@ public class EntityCrashedIce extends Entity implements IEntityAdditionalSpawnDa
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound tagCompund) {
-		flavor = tagCompund.getByte("Flavor");
+	public void writeAdditional(NBTTagCompound tagCompund) {
+		tagCompund.setInt("Flavor",flavor.getDamage());
+		tagCompund.setInt("Limit",timelimit);
+		tagCompund.setBoolean("IsMillk", isMillk);
+	}
+
+	@Override
+	public void readAdditional(NBTTagCompound tagCompund) {
+		flavor = EnumFlapeSyrup.getValue(tagCompund.getInt("Flavor"));
 		timelimit = tagCompund.getShort("Limit");
 		isMillk = tagCompund.getBoolean("IsMillk");
 	}
 
-	@Override
-	protected void writeEntityToNBT(NBTTagCompound tagCompound) {
-		tagCompound.setInteger("Flavor",flavor);
-		tagCompound.setInteger("Limit",timelimit);
-		tagCompound.setBoolean("IsMillk", isMillk);
-	}
-
 	private void dropItem(){
 		if (timelimit > 0){
-			if (!isMillk){
-				entityDropItem(new ItemStack(ItemFoods.item_crashedice, 1, flavor), 0.0F);
-			}else{
-				entityDropItem(new ItemStack(ItemFoods.item_milkcrashedice, 1, flavor), 0.0F);
-			}
+			entityDropItem(ItemFoods.getCrachedIce(flavor, isMillk), 0.0F);
 		}else{
 			entityDropItem(new ItemStack(ItemFoods.item_icefoodbowl, 1),0.0F);
 		}

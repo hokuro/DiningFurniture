@@ -3,16 +3,16 @@
   "group": "mk_crashedice",
   "ingredients": [
     {
-      "item": "drf:syrup_lightblue"
+      "item": "drf:syrup_light_blue"
     },
     {
-      "item": "drf:crashedice"
+      "item": "drf:crashedice_none"
     },
     {
       "item": "drf:condencedmilk"
     }
   ],
   "result": {
-    "item": "drf:mk_crashedice_lightblue"
+    "item": "drf:mk_crashedice_light_blue"
   }
 }

@@ -2,14 +2,14 @@ package mod.drf.foods.Item;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemFood;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public abstract class ItemFoodRetBaul extends ItemFood {
+public abstract class ItemFoodRetBaul extends ItemFoodPieCakes {
 
-	public ItemFoodRetBaul(int amount, float saturation, boolean isWolfFood) {
-		super(amount, saturation, isWolfFood);
+	public ItemFoodRetBaul(int amount, float saturation, boolean isWolfFood, Item.Properties property) {
+		super(amount, saturation, isWolfFood, property);
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 

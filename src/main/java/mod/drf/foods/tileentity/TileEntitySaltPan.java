@@ -1,10 +1,7 @@
 package mod.drf.foods.tileentity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import mod.drf.core.ModCommon;
-import mod.drf.core.log.ModLog;
+import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.foods.Item.ItemFoods;
 import mod.drf.foods.block.BlockSaltPan;
 import mod.drf.foods.block.BlockSaltPan.EnumSaltPanLevel;
@@ -22,18 +19,19 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 
 public class TileEntitySaltPan extends TileEntity implements ITickable, ICnvertInventory {
-	public static final String REGISTER_NAME = "TileEntitySaltPan";
+	public static final String REGISTER_NAME = "tileentitysaltpan";
 	private static final int BASE_TIME = ModCommon.isDebug?200:24000;
+	public static final int SIZE_INVENTORY = 1;
 
 	private int limitTime;
 	private int cntTime;
 	private int level;
-	private ItemStack[] inventory = new ItemStack[1];
+	private NonNullList<ItemStack> inventory;
 	private String customName;
 
 	private static final int[] slotsTop = new int[] {0};
@@ -44,59 +42,60 @@ public class TileEntitySaltPan extends TileEntity implements ITickable, ICnvertI
 	net.minecraftforge.items.IItemHandler handlerBottom = new net.minecraftforge.items.wrapper.SidedInvWrapper(this, net.minecraft.util.EnumFacing.DOWN);
 	net.minecraftforge.items.IItemHandler handlerSide = new net.minecraftforge.items.wrapper.SidedInvWrapper(this, net.minecraft.util.EnumFacing.WEST);
 
-	public TileEntitySaltPan(int level, ItemStack[] inventory){
-		this.level = level;
-		this.inventory = inventory;
+	public TileEntitySaltPan(){
+		super(Mod_DiningFurniture.RegistryEvents.SALTPAN);
+		inventory = NonNullList.<ItemStack>withSize(SIZE_INVENTORY, ItemStack.EMPTY);
+		this.level = 0;
 		this.clear();
 	}
 
-    public TileEntitySaltPan() {
-		// TODO 自動生成されたコンストラクター・スタブ
-    	this.clear();
-	}
 
-	public void readFromNBT(NBTTagCompound compound)
+	@Override
+	public void read(NBTTagCompound compound)
     {
-		super.readFromNBT(compound);
-		NBTTagList nbttaglist = compound.getTagList("Items", 10);
-		this.inventory = new ItemStack[this.getSizeInventory()];
-		this.clear();
-		for (int i = 0; i < nbttaglist.tagCount(); ++i)
-		{
-			NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-			int j = nbttagcompound.getByte("Slot");
+		super.read(compound);
+	    this.inventory = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+	    ItemStackHelper.loadAllItems(compound, this.inventory);
+//		NBTTagList nbttaglist = compound.getTagList("Items", 10);
+//		this.inventory = new ItemStack[this.getSizeInventory()];
+//		this.clear();
+//		for (int i = 0; i < nbttaglist.tagCount(); ++i)
+//		{
+//			NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
+//			int j = nbttagcompound.getByte("Slot");
+//
+//			if (j >= 0 && j < this.inventory.length)
+//			{
+//				this.inventory[j] = new ItemStack(nbttagcompound);
+//			}
+//		}
 
-			if (j >= 0 && j < this.inventory.length)
-			{
-				this.inventory[j] = new ItemStack(nbttagcompound);
-			}
-		}
-
-		limitTime = compound.getInteger("LIMITTIME");
-		cntTime = compound.getInteger("CNTTIME");
-		if (compound.hasKey("CustomName", 8))
+		limitTime = compound.getInt("LIMITTIME");
+		cntTime = compound.getInt("CNTTIME");
+		if (compound.hasKey("CustomName"))
 		{
 			this.customName = compound.getString("CustomName");
 		}
     }
 
-    public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	@Override
+    public NBTTagCompound write(NBTTagCompound compound)
     {
-		super.writeToNBT(compound);
+		super.write(compound);
 
-		compound.setInteger("LIMITTIME", limitTime);
-		compound.setInteger("CNTTIME", cntTime);
+		compound.setInt("LIMITTIME", limitTime);
+		compound.setInt("CNTTIME", cntTime);
 
 		NBTTagList nbttaglist = new NBTTagList();
 
-		for (int i = 0; i < this.inventory.length; ++i)
+		for (int i = 0; i < SIZE_INVENTORY; ++i)
 		{
-			if (!this.inventory[i].isEmpty())
+			if (!this.inventory.get(i).isEmpty())
 			{
 				NBTTagCompound nbttagcompound = new NBTTagCompound();
 				nbttagcompound.setByte("Slot", (byte)i);
-				this.inventory[i].writeToNBT(nbttagcompound);
-				nbttaglist.appendTag(nbttagcompound);
+				this.inventory.get(i).write(nbttagcompound);
+				nbttaglist.add(nbttagcompound);
 			}
 		}
 
@@ -110,15 +109,15 @@ public class TileEntitySaltPan extends TileEntity implements ITickable, ICnvertI
     }
 
 	@Override
-	public void update() {
+	public void tick() {
 		boolean flag1 = true;
 		IBlockState state = this.world.getBlockState(pos);
 		if (!(state.getBlock() instanceof BlockSaltPan)){return;}
 		BlockSaltPan saltPan = (BlockSaltPan)state.getBlock();
-		int level = state.getValue(BlockSaltPan.LEVEL);
+		int level = (int)state.getValues().get(BlockSaltPan.LEVEL);
         if (!this.world.isRemote)
         {
-        	if (inventory[0].isEmpty()){
+        	if (inventory.get(0).isEmpty()){
         		if ( level != EnumSaltPanLevel.EMPTY.getLevel()){
         			BlockSaltPan.setWaterLevel(this.world, pos, state, EnumSaltPanLevel.EMPTY);
         		}
@@ -126,34 +125,23 @@ public class TileEntitySaltPan extends TileEntity implements ITickable, ICnvertI
     			if (limitTime != 0){
     				limitTime = 0;
     				cntTime = 0;
-    				if (ModCommon.isDebug){ModLog.log().debug("SaltPan ReSet Counter limit"+limitTime);}
-    				if (ModCommon.isDebug){ModLog.log().debug("SaltPan ReSet Counter count"+cntTime);}
     			}
 
-        	}else if (!inventory[0].isEmpty()){
+        	}else if (!inventory.get(0).isEmpty()){
     			if (limitTime == 0){
     				// 何かが入れられた直後の場合大麻更新
-    				limitTime = BASE_TIME + (ModCommon.isDebug?0:(Minecraft.getMinecraft().world.rand.nextInt(5)*1200));
+    				limitTime = BASE_TIME + (ModCommon.isDebug?0:(Minecraft.getInstance().world.rand.nextInt(5)*1200));
     				cntTime = 0;
-    				if (ModCommon.isDebug){ModLog.log().debug("SaltPan Set Counter limit"+limitTime);}
-    				if (ModCommon.isDebug){ModLog.log().debug("SaltPan Set Counter count"+cntTime);}
     			}
-        		if (!inventory[0].isEmpty() && inventory[0].getItem() == Items.WATER_BUCKET){
-        			if (ModCommon.isDebug){ModLog.log().debug("SaltPan item in waterBukets");}
+        		if (!inventory.get(0).isEmpty() && inventory.get(0).getItem() == Items.WATER_BUCKET){
     				// 水バケツの場合、インベントリの設定を水ブロックに変え、バケツを吐き出し、レベルを更新する
-    				inventory[0] = new ItemStack(Items.POTIONITEM);
+    				inventory.set(0,new ItemStack(Items.POTION));
     				InventoryHelper.spawnItemStack(this.world, this.pos.getX(), this.pos.getY(), this.pos.getZ(), new ItemStack(Items.BUCKET));
     				cntTime = 0;
     				flag1 = true;
-            	}else if (inventory[0].getItem() == Items.POTIONITEM){
+            	}else if (inventory.get(0).getItem() == Items.POTION){
     				// 水が入っている場合カウントアップ
     				cntTime ++;
-    				if (ModCommon.isDebug){
-    					if (cntTime%200 == 0){
-    						ModLog.log().debug("SaltPan Counter limit"+limitTime);
-    						ModLog.log().debug("SaltPan Counter count"+cntTime);
-    					}
-    				}
             	}else{
             		return;
             	}
@@ -164,21 +152,20 @@ public class TileEntitySaltPan extends TileEntity implements ITickable, ICnvertI
 
     		if (limitTime != 0 && limitTime <= cntTime){
     			// 塩ができた場合、インベントリの中身を塩6つに変え、レベルを更新する
-    			inventory[0] = new ItemStack(ItemFoods.item_salt,6);
+    			inventory.set(0, new ItemStack(ItemFoods.item_salt,6));
     			BlockSaltPan.setWaterLevel(this.world, this.pos, state, EnumSaltPanLevel.SATL);
-    			if (ModCommon.isDebug){ModLog.log().debug("SaltPan BlockState :"+EnumSaltPanLevel.SATL.name());}
     			limitTime = 0;
     			cntTime = 0;
     			flag1 = true;
     		}
         }else{
-        	if (inventory[0].isEmpty()){
+        	if (inventory.get(0).isEmpty()){
             	if (level == 0){
-            		inventory[0] = ItemStack.EMPTY;
+            		inventory.set(0, ItemStack.EMPTY);
             	}else if (level == 1){
-            		inventory[0] = new ItemStack(Items.POTIONITEM,0);
+            		inventory.set(0, new ItemStack(Items.POTION,0));
             	}else if (level == 2){
-            		inventory[0] = new ItemStack(ItemFoods.item_salt,3);
+            		inventory.set(0, new ItemStack(ItemFoods.item_salt,3));
             	}
         	}
         }
@@ -191,36 +178,32 @@ public class TileEntitySaltPan extends TileEntity implements ITickable, ICnvertI
 
 	@Override
 	public int getSizeInventory() {
-		return inventory.length;
+		return SIZE_INVENTORY;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
-		if (this.inventory[index].isEmpty()){
+		if (this.inventory.get(index).isEmpty()){
 			return ItemStack.EMPTY;
 		}
-		return inventory[index];
+		return inventory.get(index);
 	}
 
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
-		List<ItemStack> stack = new ArrayList<ItemStack>();
-		stack.toArray(this.inventory);
-		 return ItemStackHelper.getAndSplit(stack, index, count);
+		 return ItemStackHelper.getAndSplit(inventory, index, count);
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		List<ItemStack> stack = new ArrayList<ItemStack>();
-		stack.toArray(this.inventory);
-		return ItemStackHelper.getAndRemove(stack, index);
+		return ItemStackHelper.getAndRemove(inventory, index);
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		this.inventory[index] = stack;
+		this.inventory.set(index,stack);
 		if (stack.isEmpty()){
-			boolean flag = stack.isItemEqual(this.inventory[index]) && ItemStack.areItemStackTagsEqual(stack, this.inventory[index]);
+			boolean flag = stack.isItemEqual(this.inventory.get(index)) && ItemStack.areItemStackTagsEqual(stack, this.inventory.get(index));
 
 			if (stack.getCount() > this.getInventoryStackLimit())
 			{
@@ -242,7 +225,7 @@ public class TileEntitySaltPan extends TileEntity implements ITickable, ICnvertI
 
 	@Override
 	public boolean isUsableByPlayer(EntityPlayer player) {
-		return this.world.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+		return true;
 	}
 
 	@Override
@@ -291,15 +274,15 @@ public class TileEntitySaltPan extends TileEntity implements ITickable, ICnvertI
 
 	@Override
 	public void clear() {
-		for (int i = 0; i < this.inventory.length; ++i)
+		for (int i = 0; i < this.inventory.size(); ++i)
 		{
-			this.inventory[i] = ItemStack.EMPTY;
+			this.inventory.set(i, ItemStack.EMPTY);
 		}
 	}
 
 	@Override
-	public String getName() {
-		return this.hasCustomName() ? this.customName : "container.freezer";
+	public ITextComponent getName() {
+		return this.hasCustomName() ? new TextComponentTranslation(this.customName) : new TextComponentTranslation("container.saltpan");
 	}
 
 	@Override
@@ -319,7 +302,7 @@ public class TileEntitySaltPan extends TileEntity implements ITickable, ICnvertI
 
 	@Override
 	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-		if (!inventory[0].isEmpty()){
+		if (!inventory.get(0).isEmpty()){
 			return false;
 		}else if (itemStackIn.getItem() == Items.WATER_BUCKET){
 			return true;
@@ -342,7 +325,7 @@ public class TileEntitySaltPan extends TileEntity implements ITickable, ICnvertI
 
 	@Override
 	public ITextComponent getDisplayName() {
-        return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
+        return getName();
 	}
 
 	@Override
@@ -361,5 +344,12 @@ public class TileEntitySaltPan extends TileEntity implements ITickable, ICnvertI
 	        	}
 	        }
 	        return ret;
+	}
+
+
+	@Override
+	public ITextComponent getCustomName() {
+		// TODO 自動生成されたメソッド・スタブ
+		return getName();
 	}
 }

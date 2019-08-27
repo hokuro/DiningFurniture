@@ -52,7 +52,7 @@ public abstract class OriginalMenu implements IOriginalMenu {
 			check = false;
 			for (ItemStack stack2: ings){
 				if (stack2.isEmpty()){continue;}
-				if (ModUtil.compareItemStacks(stack1, stack2, CompaierLevel.LEVEL_EQUAL_META)&&
+				if (ModUtil.compareItemStacks(stack1, stack2, CompaierLevel.LEVEL_EQUAL_ITEM)&&
 						stack1.getCount() <= stack2.getCount()){
 					check = true;
 					break;
@@ -89,17 +89,21 @@ public abstract class OriginalMenu implements IOriginalMenu {
 
 
 
-	protected final static List<String> order = new ArrayList<String>();
-	protected final static HashMap<String,ArrayList<OriginalMenu>> register = new HashMap<String,ArrayList<OriginalMenu>>();
+	protected final List<String> order = new ArrayList<String>();
+	protected final HashMap<String,ArrayList<OriginalMenu>> register = new HashMap<String,ArrayList<OriginalMenu>>();
 
-	public static void registerMenu(final OriginalMenu menu){
+	public void registerMenu(final OriginalMenu menu){
 		ItemStack result = menu.getResultItem().copy();
-		String key = result.getUnlocalizedName();
-		if (!register.containsKey(key)){
-			register.put(key, new ArrayList<OriginalMenu>(){{add(menu);}});
-			order.add(key);
-		}else{
-			register.get(key).add(menu);
+		String key = result.getItem().getRegistryName().toString();
+		if (key != null) {
+			if (!register.containsKey(key)){
+				register.put(key, new ArrayList<OriginalMenu>(){{add(menu);}});
+				order.add(key);
+			}else{
+				register.get(key).add(menu);
+			}
+		}else {
+			System.console().printf("Error");
 		}
 	}
 
@@ -107,8 +111,12 @@ public abstract class OriginalMenu implements IOriginalMenu {
 		if (order.size() == 0){makeMenu();}
 		List<ItemStack> ret = new ArrayList<ItemStack>();
 		for (String key : order){
+			try {
 			ret.add(register.get(key).get(0).resultItem.copy());
 			ret.get(ret.size()-1).setCount(1);
+			}catch(Throwable e) {
+				System.console().printf("Error");
+			}
 		}
 		return ret;
 	}

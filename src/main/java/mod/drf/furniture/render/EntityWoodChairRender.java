@@ -24,7 +24,7 @@ public class EntityWoodChairRender extends Render<EntityWoodChair>{
 		// レンダリング実装
 		// レンダリング
 		GL11.glPushMatrix();
-		GL11.glTranslatef((float)x, (float)y+1.5F, (float)z);
+		GL11.glTranslatef((float)x, (float)y, (float)z);
 		GL11.glRotatef(180F - yaw, 0.0F, 1.0F, 0.0F);
 		GL11.glScalef(-1F, -1F, 1.0F);
 		bindEntityTexture(entityzabuton);

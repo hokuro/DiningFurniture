@@ -1,21 +1,20 @@
 package mod.drf.furniture.entity;
 
-import io.netty.buffer.ByteBuf;
-import mod.drf.furniture.item.ItemFurniture;
+import mod.drf.core.Mod_DiningFurniture;
+import mod.drf.furniture.item.ItemFurniture.EnumWoodType;
 import mod.drf.furniture.model.ModelWoodChair;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class EntityWoodChair extends EntityChair {
-	public static final String NAME= ItemFurniture.NAME_WOODCHAIR;
+	public static final String NAME= "woodchair";
 	private static final ModelWoodChair model = new ModelWoodChair();
 	protected static final ResourceLocation[] textures = new ResourceLocation[] {
 			new ResourceLocation("drf:textures/entity/woodchair_ork.png"),
@@ -25,45 +24,38 @@ public class EntityWoodChair extends EntityChair {
 			new ResourceLocation("drf:textures/entity/woodchair_acacia.png"),
 			new ResourceLocation("drf:textures/entity/woodchair_ork2.png")
 	};
-	private int woodType;
+	private EnumWoodType woodType;
 
 
 	public EntityWoodChair(World worldIn){
-		super(worldIn);
-		setSize(1F,1.8F);
-		woodType = 0;
+		this(worldIn, ItemStack.EMPTY);
 	}
 
 	public EntityWoodChair(World worldIn, ItemStack item) {
-		super(worldIn, item);
-		setSize(1.0F,1.8F);
-		if (item.getItem() == Item.getItemFromBlock(Blocks.PLANKS)){
-			woodType = item.getMetadata();
-		}
+		this(worldIn, item, EnumWoodType.OAK_WOOD);
 	}
 
-	public EntityWoodChair(World worldIn, ItemStack item, int typ){
-		this(worldIn, item);
-		this.woodType = typ;
+	public EntityWoodChair(World worldIn, ItemStack item, EnumWoodType typ){
+		this(worldIn, 0F, 0F, 0F, item, typ);
 	}
 
-	public EntityWoodChair(World worldIn, double x, double y, double z, ItemStack item, int typ){
-		super(worldIn,  x, y, z, item);
+	public EntityWoodChair(World worldIn, double x, double y, double z, ItemStack item, EnumWoodType typ){
+		super(Mod_DiningFurniture.RegistryEvents.WOODCHAIR, worldIn,  x, y, z, item);
 		setSize(1.0F,1.8F);
 		this.woodType = typ;
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound tagCompund) {
-		super.readEntityFromNBT(tagCompund);
-		woodType = tagCompund.getInteger("Type");
+	protected void readAdditional(NBTTagCompound tagCompund) {
+		super.readAdditional(tagCompund);
+		woodType = EnumWoodType.getType(tagCompund.getInt("Type"));
 	}
 
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound tagCompund) {
-		super.writeEntityToNBT(tagCompund);
-		tagCompund.setInteger("Type", woodType);
+	protected void writeAdditional(NBTTagCompound tagCompund) {
+		super.writeAdditional(tagCompund);
+		tagCompund.setInt("Type", woodType.getIndex());
 	}
 
 
@@ -83,21 +75,21 @@ public class EntityWoodChair extends EntityChair {
 	}
 
 	@Override
-	public void writeSpawnData(ByteBuf data) {
+	public void writeSpawnData(PacketBuffer data) {
 		super.writeSpawnData(data);
-		data.writeInt(woodType);
+		data.writeInt(woodType.getIndex());
 	}
 	@Override
-	public void readSpawnData(ByteBuf data) {
+	public void readSpawnData(PacketBuffer data) {
 		super.readSpawnData(data);
-		woodType = data.readInt();
+		woodType = EnumWoodType.getType(data.readInt());
 	}
 
 
 	@Override
 	public ResourceLocation getEntityTexture(EntityChair chair) {
-		if (woodType >= 0 && woodType <textures.length){
-			return textures[woodType];
+		if (woodType.getIndex() >= 0 && woodType.getIndex() <textures.length){
+			return textures[woodType.getIndex()];
 		}
 		return textures[0];
 	}

@@ -1,13 +1,15 @@
 package mod.drf.furniture.entity;
 
-import io.netty.buffer.ByteBuf;
+import mod.drf.core.Mod_DiningFurniture;
 import mod.drf.furniture.model.ModelZabuton;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -15,59 +17,55 @@ public class EntityZabuton extends EntityChair {
 	private static final ModelZabuton mainmodel = new ModelZabuton();
 	public static final String NAME="zabuton";
 	protected ResourceLocation[] textures = new ResourceLocation[] {
-			new ResourceLocation("drf:textures/entity/zabuton_f.png"),
-			new ResourceLocation("drf:textures/entity/zabuton_e.png"),
-			new ResourceLocation("drf:textures/entity/zabuton_d.png"),
-			new ResourceLocation("drf:textures/entity/zabuton_c.png"),
-			new ResourceLocation("drf:textures/entity/zabuton_b.png"),
-			new ResourceLocation("drf:textures/entity/zabuton_a.png"),
-			new ResourceLocation("drf:textures/entity/zabuton_9.png"),
-			new ResourceLocation("drf:textures/entity/zabuton_8.png"),
-			new ResourceLocation("drf:textures/entity/zabuton_7.png"),
-			new ResourceLocation("drf:textures/entity/zabuton_6.png"),
-			new ResourceLocation("drf:textures/entity/zabuton_5.png"),
-			new ResourceLocation("drf:textures/entity/zabuton_4.png"),
-			new ResourceLocation("drf:textures/entity/zabuton_3.png"),
-			new ResourceLocation("drf:textures/entity/zabuton_2.png"),
+			new ResourceLocation("drf:textures/entity/zabuton_0.png"),
 			new ResourceLocation("drf:textures/entity/zabuton_1.png"),
-			new ResourceLocation("drf:textures/entity/zabuton_0.png")
+			new ResourceLocation("drf:textures/entity/zabuton_2.png"),
+			new ResourceLocation("drf:textures/entity/zabuton_3.png"),
+			new ResourceLocation("drf:textures/entity/zabuton_4.png"),
+			new ResourceLocation("drf:textures/entity/zabuton_5.png"),
+			new ResourceLocation("drf:textures/entity/zabuton_6.png"),
+			new ResourceLocation("drf:textures/entity/zabuton_7.png"),
+			new ResourceLocation("drf:textures/entity/zabuton_8.png"),
+			new ResourceLocation("drf:textures/entity/zabuton_9.png"),
+			new ResourceLocation("drf:textures/entity/zabuton_a.png"),
+			new ResourceLocation("drf:textures/entity/zabuton_b.png"),
+			new ResourceLocation("drf:textures/entity/zabuton_c.png"),
+			new ResourceLocation("drf:textures/entity/zabuton_d.png"),
+			new ResourceLocation("drf:textures/entity/zabuton_e.png"),
+			new ResourceLocation("drf:textures/entity/zabuton_f.png")
 	};
-	public byte color;
+
+	public EnumDyeColor color;
 
 	public EntityZabuton(World worldIn){
-		super(worldIn);
-		setSize(0.81F,0.2F);
-		color = 0;
+		this(worldIn, ItemStack.EMPTY);
 	}
 
 	public EntityZabuton(World worldIn, ItemStack item) {
-		super(worldIn, item);
-		setSize(0.81F,0.2F);
-		color = 0;
+		this(worldIn, item, EnumDyeColor.WHITE);
 	}
 
-	public EntityZabuton(World worldIn, ItemStack item, byte c){
-		this(worldIn, item);
-		this.color = c;
+	public EntityZabuton(World worldIn, ItemStack item, EnumDyeColor c){
+		this(worldIn, 0, 0, 0, item,c);
 	}
 
-	public EntityZabuton(World worldIn, double x, double y, double z, ItemStack item, byte c){
-		super(worldIn,  x, y, z, item);
+	public EntityZabuton(World worldIn, double x, double y, double z, ItemStack item, EnumDyeColor c){
+		super(Mod_DiningFurniture.RegistryEvents.ZABUTON, worldIn,  x, y, z, item);
 		setSize(0.81F,0.2F);
 		this.color = c;
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound tagCompund) {
-		super.readEntityFromNBT(tagCompund);
-		color = tagCompund.getByte("Color");
+	protected void readAdditional(NBTTagCompound tagCompund) {
+		super.readAdditional(tagCompund);
+		color = EnumDyeColor.byId(tagCompund.getInt("Color"));
 	}
 
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound tagCompund) {
-		super.writeEntityToNBT(tagCompund);
-		tagCompund.setByte("Color", (byte)(color & 0x0f));
+	protected void writeAdditional(NBTTagCompound tagCompund) {
+		super.writeAdditional(tagCompund);
+		tagCompund.setInt("Color", color.getId());
 	}
 
 	@Override
@@ -86,20 +84,20 @@ public class EntityZabuton extends EntityChair {
 	}
 
 	@Override
-	public void writeSpawnData(ByteBuf data) {
+	public void writeSpawnData(PacketBuffer data) {
 		super.writeSpawnData(data);
-		data.writeByte(color);
+		data.writeInt(color.getId());
 	}
 	@Override
-	public void readSpawnData(ByteBuf data) {
+	public void readSpawnData(PacketBuffer data) {
 		super.readSpawnData(data);
-		color = data.readByte();
+		color = EnumDyeColor.byId(data.readInt());
 	}
 
 	@Override
 	public ResourceLocation getEntityTexture(EntityChair chair){
-		if(color >= 0 && color < 16){
-			return textures[color];
+		if(color.getId() >= 0 && color.getId() < 16){
+			return textures[color.getId()];
 		}else{
 			return textures[0];
 		}

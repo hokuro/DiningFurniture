@@ -1,10 +1,12 @@
 package mod.drf.common.inventory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import mod.drf.foods.Item.ItemFoods;
-import mod.drf.foods.network.MessageSelectMenu;
+import mod.drf.foods.Item.ItemSyrup;
+import mod.drf.network.MessageSelectMenu;
 import mod.drf.recipie.CookingMenu;
 import mod.drf.recipie.OriginalMenu;
 import mod.drf.recipie.OriginalMenu.OriginalMenuKind;
@@ -20,11 +22,10 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import scala.actors.threadpool.Arrays;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ContainerOriginalWorkBench extends Container {
 
 	private InventoryOriginalWorkBenchIngredients invIng;
@@ -56,18 +57,18 @@ public class ContainerOriginalWorkBench extends Container {
 		int slotIdx = 0;
 		// 材料スロット
 		for (int i = 0; i < 9; i++){
-			this.addSlotToContainer(new SlotInOut(invIng, i, 8 + i * 18, 38, false));
+			this.addSlot(new SlotInOut(invIng, i, 8 + i * 18, 38, false));
 		}
 		slotIdx = 9;
 		if (menu.getKind() == OriginalMenu.OriginalMenuKind.COOKING){
 			// トッピングスロット
-			this.addSlotToContainer(new SlotInOut(invIng,slotIdx, 116, 59, false));
+			this.addSlot(new SlotInOut(invIng,slotIdx, 116, 59, false));
 			slotIdx++;
 		}
 		idxIngredientsEnd = slotIdx;
 
 		// 完成品スロット
-		this.addSlotToContainer(new SlotInOut(invResult,0, 152, 59,false));
+		this.addSlot(new SlotInOut(invResult,0, 152, 59,false));
 		idxResultEnd = slotIdx;
 
 		// メニューインベントリ
@@ -75,7 +76,7 @@ public class ContainerOriginalWorkBench extends Container {
 		idxMenuEnd = idxMenuStart + invMenu.ROW*invMenu.COL;
 		for (int k = 0; k < invMenu.ROW; k++){
 			for (int l = 0; l < invMenu.COL; l++){
-				this.addSlotToContainer(new SlotInOut(invMenu, l + k*invMenu.COL, 177 + l * 18, 16 + k * 18,false));
+				this.addSlot(new SlotInOut(invMenu, l + k*invMenu.COL, 177 + l * 18, 16 + k * 18,false));
 			}
 		}
 
@@ -85,13 +86,13 @@ public class ContainerOriginalWorkBench extends Container {
         {
             for (int i1 = 0; i1 < 9; ++i1)
             {
-                this.addSlotToContainer(new Slot(playerIn, i1 + k * 9 + 9, 8 + i1 * 18, 106 + k * 18));
+                this.addSlot(new Slot(playerIn, i1 + k * 9 + 9, 8 + i1 * 18, 106 + k * 18));
             }
         }
 
         for (int l = 0; l < 9; ++l)
         {
-            this.addSlotToContainer(new Slot(playerIn, l, 8 + l * 18, 164));
+            this.addSlot(new Slot(playerIn, l, 8 + l * 18, 164));
         }
 
         // メニューセット
@@ -125,7 +126,7 @@ public class ContainerOriginalWorkBench extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn) {
-        return playerIn.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+        return true;//playerIn.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
 	}
 
 	@Override
@@ -140,6 +141,7 @@ public class ContainerOriginalWorkBench extends Container {
     }
 
 
+	@Override
 	  public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
 	  {
 	        ItemStack itemstack = ItemStack.EMPTY;
@@ -243,14 +245,14 @@ public class ContainerOriginalWorkBench extends Container {
 						ItemStack ingItem = mItem.getIngredient(i);
 						for (int j = 0; j < this.invIng.getSizeInventory(); j++){
 							ItemStack item = this.invIng.getStackInSlot(j);
-							if (ModUtil.compareItemStacks(item, ingItem, CompaierLevel.LEVEL_EQUAL_META)){
+							if (ModUtil.compareItemStacks(item, ingItem, CompaierLevel.LEVEL_EQUAL_ITEM)){
 								if (item.getItem() == Items.WATER_BUCKET || item.getItem() == Items.MILK_BUCKET){
 									// 中身入りバケツの場合中身だけ使用する
 									item = new ItemStack(Items.BUCKET,1);
 								}else{
-									 if (item.getItem() == ItemFoods.item_syrup){
+									 if (item.getItem() instanceof ItemSyrup){
 											// 出来上がりをプレイヤーインベントリに移す
-									        if (!player.isEntityAlive() || player instanceof EntityPlayerMP && ((EntityPlayerMP)player).hasDisconnected())
+									        if (!player.isAlive() || player instanceof EntityPlayerMP && ((EntityPlayerMP)player).hasDisconnected())
 									        {
 									        	player.dropItem(new ItemStack(Items.GLASS_BOTTLE,ingItem.getCount()), false);
 									        }
@@ -260,7 +262,7 @@ public class ContainerOriginalWorkBench extends Container {
 									        }
 									 }else if (item.getItem() == ItemFoods.item_syrupmilk){
 											// 出来上がりをプレイヤーインベントリに移す
-									        if (!player.isEntityAlive() || player instanceof EntityPlayerMP && ((EntityPlayerMP)player).hasDisconnected())
+									        if (!player.isAlive() || player instanceof EntityPlayerMP && ((EntityPlayerMP)player).hasDisconnected())
 									        {
 									        	player.dropItem(new ItemStack(Items.BUCKET,ingItem.getCount()), false);
 									        }
@@ -282,13 +284,13 @@ public class ContainerOriginalWorkBench extends Container {
 					if (mItem.getKind() == OriginalMenuKind.COOKING){
 						// cookingの場合トッピングも減らす
 						ItemStack item = this.invIng.getStackInSlot(OriginalMenuKind.COOKING.getLength()-1);
-						if (ModUtil.containItemStack(item, ((CookingMenu)mItem).getToppings(),CompaierLevel.LEVEL_EQUAL_META)){
+						if (ModUtil.containItemStack(item, ((CookingMenu)mItem).getToppings(),CompaierLevel.LEVEL_EQUAL_ITEM)){
 							if (item.getItem() == Items.WATER_BUCKET || item.getItem() == Items.MILK_BUCKET){
 								// 中身入りバケツの場合中身だけ使用する
 								item = new ItemStack(Items.BUCKET,1);
 							}else{
-								 if (item.getItem() == ItemFoods.item_syrup){
-								        if (!player.isEntityAlive() || player instanceof EntityPlayerMP && ((EntityPlayerMP)player).hasDisconnected())
+								 if (item.getItem() instanceof ItemSyrup){
+								        if (!player.isAlive() || player instanceof EntityPlayerMP && ((EntityPlayerMP)player).hasDisconnected())
 								        {
 								        	player.dropItem(new ItemStack(Items.GLASS_BOTTLE,1), false);
 								        }
@@ -297,7 +299,7 @@ public class ContainerOriginalWorkBench extends Container {
 								        	player.inventory.placeItemBackInInventory(world, new ItemStack(Items.GLASS_BOTTLE,1));
 								        }
 								 }else if (item.getItem() == ItemFoods.item_syrupmilk){
-								        if (!player.isEntityAlive() || player instanceof EntityPlayerMP && ((EntityPlayerMP)player).hasDisconnected())
+								        if (!player.isAlive() || player instanceof EntityPlayerMP && ((EntityPlayerMP)player).hasDisconnected())
 								        {
 								        	player.dropItem(new ItemStack(Items.BUCKET,1), false);
 								        }
@@ -317,7 +319,7 @@ public class ContainerOriginalWorkBench extends Container {
 
 
 					// 出来上がりをプレイヤーインベントリに移す
-			        if (!player.isEntityAlive() || player instanceof EntityPlayerMP && ((EntityPlayerMP)player).hasDisconnected())
+			        if (!player.isAlive() || player instanceof EntityPlayerMP && ((EntityPlayerMP)player).hasDisconnected())
 			        {
 			        	player.dropItem(mItem.getResultItem().copy(), false);
 			        }

@@ -11,8 +11,8 @@ import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ContainerIceCrasher extends Container {
 	private final IInventory tile;
@@ -20,9 +20,9 @@ public class ContainerIceCrasher extends Container {
 
 	public ContainerIceCrasher(InventoryPlayer playerInventory, IInventory tileEntityFlapeMaker) {
 		this.tile = tileEntityFlapeMaker;
-		this.addSlotToContainer(new SlotInOut(tile, 0, 56, 17,true, ORIGINAL_RECIPIES.RECIPIE_CRASHING));
-		this.addSlotToContainer(new SlotInOut(tile, 1, 56, 53,new ItemStack[]{new ItemStack(ItemFoods.item_icefoodbowl)}));
-        this.addSlotToContainer(new SlotInOut(tile, 2, 116, 35,false, ORIGINAL_RECIPIES.RECIPIE_CRASHING));
+		this.addSlot(new SlotInOut(tile, 0, 56, 17,true, ORIGINAL_RECIPIES.RECIPIE_CRASHING));
+		this.addSlot(new SlotInOut(tile, 1, 56, 53,new ItemStack[]{new ItemStack(ItemFoods.item_icefoodbowl)}));
+        this.addSlot(new SlotInOut(tile, 2, 116, 35,false, ORIGINAL_RECIPIES.RECIPIE_CRASHING));
 
 
 
@@ -30,13 +30,13 @@ public class ContainerIceCrasher extends Container {
 		{
 			for (int j = 0; j < 9; ++j)
 			{
-				this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (int k = 0; k < 9; ++k)
 		{
-			this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142));
+			this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 142));
 		}
 	}
 
@@ -63,7 +63,7 @@ public class ContainerIceCrasher extends Container {
 		listener.sendAllWindowProperties(this, this.tile);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void updateProgressBar(int id, int data)
 	{
 		this.tile.setField(id, data);
