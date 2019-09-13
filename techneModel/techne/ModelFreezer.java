@@ -14,21 +14,21 @@ package net.minecraft.src;
 public class ModelModelFreezer extends ModelBase
 {
   //fields
-    ModelRenderer back;
-    ModelRenderer front;
+    RendererModel back;
+    RendererModel front;
   
   public ModelModelFreezer()
   {
     textureWidth = 96;
     textureHeight = 64;
     
-      back = new ModelRenderer(this, 0, 0);
+      back = new RendererModel(this, 0, 0);
       back.addBox(-7F, 1F, -6F, 14, 16, 13);
       back.setRotationPoint(0F, 1F, 0F);
       back.setTextureSize(64, 32);
       back.mirror = true;
       setRotation(back, 0F, 0F, 0F);
-      front = new ModelRenderer(this, 0, 30);
+      front = new RendererModel(this, 0, 30);
       front.addBox(0F, 0F, -3F, 14, 16, 2);
       front.setRotationPoint(-7F, 2F, -5F);
       front.setTextureSize(64, 32);
@@ -44,7 +44,7 @@ public class ModelModelFreezer extends ModelBase
     front.render(f5);
   }
   
-  private void setRotation(ModelRenderer model, float x, float y, float z)
+  private void setRotation(RendererModel model, float x, float y, float z)
   {
     model.rotateAngleX = x;
     model.rotateAngleY = y;

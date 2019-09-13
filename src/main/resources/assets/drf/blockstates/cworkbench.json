@@ -1,9 +1,0 @@
-{
-    "variants": {
-        "facing=north": { "model": "drf:block/cworkbench"},
-        "facing=south": { "model": "drf:block/cworkbench", "y": 180 },
-        "facing=west":  { "model": "drf:block/cworkbench", "y": 270 },
-        "facing=east":  { "model": "drf:block/cworkbench", "y": 90 }
-    }
-}
-

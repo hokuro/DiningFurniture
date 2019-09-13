@@ -1,6 +1,6 @@
 package mod.drf.creative;
 
-import mod.drf.furniture.item.ItemFurniture;
+import mod.drf.item.ItemCore;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -21,6 +21,6 @@ public class ItemGroupFurniture extends ItemGroup{
 
 	@Override
 	public ItemStack createIcon() {
-		return ItemFurniture.item_zabuton_black.getDefaultInstance();
+		return new ItemStack(ItemCore.item_zabuton_black);
 	}
 }

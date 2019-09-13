@@ -14,28 +14,28 @@ package net.minecraft.src;
 public class ModelModelMill extends ModelBase
 {
   //fields
-    ModelRenderer Shape1;
-    ModelRenderer Shape2;
-    ModelRenderer Shape3;
+    RendererModel Shape1;
+    RendererModel Shape2;
+    RendererModel Shape3;
   
   public ModelModelMill()
   {
     textureWidth = 96;
     textureHeight = 64;
     
-      Shape1 = new ModelRenderer(this, 0, 0);
+      Shape1 = new RendererModel(this, 0, 0);
       Shape1.addBox(-6F, -6F, -6F, 12, 6, 12);
       Shape1.setRotationPoint(0F, 18F, 0F);
       Shape1.setTextureSize(96, 64);
       Shape1.mirror = true;
       setRotation(Shape1, 0F, 0F, 0F);
-      Shape2 = new ModelRenderer(this, 0, 18);
+      Shape2 = new RendererModel(this, 0, 18);
       Shape2.addBox(-6F, -6F, -6F, 12, 6, 12);
       Shape2.setRotationPoint(0F, 18F, 0F);
       Shape2.setTextureSize(96, 64);
       Shape2.mirror = true;
       setRotation(Shape2, 0F, 0F, 3.141593F);
-      Shape3 = new ModelRenderer(this, 49, 0);
+      Shape3 = new RendererModel(this, 49, 0);
       Shape3.addBox(-5F, -9F, -1F, 2, 3, 2);
       Shape3.setRotationPoint(0F, 18F, 0F);
       Shape3.setTextureSize(96, 64);
@@ -52,7 +52,7 @@ public class ModelModelMill extends ModelBase
     Shape3.render(f5);
   }
   
-  private void setRotation(ModelRenderer model, float x, float y, float z)
+  private void setRotation(RendererModel model, float x, float y, float z)
   {
     model.rotateAngleX = x;
     model.rotateAngleY = y;

@@ -14,77 +14,77 @@ package net.minecraft.src;
 public class ModelModelFlape extends ModelBase
 {
   //fields
-    ModelRenderer casebase;
-    ModelRenderer casecupsid4;
-    ModelRenderer casecupsid3;
-    ModelRenderer caseporl;
-    ModelRenderer casecupbase;
-    ModelRenderer casecupsid2;
-    ModelRenderer casecupsid1;
-    ModelRenderer Ice1;
-    ModelRenderer ice2;
-    ModelRenderer ice3;
+    RendererModel casebase;
+    RendererModel casecupsid4;
+    RendererModel casecupsid3;
+    RendererModel caseporl;
+    RendererModel casecupbase;
+    RendererModel casecupsid2;
+    RendererModel casecupsid1;
+    RendererModel Ice1;
+    RendererModel ice2;
+    RendererModel ice3;
   
   public ModelModelFlape()
   {
     textureWidth = 64;
     textureHeight = 32;
     
-      casebase = new ModelRenderer(this, 0, 0);
+      casebase = new RendererModel(this, 0, 0);
       casebase.addBox(-3F, 0F, -3F, 6, 1, 6);
       casebase.setRotationPoint(0F, 23F, 0F);
       casebase.setTextureSize(64, 32);
       casebase.mirror = true;
       setRotation(casebase, 0F, 0F, 0F);
-      casecupsid4 = new ModelRenderer(this, 33, 5);
+      casecupsid4 = new RendererModel(this, 33, 5);
       casecupsid4.addBox(-4F, -12F, -5F, 8, 3, 1);
       casecupsid4.setRotationPoint(0F, 26F, 0F);
       casecupsid4.setTextureSize(64, 32);
       casecupsid4.mirror = true;
       setRotation(casecupsid4, 0F, -1.570796F, 0F);
-      casecupsid3 = new ModelRenderer(this, 33, 15);
+      casecupsid3 = new RendererModel(this, 33, 15);
       casecupsid3.addBox(-4F, -9F, -5F, 8, 3, 1);
       casecupsid3.setRotationPoint(0F, 23F, 0F);
       casecupsid3.setTextureSize(64, 32);
       casecupsid3.mirror = true;
       setRotation(casecupsid3, 0F, 1.570796F, 0F);
-      caseporl = new ModelRenderer(this, 24, 0);
+      caseporl = new RendererModel(this, 24, 0);
       caseporl.addBox(-1F, -6F, -1F, 2, 6, 2);
       caseporl.setRotationPoint(0F, 23F, 0F);
       caseporl.setTextureSize(64, 32);
       caseporl.mirror = true;
       setRotation(caseporl, 0F, 0F, 0F);
-      casecupbase = new ModelRenderer(this, 0, 8);
+      casecupbase = new RendererModel(this, 0, 8);
       casecupbase.addBox(-4F, -7F, -4F, 8, 1, 8);
       casecupbase.setRotationPoint(0F, 23F, 0F);
       casecupbase.setTextureSize(64, 32);
       casecupbase.mirror = true;
       setRotation(casecupbase, 0F, 0F, 0F);
-      casecupsid2 = new ModelRenderer(this, 33, 0);
+      casecupsid2 = new RendererModel(this, 33, 0);
       casecupsid2.addBox(-4F, -9F, -5F, 8, 3, 1);
       casecupsid2.setRotationPoint(0F, 23F, 0F);
       casecupsid2.setTextureSize(64, 32);
       casecupsid2.mirror = true;
       setRotation(casecupsid2, 0F, 0F, 0F);
-      casecupsid1 = new ModelRenderer(this, 33, 10);
+      casecupsid1 = new RendererModel(this, 33, 10);
       casecupsid1.addBox(-4F, -9F, 4F, 8, 3, 1);
       casecupsid1.setRotationPoint(0F, 23F, 0F);
       casecupsid1.setTextureSize(64, 32);
       casecupsid1.mirror = true;
       setRotation(casecupsid1, 0F, 0F, 0F);
-      Ice1 = new ModelRenderer(this, 0, 17);
+      Ice1 = new RendererModel(this, 0, 17);
       Ice1.addBox(-3F, -11F, -3F, 6, 4, 6);
       Ice1.setRotationPoint(0F, 23F, 0F);
       Ice1.setTextureSize(64, 32);
       Ice1.mirror = true;
       setRotation(Ice1, 0F, 0F, 0F);
-      ice2 = new ModelRenderer(this, 25, 20);
+      ice2 = new RendererModel(this, 25, 20);
       ice2.addBox(-2F, -14F, -2F, 4, 3, 4);
       ice2.setRotationPoint(0F, 23F, 0F);
       ice2.setTextureSize(64, 32);
       ice2.mirror = true;
       setRotation(ice2, 0F, 0F, 0F);
-      ice3 = new ModelRenderer(this, 42, 23);
+      ice3 = new RendererModel(this, 42, 23);
       ice3.addBox(-1F, -16F, -1F, 2, 2, 2);
       ice3.setRotationPoint(0F, 23F, 0F);
       ice3.setTextureSize(64, 32);
@@ -108,7 +108,7 @@ public class ModelModelFlape extends ModelBase
     ice3.render(f5);
   }
   
-  private void setRotation(ModelRenderer model, float x, float y, float z)
+  private void setRotation(RendererModel model, float x, float y, float z)
   {
     model.rotateAngleX = x;
     model.rotateAngleY = y;

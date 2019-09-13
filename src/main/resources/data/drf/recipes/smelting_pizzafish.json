@@ -1,9 +1,0 @@
-{
-    "type": "smelting",
-    "ingredient": {
-        "item": "drf:row_pizafish"
-    },
-    "result": "drf:pizzafish",
-    "experience": 0.1,
-    "cookingtime": 200
-}

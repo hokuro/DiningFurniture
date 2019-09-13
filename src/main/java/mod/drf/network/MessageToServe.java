@@ -2,8 +2,8 @@ package mod.drf.network;
 
 import java.util.function.Supplier;
 
-import mod.drf.common.inventory.ContainerOriginalWorkBench;
-import net.minecraft.entity.player.EntityPlayer;
+import mod.drf.inventory.ContainerFurnitureWorkBench;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -24,9 +24,9 @@ public class MessageToServe{
 		public static void handle(final MessageToServe pkt, Supplier<NetworkEvent.Context> ctx)
 		{
 			ctx.get().enqueueWork(() -> {
-				EntityPlayer plyaer = ctx.get().getSender();
-				if (plyaer.openContainer instanceof ContainerOriginalWorkBench){
-					((ContainerOriginalWorkBench)plyaer.openContainer).toServe();
+				PlayerEntity plyaer = ctx.get().getSender();
+				if (plyaer.openContainer instanceof ContainerFurnitureWorkBench){
+					((ContainerFurnitureWorkBench)plyaer.openContainer).toServe();
 				}
 			});
 			ctx.get().setPacketHandled(true);

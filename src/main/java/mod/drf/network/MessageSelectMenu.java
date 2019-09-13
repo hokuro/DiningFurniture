@@ -2,8 +2,8 @@ package mod.drf.network;
 
 import java.util.function.Supplier;
 
-import mod.drf.common.inventory.ContainerOriginalWorkBench;
-import net.minecraft.entity.player.EntityPlayer;
+import mod.drf.inventory.ContainerFurnitureWorkBench;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -37,9 +37,9 @@ public class MessageSelectMenu{
 		public static void handle(final MessageSelectMenu pkt, Supplier<NetworkEvent.Context> ctx)
 		{
 			ctx.get().enqueueWork(() -> {
-				EntityPlayer plyaer = ctx.get().getSender();
-				if (plyaer.openContainer instanceof ContainerOriginalWorkBench){
-					((ContainerOriginalWorkBench)plyaer.openContainer).setSelectMenu(pkt);
+				PlayerEntity plyaer = ctx.get().getSender();
+				if (plyaer.openContainer instanceof ContainerFurnitureWorkBench){
+					((ContainerFurnitureWorkBench)plyaer.openContainer).setSelectMenu(pkt);
 				}
 			});
 			ctx.get().setPacketHandled(true);
