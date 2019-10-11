@@ -82,13 +82,15 @@ public class BlockWoodTable extends ContainerBlock {
 
     @Override
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-    	TileEntity tileentity = worldIn.getTileEntity(pos);
-    	if (tileentity != null && tileentity instanceof TileEntityWoodTable){
-			InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory)tileentity);
-			((TileEntityWoodTable) tileentity).clear();
-			worldIn.updateComparatorOutputLevel(pos, this);
+    	if (state.getBlock() != newState.getBlock()) {
+	    	TileEntity tileentity = worldIn.getTileEntity(pos);
+	    	if (tileentity != null && tileentity instanceof TileEntityWoodTable){
+				InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory)tileentity);
+				((TileEntityWoodTable) tileentity).clear();
+				worldIn.updateComparatorOutputLevel(pos, this);
+	    	}
+	        super.onReplaced(state,worldIn, pos, newState,isMoving);
     	}
-        super.onReplaced(state,worldIn, pos, newState,isMoving);
     }
 
 	public EnumWoodType getWoodType() {
